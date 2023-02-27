@@ -1,0 +1,14 @@
+<div class="modal-body">
+  <div class="close-icon">
+    <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">X</button>
+  </div>
+  <div class="content-section">
+    <h3 class="title">Frequently Asked Questions</h3>
+    <div class="faq-wrapper" *ngIf="componentData.faqs">
+      <div class="faq-single" *ngFor="let faq of componentData.faqs">
+        <h4>{{ faq.title }}</h4>
+        <p [innerHtml]="faq.description"></p>
+      </div>
+    </div>
+  </div>
+</div>

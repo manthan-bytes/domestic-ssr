@@ -1,0 +1,22 @@
+<div class="modal-body">
+  <div class="close-icon">
+    <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">X</button>
+  </div>
+  <div class="content-section text-center">
+    <h3 class="title text-center">Streak Badge Achieved!</h3>
+    <div class="badge-wrapper">
+      <span class="img">
+        <img [src]="componentData.badge.src" alt="Badge" />
+      </span>
+      <p class="text">Take a look at your growing trophy case</p>
+    </div>
+    <div class="btn-wrapper text-center">
+      <a
+        class="rg_btn"
+        routerLink="/{{ virtualChallengeRoutes.main }}/{{ virtualChallengeRoutes.userProfile }}"
+        (click)="closeModal('dismiss')"
+        >Profile</a
+      >
+    </div>
+  </div>
+</div>

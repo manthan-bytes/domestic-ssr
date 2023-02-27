@@ -1,0 +1,294 @@
+<div class="dates_updates_layout container-fluid" *ngIf="dateAndUpdateData">
+  <div class="row align-items-start">
+    <div class="col-12 dates_updates_intro">
+      <p>{{ dateAndUpdateData.name }}</p>
+      <h3>{{ 'event-detail.dates-and-updates.title' | translate }}</h3>
+    </div>
+    <div class="col-12 captain_log">
+      <div class="row">
+        <div class="col-sm-4 col-xs-12 fearless_leader_img">
+          <img
+            [src]="dateAndUpdateData.director.image"
+            class="mx-auto d-block"
+            alt="{{ dateAndUpdateData.director.first_name }} {{ dateAndUpdateData.director.last_name }}"
+            title="{{ dateAndUpdateData.director.first_name }} {{ dateAndUpdateData.director.last_name }}"
+          />
+        </div>
+        <div class="col-sm-8 col-xs-12">
+          <h2 class="fearless_leader">{{ 'event-detail.dates-and-updates.leader' | translate }}</h2>
+          <h4 class="race_director" [hidden]="!dateAndUpdateData.director.first_name || !dateAndUpdateData.director.last_name">
+            {{ 'event-detail.dates-and-updates.race-director' | translate }} <span>{{ dateAndUpdateData.director.first_name }}</span
+            ><span>{{ dateAndUpdateData.director.last_name }}</span>
+          </h4>
+          <!--
+          <div class="favorite_info" *ngIf="dateAndUpdateData.director.facts.length">
+            <ul>
+              <ng-container *ngFor="let director_fact of dateAndUpdateData.director.facts; let index = index">
+                <li [innerHtml]="'<b>Fun Fact ' + (index + 1) + ' : </b>' + director_fact.value"></li>
+              </ng-container>
+            </ul>
+          </div> -->
+
+          <p class="leader_intro">{{ dateAndUpdateData.director.description }}</p>
+        </div>
+        <div class="col-12 race_bible_event" *ngIf="dateAndUpdateData.type === 'relay' || dateAndUpdateData.type === 'sprint'">
+          <!-- Romving condition for id 98 and 107 as it's international -->
+          <a
+            target="_blank"
+            *ngIf="dateAndUpdateData.id !== '123'"
+            href="{{
+              dateAndUpdateData.files.race_bible
+                ? dateAndUpdateData.files.race_bible
+                : 'https://images.runragnar.com/files/race_documents/02 - Race Bible.pdf'
+            }}"
+            class="race_bible"
+          >
+            <img
+              src="assets/images/event-detail/dates-n-updates/race-bible-download.png"
+              class="img-responsive center-block"
+              alt="Race Bible Download"
+            />
+            <span>{{ 'common-data.race-bible' | translate }}</span>
+          </a>
+          <a target="_blank" class="join_on_fb" href="{{ dateAndUpdateData.fb_url }}">
+            <img
+              src="assets/images/event-detail/dates-n-updates/join-on-fb.png"
+              class="img-responsive center-block"
+              alt="Join the event page"
+            />
+            <span>{{ 'event-detail.dates-and-updates.join-event' | translate }}</span>
+          </a>
+        </div>
+        <div class="col-12 race_bible_event" *ngIf="dateAndUpdateData.type === 'trail'">
+          <a
+            target="_blank"
+            href="{{
+              dateAndUpdateData.files.race_bible
+                ? dateAndUpdateData.files.race_bible
+                : 'https://images.runragnar.com/files/i/trail/Trail%20Guide%20Master/Trail%20Guide%20-%20Master.pdf?_ga=2.225162010.1255287259.1524458055-1591307195.1521004127'
+            }}"
+            class="race-bible"
+          >
+            <img
+              src="assets/images/event-detail/dates-n-updates/race-bible-download.png"
+              class="img-responsive center-block"
+              alt="Trail Guide Download"
+            />
+            <span>{{ 'common-data.trail-guide' | translate }}</span>
+          </a>
+          <!-- TODO: Need to discuss about runner packet-->
+          <!-- <a target="_blank" href="https://images.runragnar.com/files/race_documents/02 - Race Bible.pdf" class="race-bible">
+            <img
+              src="assets/images/event-detail/dates-n-updates/race-bible-download.png"
+              class="img-responsive center-block"
+              alt="Runner Packet Download"
+            />
+            <span>{{ 'event-detail.dates-and-updates.runner-packet' | translate }}</span>
+          </a> -->
+          <a target="_blank" class="join_on_fb" href="{{ dateAndUpdateData.fb_url }}">
+            <img
+              src="assets/images/event-detail/dates-n-updates/join-on-fb.png"
+              class="img-responsive center-block"
+              alt="Join the event page"
+            />
+            <span>{{ 'event-detail.dates-and-updates.join-event' | translate }}</span>
+          </a>
+        </div>
+        <div class="col-xs-12 race_bible_event" *ngIf="dateAndUpdateData.type === 'sunset' || dateAndUpdateData.type === 'trail_sprint'">
+          <a target="_blank" href="{{ dateAndUpdateData.files.race_bible }}" class="race-bible">
+            <img
+              src="assets/images/event-detail/dates-n-updates/race-bible-download.png"
+              class="img-responsive center-block"
+              alt="Race Bible Download"
+            />
+            <span>{{ 'common-data.race-bible' | translate }}</span>
+          </a>
+          <a target="_blank" href="{{ dateAndUpdateData.fb_url }}" class="join-on-fb">
+            <img
+              src="assets/images/event-detail/dates-n-updates/join-on-fb.png"
+              class="img-responsive center-block"
+              alt="Join the event page"
+            />
+            <span>{{ 'event-detail.dates-and-updates.join-event' | translate }}</span>
+          </a>
+        </div>
+      </div>
+      <div class="row" *ngIf="dateAndUpdateData.updates && dateAndUpdateData.updates.length > 0">
+        <div class="col-12 captain_log_block">
+          <h2>{{ 'common-data.race-updates' | translate }}</h2>
+          <div class="race_updates">
+            <h4>{{ 'common-data.featured' | translate }}</h4>
+            <ul *ngIf="!isAnyFeaturedUpdates">
+              <ng-container *ngFor="let raceUpdateFeatured of dateAndUpdateData.updates">
+                <li *ngIf="raceUpdateFeatured.favourite">
+                  <ng-container>
+                    <div class="race_dates">
+                      {{ raceUpdateFeatured.update_date | date | dateFormat : 'M' }}/{{
+                        raceUpdateFeatured.update_date | date | dateFormat : 'D'
+                      }}
+                    </div>
+                    <div class="race_date_info">
+                      <span *ngIf="raceUpdateFeatured.content !== ''" [innerHtml]="raceUpdateFeatured.content | sanitizeHtml"></span>
+                      <!-- TODO: Need to add css -->
+                      <!--  <div class="race-dates-video race-updates-img" *ngIf="raceUpdateFeatured.video_url.length > 0">
+                                        <a data-lity  href="{{raceUpdateFeatured.video_url}}" title="Play Video">
+                                            <img src="assets/images/relay-events/video-play-icon.png" alt="Play Video Thumb" />
+                                        </a>
+                                    </div> -->
+                      <div class="race-updates-img" *ngIf="raceUpdateFeatured?.image">
+                        <a
+                          *ngIf="(raceUpdateFeatured.image | fileNameAndType) === null"
+                          href="{{ raceUpdateFeatured.image }}"
+                          data-lity
+                          title="View Image"
+                        >
+                          <img
+                            [src]="raceUpdateFeatured.image"
+                            alt="Race-updates Featured Img"
+                            class="img-responsive center-block"
+                            style="height: 100px"
+                          />
+                        </a>
+
+                        <a
+                          *ngIf="raceUpdateFeatured.image | fileNameAndType"
+                          [href]="raceUpdateFeatured.image"
+                          target="_blank"
+                          style="overflow-wrap: break-word"
+                        >
+                          {{ raceUpdateFeatured.image | fileNameAndType }}
+                        </a>
+                      </div>
+                      <!-- END TODO -->
+                    </div>
+                  </ng-container>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+          <div class="race_updates" *ngIf="dateAndUpdateData.updates.length > 0">
+            <h4>{{ 'event-detail.dates-and-updates.title' | translate }}</h4>
+            <ul>
+              <li *ngFor="let allUpdates of dateAndUpdateData.updates">
+                <div class="race_dates">
+                  {{ allUpdates.update_date | date | dateFormat : 'M' }}/{{ allUpdates.update_date | date | dateFormat : 'D' }}
+                </div>
+                <div class="race_date_info">
+                  <span [innerHtml]="allUpdates.content | sanitizeHtml" *ngIf="allUpdates.content !== ''"></span>
+
+                  <!-- <div class="race-dates-video race-updates-img" *ngIf="allUpdates?.video_url?.length > 0">
+                    <a data-lity href="{{allUpdates.video_url}}" title="Play Video">
+                      <img src="assets/images/relay-events/video-play-icon.png" alt="Play Video Thumb" />
+                    </a>
+                  </div> -->
+
+                  <div class="race-updates-img" *ngIf="allUpdates?.image?.length > 0">
+                    <img
+                      *ngIf="(allUpdates.image | fileNameAndType) === null"
+                      style="height: 100px"
+                      [src]="allUpdates.image"
+                      class="img-fluid"
+                    />
+
+                    <a
+                      *ngIf="allUpdates.image | fileNameAndType"
+                      [href]="allUpdates.image"
+                      target="_blank"
+                      style="overflow-wrap: break-word"
+                    >
+                      {{ allUpdates.image | fileNameAndType }}
+                    </a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="race-updates" *ngIf="dateAndUpdateData.updates.length === 0"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 dates_sidebar" *ngIf="dateAndUpdateData">
+      <div class="dates_box">
+        <h3>{{ 'common-data.dates' | translate }}</h3>
+        <p>{{ 'event-detail.dates-and-updates.stuff-folks' | translate }}</p>
+        <ul class="dates_list">
+          <li *ngIf="dateAndUpdateData.start_date">
+            <span class="dates_info">
+              {{
+                dateAndUpdateData.type === 'sunset' || dateAndUpdateData.type === 'trail_sprint' || dateAndUpdateData.type === 'sprint'
+                  ? 'Race Date:'
+                  : 'Race Start Date:'
+              }}
+            </span>
+            <span class="dates_info_value">{{ dateAndUpdateData.start_date | dateFormat : 'MMMM DD YYYY' }}</span>
+          </li>
+          <li
+            *ngIf="
+              dateAndUpdateData.end_date &&
+              dateAndUpdateData.type !== 'sunset' &&
+              dateAndUpdateData.type !== 'trail_sprint' &&
+              dateAndUpdateData.type !== 'sprint'
+            "
+          >
+            <span class="dates_info"> {{ 'event-detail.dates-and-updates.race-end-date' | translate }} </span>
+            <span class="dates_info_value"> {{ dateAndUpdateData.end_date | dateFormat : 'MMMM DD YYYY' }} </span>
+          </li>
+          <li *ngIf="dateAndUpdateData.volunteer_start_date && !dateAndUpdateData.name.toLowerCase().includes('porsche')">
+            <span class="dates_info"> {{ 'event-detail.dates-and-updates.volunteer-start-date' | translate }}</span>
+            <span class="dates_info_value"> {{ dateAndUpdateData.volunteer_start_date | dateFormat : 'MMMM DD YYYY' }} </span>
+          </li>
+          <li *ngIf="dateAndUpdateData.volunteer_end_date && !dateAndUpdateData.name.toLowerCase().includes('porsche')">
+            <span class="dates_info"> {{ 'event-detail.dates-and-updates.volunteer-end-date' | translate }}</span>
+            <span class="dates_info_value"> {{ dateAndUpdateData.volunteer_end_date | dateFormat : 'MMMM DD YYYY' }} </span>
+          </li>
+          <li *ngIf="dateAndUpdateData.registration_opens">
+            <span class="dates_info"> {{ 'event-detail.dates-and-updates.registration-opens' | translate }}</span>
+            <span class="dates_info_value"> {{ dateAndUpdateData.registration_opens | dateFormat : 'MMMM DD YYYY' }} </span>
+          </li>
+          <li *ngIf="dateAndUpdateData.registration_closes">
+            <span class="dates_info"> {{ 'event-detail.dates-and-updates.registration-closes' | translate }}</span>
+            <span class="dates_info_value"> {{ dateAndUpdateData.registration_closes | dateFormat : 'MMMM DD YYYY' }} </span>
+          </li>
+          <li *ngIf="dateAndUpdateData.start_time_posted">
+            <span class="dates_info"> {{ 'event-detail.dates-and-updates.start-times-posted' | translate }}</span>
+            <span class="dates_info_value"> {{ dateAndUpdateData.start_time_posted | dateFormat : 'MMMM DD YYYY' }} </span>
+          </li>
+          <li *ngIf="dateAndUpdateData.final_online_runner_invite_deadline">
+            <span class="dates_info">{{ 'event-detail.dates-and-updates.runner-invite-deadline' | translate }} </span>
+            <span class="dates_info_value">
+              {{
+                dateAndUpdateData.final_online_runner_invite_deadline
+                  | dateFormat
+                    : 'MMMM
+              DD YYYY'
+              }}
+            </span>
+          </li>
+          <li *ngIf="dateAndUpdateData.change_fee_20usd_start && dateAndUpdateData.type === 'relay'">
+            <span class="dates_info"> {{ 'event-detail.dates-and-updates.change-fee' | translate }}</span>
+            <span class="dates_info_value"> {{ dateAndUpdateData.change_fee_20usd_start | dateFormat : 'MMMM DD YYYY' }} </span>
+          </li>
+          <li *ngIf="dateAndUpdateData.change_fee_20usd_start && dateAndUpdateData.type === 'trail'">
+            <span class="dates-info"> {{ 'event-detail.dates-and-updates.change-fee-amount' | translate }}</span>
+            <span class="dates-info-value"> {{ dateAndUpdateData.change_fee_20usd_start | dateFormat : 'MMMM DD YYYY' }} </span>
+          </li>
+          <li *ngIf="dateAndUpdateData.team_name_change_deadline">
+            <span class="dates_info"> {{ 'event-detail.dates-and-updates.team-name-change-deadline' | translate }}</span>
+            <span class="dates_info_value"> {{ dateAndUpdateData.team_name_change_deadline | dateFormat : 'MMMM DD YYYY' }} </span>
+          </li>
+          <li *ngIf="dateAndUpdateData.pay_for_volunteers_deadline && !dateAndUpdateData.name.toLowerCase().includes('porsche')">
+            <span class="dates_info"> {{ 'event-detail.dates-and-updates.pay-for-volunteers' | translate }}</span>
+            <span class="dates_info_value">
+              {{
+                dateAndUpdateData.pay_for_volunteers_deadline
+                  | dateFormat
+                    : 'MMMM DD
+              YYYY'
+              }}
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

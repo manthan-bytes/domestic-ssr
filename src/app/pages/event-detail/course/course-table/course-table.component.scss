@@ -1,0 +1,537 @@
+@import 'vars';
+blue-cta-btn {
+  @include theme_btn2(0 25px, 16px);
+  background-color: $blue;
+  line-height: 46px;
+  margin-top: 25px;
+  &:hover {
+    text-decoration: none;
+    background-color: $blue_hover;
+    color: $white;
+    &:before {
+      background-color: $blue;
+    }
+  }
+}
+::ng-deep {
+  .table_row {
+    padding-top: 44px !important;
+    @media (max-width: 991px) {
+      padding-bottom: 44px !important;
+    }
+    @media (max-width: $screen-xs-max) {
+      padding-top: 2px !important;
+      padding-bottom: 0 !important;
+    }
+    .scroll-table {
+      overflow: auto;
+      height: 100%;
+      @media (max-width: $screen-xs-max) {
+        padding-top: 42px;
+      }
+      table.table {
+        margin-bottom: 0;
+      }
+      &.leg-list {
+        @media (max-width: $screen-xs-max) {
+          display: none;
+        }
+      }
+      .black-loop-wrapper {
+        padding: 20px 25px;
+        display: inline-block;
+        width: 100%;
+        border-top: 1px solid #cfcfcf;
+        .black-loop-title {
+          font-size: 20px;
+          margin: 0;
+          color: #4a4a4a;
+          font-family: $font_family_barlow_Condensed;
+        }
+        .blackloop-content {
+          p {
+            font-size: 14px;
+            line-height: 16px;
+            font-family: $font_family_barlow;
+            font-weight: 400;
+            margin-bottom: 10px;
+            &:first-of-type {
+              margin-top: 30px;
+            }
+          }
+        }
+        .blackloop-data {
+          margin: 50px 0;
+          .bp-data {
+            margin-bottom: 50px;
+            label {
+              display: inline-block;
+              vertical-align: middle;
+              font-size: 18px;
+              letter-spacing: 0.31px;
+              font-family: $font_family_barlow;
+              font-weight: 400;
+              margin-right: 30px;
+            }
+            .shape-container {
+              display: inline-block;
+              vertical-align: middle;
+              & > div {
+                width: 40px;
+                height: 40px;
+                margin-right: 30px;
+                display: inline-block;
+              }
+              .diamond {
+                border-width: 20px;
+                top: -20px;
+                &:after {
+                  border-width: 20px;
+                  left: -20px;
+                  top: 20px;
+                }
+              }
+              .double-diamond {
+                width: 64px;
+                height: 42px;
+              }
+            }
+          }
+        }
+      }
+      .full_course {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 10px 25px;
+        width: 200px;
+        margin-right: 0;
+        margin-left: 0;
+        border: 1px solid #cfcfcf;
+        max-width: 200px;
+        text-align: center;
+        font-size: 16px;
+        line-height: 22px;
+        color: #9b9b9b;
+        border-radius: 0;
+        font-weight: 400;
+        background-color: $white;
+        transition: all 0.3s linear 0s;
+        outline: none;
+        &:hover {
+          background-color: #eee;
+        }
+      }
+      table {
+        thead {
+          tr {
+            width: 100%;
+            th {
+              padding: 6px;
+              font-size: 12px;
+              line-height: 22px;
+              color: #9b9b9b;
+              font-weight: 400;
+              border-bottom: 0;
+              border: 0;
+            }
+            .col-data-1 {
+              width: 14%;
+              text-align: center;
+            }
+            .col-data-2 {
+              width: 24%;
+            }
+            .col-data-3 {
+              width: 24%;
+            }
+            .col-data-4 {
+              width: 24%;
+            }
+            .col-data-5 {
+              width: 14%;
+              text-align: center;
+            }
+          }
+        }
+        tbody {
+          tr {
+            &:nth-of-type(odd) {
+              background-color: #efefef;
+            }
+            &:nth-of-type(even) {
+              background-color: #e6e6e6;
+            }
+            td {
+              padding: 6px;
+              font-size: 14px;
+              line-height: 20px;
+              color: #4a4a4a;
+              font-weight: 400;
+              vertical-align: middle;
+              border: 0;
+            }
+            .col-value-1 {
+              width: 14%;
+              text-align: center;
+            }
+            .col-value-2 {
+              width: 24%;
+              cursor: pointer;
+              &:hover,
+              &.active {
+                color: #f4792f;
+              }
+            }
+            .col-value-3 {
+              width: 14%;
+              text-align: center;
+            }
+          }
+        }
+      }
+      .looping_table {
+        td,
+        th {
+          text-align: center;
+        }
+        tbody {
+          &:nth-of-type(odd) {
+            background-color: #efefef;
+          }
+          &:nth-of-type(even) {
+            background-color: #e6e6e6;
+          }
+        }
+      }
+      .leg-loop-notes-content {
+        text-align: left;
+        color: #4a4a4a;
+        padding: 0 20px;
+        .leg-loop-title-sec {
+          display: table;
+          margin: 0 auto;
+          h2 {
+            margin-bottom: 10px;
+            font-family: $font_family_barlow_Condensed;
+          }
+          div {
+            display: inline-block;
+            font-size: 16px;
+            font-family: $font_family_barlow;
+            font-weight: 400;
+          }
+        }
+        .note {
+          color: #000;
+          text-align: left;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}
+
+.blackloop_toggle_wrapper {
+  position: absolute;
+  top: -10px;
+  right: 0;
+  height: 56px;
+  float: right;
+  margin: 0;
+  list-style-type: none;
+  padding: 17px 25px 0 0;
+
+  .blackloop_toggle_inner {
+    display: flex;
+    align-items: center;
+    max-width: 250px;
+    width: 100%;
+    .double-diamond {
+      width: 24px;
+      height: 16px;
+      margin-right: 6px;
+      margin-top: -6px;
+    }
+    label {
+      max-width: 148px;
+      font-size: 14px;
+      line-height: 16px;
+      letter-spacing: 0.24px;
+      color: #4a4a4a;
+      text-transform: capitalize;
+      margin-right: 10px;
+      a {
+        display: block;
+        font-size: 13px;
+        line-height: 14px;
+        font-style: italic;
+        color: $blue !important;
+      }
+    }
+  }
+  .toggle-bl {
+    position: relative;
+    display: block;
+    width: 40px;
+    height: 20px;
+    cursor: pointer;
+    float: right;
+    .toggle-checkbox-bl:checked + .toggle-switch-bl {
+      background: #0576ff;
+      &:before {
+        left: 13px;
+      }
+    }
+    .toggle-switch-bl {
+      display: inline-block;
+      background: #ccc;
+      border-radius: 16px;
+      width: 32px;
+      height: 20px;
+      position: relative;
+      vertical-align: middle;
+      transition: background 0.25s;
+      &:before,
+      &:after {
+        content: '';
+      }
+      &:before {
+        display: block;
+        background: #fff;
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        transition: left 0.25s;
+      }
+    }
+  }
+  .toggle-checkbox-bl {
+    position: absolute;
+    visibility: hidden;
+  }
+  .toggle-label {
+    margin-left: 5px;
+    position: relative;
+    top: 2px;
+  }
+}
+
+.circle-base {
+  border-radius: 50%;
+  margin-top: 2px;
+  margin-right: 0;
+  display: inline-block;
+  &.green {
+    @media (max-width: $screen-xs-min) {
+      width: 15px;
+      height: 15px;
+    }
+    width: 20px;
+    height: 20px;
+    background: #417505;
+  }
+  &.red {
+    @media (max-width: $screen-xs-min) {
+      width: 15px;
+      height: 15px;
+    }
+    width: 20px;
+    height: 20px;
+    background: #cc0000;
+  }
+  &.yellow {
+    @media (max-width: $screen-xs-min) {
+      width: 15px;
+      height: 15px;
+    }
+    width: 20px;
+    height: 20px;
+    background: #ffcc00;
+  }
+}
+.top-loop {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #4a4a4a;
+}
+.square {
+  margin: 0 auto;
+  padding: 0px !important;
+  width: 20px;
+  height: 20px;
+  background: #f8e71c;
+}
+
+.diamond {
+  margin: 0 auto;
+  padding: 0px !important;
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  border-bottom-color: #cc0000;
+  position: relative;
+  top: -7px;
+  display: inline-block;
+  &:after {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 12px;
+    width: 0;
+    height: 0;
+    border: 12px solid transparent;
+    border-top-color: #cc0000;
+  }
+}
+
+.double-diamond {
+  display: inline-block;
+  width: 18px;
+  height: 16px;
+  background: url(/assets/images/event-detail/course/double-diamond.png) no-repeat;
+  background-size: contain;
+  background-position: bottom;
+}
+a {
+  cursor: pointer;
+  &.download-overview {
+    display: inline-block;
+    float: right;
+    padding-right: 5px;
+  }
+}
+
+@media (min-width: $screen-sm-min) {
+  .mobile-leg-list {
+    display: none;
+  }
+}
+@media (max-width: $screen-xs-max) {
+  ::ng-deep {
+    .dates_updates_layout {
+      .leg-accordion-list {
+        .orange-cta-btn {
+          @include theme_btn2(0 25px, 16px);
+          background-color: $orange-brand;
+          line-height: 46px;
+          margin-top: 25px;
+          @include font-weight(500);
+        }
+        .full_course {
+          margin-top: 10px;
+          margin-bottom: 10px;
+          position: absolute;
+          top: 0;
+          left: 0;
+          padding: 10px 25px;
+          width: 200px;
+          margin-right: 0;
+          margin-left: 0;
+          border: 1px solid #cfcfcf;
+          max-width: 200px;
+          text-align: center;
+          font-size: 16px;
+          line-height: 22px;
+          color: #9b9b9b;
+          border-radius: 0;
+          font-weight: 400;
+          background-color: $white;
+          transition: all 0.3s linear 0s;
+          outline: none;
+          &:hover {
+            background-color: #eee;
+          }
+        }
+        .leg-accordion-list-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 4px;
+          button {
+            width: 48% !important;
+            position: relative !important;
+            margin: 0;
+            max-width: 100% !important;
+            padding: 20px 10px !important;
+            line-height: 11px !important;
+            &.leg-detail-btn {
+              border: 1px solid #fe8e3a;
+            }
+          }
+        }
+        .card {
+          border-radius: 0;
+          .card-header {
+            button {
+              background: #b0b0b0 !important;
+              color: #fff !important;
+              font-size: 18px !important;
+              border-radius: 0;
+              &:after {
+                border-top-color: #fff !important;
+              }
+            }
+          }
+          .card-body {
+            padding: 0 0 5px 0 !important;
+            table {
+              thead {
+                tr {
+                  th {
+                    padding: 6px;
+                    font-size: 12px !important;
+                    line-height: 22px;
+                    color: #9b9b9b !important;
+                    font-weight: 400;
+                    border-bottom: 0;
+                    border: 0;
+                    vertical-align: top;
+                  }
+                }
+              }
+              tbody {
+                tr {
+                  td {
+                    padding: 6px;
+                    font-size: 14px !important;
+                    line-height: 20px !important;
+                    color: #4a4a4a !important;
+                    font-weight: 400;
+                    vertical-align: middle;
+                    border: 0;
+                    label,
+                    span {
+                      font-size: 14px !important;
+                      line-height: 20px !important;
+                      text-align: center;
+                    }
+                    &.col-value-1 {
+                      text-align: center;
+                    }
+                  }
+                }
+              }
+              &.looping_table {
+                tr {
+                  td,
+                  th {
+                    text-align: center !important;
+                    vertical-align: middle;
+                    font-size: 13px !important;
+                    .top-loop {
+                      text-align: center !important;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

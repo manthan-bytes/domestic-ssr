@@ -1,0 +1,36 @@
+@import 'vars';
+@import 'mixins';
+
+::ng-deep {
+  .container {
+    max-width: 1340px;
+    @media (max-width: $screen-md-max) {
+      max-width: 1140px;
+    }
+  }
+  .sticky-header {
+    &:not(.fixed) {
+      background: transparent;
+      position: absolute;
+      @media (min-width: 992px) {
+        .nav_vol,
+        .right_nav {
+          > ul {
+            > .nav-item {
+              > .nav-link {
+                color: #fff;
+                &:after {
+                  filter: brightness(0) invert(1);
+                  -webkit-filter: brightness(0) invert(1);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .abc {
+    color: black;
+  }
+}

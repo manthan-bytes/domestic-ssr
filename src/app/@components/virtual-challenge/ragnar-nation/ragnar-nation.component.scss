@@ -1,0 +1,224 @@
+@import '../../../../assets/styles/vars';
+@import '../../../../assets/styles/mixins';
+
+.nation-outer {
+  max-width: 675px;
+  margin: 0 auto;
+  width: 100%;
+  @media (max-width: $screen-xs-max) {
+    max-width: 100%;
+  }
+  .first-activity-text-wrapper {
+    text-align: center;
+    margin: 40px 0px;
+    .first-activity-text {
+      display: inline-block;
+      margin: auto;
+      text-align: center;
+      padding: 10px;
+      border: 1px solid black;
+    }
+  }
+  .event-summary {
+    ul {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 10px;
+      @media (max-width: $screen-xs-max) {
+        flex-direction: column;
+        padding: 0;
+      }
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      h6 {
+        font-size: 20px;
+        color: $black2;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding-right: 10px;
+        margin-bottom: 0;
+        @media (max-width: $screen-sm-max) {
+          font-size: 18px;
+        }
+      }
+      span {
+        color: $orange-brand;
+        font-size: 20px;
+        font-weight: 600;
+        @media (max-width: $screen-sm-max) {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    @media (max-width: $screen-xs-max) {
+      padding: 0 5px;
+    }
+    h3 {
+      margin-bottom: 0;
+      @media (max-width: $screen-xs-max) {
+        font-size: 20px;
+      }
+    }
+  }
+  .feed-main {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    display: flex;
+    @media (max-width: $screen-xs-max) {
+      margin-bottom: 30px;
+    }
+    .no-data {
+      font-size: 20px;
+      width: 100%;
+      text-align: center;
+      color: $navy;
+      font-weight: 500;
+    }
+    .feed-column {
+      margin-top: 5px !important;
+      width: 20%;
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      flex: 1 1 20%;
+      max-width: 20%;
+      @media (max-width: $screen-sm-max) {
+        padding: 0 4px;
+      }
+      img {
+        align-self: center;
+        margin-bottom: 28px;
+        // position: absolute;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        margin: 0 auto 6px;
+        width: 100%;
+        max-width: 60px;
+        @media (max-width: $screen-sm-max) {
+          max-width: 50px;
+          max-height: 50px;
+        }
+        @media (max-width: $screen-xxs-max) {
+          max-width: 40px;
+          max-height: 40px;
+        }
+      }
+      h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #003e51;
+        margin-top: 0;
+        margin-bottom: 10px;
+        text-align: center;
+        bottom: 100%;
+        left: 0;
+        right: 0;
+        line-height: 15px;
+        @media (max-width: $screen-md-max) {
+          font-size: 15px;
+        }
+      }
+      @for $i from 1 through 100 {
+        .activity-chart-#{$i} {
+          $value: ($i * 3px);
+          // height: $value;
+          height: calc(30px + #{$value});
+        }
+      }
+      .fill-feed {
+        background: #6cca98;
+        color: #fff;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        span {
+          font-size: 30px;
+          font-weight: 600;
+          color: #003e51;
+          position: absolute;
+          top: 50%;
+          width: 100%;
+          text-align: center;
+          transform: translateY(-50%);
+          left: 0;
+          @media (max-width: $screen-md-max) {
+            font-size: 25px;
+          }
+          @media (max-width: $screen-sm-max) {
+            font-size: 18px;
+          }
+          @media (max-width: $screen-xxs-max) {
+            font-size: 15px;
+          }
+        }
+      }
+    }
+  }
+  .social-feed {
+    margin-top: 50px;
+    padding: 0 10px;
+    h2 {
+      font-size: 42px;
+      margin: 0 0 40px 0;
+      @media (max-width: $screen-md-max) {
+        font-size: 32px;
+      }
+      @media (max-width: $screen-sm-max) {
+        font-size: 28px;
+      }
+      @media (max-width: $screen-xs-max) {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+    }
+    ul {
+      display: flex;
+      justify-content: space-between;
+      margin: 0 -5px;
+      align-items: center;
+      flex-wrap: wrap;
+      li {
+        padding: 0 5px;
+        max-width: 25%;
+        @media (max-width: $screen-sm-max) {
+          max-width: 50%;
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+  .see-all {
+    button {
+      background: transparent;
+      border: 1px solid $black;
+      color: $black3;
+      font-size: 16px;
+      min-width: unset;
+      max-width: 230px;
+      width: 100%;
+      padding: 17px 50px;
+      @media (max-width: $screen-xs-max) {
+        max-width: 345px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      &:hover {
+        background-color: $black;
+        color: $white;
+      }
+    }
+  }
+}

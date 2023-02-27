@@ -1,0 +1,251 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700&family=Barlow:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+@import "node_modules/bootstrap/scss/bootstrap";
+@import './vars';
+@import './fonts-styles';
+@import './reset';
+
+
+
+body{
+    font-family: $font_family_barlow;
+    font-size: $font_size_base;
+    line-height: 1.4;    
+    letter-spacing: -0.02em;
+    color: $black;
+    padding-top: 92px;
+    @media(max-width: $screen-sm-max){
+        padding-top: 65px;
+    }
+    @media(max-width: 991px){
+        padding-top: 73px;
+    }
+    // padding-top: 174px;
+    /* @media (max-width: $screen-sm-max) {
+        padding-top: 130px;
+    }
+    @media(max-width: $screen-sm-max){
+        padding-top: 107px;
+    }
+    @media(max-width: 991px){
+        padding-top: 107px;
+    }
+    @media (max-width: $screen-xs-max) {
+        padding-top: 61px;
+    } */
+}
+
+p{
+    line-height: 24px;
+    strong{
+        font-weight: 700;
+    }
+}
+.container{
+    
+    @media(min-width: $screen-lg-min){
+        max-width: 1250px;
+    }
+    @media(max-width: $screen-sm-max){
+        max-width: 100%;
+    }
+}
+
+h1{
+    @include heading-1();
+}
+
+h2{
+    @include heading-2();
+}
+h3{
+    @include heading-3();
+}
+h4{
+    @include heading-4();
+}
+h5{
+    @include heading-5();
+}
+h6{
+    @include heading-6();
+}
+
+.rg_btn{
+    @include theme_btn();
+}
+
+.btn_highf{
+    border: 1px solid #86868A;
+    border-radius: 12px;
+    background-color: transparent;
+    color: $white; 
+    padding: 4px 13px;
+    font-size: 10px;
+    outline: none !important;
+    transition: all 0.3s linear 0s;
+    text-transform: uppercase;
+    i{
+        margin-right: 5px;
+    }
+    &:hover{
+        background-color: $peach;
+        color: $black;
+    }
+}
+
+
+/* Form */
+
+.form-group {
+    background-color: transparent; 
+    padding: 0; 
+    border: 0;
+    label{
+        font-size: $font_size_small;
+        color: $black;
+        @include font-weight(600);
+        text-transform: uppercase;
+    }
+    .form-control{
+        &::-webkit-input-placeholder { /* Chrome */
+            color: #737373;
+            font-weight: 600;
+        }
+        &:-ms-input-placeholder { /* IE 10+ */
+            color: #737373;
+            font-weight: 600;
+        }
+        &::-moz-placeholder { /* Firefox 19+ */
+            color: #737373;
+            opacity: 1;
+            font-weight: 600;
+        }
+        &:-moz-placeholder { /* Firefox 4 - 18 */
+            color: #737373;
+            opacity: 1;
+            font-weight: 600;
+        }
+        border: 1px solid #333333;
+        height: 48px; 
+        font-size: $font_size_base;
+        color: $black2;
+        font-weight: 600;
+        @include font-weight(600);
+        &.select_arrow{
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23343a40' d='M2 5L0 3h4z'/></svg>") no-repeat right 0.75rem center/8px 40px;
+            
+        }
+        &:focus{
+            box-shadow: none;
+        }
+
+    }
+    &.error_input{
+        &:before{
+            content: "";
+            position: absolute;
+            height: 40px;
+            width: 4px;
+            border-radius: 4px;
+            background: $orange-brand;
+            bottom: 27px;
+            right: 4px;
+        }
+        .select_arrow{
+            background-position: right 0.9rem center;
+        }
+        .form-control{
+            border-color: $peach;
+        }
+        .error_msg{
+            color: $black;
+            font-size: $font_size_base;
+            margin-top: 4px;
+            display: block;
+        }
+    }
+    &.input_inside{
+        position: relative;
+        input{
+            padding-right: 80px;
+        }
+        .over_btn{
+            position: absolute;
+            background-color: $orange-brand;
+            height: 40px;
+            border-radius: 2px;
+            border: 0;
+            color: $black;
+            bottom: 4px;
+            right: 4px;
+            padding: 0 17px;
+            @include font-weight(600);
+        }
+    }
+}
+.custom-control.custom-checkbox{
+    .custom-control-label{
+        line-height: 34px;
+        padding-left: 10px;
+        font-weight: 600;
+    }
+    .custom-control-input:focus ~ .custom-control-label::before{
+        box-shadow: none;
+        background-color: transparent !important;
+    }
+    .custom-control-input:checked ~ .custom-control-label::before{
+        background-color: transparent;
+    }
+    .custom-control-input:checked ~ .custom-control-label::after{
+        background-image: none !important;
+        top: 0;
+        left: -19px;
+        content: "\e905";
+        font-family: 'icomoon' !important;
+        font-size: 11px;
+    }
+    .custom-control-label::before{
+        border: 1px solid $black !important;
+        height: 24px;
+        width: 24px;
+        pointer-events: auto !important;
+        &:focus{
+            box-shadow: none;
+        }
+    }
+}
+
+
+.theme-btn {
+    @include theme_btn();
+    background-color: $brand-secondary;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    &::before{
+        content: "";
+        background-color: $orange-brand;
+        position: absolute;
+        height: 100%;
+        width: 0;
+        left: 0;
+        top: 0;
+        transition: 0.3s all ease-in-out;
+        z-index: -1;
+    }
+    &:hover{
+        &::before{
+            width: 100%;
+        }
+    }
+  }
+
+  .modal-backdrop{
+      z-index: 999 !important;
+  }

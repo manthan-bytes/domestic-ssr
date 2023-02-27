@@ -1,0 +1,246 @@
+@import '../../../assets/styles/vars';
+@import '../../../assets/styles/mixins';
+
+/******* FOOTER START *******/
+::ng-deep {
+  .site-footer {
+    background: #d3d3d3;
+    padding: 55px 0;
+    @media (max-width: 991px) {
+      padding: 25px 0;
+    }
+    .footer-top {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      > div {
+        width: 100%;
+        height: 100%;
+        padding: 0 15px;
+        @media (max-width: $screen-md-max) {
+          padding: 0 10px;
+        }
+        @media (max-width: $screen-sm-max) {
+          max-width: 50% !important;
+          margin: 30px 0;
+        }
+        @media (max-width: $screen-xs-max) {
+          max-width: 100% !important;
+          margin: 15px 0;
+        }
+      }
+      .logo-col {
+        max-width: 310px;
+        @media (max-width: 1300px) {
+          max-width: 310px;
+        }
+        @media (max-width: $screen-md-max) {
+          max-width: 240px;
+        }
+        img {
+          @media (max-width: $screen-md-max) {
+            max-width: 190px;
+            height: 100%;
+          }
+        }
+      }
+      .social-col {
+        max-width: 255px;
+        height: 100%;
+        @media (max-width: 1300px) {
+          max-width: 225px;
+        }
+        @media (max-width: $screen-md-max) {
+          max-width: 165px;
+        }
+      }
+      .contact-col {
+        max-width: 315px;
+        @media (max-width: 1300px) {
+          max-width: 295px;
+        }
+        @media (max-width: $screen-md-max) {
+          max-width: 275px;
+        }
+      }
+      .link-col {
+        max-width: 370px;
+        @media (max-width: $screen-md-max) {
+          max-width: 320px;
+        }
+      }
+      .desp {
+        font-size: 16px;
+        color: $navy;
+        margin-top: 25px;
+        font-family: $font_family_lato;
+        @media (max-width: $screen-xs-max) {
+          color: $dark_gray;
+          margin-top: 15px;
+        }
+      }
+      .app-wrapper {
+        margin-top: 25px;
+        display: flex;
+        align-items: center;
+        @media (max-width: $screen-xs-max) {
+          margin-top: 0;
+        }
+        a {
+          max-width: 134px;
+          width: 100%;
+          display: inline-block;
+          &:not(:last-child) {
+            margin-right: 13px;
+            @media (max-width: 1300px) {
+              margin-right: 13px;
+            }
+            @media (max-width: $screen-md-max) {
+              margin-right: 10px;
+            }
+          }
+          img {
+            width: 100%;
+            @media (max-width: $screen-md-max) {
+              max-width: 100px;
+              width: 100%;
+            }
+            @media (max-width: $screen-sm-max) {
+              max-width: unset;
+              width: 100%;
+            }
+          }
+        }
+      }
+      .fcol-title {
+        font-family: $font_family_lato;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 34px;
+        margin-bottom: 20px;
+        text-transform: capitalize;
+        letter-spacing: 0;
+        @media (max-width: 1300px) {
+          font-size: 25px;
+        }
+        @media (max-width: $screen-md-max) {
+          font-size: 22px;
+        }
+        @media (max-width: $screen-xs-max) {
+          margin-bottom: 12px;
+        }
+      }
+      .social-list {
+        display: flex;
+        li {
+          &:not(:last-child) {
+            margin-right: 25px;
+            @media (max-width: 1300px) {
+              margin-right: 15px;
+            }
+          }
+          img {
+            @media (max-width: $screen-md-max) {
+              max-width: 25px;
+            }
+          }
+        }
+      }
+      a {
+        font-size: 18px;
+        color: #0f0e0c;
+        font-family: $font_family_lato;
+        &:hover {
+          color: $orange-brand;
+        }
+        @media (max-width: 1300px) {
+          font-size: 16px;
+        }
+      }
+      .contact-list {
+        .icon {
+          margin-right: 15px;
+          @media (max-width: $screen-md-max) {
+            margin-right: 10px;
+          }
+        }
+        li {
+          &:not(:last-child) {
+            margin-bottom: 20px;
+            @media (max-width: $screen-md-max) {
+              margin-bottom: 15px;
+            }
+          }
+        }
+      }
+      .menu-list {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        li {
+          width: 60%;
+          margin-bottom: 20px;
+          @media (max-width: $screen-md-max) {
+            margin-bottom: 15px;
+          }
+          @media (max-width: $screen-xs-max) {
+            margin-bottom: 10px;
+          }
+          &:nth-child(2n) {
+            width: 34%;
+          }
+        }
+      }
+    }
+    .footer-bottom {
+      border-top: 1px solid #0f0e0c;
+      padding-top: 25px;
+      margin-top: 20px;
+      @media (max-width: $screen-xs-max) {
+        border-top: none;
+        padding-top: 0;
+        margin-top: 0;
+      }
+      @media (max-width: $screen-xs-max) {
+        margin-top: 10px;
+      }
+      .copy-right {
+        font-family: $font_family_lato;
+        font-size: 14px;
+        color: #0f0e0c;
+      }
+      .link {
+        text-align: right;
+        @media (max-width: $screen-xs-max) {
+          text-align: left;
+          margin-top: 15px;
+        }
+        li {
+          display: inline-block;
+          position: relative;
+          &:not(:last-child) {
+            padding-right: 8px;
+            margin-right: 5px;
+            &:after {
+              position: absolute;
+              content: '|';
+              right: 0;
+              top: 0;
+              font-size: 14px;
+              color: #0f0e0c;
+              font-family: $font_family_lato;
+            }
+          }
+          a {
+            font-size: 14px;
+            color: #0f0e0c;
+            font-family: $font_family_lato;
+            &:hover {
+              color: $orange-brand;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/******* FOOTER END *******/

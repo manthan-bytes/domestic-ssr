@@ -1,0 +1,119 @@
+<div class="modal-body" [ngClass]="show.activityAdded ? 'd-none' : ''">
+  <div class="close-icon">
+    <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">X</button>
+  </div>
+  <div class="date-section">
+    <h3 class="title">Date of Activity</h3>
+    <div class="modal-datepicker">
+      <div class="input-wrapper">
+        <input
+          type="text"
+          class=""
+          [ngClass]="[showCalendarFlag ? 'light' : '']"
+          id="date"
+          [value]="(newDate === today ? 'Today, ' : '') + newDate"
+        />
+        <button class="date-btn" [ngClass]="[this.datePristine ? 'active' : '']" (click)="showCalendar()">
+          <span *ngIf="this.datePristine; else changeDateTemplate">Select Date </span>
+          <ng-template #changeDateTemplate>
+            <span>Change Date</span>
+          </ng-template>
+        </button>
+      </div>
+      <div class="calender-wrapper" *ngIf="showCalendarFlag">
+        <ngb-datepicker
+          #dp
+          outsideDays="hidden"
+          [dayTemplate]="re"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
+          (dateSelect)="onDateSelection($event)"
+        >
+          <ng-template #re let-date>
+            <span [ngClass]="checkDateMark(date) ? 'add-border-date' : ''">{{ date.day }}</span>
+          </ng-template>
+        </ngb-datepicker>
+      </div>
+    </div>
+  </div>
+  <div class="activity-section">
+    <h3 class="title">Choose your Activity</h3>
+    <div class="activity-list">
+      <ul class="{{ showAllActivityFlag ? 'show-all' : '' }}">
+        <li *ngFor="let activity of activities">
+          <span
+            (click)="selectActivity(activity)"
+            class="{{ selectedActivity && activity.name === selectedActivity.name ? 'active box' : 'box' }}"
+          >
+            <span class="icon"><img [src]="activity.src" alt="{{ activity.alt }}" /></span>
+            <h6 class="name">{{ activity.name }}</h6>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div class="{{ showAllActivityFlag ? 'd-none' : 'see-more' }}"><a (click)="showAllActivity()">see more options</a></div>
+
+    <button class="rg_btn submit-btn" [disabled]="!selectedActivity.name || !newDate || show.loading" (click)="addActivity()">
+      {{ show.loading ? 'SUBMITTING' : 'SUBMIT' }}
+    </button>
+  </div>
+</div>
+<div class="modal-body activity-selected" [ngClass]="show.activityAdded ? '' : 'd-none'">
+  <div class="close-icon">
+    <button type="button" class="close" data-dismiss="modal" (click)="onClose()">X</button>
+  </div>
+  <div class="date-section">
+    <h3 class="title">Date of Activity</h3>
+  </div>
+  <div class="activity-section">
+    <h3 class="title text-center">{{ componentData.memberDetails.logDate | dateFormat : 'MMM D, YYYY' }}</h3>
+    <div class="activity-list">
+      <ul>
+        <li>
+          <span class="box active">
+            <span class="icon"><img src="{{ selectedActivity.src }}" alt="" /></span>
+            <h6 class="name">{{ selectedActivity.name || '' }}</h6>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <ul class="member-list">
+      <li class="member-wrapper">
+        <div class="detail-col">
+          <span class="img-col">
+            <img [src]="componentData.memberDetails.profilePhoto || 'assets/images/user-profile-pic.png'" alt="User Profile" />
+          </span>
+          <div class="detail">
+            <div class="name-wrapper">
+              <h6 class="name">{{ componentData.memberDetails.firstName }} {{ componentData.memberDetails.lastName.charAt(0) + '.' }}</h6>
+              <span
+                >{{ componentData.memberDetails.totalActivities }}
+                {{ 'virtual-challenge.dc-dashboard.team-stats.activities' | translate }}</span
+              >
+            </div>
+            <span class="streak-count"
+              >{{ componentData.memberDetails.activityStreak }}
+              {{ 'virtual-challenge.dc-dashboard.team-stats.team-day-streak' | translate }}</span
+            >
+            <div class="progress">
+              <div
+                class="progress-bar"
+                [style]="{ width: (componentData.memberDetails.activityStreak * 100) / componentData.challengeDetails.maxDays + '%' }"
+                [class]="{
+                  'low-progress': 25 >= (componentData.memberDetails.activityStreak * 100) / componentData.challengeDetails.maxDays
+                }"
+              ></div>
+            </div>
+          </div>
+        </div>
+        <div class="badge-col">
+          <h5 class="title">{{ componentData.memberDetails.activityStreak >= 31 ? 'Challenge Completed' : 'Next Badge' }}</h5>
+          <span class="badge-wrapper">
+            <img [src]="getSrcOfBadge(componentData.memberDetails)" alt="Badge" />
+          </span>
+        </div>
+      </li>
+    </ul>
+    <p class="note">{{ successFunMessage }}</p>
+  </div>
+</div>

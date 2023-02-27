@@ -1,0 +1,126 @@
+@import '../../../../assets/styles/vars';
+@import '../../../../assets/styles/mixins';
+
+.team_edit {
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $black3;
+  }
+  .mountain_cats {
+    margin-bottom: 20px;
+    .edit_row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      .img_col {
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 18px;
+          max-width: 40px;
+          border-radius: 100%;
+        }
+        h4 {
+          font-size: 14px;
+          line-height: normal;
+          margin-bottom: 0;
+          color: $white2;
+          font-weight: normal;
+        }
+        h5 {
+          color: $grey;
+          margin-bottom: 0;
+        }
+      }
+      .btn_highf {
+        i {
+          font-size: 9px;
+        }
+      }
+    }
+  }
+  .invite_team {
+    margin-bottom: 40px;
+    .form-control {
+      background-color: $white3;
+      color: $black3;
+      border-color: $grey-light;
+    }
+    .error_msg {
+      margin-bottom: 10px;
+      display: block;
+      margin-top: -10px;
+    }
+  }
+  .resend_cover {
+    background: #ececec;
+    border-radius: 4px;
+    overflow: hidden;
+    .resend_row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 15px;
+      align-items: center;
+      &:nth-child(odd) {
+        background-color: #e6e6e6;
+      }
+      @media (max-width: $screen-xs-max) {
+        padding: 6px 10px;
+      }
+      .email_col {
+        color: $black3;
+        font-size: 18px;
+        margin-bottom: 0;
+        @media (max-width: $screen-xs-max) {
+          width: 70%;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          font-size: 14px;
+        }
+      }
+      .btn_col {
+        .over_btn {
+          background-color: $orange-brand;
+          height: 40px;
+          border-radius: 2px;
+          border: 0;
+          color: $black;
+          bottom: 4px;
+          right: 4px;
+          padding: 0 17px;
+          font-weight: 600;
+          outline: none;
+          @media (max-width: $screen-xs-max) {
+            height: 32px;
+          }
+        }
+      }
+    }
+  }
+  .team_admin {
+    .delete_btn {
+      color: #ef6446;
+      &:hover {
+        color: $black2;
+      }
+    }
+  }
+  .head_style {
+    @include heading-6();
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-bottom: 2px solid $black3;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    span {
+      font-size: 11px;
+    }
+  }
+}

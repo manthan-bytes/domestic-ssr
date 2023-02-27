@@ -1,0 +1,297 @@
+@import 'vars';
+
+.registeration_main {
+  padding: 50px 0 100px;
+  @media (max-width: $screen-xs-max) {
+    padding: 50px 0;
+  }
+  .registration_intro {
+    text-align: center;
+    margin-bottom: 75px;
+    p {
+      font-size: 16px;
+      color: $gray2;
+      line-height: 24px;
+      font-weight: 500;
+    }
+    h3 {
+      font-size: 30px;
+      line-height: 36px;
+      text-align: center;
+      color: $gray2;
+      font-family: $font_family_barlow_Condensed;
+      font-weight: 600;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+  }
+  .container-fluid {
+    .row {
+      justify-content: center;
+    }
+  }
+  .team_registration {
+    margin-bottom: 25px;
+
+    @media (max-width: $screen-md-max) {
+      flex: 0 0 50%;
+      max-width: 50%;
+    }
+    @media (max-width: $screen-xs-max) {
+      flex: 0 0 100%;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .registration-conditions {
+      h4 {
+        font-size: 24px;
+        line-height: 30px;
+        text-align: center;
+        color: #5d5d5d;
+        font-weight: 400;
+        margin-bottom: 15px;
+      }
+    }
+    .team_category {
+      background: $gray2;
+      height: 50px;
+      text-align: center;
+      font-size: 18px;
+      line-height: 50px;
+      color: $white;
+      font-weight: 400;
+    }
+    .team_register_info {
+      background-color: $white2;
+      .team_cost {
+        padding: 25px 15px;
+        text-align: center;
+        display: inline-block;
+        width: 100%;
+        font-size: 24px;
+        line-height: 30px;
+        color: $gray2;
+        @include font-weight(700);
+      }
+      .team-info,
+      .team_info {
+        min-height: 120px;
+        padding: 0 15px 40px;
+        text-align: center;
+        width: 100%;
+        color: $gray2;
+      }
+      .blue-cta-btn {
+        @include theme_btn2(0 25px, 16px);
+        background-color: $blue;
+        line-height: 46px;
+        margin-top: 25px;
+        &:hover {
+          text-decoration: none;
+          background-color: $blue_hover;
+          color: $white;
+          &:before {
+            background-color: $blue;
+          }
+        }
+      }
+      .booking_schedule {
+        width: 100%;
+        margin: auto;
+        padding: 50px 0 40px;
+        text-align: center;
+        ul {
+          display: flex;
+          justify-content: center;
+          max-width: 220px;
+          margin: 0 auto;
+          li {
+            text-align: center;
+            padding: 0 6px;
+            position: relative;
+            * {
+              letter-spacing: 0;
+            }
+            &:before {
+              top: 34px;
+              left: 0;
+              position: absolute;
+              content: ' ';
+              width: 100%;
+              height: 2px;
+            }
+            &.active_dates {
+              &:before {
+                background: url(/assets/images/event-detail/result/active-booking-line.png) center no-repeat;
+                top: 25px;
+                height: 11px !important;
+              }
+              .entry_status {
+                font-size: 18px;
+                line-height: 18px;
+                font-weight: 500;
+                color: $gray2;
+                @media (max-width: $screen-lg-max) {
+                  font-size: 13px;
+                }
+                @media (max-width: $screen-md-max) {
+                  font-size: 9px;
+                }
+                @media (max-width: $screen-sm-max) {
+                  font-size: 12px;
+                }
+              }
+              .booking_dates {
+                font-size: 18px;
+                line-height: 18px;
+                font-weight: 500;
+                color: $gray2;
+                @media (max-width: $screen-lg-max) {
+                  font-size: 14px;
+                }
+                @media (max-width: $screen-md-max) {
+                  font-size: 12px;
+                  line-height: normal !important;
+                }
+              }
+            }
+            &.inactive_dates {
+              .entry_status {
+                opacity: 0;
+                visibility: hidden;
+              }
+              &:before {
+                background: url(/assets/images/event-detail/result/inactive-booking-line.png) center no-repeat;
+                top: 29px;
+                height: 11px !important;
+              }
+            }
+            &.coming_dates {
+              .entry_status {
+                font-size: 13px;
+                line-height: 18px;
+                color: $gray2;
+                @media (max-width: $screen-lg-max) {
+                  font-size: 12px;
+                }
+                @media (max-width: $screen-md-max) {
+                  font-size: 9px;
+                }
+                @media (max-width: $screen-sm-max) {
+                  font-size: 12px;
+                }
+              }
+              &:before {
+                background: url(/assets/images/event-detail/result/coming-booking-line.png) center no-repeat !important;
+                top: 29px;
+                height: 11px !important;
+              }
+            }
+            .entry_status {
+              text-align: center;
+              margin-bottom: 25px;
+              margin-top: 0;
+              line-height: 20px;
+              @include font-weight(400);
+              @media (max-width: $screen-lg-max) {
+                font-size: 12px;
+              }
+            }
+            .booking_dates {
+              font-size: 14px;
+              line-height: 18px;
+              color: $gray2;
+              @include font-weight(400);
+              @media (max-width: $screen-lg-max) {
+                font-size: 12px !important;
+                line-height: normal;
+              }
+              @media (max-width: $screen-md-max) {
+                font-size: 9px !important;
+              }
+              @media (max-width: $screen-sm-max) {
+                font-size: 12px !important;
+              }
+              .booking_years {
+                display: block;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .affirm_overtime {
+    display: block;
+    margin: 30px auto 20px;
+    max-width: 370px;
+    font-family: $font_family_barlow_Condensed;
+    @media (max-width: $screen-xs-max) {
+      padding: 0 15px;
+      margin: 10px auto 20px;
+    }
+    b {
+      display: inline-block;
+      vertical-align: bottom;
+      margin-right: 12px;
+      font-size: $font_size_medium;
+      @include font-weight(600);
+      color: $black3;
+      @media (max-width: $screen-xs-max) {
+        margin-right: 6px;
+        font-size: 16px;
+        line-height: 1;
+      }
+    }
+    img {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 18px;
+      @media (max-width: $screen-xs-max) {
+        margin-right: 10px;
+        max-width: 75px;
+      }
+    }
+    a {
+      color: #00a8b9;
+      display: inline-block;
+      vertical-align: bottom;
+      text-decoration: underline;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.43px;
+    }
+  }
+  .add_fees_info {
+    margin-top: 70px;
+    text-align: center;
+    h4 {
+      color: $event_gray;
+      font-size: 24px;
+      font-weight: 500;
+    }
+    p {
+      text-align: center;
+      font-size: 16px;
+      line-height: 24px;
+      color: $gray2;
+      margin-bottom: 5px;
+    }
+  }
+  .blue-cta-btn {
+    @include theme_btn2(0 25px, 16px);
+    background-color: $blue;
+    line-height: 46px;
+    margin-top: 25px;
+    &:hover {
+      text-decoration: none;
+      background-color: $blue_hover;
+      color: $white;
+      &:before {
+        background-color: $blue;
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+<!-- TESTIMONIAL START -->
+<section class="home-testimonial">
+  <div class="container">
+    <div class="row testimonial-slider">
+      <div class="col-md-9 m-auto">
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="TestimonialConfig">
+          <div ngxSlickItem *ngFor="let item of Quotes" class="slide">
+            <q class="main-text">“{{ item.quote }}”</q>
+            <span class="sub-text">{{ item.author }}</span>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+  </div>
+</section>
+<!--TESTIMONIAL END -->

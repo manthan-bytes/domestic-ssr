@@ -1,0 +1,12 @@
+<div class="progress_status">
+  <div class="progress_col" *ngFor="let member of members">
+    <span class="avatar" [ngStyle]="{ left: member.run + '%' }"><img src="assets/images/virtual-challenge/avtar1.png" alt="" /></span>
+    <ngb-progressbar type="primary" [value]="member.run"></ngb-progressbar>
+    <p>{{ 'components.virtual-challenge.member-run-status.username' | translate }}</p>
+    <p class="miles">0/4</p>
+  </div>
+  <div class="detail_legs">
+    <h5>{{ 'common-data.unassigned' | translate }}</h5>
+    <p>{{ 'components.virtual-challenge.member-run-status.legs' | translate }}</p>
+  </div>
+</div>

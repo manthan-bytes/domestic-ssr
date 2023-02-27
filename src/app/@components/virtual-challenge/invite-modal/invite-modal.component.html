@@ -1,0 +1,41 @@
+<div class="modal-body">
+  <div class="close-icon">
+    <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">X</button>
+  </div>
+  <div class="email-section">
+    <h3 class="title">Invite by email</h3>
+    <div class="-content">
+      <input
+        type="text"
+        [(ngModel)]="emailList"
+        (ngModelChange)="checkEmailValidation(emailList)"
+        class="form-control"
+        name="x"
+        placeholder="Email Address"
+      />
+      <span class="error_msg" *ngIf="show.errorMessage">{{ show.errorMessage }}</span>
+      <div class="submit-wrapper">
+        <button class="rg_btn submit-btn" [disabled]="!emailList && !show.errorMessage" (click)="sendInvite()">Send</button>
+      </div>
+    </div>
+  </div>
+  <div class="or-section">
+    <span>or</span>
+  </div>
+  <div class="url-section">
+    <h3 class="title">Invite by url</h3>
+    <p class="note">Copy this link:</p>
+    <div class="url-content">
+      <div class="section-content">
+        <span class="copu-url"
+          >{{ baseUrl }}/challenge/info?challengeId={{ componentData.challengeDetails.id }}&challengeTeamId={{
+            componentData.challengeDetails.challengeTeamId
+          }}</span
+        >
+      </div>
+      <div class="copy-icon">
+        <img src="assets/images/virtual-challenge/copy-icon.svg" (click)="copyInviteLink()" alt="Copy" />
+      </div>
+    </div>
+  </div>
+</div>

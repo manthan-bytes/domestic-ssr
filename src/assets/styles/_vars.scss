@@ -1,0 +1,66 @@
+@import 'mixins';
+//
+// BASE COLOR PALETTES
+//
+$white: #ffffff;
+$white2: #f1f1f1;
+$white3: #fafafa;
+$white4:#dddddd;
+$black: #000000;
+$black2:#161616;
+$black3: #333333;
+$black4: #4A4A4A;
+$grey-dark: #222224;
+$grey-mid: #3D3D41;
+$grey: #86868A;
+$gray2: #666666;
+$gray3: #969696;
+$grey-light: #CCCBCB;
+$event_gray: #5D5D5D;
+$porsche_event_gray: #565656;
+$dark_gray : #0f0e0c;
+
+
+$orange-brand: #FE8E3A;
+$brand-secondary: #F17A21;
+$peach: #FFB672;
+$lime: #EBFF72;
+$teal: #1BDBDB;
+$sky_blue: #00A8B9;
+$blue: #1899cb;
+$blue_hover:#0c759e;
+$navy: #003E51;
+$brick_red: #CC2B48;
+$green-light: #6cca98;
+$font_size_base: 14px;
+$font_size_mega: ceil(($font_size_base * 2.857)); // ~40px
+$font_size_xlarge: ceil(($font_size_base * 2.285)); // ~32px
+$font_size_large: ceil(($font_size_base * 1.714)); // ~24px
+$font_size_medium: ceil(($font_size_base * 1.428)); // ~20px
+$font_size_small: ceil(($font_size_base * 0.78)); // ~11px
+$font_size_xsmall: ceil(($font_size_base * 0.60)); // ~8px
+// Font stacks
+$font_family_barlow: 'Barlow',
+sans-serif;
+$font_family_barlow_Condensed: 'Barlow Condensed',
+sans-serif;
+$font_family_gothambook: 'GothamBook';
+$font_family_gothambold: 'GothamBold';
+$font_family_gothammedium: 'GothamMedium';
+$font_family_lato: 'Lato', sans-serif;
+
+//
+// SCREEN SIZES AND BREAKPOINTS
+//
+$screen-xs-min: 480px !default; // Extra-small screen / phone
+$screen-sm-min: 768px !default; // Small screen / tablet
+$screen-md-min: 1025px !default; // Medium screen / desktop
+$screen-lg-min: 1200px !default; // Large screen / wide desktop
+$screen-xl-min: 1600px !default; // Large screen devices
+// Provide a maximum so media queries do not overlap when required
+$screen-xs-max: ($screen-sm-min - 1) !default;
+$screen-sm-max: ($screen-md-min - 1) !default;
+$screen-md-max: ($screen-lg-min - 1) !default;
+$screen-lg-max: ($screen-xl-min - 1) !default;
+$screen-mds-max: 991px !default; // Extra-small Tab
+$screen-xxs-max: 575px !default; // Extra-small screen / phone

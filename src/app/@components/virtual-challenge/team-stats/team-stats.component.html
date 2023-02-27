@@ -1,0 +1,57 @@
+<div class="state-outer" *ngIf="teamMemberDetail">
+  <div class="see-all">
+    <button class="see-all rg_btn delete-btn" *ngIf="displayRemoveBtn" (click)="updateRemoveBtnFlag()">
+      {{ removebtnFlag ? 'Cancel' : 'Delete Members' }}
+    </button>
+  </div>
+  <ul class="member-list">
+    <li class="member-wrapper" *ngFor="let member of teamMemberDetail.slice(0, show.allChallengeTeamMembers)">
+      <div class="detail-col">
+        <span class="img-col">
+          <img [src]="member.profilePhoto || 'assets/images/user-profile-pic.png'" alt="User Profile" />
+          <img
+            *ngIf="existingMember.role === 'CAPTAIN' && removebtnFlag && member.removable"
+            src="/assets/images/team-center/delete-runner.png"
+            alt="delete"
+            class="delete_icon"
+            (click)="deleteMember(member)"
+          />
+          <img
+            *ngIf="existingMember.role !== 'CAPTAIN' && removebtnFlag && member.profileId === existingMember.profileId"
+            src="/assets/images/team-center/delete-runner.png"
+            alt="delete"
+            class="delete_icon"
+            (click)="deleteMember(member)"
+          />
+        </span>
+        <div class="detail">
+          <div class="name-wrapper">
+            <h6 class="name">{{ member.firstName }} {{ member.lastName }}</h6>
+            <span>{{ member.totalActivities }} {{ 'virtual-challenge.dc-dashboard.team-stats.activities' | translate }}</span>
+          </div>
+          <span class="streak-count"
+            >{{ member.activityStreak }} {{ 'virtual-challenge.dc-dashboard.team-stats.team-day-streak' | translate }}</span
+          >
+          <div class="progress">
+            <div
+              class="progress-bar"
+              [style]="{ width: (member.activityStreak * 100) / challengeDetails.maxDays + '%' }"
+              [class]="{ 'low-progress': 25 >= (member.activityStreak * 100) / challengeDetails.maxDays }"
+            ></div>
+            <div class="line" appNextStreak [activityStreak]="member.activityStreak" [maxDays]="challengeDetails.maxDays"></div>
+          </div>
+        </div>
+      </div>
+      <div class="badge-col">
+        <h5 class="title">{{ member.activityStreak >= 31 ? 'Challenge Completed' : 'Next Badge' }}</h5>
+        <span class="badge-wrapper">
+          <img [src]="getSrcOfBadge(member)" alt="Badge" />
+        </span>
+      </div>
+    </li>
+  </ul>
+  <div class="see-all" *ngIf="teamMemberDetail.length > 10" (click)="seeallFunc()">
+    <button class="rg_btn" *ngIf="!btnFlag">{{ 'virtual-challenge.dc-dashboard.team-stats.see-all' | translate }}</button>
+    <button class="rg_btn" *ngIf="btnFlag">{{ 'virtual-challenge.dc-dashboard.team-stats.hide-all' | translate }}</button>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="product_col">
+  <div class="modal-header">
+    <h6 class="modal-title">{{ 'components.virtual-challenge.virtual-up-sell-model.title' | translate }}</h6>
+    <button type="button" class="close" data-dismiss="modal" (click)="closeModal('dismiss')">
+      <i class="iconm-X" aria-hidden="true"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+    <img src="assets/images/virtual-challenge/upsell.jpg" alt="Upsell" />
+    <h5>{{ 'components.virtual-challenge.virtual-up-sell-model.bragging-rights' | translate }}</h5>
+    <ul>
+      <li>{{ 'components.virtual-challenge.virtual-up-sell-model.exclusive-t-shirt' | translate }}</li>
+      <li>{{ 'components.virtual-challenge.virtual-up-sell-model.bottle' | translate }}</li>
+      <li>{{ 'components.virtual-challenge.virtual-up-sell-model.decal' | translate }}</li>
+      <li>{{ 'components.virtual-challenge.virtual-up-sell-model.sticker' | translate }}</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="rg_btn mb-3" ngbAutofocus (click)="closeModal('changes saved!')">
+      {{ 'components.virtual-challenge.virtual-up-sell-model.save-changes' | translate }}
+    </button>
+    <button type="button" class="rg_btn rg_bbtn">{{ 'common-data.no-thanks' | translate }}</button>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<!-- MAIN BANNER START -->
+<section class="main-banner" style="background-image: url({{ getBannerImageBasedOnScreenType() }})" *ngIf="bannerData">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="banner-content">
+          <!-- <h1 class="stroke-title">{{ bannerData.bannerTitle }}</h1>
+          <h2 *ngIf="bannerData.description">{{ bannerData.description }}</h2> -->
+          <h1 class="stroke-title" [innerHTML]="bannerData.bannerTitle | safeHtml"></h1>
+          <h2 *ngIf="bannerData.description" [innerHTML]="bannerData.description | safeHtml"></h2>
+          <a
+            *ngIf="bannerData.buttonLink"
+            href="{{ bannerData.buttonLink }}"
+            target="{{ !bannerData.isSelfTarget ? '_blank' : '' }}"
+            class="theme-btn text-white"
+            >{{ bannerData.buttonTitle || 'Click here !' }}</a
+          >
+        </div>
+      </div>
+    </div>
+    <span class="scroll-to-content" (click)="moveToNextScreen(homeRaceSlider)"
+      ><img loading="lazy" src="assets/images/scroll-to-arrow.svg"
+    /></span>
+  </div>
+</section>
+<!-- MAIN BANNER END -->
+
+<!-- RACE SLIDER START -->
+<div #homeRaceSlider class="scroll-to" id="homeRaceSlider"></div>
+<section class="home-race-slider" *ngIf="slides.length">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 race-slider-wrapper">
+        <ngx-slick-carousel
+          class="carousel"
+          #slickModal="slick-carousel"
+          [config]="slideConfig"
+          (init)="slickInit($event)"
+          (beforeChange)="beforeChange($event)"
+          (afterChange)="afterChange($event)"
+          (breakpoint)="breakpoint($event)"
+        >
+          <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+            <div class="item-wrapper">
+              <!-- <h5 class="race-head">{{ slide.bannerTitle }}</h5> -->
+              <div *ngIf="slide.bannerTitle" [innerHTML]="slide.bannerTitle | safeHtml"></div>
+              <div class="race-detail">
+                <img loading="lazy" src="{{ slide.sliderImage }}" alt="{{ slide.bannerTitle }}" width="100%" />
+                <div class="detail-wrapper">
+                  <!-- <p class="content" *ngIf="slide.description">{{ slide.description }}</p> -->
+                  <div class="content" *ngIf="slide.description">
+                    <div class="content-inner" [innerHTML]="slide.description | safeHtml"></div>
+                  </div>
+                  <a class="content-link" href="{{ slide.buttonLink }}" target="{{ !slide.isSelfTarget ? '_blank' : '' }}">
+                    <h3 class="race-title">{{ slide.buttonTitle }}</h3>
+                    <span class="more-btn"><img loading="lazy" src="assets/images/home/more-arrow.svg" alt="{{ slide.img }}" /></span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ngx-slick-carousel>
+        <div class="slide-count" *ngIf="showSliderCounter">
+          <span *ngIf="currentSlide > 0">{{ currentSlide }}</span
+          ><span *ngIf="currentSlide === 0">1</span>/{{ totalSlides }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- RACE SLIDER END -->

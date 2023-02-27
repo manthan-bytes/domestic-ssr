@@ -1,0 +1,130 @@
+@import '../../../../assets/styles/vars';
+@import '../../../../assets/styles/mixins';
+.add_run {
+  .head_style {
+    @include heading-6();
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-bottom: 2px solid $black3;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    span {
+      font-size: 11px;
+    }
+  }
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $black3;
+  }
+
+  .connect_strava {
+    .rg_btn {
+      position: relative;
+      text-transform: capitalize;
+      margin-bottom: 16px;
+      max-width: 270px;
+      @media (max-width: $screen-xs-max) {
+        margin: 0 auto 16px;
+        max-width: 375px;
+      }
+    }
+    .head_style {
+      margin-bottom: 35px;
+    }
+    p {
+      font-size: 12px;
+      padding-left: 20px;
+      margin-bottom: 15px !important;
+      a {
+        color: $black3;
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+    .form-group.input_inside {
+      max-width: 320px;
+      .form-control {
+        background-color: $white3;
+        color: $white2;
+      }
+    }
+    .optional_input {
+      .form-control {
+        text-align: center;
+      }
+    }
+    .miles_input {
+      .form-control {
+        background-color: $white2;
+        height: 128px;
+        border: 0;
+        margin-top: -20px;
+        font-weight: 600;
+        font-size: 80px;
+        text-align: center;
+        padding: 5px 10px 20px;
+        // @include placeholder {
+        //     color: rgba(22,22,22,0.2) !important;
+        // }
+      }
+      .over_input {
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        text-align: center;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        position: absolute;
+        bottom: 8px;
+        left: 0;
+        right: 0;
+      }
+    }
+    @media (max-width: $screen-xs-max) {
+      .d-flex {
+        display: block !important;
+        p {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+  .run_loglist {
+    max-height: 500px;
+    overflow-y: auto;
+    .run_log {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0;
+      border-bottom: 1px solid $white2;
+      font-weight: 600;
+      font-stretch: 14px;
+      &:nth-of-type(1) {
+        padding-top: 0;
+      }
+      .button_cover {
+        min-width: 141px;
+        display: flex;
+        .rg_btn {
+          min-width: auto;
+          &.delete_btn {
+            margin-left: 15px;
+            background-color: $brick_red;
+            color: $white;
+            border-color: transparent;
+            padding: 15px 11px;
+          }
+        }
+      }
+    }
+  }
+}

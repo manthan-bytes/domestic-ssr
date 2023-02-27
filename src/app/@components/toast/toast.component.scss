@@ -1,0 +1,13 @@
+:host {
+  position: fixed;
+  top: auto !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  left: auto !important;
+  margin: 40px !important;
+  z-index: 1200;
+}
+
+ngb-toast.bg-dark {
+  font-size: 16px;
+}

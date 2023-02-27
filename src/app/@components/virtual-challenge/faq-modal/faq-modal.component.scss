@@ -1,0 +1,40 @@
+@import '../../../../assets/styles/vars';
+@import '../../../../assets/styles/mixins';
+
+::ng-deep {
+  .faq-modal {
+    .close-icon {
+      .close {
+        padding: 0;
+        margin: 0;
+        font-size: 24px;
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        opacity: 1 !important;
+        font-weight: 600;
+        color: $navy;
+        outline: none;
+      }
+    }
+    .faq-wrapper {
+      margin-top: 20px;
+    }
+    .faq-single {
+      h4 {
+        text-transform: uppercase;
+        color: $black3;
+        margin-bottom: 5px;
+        font-size: 17px;
+      }
+      p {
+        &:not(:last-child) {
+          margin-bottom: 10px;
+        }
+      }
+      a {
+        word-break: break-all;
+      }
+    }
+  }
+}

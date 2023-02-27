@@ -1,0 +1,46 @@
+/* Reset Css */
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}nav ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}a{text-decoration:none;outline:0;margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;color:#F17A21;transition:all 0.5s ease 0s;}ins{background-color:#ff9;color:#000;text-decoration:none}mark{background-color:#ff9;color:#000;font-style:italic;font-weight:700}del{text-decoration:line-through}abbr[title],dfn[title]{border-bottom:1px dotted;cursor:help}table{border-collapse:collapse;border-spacing:0}hr{display:block;height:1px;border:0;border-top:1px solid #161616;margin:0 auto; padding:0}
+
+.clearfix:after
+{content:"";display:block;clear:both;visibility:hidden;line-height:0;height:0}html[xmlns] .clearfix{display:block}* html .clearfix{height:1%}
+
+img{-ms-interpolation-mode: bicubic;height: auto; vertical-align: middle;transition:all 0.5s ease 0s;}
+.ie8 img {height: auto; width: auto\9;}
+.ie8 img.size-large {max-width: 60%; width: auto;}
+
+ul{list-style:none; margin:0; padding:0;}
+li{list-style:none;}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0;}
+::-webkit-input-placeholder {color: #000}
+:-moz-placeholder {color: #000}
+.form-control:-moz-placeholder {color: #000}
+::-moz-placeholder {color: #000}
+.form-control::-moz-placeholder {color: #000}
+:-ms-input-placeholder {color: #000}
+
+button::-moz-focus-inner {border: 0}
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
+
+input[type=number] {-moz-appearance:textfield}
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0}
+
+/*input[type=submit]{padding:18px 30px; font-weight:bold; color:#fff; display:block; }*/
+input[type=submit] , input[type=button]{cursor:pointer; border:0}
+input:focus{outline:none;}
+
+/* Contact Form */
+.form-group{ background:#f2f2f2;border: 1px solid #d6d5d2; padding:0 20px; position:relative}
+
+a:hover{text-decoration: none;}
+// input[type="text"], input[type="tel"], input[type="password"], input[type="date"], input[type="email"], input[type="number"], textarea{}
+
+// input[type="text"]:focus, input[type="tel"]:focus, input[type="password"]:focus, input[type="date"]:focus, input[type="email"]:focus, input[type="number"]:focus, textarea:focus {}
+
+input:required{box-shadow:none}
+
+*{-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}

@@ -1,0 +1,62 @@
+@import '../../../assets/styles/vars';
+@import '../../../assets/styles/mixins';
+
+::ng-deep {
+  .image_crop {
+    .modal-dialog {
+      max-width: 1000px;
+      @media (max-width: $screen-xs-max) {
+        padding: 0 10px;
+      }
+      .modal-content {
+        padding: 24px;
+        border: 0;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2), 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        @media (max-width: $screen-xs-max) {
+          padding: 15px;
+        }
+        .modal-header {
+          padding: 0;
+          border-bottom: 2px solid #161616;
+          h6 {
+            margin-bottom: 10px;
+          }
+        }
+        .modal-body {
+          padding: 15px 0 0;
+          image-cropper {
+            max-height: 60vh !important;
+          }
+          @media screen and (orientation: landscape) and (max-width: 991px) {
+            max-height: 90vh !important;
+            overflow-y: auto;
+            image-cropper {
+              max-height: 100vh !important;
+              .overlay,
+              .cropper {
+                max-height: 100vh !important;
+              }
+            }
+          }
+          p {
+            word-break: break-word;
+          }
+        }
+      }
+      .modal-footer {
+        padding-bottom: 0;
+        padding-top: 25px;
+        @media (max-width: $screen-xs-max) {
+          padding: 20px 0 0;
+          justify-content: space-between;
+          .rg_btn {
+            max-width: 1 0px;
+            max-width: calc(50% - 5px);
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+}

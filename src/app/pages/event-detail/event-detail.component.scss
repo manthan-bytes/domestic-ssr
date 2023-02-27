@@ -1,0 +1,113 @@
+@import 'vars';
+
+.loading-template {
+  margin-left: auto;
+  margin-right: auto;
+  width: 280px;
+  padding-top: 30px;
+  img {
+    margin-top: 50px;
+    max-width: 100%;
+  }
+}
+
+.event-detail {
+  display: flex;
+  @media (max-width: $screen-xs-max) {
+    flex-flow: column;
+  }
+  .tab-options {
+    border-right: 1px solid #e0e0e0;
+    @media (max-width: $screen-xs-max) {
+      display: inline-flex;
+      overflow: auto;
+    }
+    ul {
+      padding: 100px 0;
+      position: sticky;
+      top: 100px;
+      width: 150px;
+      display: block;
+      @media (max-width: $screen-xs-max) {
+        width: 100%;
+        display: inline-flex;
+        padding: 0;
+        overflow-y: hidden;
+        border-bottom: 1px solid $grey-light;
+      }
+      li {
+        @media (max-width: $screen-xs-max) {
+          padding: 10px 0;
+        }
+        a {
+          background: $white;
+          padding: 20px 15px;
+          border-radius: 0 !important;
+          border: 0 !important;
+          font-size: $font_size_base;
+          line-height: 20px;
+          text-align: center;
+          color: #4a4a4a;
+          font-weight: 400;
+          margin: 0 !important;
+          transition: opacity 0.5s ease-in;
+          display: block;
+          position: relative;
+          letter-spacing: 0;
+          @media (max-width: $screen-xs-max) {
+            white-space: nowrap;
+            padding: 0px 15px;
+            font-weight: 600;
+            &:before {
+              content: '';
+              background: $brand-secondary;
+              height: 2px;
+              position: absolute;
+              width: 100%;
+              left: 0;
+              bottom: 18px;
+              transition: all 250ms ease 0s;
+              transform: scale(0);
+              top: 100%;
+            }
+          }
+          &.active {
+            background-color: $grey-light;
+
+            @media (max-width: $screen-xs-max) {
+              background-color: transparent;
+              color: $brand-secondary;
+              &:before {
+                transform: scale(1);
+              }
+            }
+            &:hover {
+              color: $grey-mid;
+              @media (max-width: $screen-xs-max) {
+                color: $brand-secondary;
+              }
+            }
+          }
+          &:hover {
+            color: $grey-light;
+          }
+        }
+      }
+    }
+    @media (max-width: $screen-xs-max) {
+      &.sticky {
+        position: fixed;
+        top: 61px;
+        z-index: 99;
+        width: 100%;
+        background-color: #fff;
+      }
+    }
+  }
+  .right_panel {
+    width: calc(100% - 151px);
+    @media (max-width: $screen-xs-max) {
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<div class="modal-body" id="waiver_body">
+  <image-cropper
+    [imageBase64]="componentData.imageData"
+    [maintainAspectRatio]="false"
+    [aspectRatio]="4 / 3"
+    format="png"
+    (imageCropped)="imageCropped($event)"
+  ></image-cropper>
+</div>
+<div class="modal-footer">
+  <button (click)="closeModal(false)" class="rg_btn rg_bbtn mb-2 ml-auto mr-auto">
+    {{ 'components.my-account.image-crop.cancle' | translate }}
+  </button>
+  <button (click)="closeModal(croppedImage)" class="rg_btn mb-2 ml-auto mr-auto">
+    {{ 'components.my-account.image-crop.confirm' | translate }}
+  </button>
+</div>

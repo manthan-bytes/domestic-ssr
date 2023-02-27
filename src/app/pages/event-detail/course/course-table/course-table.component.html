@@ -1,0 +1,379 @@
+<div class="scroll-table leg-list">
+  <button class="full_course" *ngIf="isLegSelected" (click)="seeFullCourse()">See Full Course</button>
+  <table class="table border" *ngIf="courseData.type === 'relay' || courseData.type === 'sprint'">
+    <thead>
+      <tr>
+        <th class="col-data-1">{{ 'event-detail.course.course-table.runner' | translate }}</th>
+        <th class="col-data-2">{{ 'event-detail.course.course-table.1st-run' | translate }}</th>
+        <th class="col-data-3">{{ 'event-detail.course.course-table.2nd-run' | translate }}</th>
+        <th class="col-data-4" *ngIf="courseData.legs.length !== 12 && courseData.legs.length !== 1">
+          {{ 'event-detail.course.course-table.3rd-run' | translate }}
+        </th>
+        <th class="col-data-5">{{ 'event-detail.course.course-table.total' | translate }} {{ isKm ? 'Kilometers' : 'Miles' }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let legRange of legsDividerArray; let i = index">
+        <td class="col-value-1">{{ i + 1 }}</td>
+        <td
+          class="col-value-2"
+          *ngFor="let leg of legRange"
+          (click)="selectLeg(leg)"
+          [ngClass]="{ active: this.selectedLegNumber === leg.leg_number }"
+        >
+          <label> {{ isKm ? leg.distance_km : leg.distance }} - {{ leg.difficulty }} </label>
+          <br />
+          <span> (Leg {{ leg.leg_number }}) </span>
+        </td>
+        <td class="col-value-3">
+          {{
+            isKm
+              ? legRange[2]
+                ? legRange[0].distance_km + legRange[1].distance_km + legRange[2].distance_km
+                : legRange[0].distance_km + legRange[1].distance_km
+              : ((legRange[2]
+                  ? legRange[0].distance + legRange[1].distance + legRange[2].distance
+                  : legRange[0].distance + legRange[1].distance
+                ) | number)
+          }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div *ngIf="courseData.type === 'trail'" class="tab-pane hidden-xs active">
+    <div *ngIf="courseData.legs[courseData.legs.length - 1].name === 'Black Loop'" class="blackloop_toggle_wrapper">
+      <div class="blackloop_toggle_inner">
+        <span class="double-diamond"></span>
+        <label>
+          <span>{{ 'event-detail.course.course-table.view-option' | translate }}</span>
+          <a href="" data-toggle="modal" (click)="openBlackLoopPopup()">{{ 'event-detail.course.course-table.what-is' | translate }}</a>
+        </label>
+        <label class="toggle-bl">
+          <input class="toggle-checkbox-bl" [checked]="isBlackLoopSelected" (change)="blackLoopToogle($event)" type="checkbox" />
+          <div class="toggle-switch-bl"></div>
+        </label>
+      </div>
+    </div>
+    <table class="table table-bordered border looping_table" *ngIf="!isBlackLoopSelected">
+      <thead>
+        <tr>
+          <th class="col-data-1">{{ 'event-detail.course.course-table.runner' | translate }}</th>
+          <th class="col-data-2">{{ 'event-detail.course.course-table.1st-run' | translate }}</th>
+          <th class="col-data-3">{{ 'event-detail.course.course-table.2nd-run' | translate }}</th>
+          <th class="col-data-4">{{ 'event-detail.course.course-table.3rd-run' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let trailRow of trailDetails; let rowIndex = index">
+          <td>
+            {{ rowIndex + 1 }}
+          </td>
+          <td *ngFor="let trail of trailRow">
+            <div class="{{ trail.class }}">&nbsp;</div>
+            <div class="top-loop">{{ 'event-detail.course.course-table.loop' | translate }} {{ trail.seq }}</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="isBlackLoopSelected" class="black-loop-wrapper">
+      <div>
+        <div class="blackloop-content">
+          <h4 class="black-loop-title">{{ 'event-detail.course.course-table.together-run' | translate }}</h4>
+          <div class="blackloop-data">
+            <div class="bp-data">
+              <label>Day One</label>
+              <div class="shape-container">
+                <div class="circle-base green"></div>
+                <div class="square yellow"></div>
+                <div class="diamond red"></div>
+              </div>
+            </div>
+            <div class="bp-data">
+              <label>Day Two</label>
+              <div class="shape-container">
+                <div class="double-diamond"></div>
+              </div>
+            </div>
+          </div>
+          <h4 class="black-loop-title">{{ 'event-detail.course.course-table.how-it-works' | translate }}</h4>
+          <p>
+            {{ 'event-detail.course.course-table.how-it-works-p1' | translate }}
+          </p>
+
+          <p>
+            {{ 'event-detail.course.course-table.how-it-works-p2' | translate }}
+          </p>
+
+          <p>
+            {{ 'event-detail.course.course-table.how-it-works-p3' | translate }}
+            <span *ngIf="courseData.id !== '94' && courseData.id !== '82' && courseData.id !== '79' && courseData.id !== '77'">
+              <span *ngIf="+courseData.id === 78">{{ 'event-detail.course.course-table.how-it-works-p4' | translate }}</span>
+              <span *ngIf="+courseData.id !== 78">{{ 'event-detail.course.course-table.how-it-works-p7' | translate }}</span>
+            </span>
+            <span *ngIf="courseData.id === '94' || courseData.id === '82' || courseData.id === '79' || courseData.id === '77'">{{
+              'event-detail.course.course-table.how-it-works-p6' | translate
+            }}</span>
+            <!-- <span ng-if="courseData.id !=== '94' || courseData.id !=== '78'">{{
+              'event-detail.course.course-table.how-it-works-p5' | translate
+            }}</span> -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="courseData.type === 'sunset' || courseData.type === 'trail_sprint'">
+    <div *ngFor="let legSelected of courseData.legs" class="leg-loop-notes-content">
+      <div *ngIf="legSelected.description" class="leg-loop-title-sec">
+        <h2>{{ legSelected.name }}</h2>
+        <h5>{{ 'event-detail.course.course-table.loop-description' | translate }}</h5>
+        <div [innerHtml]="legSelected.description"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="leg-list mobile-leg-list table_row">
+  <div class="leg-accordion-list scroll-table" *ngIf="courseData.type === 'trail'">
+    <div *ngIf="courseData.legs[courseData.legs.length - 1].name === 'Black Loop'" class="blackloop_toggle_wrapper">
+      <div class="blackloop_toggle_inner">
+        <span class="double-diamond"></span>
+        <label>
+          <span>{{ 'event-detail.course.course-table.view-option' | translate }}</span>
+          <a href="" data-toggle="modal" (click)="openBlackLoopPopup()">{{ 'event-detail.course.course-table.what-is' | translate }}</a>
+        </label>
+        <label class="toggle-bl">
+          <input class="toggle-checkbox-bl" [checked]="isBlackLoopSelected" (change)="blackLoopToogle($event)" type="checkbox" />
+          <div class="toggle-switch-bl"></div>
+        </label>
+      </div>
+    </div>
+    <ngb-accordion [closeOthers]="true" animation="true" *ngIf="!isBlackLoopSelected">
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>Runner Numbers 1 - 4</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <!-- Trail table 1 - 4 -->
+          <table class="table table-bordered border looping_table" *ngIf="!isBlackLoopSelected">
+            <thead>
+              <tr>
+                <th class="col-data-1">{{ 'event-detail.course.course-table.runner' | translate }}</th>
+                <th class="col-data-2">{{ 'event-detail.course.course-table.1st-run' | translate }}</th>
+                <th class="col-data-3">{{ 'event-detail.course.course-table.2nd-run' | translate }}</th>
+                <th class="col-data-4">{{ 'event-detail.course.course-table.3rd-run' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let trailRow of trailDetails; let rowIndex = index">
+                <ng-container *ngIf="rowIndex <= 3">
+                  <td>
+                    {{ rowIndex + 1 }}
+                  </td>
+                  <td *ngFor="let trail of trailRow">
+                    <div class="{{ trail.class }}">&nbsp;</div>
+                    <div class="top-loop">{{ 'event-detail.course.course-table.loop' | translate }} {{ trail.seq }}</div>
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>Runner Numbers 5 - 8</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <!-- Trail Table 5-8 -->
+          <table class="table table-bordered border looping_table" *ngIf="!isBlackLoopSelected">
+            <thead>
+              <tr>
+                <th class="col-data-1">{{ 'event-detail.course.course-table.runner' | translate }}</th>
+                <th class="col-data-2">{{ 'event-detail.course.course-table.1st-run' | translate }}</th>
+                <th class="col-data-3">{{ 'event-detail.course.course-table.2nd-run' | translate }}</th>
+                <th class="col-data-4">{{ 'event-detail.course.course-table.3rd-run' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let trailRow of trailDetails; let rowIndex = index">
+                <ng-container *ngIf="rowIndex >= 4">
+                  <td>
+                    {{ rowIndex + 1 }}
+                  </td>
+                  <td *ngFor="let trail of trailRow">
+                    <div class="{{ trail.class }}">&nbsp;</div>
+                    <div class="top-loop">{{ 'event-detail.course.course-table.loop' | translate }} {{ trail.seq }}</div>
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+    <div *ngIf="isBlackLoopSelected" class="black-loop-wrapper">
+      <div>
+        <div class="blackloop-content">
+          <h4 class="black-loop-title">{{ 'event-detail.course.course-table.together-run' | translate }}</h4>
+          <div class="blackloop-data">
+            <div class="bp-data">
+              <label>Day One</label>
+              <div class="shape-container">
+                <div class="circle-base green"></div>
+                <div class="square yellow"></div>
+                <div class="diamond red"></div>
+              </div>
+            </div>
+            <div class="bp-data">
+              <label>Day Two</label>
+              <div class="shape-container">
+                <div class="double-diamond"></div>
+              </div>
+            </div>
+          </div>
+          <h4 class="black-loop-title">{{ 'event-detail.course.course-table.how-it-works' | translate }}</h4>
+          <p>
+            {{ 'event-detail.course.course-table.how-it-works-p1' | translate }}
+          </p>
+
+          <p>
+            {{ 'event-detail.course.course-table.how-it-works-p2' | translate }}
+          </p>
+
+          <p>
+            {{ 'event-detail.course.course-table.how-it-works-p3' | translate }}
+            <span *ngIf="courseData.id !== '94' && courseData.id !== '82' && courseData.id !== '79' && courseData.id !== '77'">
+              <span *ngIf="+courseData.id === 78">{{ 'event-detail.course.course-table.how-it-works-p4' | translate }}</span>
+              <span *ngIf="+courseData.id !== 78">{{ 'event-detail.course.course-table.how-it-works-p7' | translate }}</span>
+            </span>
+            <span *ngIf="courseData.id === '94' || courseData.id === '82' || courseData.id === '79' || courseData.id === '77'">{{
+              'event-detail.course.course-table.how-it-works-p6' | translate
+            }}</span>
+            -->
+            <!-- <span ng-if="courseData.id !== '94' || courseData.id !== '78'">{{
+              'event-detail.course.course-table.how-it-works-p5' | translate
+            }}</span> -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="leg-accordion-list scroll-table" *ngIf="courseData.type === 'relay' || courseData.type === 'sprint'">
+    <div class="leg-accordion-list-button">
+      <button class="full_course" *ngIf="isLegSelected" (click)="seeFullCourse()">See Full Course</button>
+      <button *ngIf="isLegSelected" class="orange-cta-btn leg-detail-btn" (click)="seeLegDetails(selectedLeg)">
+        Leg {{ selectedLegNumber }} details
+      </button>
+    </div>
+    <ngb-accordion [closeOthers]="true" animation="true">
+      <ngb-panel>
+        <ng-template ngbPanelTitle>
+          <span>Runner Numbers 1 - 6</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <!-- Relay table 1 - 6 -->
+          <table class="table table-bordered border looping_table">
+            <thead>
+              <tr>
+                <th class="col-data-1">{{ 'event-detail.course.course-table.runner' | translate }}</th>
+                <th class="col-data-2">{{ 'event-detail.course.course-table.1st-run' | translate }}</th>
+                <th class="col-data-3">{{ 'event-detail.course.course-table.2nd-run' | translate }}</th>
+                <th class="col-data-4" *ngIf="courseData.legs.length !== 12 && courseData.legs.length !== 1">
+                  {{ 'event-detail.course.course-table.3rd-run' | translate }}
+                </th>
+                <th class="col-data-5">{{ 'event-detail.course.course-table.total' | translate }} {{ isKm ? 'Kilometers' : 'Miles' }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let legRange of legsDividerArray; let i = index">
+                <ng-container *ngIf="i <= 5">
+                  <td class="col-value-1">{{ i + 1 }}</td>
+                  <td
+                    class="col-value-2"
+                    *ngFor="let leg of legRange"
+                    (click)="selectLeg(leg)"
+                    [ngClass]="{ active: this.selectedLegNumber === leg.leg_number }"
+                  >
+                    <label> {{ isKm ? leg.distance_km : leg.distance }} - {{ leg.difficulty }} </label>
+                    <br />
+                    <span> (Leg {{ leg.leg_number }}) </span>
+                  </td>
+                  <td class="col-value-3">
+                    {{
+                      isKm
+                        ? legRange[2]
+                          ? legRange[0].distance_km + legRange[1].distance_km + legRange[2].distance_km
+                          : legRange[0].distance_km + legRange[1].distance_km
+                        : ((legRange[2]
+                            ? legRange[0].distance + legRange[1].distance + legRange[2].distance
+                            : legRange[0].distance + legRange[1].distance
+                          ) | number)
+                    }}
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </ngb-panel>
+      <ngb-panel *ngIf="legsDividerArray.length >= 7">
+        <ng-template ngbPanelTitle>
+          <span>Runner Numbers 7 - 12</span>
+        </ng-template>
+        <ng-template ngbPanelContent>
+          <!-- Relay Table 7-12 -->
+          <table class="table table-bordered border looping_table">
+            <thead>
+              <tr>
+                <th class="col-data-1">{{ 'event-detail.course.course-table.runner' | translate }}</th>
+                <th class="col-data-2">{{ 'event-detail.course.course-table.1st-run' | translate }}</th>
+                <th class="col-data-3">{{ 'event-detail.course.course-table.2nd-run' | translate }}</th>
+                <th class="col-data-4" *ngIf="courseData.legs.length !== 12 && courseData.legs.length !== 1">
+                  {{ 'event-detail.course.course-table.3rd-run' | translate }}
+                </th>
+                <th class="col-data-5">{{ 'event-detail.course.course-table.total' | translate }} {{ isKm ? 'Kilometers' : 'Miles' }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let legRange of legsDividerArray; let i = index">
+                <ng-container *ngIf="i >= 6">
+                  <td class="col-value-1">{{ i + 1 }}</td>
+                  <td
+                    class="col-value-2"
+                    *ngFor="let leg of legRange"
+                    (click)="selectLeg(leg)"
+                    [ngClass]="{ active: this.selectedLegNumber === leg.leg_number }"
+                  >
+                    <label> {{ isKm ? leg.distance_km : leg.distance }} - {{ leg.difficulty }} </label>
+                    <br />
+                    <span> (Leg {{ leg.leg_number }}) </span>
+                  </td>
+                  <td class="col-value-3">
+                    {{
+                      isKm
+                        ? legRange[2]
+                          ? legRange[0].distance_km + legRange[1].distance_km + legRange[2].distance_km
+                          : legRange[0].distance_km + legRange[1].distance_km
+                        : ((legRange[2]
+                            ? legRange[0].distance + legRange[1].distance + legRange[2].distance
+                            : legRange[0].distance + legRange[1].distance
+                          ) | number)
+                    }}
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </ngb-panel>
+    </ngb-accordion>
+  </div>
+  <div class="leg-accordion-list scroll-table" *ngIf="courseData.type === 'sunset' || courseData.type === 'trail_sprint'">
+    <div *ngFor="let legSelected of courseData.legs" class="leg-loop-notes-content">
+      <div *ngIf="legSelected.description" class="leg-loop-title-sec">
+        <h2>{{ legSelected.name }}</h2>
+        <h5>{{ 'event-detail.course.course-table.loop-description' | translate }}</h5>
+        <div [innerHtml]="legSelected.description"></div>
+      </div>
+    </div>
+  </div>
+</div>

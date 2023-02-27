@@ -1,0 +1,266 @@
+<!-- <div class="model_cover"> -->
+<!-- HEADER -->
+<div class="modal-header">
+  <h6 class="modal-title">{{ componentData.title }}</h6>
+  <button type="button" (click)="closeModal()" data-dismiss="modal" class="close" *ngIf="show.closeBtn">
+    <i class="iconm-X" aria-hidden="true"></i>
+  </button>
+  <!-- For Notifications -->
+  <h5 *ngIf="show.modal.notification && componentData.notificationsData && componentData.notificationsData.totalUnRead">
+    {{ componentData.notificationsData.totalUnRead }} {{ 'components.virtual-challenge.common-model.new' | translate }}
+  </h5>
+</div>
+
+<!-- CHALLENGE PROGRESS BAR FOR THE OBF BRAND CHALLENGE PURPOSE.-->
+
+<div class="modal-body" *ngIf="show.modal.challengeProgress && addMileProgress">
+  <div
+    class="progress_cover"
+    [ngClass]="
+      addMileProgress.progressDetails.safeState === 'NOT'
+        ? 'not-safe'
+        : addMileProgress.progressDetails.safeState === 'MAYBE'
+        ? 'maybe-safe'
+        : 'likely-safe'
+    "
+  >
+    <span
+      class="sticky_value"
+      [ngStyle]="{
+        left:
+          addMileProgress.progressDetails.myMilePercentage <= 7
+            ? '7%'
+            : addMileProgress.progressDetails.myMilePercentage >= 100
+            ? '95%'
+            : addMileProgress.progressDetails.myMilePercentage + '%'
+      }"
+    >
+      {{ addMileProgress.progressDetails.myRun }} {{ 'common-data.mi' | translate }}
+    </span>
+    <ngb-progressbar
+      type="primary"
+      [value]="addMileProgress.progressDetails.myMilePercentage <= 7 ? 7 : addMileProgress.progressDetails.myMilePercentage"
+    ></ngb-progressbar>
+    <div class="d-flex justify-content-between">
+      <span class="val_1">{{ 'components.virtual-challenge.common-model.mi0' | translate }}</span>
+      <h5 class="val_2">
+        {{
+          addMileProgress.progressDetails.safeState === 'NOT'
+            ? 'NOT SAFE'
+            : addMileProgress.progressDetails.safeState === 'MAYBE'
+            ? 'MAYBE SAFE'
+            : 'LIKELY SAFE'
+        }}
+      </h5>
+      <span class="val_3">{{ addMileProgress.progressDetails.maxRun }} {{ 'common-data.mi' | translate }}</span>
+    </div>
+  </div>
+  <p *ngIf="addMileProgress.addedActivity && addMileProgress.addedActivity.unit > 25">
+    <b>{{ 'components.virtual-challenge.common-model.ton-of-miles' | translate }}</b>
+    {{ 'components.virtual-challenge.common-model.confirm-current-account' | translate }}
+  </p>
+  <p *ngIf="addMileProgress.addedActivity && addMileProgress.addedActivity.unit <= 25">
+    {{ addMileProgress.message }}
+  </p>
+  <div class="modal-footer">
+    <button class="rg_btn" (click)="closeModal(false)">{{ 'components.virtual-challenge.common-model.ok' | translate }}</button>
+    <button
+      class="rg_btn rg_bbtn"
+      *ngIf="addMileProgress.addedActivity && addMileProgress.addedActivity.unit > 25"
+      (click)="closeModal('edit')"
+    >
+      {{ 'components.virtual-challenge.common-model.edit-mileage' | translate }}
+    </button>
+  </div>
+</div>
+
+<!-- PROGRESS BAR EDITION -->
+
+<!-- <div
+  class="modal-body"
+  *ngIf="show.modal.challengeProgress && addMileProgress && addMileProgress.teamDetail && addMileProgress.existingMember"
+>
+  <div
+    class="progress_cover"
+    [ngClass]="
+      addMileProgress.progressDetails.safeState === 'NOT'
+        ? 'not-safe'
+        : addMileProgress.progressDetails.safeState === 'MAYBE'
+        ? 'maybe-safe'
+        : 'likely-safe'
+    "
+  >
+    <span
+      class="sticky_value"
+      [ngStyle]="{
+        left:
+          addMileProgress.teamDetail.achieved_run === 0
+            ? '2%'
+            : (addMileProgress.teamDetail.achieved_run * 100) / addMileProgress.teamDetail.total_run <= 5
+            ? '5%'
+            : (addMileProgress.teamDetail.achieved_run * 100) / addMileProgress.teamDetail.total_run <= 100
+            ? (addMileProgress.teamDetail.achieved_run * 100) / addMileProgress.teamDetail.total_run + '%'
+            : '95%'
+      }"
+    >
+      {{ addMileProgress.teamDetail.achieved_run }}
+      {{ addMileProgress.challengeDetail.unitType === 'DISTANCE' ? 'mi' : 'ft' }}
+    </span>
+    <ngb-progressbar
+      type="primary"
+      [value]="
+        addMileProgress.teamDetail.achieved_run === 0
+          ? 1
+          : (addMileProgress.teamDetail.achieved_run * 100) / addMileProgress.teamDetail.total_run <= 5
+          ? 5
+          : (addMileProgress.teamDetail.achieved_run * 100) / addMileProgress.teamDetail.total_run <= 100
+          ? (addMileProgress.teamDetail.achieved_run * 100) / addMileProgress.teamDetail.total_run
+          : 100
+      "
+    ></ngb-progressbar>
+    <div class="d-flex justify-content-between">
+      <span class="val_1">0 {{ addMileProgress.challengeDetail.unitType === 'DISTANCE' ? 'mi' : 'ft' }}</span>
+      <span class="val_3"
+        >{{ addMileProgress.teamDetail.total_run }} {{ addMileProgress.challengeDetail.unitType === 'DISTANCE' ? 'mi' : 'ft' }}</span
+      >
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="rg_btn" (click)="closeModal(false)">{{ 'components.virtual-challenge.common-model.ok' | translate }}</button>
+    <button
+      class="rg_btn rg_bbtn"
+      *ngIf="addMileProgress.addedActivity && addMileProgress.addedActivity.unit > 25"
+      (click)="closeModal('edit')"
+    >
+      {{ 'components.virtual-challenge.common-model.edit-mileage' | translate }}
+    </button>
+  </div>
+</div> -->
+
+<!-- SHOW FAQ QUESTIONS -->
+
+<div class="modal-body" *ngIf="show.modal.faq">
+  <div *ngFor="let faq of componentData.faqs">
+    <h4 class="mb-1">{{ faq.title }}</h4>
+    <p class="mb-3" [innerHTML]="faq.description"></p>
+  </div>
+</div>
+
+<!-- VIRTUAL GREETINGS -->
+
+<div class="modal-body text-center" *ngIf="show.modal.virtualGreetings">
+  <div class="img_cover">
+    <img [src]="componentData.details.image" width="172px" height="172px" />
+  </div>
+  <strong>{{ componentData.details.name }}</strong>
+  <p [innerHTML]="componentData.details.day"></p>
+</div>
+
+<!-- DELETE THE ACTIVITY -->
+
+<div class="modal-body" *ngIf="show.modal.deleteActivity">
+  <p>{{ componentData.details.description }}</p>
+  <button class="rg_btn delete_btn" (click)="deleteActivity(componentData.details.activityId)" [disabled]="show.loading">
+    {{ show.loading ? 'Deleting ' + componentData.details.btnText : 'Delete ' + componentData.details.btnText }}
+  </button>
+  <button class="rg_btn rg_bbtn" (click)="closeModal()">{{ 'components.virtual-challenge.common-model.cancel' | translate }}</button>
+</div>
+
+<!-- RENAME TEAM -->
+<div *ngIf="show.modal.renameTeam && addMileProgress.teamDetail">
+  <div class="modal-body">
+    <div class="form-group">
+      <input
+        type="email"
+        id="lable1"
+        maxlength="24"
+        [(ngModel)]="addMileProgress.teamDetail.name"
+        placeholder="Enter Team Name"
+        class="form-control"
+      />
+    </div>
+    <!-- <p>Team names can't be longer than 24 characters and must comply with our <a href="#">Community Guidelines.</a></p> -->
+    <p>Team names can't be longer than 24 characters.</p>
+  </div>
+  <div class="modal-footer">
+    <button (click)="closeModal(addMileProgress.teamDetail.name)" class="rg_btn mb-2">Rename</button>
+    <button (click)="closeModal()" class="rg_btn rg_bbtn">Cancel</button>
+  </div>
+</div>
+
+<!-- DELETE THE MEMBER FORM THE TEAM FOR THE TEAM CHALLENGE ONLY -->
+<div *ngIf="show.modal.deleteMember && addMileProgress.existingMember">
+  <div class="modal-body">
+    <h3 class="delete-text">
+      Are you sure you want to delete
+      <strong> {{ componentData.name }}</strong>
+      from your team? This action cannot be undone.
+    </h3>
+  </div>
+  <div class="modal-footer">
+    <button (click)="closeModal(addMileProgress.existingMember)" class="rg_btn mb-2">Yes, get rid of them.</button>
+    <button (click)="closeModal('cancel')" class="rg_btn rg_bbtn">No, they’ll do…for now.</button>
+  </div>
+</div>
+
+<!-- DECLINE INVITATION -->
+<div *ngIf="show.modal.declineInvitation">
+  <div class="modal-body text-center">
+    <div class="popup-inner">
+      <h3>You can only join one challenge at a time</h3>
+      <p>
+        You have a pending invite to join <strong>{{ componentData.changeTeamName }}</strong> challenge. Do you want to join their team or
+        create a new challenge?
+      </p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="rg_btn mb-2" (click)="closeModal('INVITE')">Join Existing Team</button>
+    <button class="rg_btn rg_bbtn" (click)="closeModal('NEW-TEAM')">Create New Team</button>
+  </div>
+</div>
+
+<!-- FOR PENDING INVITES -->
+<div *ngIf="show.modal.invite && addMileProgress.inviteDetails">
+  <div class="modal-body">
+    <div class="invite_row" *ngFor="let invites of addMileProgress.inviteDetails">
+      <div class="img_col">
+        <!-- <img src="assets/images/virtual-challenge/avtar1.png" alt="Avtar"> -->
+        <p class="mb-2 d-inline-block w-100">
+          <span *ngIf="invites.challenge.challengeType !== 'BRAND' && invites.challenge.challengeType !== 'COMMUNITY'"
+            >Invited to achieve {{ invites.challenge.unitValue }} {{ invites.challenge.unitType === 'DISTANCE' ? 'Miles' : 'Elevation' }} in
+            {{ invites.challenge.maxDays }} days by {{ invites.challengeTeam.name }}
+          </span>
+          <span *ngIf="invites.challenge.challengeType === 'COMMUNITY'">
+            Invited to achieve {{ invites.challenge.unitValue }} days challenge by {{ invites.challengeTeam.name }}
+          </span>
+          <span *ngIf="invites.challenge.challengeType === 'BRAND'"
+            >Invited for {{ invites.challengeTeam.name }} by {{ invites.message }}</span
+          >
+          <a
+            style="float: right; background-color: #f17a21; padding: 5px 10px; border-radius: 5px; color: #fff; cursor: pointer"
+            (click)="moveToInfo(invites.challenge.id, invites.challengeTeam.id)"
+            >view</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTFICATIONS -->
+<div class="modal-body" *ngIf="show.modal.notification">
+  <div class="not_row" [class.n_read]="!notification.isRead" *ngFor="let notification of componentData.notificationsData">
+    <div class="img_col">
+      <img [src]="componentData.notificationsData.logo" width="24px" alt="Community" />
+      <div class="name_col" (click)="setNotificationRead(notification)">
+        <p>{{ notification.message }}</p>
+      </div>
+    </div>
+    <strong>{{ notification.insertedOn }}</strong>
+  </div>
+  <div class="no_notif" *ngIf="!componentData.notificationsData || !componentData.notificationsData.length">
+    {{ 'components.virtual-challenge.common-model.no-notifications' | translate }}
+  </div>
+</div>
+<!-- </div> -->

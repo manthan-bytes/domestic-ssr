@@ -1,0 +1,91 @@
+@import 'vars';
+
+.ourcause_tab {
+  padding-top: 50px;
+  padding-bottom: 5px;
+  @media (max-width: $screen-xs-max) {
+    .container {
+      padding: 0;
+    }
+  }
+  .charities_intro {
+    margin-bottom: 75px;
+    text-align: center;
+    p {
+      font-size: 16px;
+      line-height: 24px;
+      color: $event_gray;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    hr {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border-top: 1px solid #eee;
+    }
+  }
+  .charity-row {
+    ::ng-deep {
+      margin-bottom: 75px;
+      p,
+      * {
+        font-size: 16px;
+        line-height: 24px;
+        text-align: left;
+        color: $event_gray;
+        font-weight: 400;
+        /*margin-bottom: 20px;*/
+        font-family: $font_family_barlow;
+      }
+      p {
+        margin-bottom: 20px;
+      }
+      h1,
+      h2 {
+        font-family: $font_family_barlow_Condensed;
+        font-weight: 600;
+        font-size: 16px;
+        color: $event_gray;
+      }
+      strong {
+        font-weight: 700;
+      }
+      a {
+        color: $orange-brand !important;
+        display: inline-block;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+      hr {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border-top: 1px solid #eee;
+      }
+      img {
+        margin-right: 30px;
+        max-height: 150px;
+      }
+      li {
+        position: relative;
+        padding-left: 15px;
+        margin-bottom: 10px;
+        &:before {
+          content: '';
+          position: absolute;
+          height: 5px;
+          width: 5px;
+          background-color: $event_gray;
+          border-radius: 50%;
+          left: 0;
+          top: 10px;
+        }
+      }
+      @media (max-width: $screen-xs-max) {
+        iframe {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,192 @@
+<div class="leader_bord">
+  <div class="rank_cover">
+    <ul>
+      <li [class.active]="existingMember.currentSafeStatus === data.MAYBE_SAFE.value">
+        <svg width="38" height="48" viewBox="0 0 32 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.5 0.5H31.5V30.2296L16 43.345L0.5 30.2296V0.5Z" stroke="#666666" />
+        </svg>
+        <span class="over_text">{{ data.MAYBE_SAFE.title }}</span>
+        <h5>{{ 'components.virtual-challenge.leader-board.middle' | translate }}</h5>
+        <h5>{{ data.MAYBE_SAFE.totalPlayers }} {{ 'components.virtual-challenge.leader-board.runners' | translate }}</h5>
+        <h5 *ngIf="existingMember.currentSafeStatus === data.MAYBE_SAFE.value" class="active_msg">
+          {{ 'components.virtual-challenge.leader-board.you-are-here' | translate }}
+        </h5>
+      </li>
+      <li [class.active]="existingMember.currentSafeStatus === data.SAFE.value">
+        <svg width="38" height="48" viewBox="0 0 32 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.5 0.5H31.5V30.2296L16 43.345L0.5 30.2296V0.5Z" stroke="#666666" />
+        </svg>
+        <span class="over_text">{{ data.SAFE.title }}</span>
+        <h5>{{ 'components.virtual-challenge.leader-board.top' | translate }}</h5>
+        <h5>{{ data.SAFE.totalPlayers }} {{ 'components.virtual-challenge.leader-board.runners' | translate }}</h5>
+        <h5 *ngIf="existingMember.currentSafeStatus === data.SAFE.value" class="active_msg">
+          {{ 'components.virtual-challenge.leader-board.you-are-here' | translate }}
+        </h5>
+      </li>
+      <li [class.active]="existingMember.currentSafeStatus === data.NOT_SAFE.value">
+        <svg width="38" height="48" viewBox="0 0 32 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.5 0.5H31.5V30.2296L16 43.345L0.5 30.2296V0.5Z" stroke="#666666" />
+        </svg>
+        <span class="over_text">{{ data.NOT_SAFE.title }}</span>
+        <h5>{{ 'components.virtual-challenge.leader-board.bottom' | translate }}</h5>
+        <h5>{{ data.NOT_SAFE.totalPlayers }} {{ 'components.virtual-challenge.leader-board.runners' | translate }}</h5>
+        <h5 *ngIf="existingMember.currentSafeStatus === data.NOT_SAFE.value" class="active_msg">
+          {{ 'components.virtual-challenge.leader-board.you-are-here' | translate }}
+        </h5>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <div class="table_title">
+      <h6 class="peach_color">
+        {{ data.SAFE.title }}
+        <h5 class="mt-2">{{ data.SAFE.description }}</h5>
+      </h6>
+      <h5>
+        {{ 'components.virtual-challenge.leader-board.currently' | translate }} {{ data.SAFE.currently }}
+        {{ 'components.virtual-challenge.leader-board.mi1' | translate }}
+      </h5>
+    </div>
+    <div class="Table">
+      <div class="Heading">
+        <div class="Cell">
+          <p>#</p>
+        </div>
+        <div class="Cell">
+          <p>{{ 'components.virtual-challenge.leader-board.runner' | translate }}</p>
+        </div>
+        <div class="Cell">
+          <p>{{ 'components.virtual-challenge.leader-board.distance' | translate }}</p>
+        </div>
+      </div>
+      <div class="text-center mt-3" *ngIf="!data.SAFE.data.length">
+        {{ 'components.virtual-challenge.leader-board.no-data-found' | translate }}
+      </div>
+      <div
+        class="Row"
+        [class.border_row]="safeMember.challengeMemberId === challengeMemberId"
+        *ngFor="let safeMember of data.SAFE.data; let index = index"
+      >
+        <ng-container *ngIf="safeMember.type !== 'divider'">
+          <div class="Cell">
+            <p>{{ safeMember.rank }}</p>
+          </div>
+          <div class="Cell">
+            <p>{{ safeMember.firstName }} {{ safeMember.lastName }}</p>
+          </div>
+          <div *ngIf="safeMember.type !== 'divider'" class="Cell">
+            <p>{{ safeMember.total_run }} {{ 'common-data.mi' | translate }}</p>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="safeMember.type === 'divider'">
+          <div class="text-center mt-3 total_runner">
+            <h5>{{ safeMember.totalPlayers }} {{ 'components.virtual-challenge.leader-board.runners' | translate }}</h5>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="table_title">
+      <h6 class="peach_color">
+        {{ data.MAYBE_SAFE.title }}
+        <h5 class="mt-2">{{ data.MAYBE_SAFE.description }}</h5>
+      </h6>
+      <h5>
+        {{ 'components.virtual-challenge.leader-board.currently' | translate }} {{ data.MAYBE_SAFE.currently }}
+        {{ 'components.virtual-challenge.leader-board.mi1' | translate }}
+      </h5>
+    </div>
+    <div class="Table">
+      <div class="Heading">
+        <div class="Cell">
+          <p>#</p>
+        </div>
+        <div class="Cell">
+          <p>{{ 'components.virtual-challenge.leader-board.runner' | translate }}</p>
+        </div>
+        <div class="Cell">
+          <p>{{ 'components.virtual-challenge.leader-board.distance' | translate }}</p>
+        </div>
+      </div>
+      <div class="text-center mt-3" *ngIf="!data.MAYBE_SAFE.data.length">
+        {{ 'components.virtual-challenge.leader-board.no-data-found' | translate }}
+      </div>
+      <div
+        class="Row"
+        [class.border_row]="safeMember.challengeMemberId === challengeMemberId"
+        *ngFor="let safeMember of data.MAYBE_SAFE.data"
+      >
+        <ng-container *ngIf="safeMember.type !== 'divider'">
+          <div class="Cell">
+            <p>{{ safeMember.rank }}</p>
+          </div>
+          <div class="Cell">
+            <p>{{ safeMember.firstName }} {{ safeMember.lastName }}</p>
+          </div>
+          <div *ngIf="safeMember.type !== 'divider'" class="Cell">
+            <p>{{ safeMember.total_run }} {{ 'common-data.mi' | translate }}</p>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="safeMember.type === 'divider'">
+          <div class="text-center mt-3 total_runner">
+            <h5>{{ safeMember.totalPlayers }} {{ 'components.virtual-challenge.leader-board.runners' | translate }}</h5>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="table_title">
+      <h6 class="peach_color">
+        {{ data.NOT_SAFE.title }}
+        <h5 class="mt-2">{{ data.NOT_SAFE.description }}</h5>
+      </h6>
+      <h5>
+        {{ 'components.virtual-challenge.leader-board.currently' | translate }} {{ data.NOT_SAFE.currently }}
+        {{ 'components.virtual-challenge.leader-board.mi1' | translate }}
+      </h5>
+    </div>
+    <div class="Table">
+      <div class="Heading">
+        <div class="Cell">
+          <p>#</p>
+        </div>
+        <div class="Cell">
+          <p>{{ 'components.virtual-challenge.leader-board.runner' | translate }}</p>
+        </div>
+        <div class="Cell">
+          <p>{{ 'components.virtual-challenge.leader-board.distance' | translate }}</p>
+        </div>
+      </div>
+      <div class="text-center mt-3" *ngIf="!data.NOT_SAFE.data.length">
+        {{ 'components.virtual-challenge.leader-board.no-data-found' | translate }}
+      </div>
+      <div
+        class="Row"
+        [class.border_row]="safeMember.challengeMemberId === challengeMemberId"
+        *ngFor="let safeMember of data.NOT_SAFE.data"
+      >
+        <ng-container *ngIf="safeMember.type !== 'divider'">
+          <div class="Cell">
+            <p>{{ safeMember.rank }}</p>
+          </div>
+          <div class="Cell">
+            <p>{{ safeMember.firstName }} {{ safeMember.lastName }}</p>
+          </div>
+          <div *ngIf="safeMember.type !== 'divider'" class="Cell">
+            <p>{{ safeMember.total_run }} {{ 'common-data.mi' | translate }}</p>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="safeMember.type === 'divider'">
+          <div class="text-center mt-3 total_runner">
+            <h5>{{ safeMember.totalPlayers }} {{ 'components.virtual-challenge.leader-board.runners' | translate }}</h5>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

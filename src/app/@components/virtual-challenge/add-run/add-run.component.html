@@ -1,0 +1,109 @@
+<div class="add_run">
+  <h6 class="head_style">Record {{ challengeDetails.unitType === 'DISTANCE' ? 'Mileage' : 'Feet' }}</h6>
+  <button
+    class="rg_btn rg_bbtn"
+    [hidden]="show.mileInput && !show.challengeOver"
+    (click)="show.mileInput = true; show.headText = 'Enter Mileage'; show.updatedFrom = 'addMile'"
+  >
+    Add {{ challengeDetails.unitType === 'DISTANCE' ? 'Mileage' : 'Feet' }}
+  </button>
+  <div class="connect_strava" [hidden]="!show.mileInput && !show.challengeOver">
+    <form #addRunForm="ngForm" name="addRunForm">
+      <div class="form-group miles_input">
+        <input
+          type="text"
+          id="addRun"
+          pattern="[0-9]*"
+          inputmode="decimal"
+          name="addRun"
+          placeholder="1.0"
+          class="form-control"
+          (input)="mileCheck()"
+          maxlength="5"
+          [(ngModel)]="addRunNumber"
+          (focus)="formElementEnter(addRunForm)"
+          (blur)="formElementExit(addRunForm)"
+        />
+        <span class="over_input">{{ challengeDetails.unitType === 'DISTANCE' ? 'MILES' : 'FEET' }}</span>
+      </div>
+      <div class="form-group optional_input" [ngClass]="{ error_input: show.showLinkError }">
+        <input
+          type="text"
+          name="link"
+          placeholder="Optional: Link To Public Activity (e.g. Strava)"
+          class="form-control"
+          id="addRunLink"
+          [(ngModel)]="addedRun.link"
+          (input)="addRunLinkValidation()"
+          (focus)="formElementEnter(addRunForm)"
+          (blur)="formElementExit(addRunForm)"
+        />
+        <span class="error_msg" *ngIf="show.showLinkError">{{
+          addedRun.link ? 'Enter Valid Activity Link' : 'Activity Link is Required'
+        }}</span>
+      </div>
+      <span class="error_msg" *ngIf="challengeDetails.challengeType === 'BRAND' && addedRun.run >= 13">{{
+        'components.virtual-challenge.add-run.maximum-limit' | translate
+      }}</span>
+      <div class="d-flex align-items-center">
+        <button class="rg_btn" id="addRunBtn" *ngIf="!show.isEditMile" [disabled]="!addedRun.run || show.loading" (click)="addRun()">
+          <span class="spinner-grow spinner-grow-sm text-dark" role="status" aria-hidden="true" [hidden]="!show.loading"></span>
+          {{
+            addedRun.run && !show.loading
+              ? 'Add ' + addedRun.run + (challengeDetails.unitType === 'DISTANCE' ? ' Mile Run' : ' Ft Climbed')
+              : show.loading
+              ? 'Adding ' + addedRun.run + (challengeDetails.unitType === 'DISTANCE' ? ' Mile Run' : ' Ft Climbed')
+              : 'Add Run'
+          }}
+        </button>
+        <button class="rg_btn" id="addRunBtn" *ngIf="show.isEditMile" [disabled]="!addedRun.run || show.loading" (click)="updateRun()">
+          <span class="spinner-grow spinner-grow-sm text-dark" role="status" aria-hidden="true" [hidden]="!show.loading"></span>
+          {{
+            addedRun.run && !show.loading
+              ? 'Update ' + addedRun.run + (challengeDetails.unitType === 'DISTANCE' ? ' Mile Run' : ' Ft Climbed')
+              : show.loading
+              ? 'Updating ' + addedRun.run + (challengeDetails.unitType === 'DISTANCE' ? ' Mile Run' : ' Ft Climbed')
+              : 'Update Run'
+          }}
+        </button>
+        <p class="mb-5">
+          {{
+            challengeDetails.challengeType === 'BRAND'
+              ? ('components.virtual-challenge.add-run.miles-report-bigfoot' | translate)
+              : ('components.virtual-challenge.add-run.miles-report' | translate)
+          }}
+        </p>
+      </div>
+    </form>
+  </div>
+  <div class="d-flex align-items-center" *ngIf="show.challengeOver">
+    <p class="mb-5">{{ 'common-data.challenge-over' | translate }}</p>
+  </div>
+  <div [hidden]="show.mileInput">
+    <h6 class="head_style mt-5">{{ 'components.virtual-challenge.add-run.run-log' | translate }}</h6>
+    <span *ngIf="runLogs && !runLogs.length">{{ 'components.virtual-challenge.add-run.no-log-found' | translate }}</span>
+    <div class="run_loglist">
+      <div *ngFor="let log of runLogs; let i = index" class="run_log">
+        <div class="log_date">
+          {{ log.logDate | dateFormat : 'MMM DD' }}
+        </div>
+        <div class="unite_col">{{ log.unit }} {{ challengeDetails.unitType === 'DISTANCE' ? 'mi Run' : 'ft Climbed' }}</div>
+        <div class="button_cover">
+          <button class="rg_btn rg_bbtn" *ngIf="log.isUndar24Hr" (click)="editMile(log, i)">
+            {{ 'components.virtual-challenge.add-run.edit' | translate }}
+          </button>
+          <button class="rg_btn rg_bbtn delete_btn" *ngIf="log.isUndar24Hr" (click)="deleteRun(log)">
+            {{ 'components.virtual-challenge.add-run.delete' | translate }}
+          </button>
+        </div>
+      </div>
+    </div>
+    <p class="mt-4">
+      {{
+        challengeDetails.challengeType === 'BRAND'
+          ? ('components.virtual-challenge.add-run.logged-mileage-bigfoot' | translate)
+          : ('components.virtual-challenge.add-run.logged-mileage' | translate)
+      }}
+    </p>
+  </div>
+</div>

@@ -1,0 +1,125 @@
+@import '../../../../assets/styles/vars';
+@import '../../../../assets/styles/mixins';
+::ng-deep {
+  .invite-modal {
+    .close {
+      padding: 0;
+      margin: 0;
+      font-size: 24px;
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      opacity: 1 !important;
+      font-weight: 600;
+      color: $navy;
+      outline: none;
+    }
+    .modal-body {
+      padding: 40px;
+      @media (max-width: $screen-xs-max) {
+        padding: 20px;
+      }
+      .error_msg {
+        margin-bottom: 10px;
+        color: red;
+        display: block;
+      }
+      .title {
+        font-size: 26px;
+        color: $black3;
+        font-family: $font_family_barlow_Condensed;
+        margin-bottom: 15px;
+        @media (max-width: $screen-xs-max) {
+          font-size: 20px;
+        }
+      }
+      .form-control {
+        border: 1px solid $navy;
+        height: 37px;
+        font-size: 16px;
+        border-radius: 0;
+        background: $white;
+        box-shadow: none !important;
+      }
+      .note {
+        color: $black3;
+        font-size: 15px;
+      }
+      .submit-wrapper {
+        margin-top: 30px;
+        .submit-btn {
+          font-size: 20px;
+          color: $navy;
+          text-transform: uppercase;
+          background: $orange-brand;
+          border: none;
+          padding: 19px 31px;
+          border-radius: 0;
+          min-width: auto;
+          max-width: unset;
+          width: auto;
+          margin: 30px auto 0;
+          &.active {
+            background: $orange-brand;
+          }
+        }
+      }
+      .or-section {
+        width: 100%;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        margin-top: 40px;
+        @media (max-width: $screen-xs-max) {
+          margin-top: 30px;
+        }
+        span {
+          color: $black3;
+          text-transform: uppercase;
+          font-size: 15px;
+          width: 30%;
+          display: inline-block;
+          background-color: $white;
+          &::before {
+            width: 100%;
+            height: 1px;
+            background: #979797;
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 0;
+            top: 8px;
+            z-index: -1;
+          }
+        }
+      }
+      .url-section {
+        margin-top: 30px;
+        @media (max-width: $screen-xs-max) {
+          margin-top: 20px;
+        }
+        .copu-url {
+          color: #00a5b5;
+          font-size: 15px;
+        }
+        .url-content {
+          display: flex;
+          align-items: center;
+        }
+        .copy-icon {
+          cursor: pointer;
+          width: 20px;
+          text-align: right;
+        }
+        .section-content {
+          padding-right: 7em;
+          width: calc(100% - 20px);
+          word-break: break-all;
+          @media (max-width: $screen-xs-max) {
+            padding-right: 2em;
+          }
+        }
+      }
+    }
+  }
+}

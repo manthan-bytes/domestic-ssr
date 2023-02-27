@@ -1,0 +1,101 @@
+<div class="container text-center" *ngIf="!regionEvents">
+  <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+</div>
+<div *ngIf="regionEvents.length && device === 'desktop'" class="region-box">
+  <a class="dropdown-item-title">{{ regionEvents[0].region }}</a>
+  <ul>
+    <li *ngFor="let event of regionEvents | sortBy : 'asc' : 'aliasName'" (click)="closeDropdown()">
+      <a
+        *ngIf="event.country === 'USA'"
+        routerLink="/{{ event.menuUrl }}"
+        fragment="overview"
+        class="dropdown-item"
+        (click)="eCommerceSelectItemDataLayer(event)"
+      >
+        {{ event.aliasName }}
+        <span
+          class="{{
+            event.type === 'relay'
+              ? 'road-color'
+              : event.type === 'trail'
+              ? 'trail-color'
+              : event.type === 'sprint'
+              ? 'sprint-color'
+              : 'sunset-color'
+          }}"
+        >
+          {{ event.type.toLowerCase() === 'relay' ? 'ROAD' : event.type.replace('_', ' ') }}
+        </span>
+      </a>
+      <div *ngIf="event.country !== 'USA'">
+        <a appLinkEventDetail [selectedEvent]="event" class="dropdown-item" (click)="eCommerceSelectItemDataLayer(event)">
+          {{ event.aliasName }}
+          <span
+            class="{{
+              event.type === 'relay'
+                ? 'road-color'
+                : event.type === 'trail'
+                ? 'trail-color'
+                : event.type === 'sprint'
+                ? 'sprint-color'
+                : 'sunset-color'
+            }}"
+          >
+            {{ event.type.toLowerCase() === 'relay' ? 'ROAD' : event.type.replace('_', ' ') }}
+          </span>
+        </a>
+      </div>
+    </li>
+  </ul>
+</div>
+<!-- <div ngbDropdown  *ngIf="regionEvents.length && device === 'moble'" class="region-box">
+  <div ngbDropdownMenu aria-labelledby="northeast">
+    <button ngbDropdownItem>Action - 1</button>
+    <button ngbDropdownItem>Another Action</button>
+    <button ngbDropdownItem>Something else is here</button>
+  </div>
+</div> -->
+
+<a ngbDropdownToggle class="dropdown-toggle btn nav-link" id="subrace" *ngIf="regionEvents && device === 'mobile'" ngbDropdownToggle
+  >{{ regionEvents[0]?.region }}
+</a>
+<div class="mobile-race-head" ngbDropdownMenu aria-labelledby="subrace" *ngIf="regionEvents && device === 'mobile'">
+  <ul>
+    <li *ngFor="let event of regionEvents | sortBy : 'asc' : 'aliasName'" (click)="closeDropdown()">
+      <a *ngIf="event.country === 'USA'" routerLink="/{{ event.menuUrl }}" fragment="overview">
+        {{ event.aliasName }}
+        <span
+          class="{{
+            event.type === 'relay'
+              ? 'road-color'
+              : event.type === 'trail'
+              ? 'trail-color'
+              : event.type === 'sprint'
+              ? 'sprint-color'
+              : 'sunset-color'
+          }}"
+        >
+          {{ event.type.toLowerCase() === 'relay' ? 'ROAD' : event.type.replace('_', ' ') }}
+        </span>
+      </a>
+      <div *ngIf="event.country !== 'USA'">
+        <a appLinkEventDetail [selectedEvent]="event">
+          {{ event.aliasName }}
+          <span
+            class="{{
+              event.type === 'relay'
+                ? 'road-color'
+                : event.type === 'trail'
+                ? 'trail-color'
+                : event.type === 'sprint'
+                ? 'sprint-color'
+                : 'sunset-color'
+            }}"
+          >
+            {{ event.type.toLowerCase() === 'relay' ? 'ROAD' : event.type.replace('_', ' ') }}
+          </span>
+        </a>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,76 @@
+<div class="pre_footer_virtual_challenge">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-4 col-sm-4">
+        <!-- <h4>{{ 'common-data.feedback' | translate }}</h4> -->
+        <a href="https://aftershokz.com/us" target="_blank">
+          <img class="img-fluid center-block" src="https://ragnar-ibm-mail.s3.amazonaws.com/outrun-bigfoot-2021/AfterShokz+Logo.png" />
+        </a>
+        <!-- <p>{{ 'components.virtual-challenge.footer.help-us' | translate }}</p> -->
+      </div>
+      <div class="col-md-8 col-sm-8">
+        <div class="testimonial-container-fluid">
+          <div class="container">
+            <div id="testimonialobf" class="carousel slide text-center" data-ride="carousel">
+              <!-- Wrapper for slides -->
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="quote">
+                    <div class="quote-text">Believe in yourself, especially when no one else will.</div>
+                    <div class="quote-by">- Sasquatch</div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="quote">
+                    <div class="quote-text">If Bigfoot were a rocket we'd already be on Mars.</div>
+                    <div class="quote-by">- Elon Musk</div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="quote">
+                    <div class="quote-text">When I was a kid I dreamt about being half as fast as Bigfoot...</div>
+                    <div class="quote-by">- Usain Bolt</div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="quote">
+                    <div class="quote-text">Compared to Bigfoot my dedication to the game is sloth. Utter Sloth.</div>
+                    <div class="quote-by">- Michael Jordan</div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="quote">
+                    <div class="quote-text">Those are some big feet to fill!</div>
+                    <div class="quote-by">- Littlefoot</div>
+                  </div>
+                </div>
+
+                <div class="carousel-item">
+                  <div class="quote">
+                    <div class="quote-text">Bigfoot always was my favorite.</div>
+                    <div class="quote-by">- Mother Nature</div>
+                  </div>
+                </div>
+              </div>
+              <ol class="carousel-indicators">
+                <li data-target="#testimonialobf" data-slide-to="0" class="active"></li>
+                <li data-target="#testimonialobf" data-slide-to="1"></li>
+                <li data-target="#testimonialobf" data-slide-to="2"></li>
+                <li data-target="#testimonialobf" data-slide-to="3"></li>
+                <li data-target="#testimonialobf" data-slide-to="4"></li>
+                <li data-target="#testimonialobf" data-slide-to="5"></li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="currentScreen !== 'invite' && showInviteButton" class="col-md-4 col-sm-12 d-block d-md-none">
+        <a [routerLink]="'.'" fragment="invite" class="rg_btn btn-block">{{ 'virtual-challenge.archived-dashboard.invite' | translate }}</a>
+      </div>
+    </div>
+  </div>
+</div>

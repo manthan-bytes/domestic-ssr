@@ -1,0 +1,107 @@
+<div *ngIf="challengeType !== 'TEAM'" class="round_progress_bar">
+  <svg xmlns="http://www.w3.org/2000/svg" height="358" width="358" viewBox="18 0 163 163" data-value="40">
+    <path class="bg" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-linecap="round" stroke="#F1F1F1;" />
+    <path
+      class="meter"
+      d="M41 149.5a77 77 0 1 1 117.93 0"
+      fill="none"
+      stroke-dasharray="270"
+      stroke-dashoffset="155"
+      stroke-linecap="round"
+      stroke="#CC2B48"
+      *ngIf="memberDetail.safeState === 'NOT'"
+    />
+    <path
+      class="meter"
+      d="M41 149.5a77 77 0 1 1 117.93 0"
+      fill="none"
+      stroke-dasharray="120"
+      stroke-dashoffset="120"
+      stroke-linecap="round"
+      stroke="#F4E277"
+      *ngIf="memberDetail.safeState === 'MAYBE'"
+    />
+    <path
+      class="meter"
+      d="M41 149.5a77 77 0 1 1 117.93 0"
+      fill="none"
+      stroke-dasharray="270"
+      stroke-dashoffset="295"
+      stroke-linecap="round"
+      stroke="#00A8B9"
+      *ngIf="memberDetail.safeState === 'LIKELY'"
+    />
+    <!-- <circle cx="8" cy="8" r="4" fill="#161616" style="offset-path: path('M41 149.5a77 77 0 1 1 117.93 0'); transform:translate(-8px, -8px);" stroke="#ffffff" [style.offset-distance]="memberDetail.myRankPercentage + '%'"></circle> 
+        <path class="round_offset" stroke="#ffffff" d="M18.41,9.46a9,9,0,1,1-1.57-5.07A9,9,0,0,1,18.41,9.46Z"/> -->
+  </svg>
+  <div
+    class="round_offset d-md-block d-none"
+    [ngStyle]="{ transform: 'rotate(' + (140 + 2.6 * memberDetail.myRankPercentage) + 'deg) translate(170px, 0px)' }"
+  ></div>
+  <div
+    class="round_offset d-md-none"
+    [ngStyle]="{ transform: 'rotate(' + (140 + 2.6 * memberDetail.myRankPercentage) + 'deg) translate(138px, 0px)' }"
+  ></div>
+
+  <div class="text_wrap">
+    <span class="text-left">{{ memberDetail.myRank }}</span>
+    <span class="text-right">{{ memberDetail.totalMembers }}</span>
+  </div>
+</div>
+
+<div *ngIf="challengeType === 'TEAM' && existingMember" class="round_progress_bar">
+  <svg xmlns="http://www.w3.org/2000/svg" height="358" width="358" viewBox="18 0 163 163" data-value="40">
+    <path class="bg" d="M41 149.5a77 77 0 1 1 117.93 0" fill="none" stroke-linecap="round" stroke="#F1F1F1;" />
+    <path
+      class="meter"
+      d="M41 149.5a77 77 0 1 1 117.93 0"
+      fill="none"
+      stroke-dasharray="350"
+      attr.stroke-dashoffset="{{
+        350 - (350 / teamDetail.total_run) * existingMember.achieved_run < 0
+          ? 0
+          : 350 - (350 / teamDetail.total_run) * existingMember.achieved_run
+      }}"
+      stroke-linecap="round"
+      stroke="#CC2B48"
+    />
+    <!--  -->
+    <!-- <path
+      class="meter"
+      d="M41 149.5a77 77 0 1 1 117.93 0"
+      fill="none"
+      stroke-dasharray="120"
+      stroke-dashoffset="120"
+      stroke-linecap="round"
+      stroke="#F4E277"
+    />
+    <path
+      class="meter"
+      d="M41 149.5a77 77 0 1 1 117.93 0"
+      fill="none"
+      stroke-dasharray="270"
+      stroke-dashoffset="295"
+      stroke-linecap="round"
+      stroke="#00A8B9"
+    /> -->
+    <!-- <circle cx="8" cy="8" r="4" fill="#161616" style="offset-path: path('M41 149.5a77 77 0 1 1 117.93 0'); transform:translate(-8px, -8px);" stroke="#ffffff" [style.offset-distance]="memberDetail.myRankPercentage + '%'"></circle> 
+        <path class="round_offset" stroke="#ffffff" d="M18.41,9.46a9,9,0,1,1-1.57-5.07A9,9,0,0,1,18.41,9.46Z"/> -->
+  </svg>
+  <div
+    class="round_offset d-md-block d-none"
+    [ngStyle]="{
+      transform: 'rotate(' + (140 + 2.6 * ((teamDetail.achieved_run * 100) / teamDetail.total_run)) + 'deg) translate(170px, 0px)'
+    }"
+  ></div>
+  <div
+    class="round_offset d-md-none"
+    [ngStyle]="{
+      transform: 'rotate(' + (140 + 2.6 * ((teamDetail.achieved_run * 100) / teamDetail.total_run)) + 'deg) translate(138px, 0px)'
+    }"
+  ></div>
+
+  <div class="text_wrap">
+    <span class="text-left">{{ teamDetail.achieved_run }}</span>
+    <span class="text-right">{{ teamDetail.total_run }}</span>
+  </div>
+</div>

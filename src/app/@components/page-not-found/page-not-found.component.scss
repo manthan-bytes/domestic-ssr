@@ -1,0 +1,55 @@
+@import '../../../assets/styles/vars';
+@import '../../../assets/styles/mixins';
+
+.not-found {
+  overflow: hidden;
+  .not-found-img {
+    overflow: hidden;
+    height: 100%;
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0, rgba(0, 0, 0, 0.9) 79%, #003e51 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr="#4d003e51", endColorstr="#003e51", GradientType=0 );
+      z-index: 1;
+    }
+    img {
+      position: absolute;
+      height: 100%;
+    }
+  }
+  .not-found-content {
+    text-align: center;
+    padding: 100px 15px;
+    width: 100%;
+    margin: 0 auto;
+    .main-text {
+      font-size: 120px;
+      font-weight: 600;
+      line-height: normal;
+      opacity: 0.3;
+    }
+    .title {
+      margin-bottom: 15px;
+    }
+    .home-button {
+      @include theme_btn();
+      margin: 20px auto 0;
+    }
+    @media (max-width: $screen-xs-max) {
+      padding: 50px 15px 60px 15px;
+      .main-text {
+        font-size: 70px;
+      }
+      .title {
+        margin-bottom: 5px;
+        font-size: 21px;
+      }
+    }
+  }
+}

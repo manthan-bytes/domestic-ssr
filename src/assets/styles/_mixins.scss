@@ -1,0 +1,322 @@
+@mixin font-face($name, $path, $weight: null, $style: null) {
+    $src: url(quote($path + ".eot")) format("opentype");
+    $src: url(quote($path + ".eot")) format("embedded-opentype"),
+            url(quote($path + ".svg")) format("svg"),
+            url(quote($path + ".ttf")) format("truetype"),
+            url(quote($path + ".woff")) format("woff");
+
+        @font-face {
+            font-family: quote($name);
+            font-style: $style;
+            font-weight: $weight;
+            src: $src;
+        }
+}
+
+@mixin font-face2($name, $path, $weight: null, $style: null) {
+    $src: url(quote($path + ".eot")) format("opentype");
+    $src: url(quote($path + ".eot")) format("embedded-opentype"),
+            url(quote($path + ".ttf")) format("truetype"),
+            url(quote($path + ".woff")) format("woff");
+ 
+        @font-face {
+            font-family: quote($name);
+            font-style: $style;
+            font-weight: $weight;
+            src: $src;
+        } 
+}
+ 
+@include font-face('icomoon', '/assets/fonts/icomoon',"normal");
+
+@include font-face2('GothamLight','/assets/fonts/gotham-light', "lighter");
+@include font-face2('GothamBold','/assets/fonts/gotham-bold',"bold");
+@include font-face2('GothamBook','/assets/fonts/gotham-book',"normal");
+@include font-face2('GothamMedium','/assets/fonts/gotham-medium',"medium");
+@include font-face2('GothamUltra','/assets/fonts/gotham-ultra',"ultra");
+
+@mixin font-weight($font-weight:400) {
+    font-weight: $font-weight;
+}
+
+
+@mixin heading-1($margin-bottom: 10px) {
+    @include font-weight(600);
+    font-size: $font_size_mega; 
+    letter-spacing: -0.04em;
+    margin-bottom: $margin-bottom;
+    line-height: 40px;
+}
+
+@mixin heading-2($margin-bottom: 10px) {
+    @include font-weight(600);
+    font-size: $font_size_xlarge;
+    letter-spacing: -0.03em;
+    margin-bottom: $margin-bottom;
+    line-height: 32px;
+}
+ 
+@mixin heading-3($margin-bottom: 10px) {
+    @include font-weight(600);
+    font-size: $font_size_large;
+    letter-spacing: -0.03em;
+    margin-bottom: $margin-bottom;
+    line-height: 32px;
+}
+
+@mixin heading-4($margin-bottom: 10px) {
+    @include font-weight(600);
+    font-size: $font_size_medium;
+    letter-spacing: -0.02em;
+    margin-bottom: $margin-bottom;
+    line-height: 32px;
+}
+
+@mixin heading-5($margin-bottom: 10px) {
+    @include font-weight(600);
+    font-size: $font_size_small;
+    line-height: 16px;
+    margin-bottom: $margin-bottom;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+@mixin heading-6($margin-bottom: 10px) {
+    @include font-weight(600);
+    font-size: $font_size_medium - 2px;
+    line-height: 16px;
+    margin-bottom: $margin-bottom;
+    letter-spacing: -0.03em;
+}
+
+@mixin theme_btn{
+    @include font-weight(600);
+    background-color: $orange-brand;
+    border-radius: 6px;
+    font-size: $font_size_base;
+    line-height: 17px;
+    color: $grey-dark;
+    border: 0;
+    max-width: 320px;
+    min-width: 320px;
+    padding: 15px 16px;
+    display: block;
+    text-align: center;
+    width: 100%;
+    transition: all 0.3s linear 0s;
+    cursor: pointer;
+    border: 1px solid transparent;
+    @media(max-width: $screen-md-max){
+        min-width: auto;
+    }
+    @media(max-width: $screen-sm-max){
+        min-width: auto;
+    }
+    @media(max-width: $screen-xs-max){
+        min-width: auto;
+        width: 100%;
+        max-width: 375px;
+    }
+    
+    &:focus{
+        outline: none;
+    }
+    &:hover{
+        text-decoration: none;
+        color: $black3;
+        border-color: $black3;
+        
+    }
+    &.rg_bbtn{
+        background-color: transparent;
+        background-origin: padding-box;
+        border: 1px solid $grey-light;
+        box-sizing: border-box;
+        color:$black;
+        padding: 15px;
+        &:hover{
+            background-color: $white;
+            border-color: $black3;
+            color: $black;
+        }
+        &:disabled,&[disabled]{
+            &:hover{
+                border: 1px solid $grey-light !important;
+                cursor: no-drop;
+            }
+        }
+    }
+    &.rg_gbtn{
+      background: linear-gradient(127.8deg, #FA6A00 82.72%, #FB4900 92.95%);
+    }
+    &:disabled,&[disabled]{
+        background-color: $white2 !important;
+        &:hover{
+            background-color: $white2  !important;
+            border-color: transparent;
+            cursor: no-drop;
+        }
+    }
+}
+@mixin theme_btn2($padding:20px 50px, $fsize: 16px){
+    @include font-weight(600);
+    font-size: $fsize;
+    padding: $padding;
+    border-radius: 0;
+    color: $white;
+    box-shadow: none!important;
+    transform: perspective(1px) translateZ(0);
+    transition-property: color;
+    position: relative;
+    display: inline-block;
+    margin: 0 auto;
+    z-index: 1;
+    cursor: pointer;
+    border: 0;
+    box-shadow: none;
+    outline: none !important;
+    &:before{
+        content: "";
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        transform: scaleX(0);
+        transform-origin: 0 50%;
+        transition-property: transform;
+        transition-duration: .3s;
+        transition-timing-function: ease-out;
+    }
+    &:hover{
+        &::before{
+            background: $brand-secondary;
+            transform: scaleX(1);
+        }
+    }
+    &.btn_orange{
+        background-color: $brand-secondary;
+        border: 1px solid $orange-brand;
+        &:hover{
+            background: $orange-brand;
+            border: 1px solid #fb8841;
+            color: #FFF;
+        }
+    }
+}
+
+
+/* Placeholder */
+@mixin optional-at-root($sel) {
+    @at-root #{if(not &, $sel, selector-append(&, $sel))} {
+      @content;
+    }
+}
+  
+@mixin placeholder {
+    @include optional-at-root('::-webkit-input-placeholder') {
+        @content;
+    }
+
+    @include optional-at-root(':-moz-placeholder') {
+      @content;
+    }
+ 
+    @include optional-at-root('::-moz-placeholder') {
+      @content;
+    }
+
+    @include optional-at-root(':-ms-input-placeholder') {
+      @content;
+    }
+}
+
+
+/**********  Flexbox  ************/
+
+// Flexbox display
+@mixin flexbox() {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}  
+@mixin flex($values) {
+    -webkit-box-flex: $values;
+       -moz-box-flex: $values;
+        -webkit-flex: $values;
+          -ms-flex: $values;
+              flex: $values;
+}   
+@mixin flex-direction($direction) {
+    -webkit-flex-direction: $direction;
+       -moz-flex-direction: $direction;
+        -ms-flex-direction: $direction;
+            flex-direction: $direction;
+  }
+@mixin flex-wrap($wrap) {
+    -webkit-flex-wrap: $wrap;
+       -moz-flex-wrap: $wrap;
+        -ms-flex-wrap: $wrap;
+            flex-wrap: $wrap;
+}
+  
+@mixin flex-flow($flow) {
+    -webkit-flex-flow: $flow;
+       -moz-flex-flow: $flow;
+        -ms-flex-flow: $flow;
+            flex-flow: $flow;
+}
+@mixin order($val) {
+    -webkit-box-ordinal-group: $val;  
+       -moz-box-ordinal-group: $val;     
+             -ms-flex-order: $val;     
+              -webkit-order: $val;  
+                  order: $val;
+}
+@mixin flex-grow($grow) {
+    -webkit-flex-grow: $grow;
+       -moz-flex-grow: $grow;
+        -ms-flex-grow: $grow;
+            flex-grow: $grow;
+}
+@mixin flex-shrink($shrink) {
+    -webkit-flex-shrink: $shrink;
+       -moz-flex-shrink: $shrink;
+        -ms-flex-shrink: $shrink;
+            flex-shrink: $shrink;
+}  
+@mixin flex-basis($width) {
+    -webkit-flex-basis: $width;
+       -moz-flex-basis: $width;
+        -ms-flex-basis: $width;
+            flex-basis: $width;
+}
+@mixin justify-content($justify) {
+    -webkit-justify-content: $justify;
+       -moz-justify-content: $justify;
+        -ms-justify-content: $justify;
+            justify-content: $justify;
+              -ms-flex-pack: $justify;
+}
+@mixin align-content($align) {
+    -webkit-align-content: $align;
+       -moz-align-content: $align;
+        -ms-align-content: $align;
+            align-content: $align;
+}
+  
+@mixin align-items($align) {
+    -webkit-align-items: $align;
+       -moz-align-items: $align;
+        -ms-align-items: $align;
+         -ms-flex-align: $align;
+            align-items: $align;
+}  
+@mixin align-self($align) {
+    -webkit-align-self: $align;
+       -moz-align-self: $align;
+        -ms-align-self: $align;
+            align-self: $align;
+}

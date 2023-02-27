@@ -1,0 +1,530 @@
+<div>
+    <header class="site-header main-header">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="navbar navbar-expand-lg w-100 p-0">
+              <a routerLink="/" class="d-lg-block d-none navbar-brand">
+                <img src="assets/images/Ragnar_logo.png" alt="Ragnar" width="244" height="52" />
+              </a>
+              <a routerLink="/" class="d-lg-none navbar-brand">
+                <img src="assets/images/Ragnar_mobile_logo.png" alt="Ragnar" width="50" height="43" />
+              </a>
+              <a (click)="redirectToURL(headerRoutes.exploreMap, true)" class="d-lg-none find-event-btn theme-btn">Find Events</a>
+              <button
+                (click)="openMenu()"
+                [class.close-icon]="show.mobileNav"
+                class="navbar-toggler collapsed"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span></span>
+                <span></span>
+              </button>
+              <div class="collapse navbar-collapse" [class.active]="show.mobileNav" id="navbarSupportedContent">
+                <div class="navbar-nav ml-auto align-items-center">
+                  <div ngbDropdown display="dynamic" class="d-inline-block d-md-none center_nav" *ngIf="show.virtualNav && !show.mobileNav">
+                    <a class="btn btn-secondary" id="dashboardScreenMenuHeader" ngbDropdownToggle>{{ selectedVirtualChallengeNav }}</a>
+                    <div ngbDropdownMenu aria-labelledby="dashboardScreenMenuHeader">
+                      <a
+                        ngbDropdownItem
+                        *ngFor="let menu of virtualChallengeNav"
+                        (click)="onDashboardScreenChange(menu.value); selectedVirtualChallengeNav = menu.label"
+                        [class.rg_btn]="menu.value === 'addRun'"
+                      >
+                        {{ menu.label }}
+                      </a>
+                    </div>
+                  </div>
+                  <nav class="nav_vol" [class.active]="show.mobileNav">
+                    <ul>
+                      <!-- RACES -->
+                      <li ngbDropdown display="dynamic" class="d-inline-block race_nav nav-item">
+                        <a class="nav-link" id="races" ngbDropdownToggle>{{ 'components.header.events' | translate }}</a>
+                        <div ngbDropdownMenu aria-labelledby="races" class="race_dropdon">
+                          <ul class="d-lg-none">
+                            <li ngbDropdown class="d-lg-inline-block d-none nav-item">
+                              <a ngbDropdownItem class="d-lg-none nav-link" (click)="redirectToURL(headerRoutes.exploreMap, true)">{{
+                                'components.header.explor-map' | translate
+                              }}</a>
+                            </li>
+                            <li ngbDropdown class="d-inline-block nav-item mt-0">
+                              <ul class="sub-menu">
+                                <li>
+                                  <app-header-races
+                                    ngbDropdown
+                                    class="d-inline-block race_sub_menu w-100 nav-item"
+                                    [regionEvents]="regions && regions.northEastEvents"
+                                    (closeDropDown)="closeDropDown($event)"
+                                    [device]="'mobile'"
+                                  >
+                                  </app-header-races>
+                                </li>
+  
+                                <li>
+                                  <app-header-races
+                                    ngbDropdown
+                                    class="d-inline-block race_sub_menu w-100 nav-item"
+                                    [regionEvents]="regions && regions.midWestEvents"
+                                    (closeDropDown)="closeDropDown($event)"
+                                    [device]="'mobile'"
+                                  >
+                                  </app-header-races>
+                                </li>
+  
+                                <li>
+                                  <app-header-races
+                                    ngbDropdown
+                                    class="d-inline-block race_sub_menu w-100 nav-item"
+                                    [regionEvents]="regions && regions.southEvents"
+                                    (closeDropDown)="closeDropDown($event)"
+                                    [device]="'mobile'"
+                                  >
+                                  </app-header-races>
+                                </li>
+  
+                                <li>
+                                  <app-header-races
+                                    ngbDropdown
+                                    class="d-inline-block race_sub_menu w-100 nav-item"
+                                    [regionEvents]="regions && regions.mountainWestEvents"
+                                    (closeDropDown)="closeDropDown($event)"
+                                    [device]="'mobile'"
+                                  >
+                                  </app-header-races>
+                                </li>
+                                <li>
+                                  <app-header-races
+                                    ngbDropdown
+                                    class="d-inline-block race_sub_menu w-100 nav-item"
+                                    [regionEvents]="regions && regions.westCoastEvents"
+                                    (closeDropDown)="closeDropDown($event)"
+                                    [device]="'mobile'"
+                                  >
+                                  </app-header-races>
+                                </li>
+                                <li>
+                                  <a
+                                    ngbDropdownItem
+                                    (click)="redirectToURL(virtualChallengeRoutes.main + '/' + virtualChallengeRoutes.home, true)"
+                                    >31 DAY CHALLENGE
+                                    <h5 class="started">{{ virtualChallengePeriod }}</h5></a
+                                  >
+                                </li>
+                                <li>
+                                  <app-header-races
+                                    *ngIf="regions && regions.australiaEvents.length"
+                                    ngbDropdown
+                                    class="d-inline-block race_sub_menu w-100 nav-item"
+                                    [regionEvents]="regions && regions.australiaEvents"
+                                    (closeDropDown)="closeDropDown($event)"
+                                    [device]="'mobile'"
+                                  >
+                                  </app-header-races>
+                                </li>
+                              </ul>
+                            </li>
+  
+                            <li class="nav-item d-lg-none d-none">
+                              <a ngbDropdownItem class="nav-link" (click)="redirectToURL(headerRoutes.ragnarTrailGlamping, true)">{{
+                                'components.header.ragnar-trail-glamping' | translate
+                              }}</a>
+                            </li>
+                            <li class="nav-item d-lg-none d-none">
+                              <a
+                                ngbDropdownItem
+                                class="nav-link"
+                                (click)="redirectToURL(virtualChallengeRoutes.main + '/' + virtualChallengeRoutes.home, true)"
+                                >{{ 'components.header.31-day-challenge' | translate }}
+                                <h5 class="started">{{ virtualChallengePeriod }}</h5></a
+                              >
+                            </li>
+                          </ul>
+                          <div class="menu_cover">
+                            <div class="d-none d-lg-block first_col">
+                              <a class="rg_btn theme-btn" ngbDropdownItem routerLink="/{{ headerRoutes.exploreMap }}"
+                                ><i class="iconm-map-pin"></i>{{ 'components.header.explore-map' | translate }}</a
+                              >
+                              <ul>
+                                <li>
+                                  <a ngbDropdownItem routerLink="/{{ headerRoutes.ragnarTrailGlamping }}">{{
+                                    'components.header.ragnar-trail-glamping' | translate
+                                  }}</a>
+                                </li>
+                                <li>
+                                  <a
+                                    ngbDropdownItem
+                                    (click)="redirectToURL(virtualChallengeRoutes.main + '/' + virtualChallengeRoutes.home, true)"
+                                    >{{ 'components.header.31-day-challenge' | translate }}
+                                    <h5 class="started">{{ virtualChallengePeriod }}</h5></a
+                                  >
+                                </li>
+                              </ul>
+                              <div class="affirm_menu">
+                                <p>{{ 'components.header.register' | translate }}</p>
+                                <img src="assets/images/affirm-white-logo.png" alt="Affirm" />
+                              </div>
+                            </div>
+                            <div class="d-none d-lg-block">
+                              <app-header-races
+                                [regionEvents]="regions && regions.northEastEvents"
+                                (closeDropDown)="closeDropDown($event)"
+                                [device]="'desktop'"
+                              ></app-header-races>
+                              <app-header-races
+                                [regionEvents]="regions && regions.midWestEvents"
+                                (closeDropDown)="closeDropDown($event)"
+                                [device]="'desktop'"
+                              ></app-header-races>
+                              <app-header-races
+                                [regionEvents]="regions && regions.canadaEvents"
+                                (closeDropDown)="closeDropDown($event)"
+                                [device]="'desktop'"
+                              ></app-header-races>
+                            </div>
+                            <div class="d-none d-lg-block">
+                              <app-header-races
+                                [regionEvents]="regions && regions.southEvents"
+                                (closeDropDown)="closeDropDown($event)"
+                                [device]="'desktop'"
+                              ></app-header-races>
+                              <app-header-races
+                                [regionEvents]="regions && regions.mountainWestEvents"
+                                (closeDropDown)="closeDropDown($event)"
+                                [device]="'desktop'"
+                              ></app-header-races>
+                              <app-header-races
+                                [regionEvents]="regions && regions.mexicoEvents"
+                                (closeDropDown)="closeDropDown($event)"
+                                [device]="'desktop'"
+                              ></app-header-races>
+                            </div>
+                            <div class="d-none d-lg-block">
+                              <app-header-races
+                                [regionEvents]="regions && regions.westCoastEvents"
+                                (closeDropDown)="closeDropDown($event)"
+                                [device]="'desktop'"
+                              ></app-header-races>
+                              <app-header-races
+                                [regionEvents]="regions && regions.europeEvents"
+                                (closeDropDown)="closeDropDown($event)"
+                                [device]="'desktop'"
+                              ></app-header-races>
+                              <app-header-races
+                                [regionEvents]="regions && regions.australiaEvents"
+                                (closeDropDown)="closeDropDown($event)"
+                                [device]="'desktop'"
+                              ></app-header-races>
+                              <app-header-races
+                                [regionEvents]="regions && regions.southAfricaEvents"
+                                (closeDropDown)="closeDropDown($event)"
+                                [device]="'desktop'"
+                              ></app-header-races>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+  
+                      <!-- LEARN MORE -->
+                      <li ngbDropdown display="dynamic" class="d-inline-block nav-item">
+                        <a class="nav-link" id="learnMore" ngbDropdownToggle>{{ 'components.header.learn-more' | translate }}</a>
+                        <div ngbDropdownMenu aria-labelledby="learnMore">
+                          <h4 class="d-lg-block dropdown-item-title">{{ 'components.header.how-it-works' | translate }}</h4>
+                          <ul>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.whatIsRagnar, true)">{{
+                                'components.header.what-is-ragnar' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.teamsDivisions, true)">{{
+                                'components.header.teams-divisions' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.medals, true)">{{
+                                'components.header.medals' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.safety, true)">{{
+                                'components.header.safety' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.covid_safety_plan, false)">{{
+                                'components.header.covid_safety_plan' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.runnerRequiredVolunteers, true)">{{
+                                'components.header.required-volunteers' | translate
+                              }}</a>
+                            </li>
+                          </ul>
+                          <h4 class="d-lg-block dropdown-item-title">{{ 'components.header.about-us' | translate }}</h4>
+                          <ul>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.ourStory, true)">{{
+                                'components.header.our-story' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.careers, false)">{{
+                                'components.header.careers' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.contactUs, false)">{{
+                                'components.header.contact-us' | translate
+                              }}</a>
+                            </li>
+  
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.ragnarTrailGlamping, true)">{{
+                                'components.header.ragnar-trail-glamping' | translate
+                              }}</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+  
+                      <!-- COMMUNITY -->
+                      <li ngbDropdown display="dynamic" class="d-inline-block nav-item">
+                        <a class="nav-link" id="community" ngbDropdownToggle>{{ 'components.header.community' | translate }}</a>
+                        <div ngbDropdownMenu aria-labelledby="community">
+                          <h4 class="d-lg-block dropdown-item-title">{{ 'components.header.run-community' | translate }}</h4>
+                          <ul>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.meetups, true)">{{
+                                'components.header.meetups' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.blog, false)">{{
+                                'components.header.blog' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <!-- <a ngbDropdownItem (click)="redirectToURL(headerRoutes.communityVolunteers, false)">{{ -->
+                              <a ngbDropdownItem (click)="redirectToURL('/volunteer', true)">{{
+                                'components.header.community-volunteers' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.ambassadors, false)">{{
+                                'components.header.ambassadors' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.partners, true)">{{
+                                'components.header.partners' | translate
+                              }}</a>
+                            </li>
+                            <!-- <li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <a ngbDropdownItem (click)="redirectToURL(headerRoutes.ourCause, false)">{{ 'components.header.our-cause' | translate }}</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              </li> -->
+                          </ul>
+  
+                          <ul>
+                            <h4 class="d-lg-block dropdown-item-title">{{ 'components.header.our-efforts' | translate }}</h4>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.sustainability, true)">{{
+                                'components.header.sustainability' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.loveTheLocals, true)">{{
+                                'components.header.love-the-locals' | translate
+                              }}</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+  
+                      <!-- GEAR -->
+                      <li ngbDropdown display="dynamic" class="d-inline-block nav-item">
+                        <a class="nav-link" id="gear" ngbDropdownToggle>{{ 'components.header.gear' | translate }}</a>
+                        <div ngbDropdownMenu aria-labelledby="gear">
+                          <ul>
+                            <li>
+                              <a ngbDropdownItem href="{{ headerRoutes.ragnarGearStore }}">{{
+                                'components.header.ragnar-gear-store' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a
+                                ngbDropdownItem
+                                href="https://www.fleetfeet.com/?utm_source=ragnar&utm_medium=referral&utm_campaign=header_bar"
+                                >{{ 'components.header.shop-fleet-feet' | translate }}</a
+                              >
+                            </li>
+                            <li>
+                              <a ngbDropdownItem href="{{ headerRoutes.eventSpecificFinisherItems }}">{{
+                                'components.header.event-Specific-Finisher-items' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem href="{{ headerRoutes.customTeamShirts }}">{{
+                                'components.header.custom-team-shirts' | translate
+                              }}</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </nav>
+                  <div class="right_nav">
+                    <ul *ngIf="userData">
+                      <!-- MY ACCOUNT -->
+                      <li ngbDropdown display="dynamic" class="d-inline-block d-lg-none nav-item" *ngIf="userData">
+                        <a class="btn nav-link" id="myAccount" ngbDropdownToggle>{{ 'components.header.my-account' | translate }}</a>
+                        <div ngbDropdownMenu aria-labelledby="myAccount" *ngIf="userData">
+                          <ul>
+                            <!-- <li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      <a ngbDropdownItem (click)="openMyAccount()">{{ 'components.header.my-account' | translate }}</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </li> -->
+                            <li>
+                              <a
+                                ngbDropdownItem
+                                routerLink="/{{ virtualChallengeRoutes.main }}/{{ virtualChallengeRoutes.userProfile }}"
+                                (click)="openMenu()"
+                                >{{ 'components.header.my-profile' | translate }}</a
+                              >
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="redirectToURL(headerRoutes.teamCenter, true)"
+                                >{{ 'components.header.team-center' | translate }}
+                              </a>
+                            </li>
+  
+                            <li>
+                              <a ngbDropdownItem class="user-btn" (click)="logout(); openMenu()">{{
+                                'components.header.sign-out' | translate
+                              }}</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <div ngbDropdownMenu aria-labelledby="myAccount" *ngIf="!userData">
+                          <ul>
+                            <li>
+                              <a ngbDropdownItem (click)="openMenu()" routerLink="/{{ authRoutes.main }}/{{ authRoutes.login }}">{{
+                                'components.header.sign-in' | translate
+                              }}</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+  
+                      <li ngbDropdown display="dynamic" class="h-news-letter">
+                        <a class="btn theme-btn no-arrow" id="gear" ngbDropdownToggle>{{ 'components.header.news-letter' | translate }}</a>
+                        <div ngbDropdownMenu aria-labelledby="gear">
+                          <form #form action="https://services.ascentcrm.com/remotesurvey.asmx/ProcessForm">
+                            <input type="hidden" name="survey" value="282" />
+                            <input type="hidden" name="survey_version" value="1552" />
+                            <input
+                              type="email"
+                              class="form-control newsletter-email"
+                              name="email"
+                              placeholder="Enter your email address"
+                              aria-invalid="false"
+                            />
+                            <button
+                              type="button"
+                              (click)="form.submit()"
+                              class="btn theme-btn ltl-signup-btn d-block w-100 mt-1"
+                              value="Submit"
+                            >
+                              {{ 'components.header.sign-me-up' | translate }}
+                            </button>
+                          </form>
+                        </div>
+                      </li>
+                      <li class="user_icon d-none d-lg-inline-block h-profile nav-item" ngbDropdown display="dynamic">
+                        <div class="nav-link" id="pofile" *ngIf="userData.profilePhoto" ngbDropdownToggle>
+                          <span class="img has-img">
+                            <img class="btn user_loginname" [src]="userData.profilePhoto" />
+                          </span>
+                        </div>
+                        <!-- <img class="btn user_loginname" id="profile" [src]="userData.profilePhoto" *ngIf="userData.profilePhoto"
+                                                                                                                    ngbDropdownToggle /> -->
+                        <a class="btn user_loginname nav-link" id="profile" ngbDropdownToggle *ngIf="!userData.profilePhoto">
+                          <span class="img">
+                            {{ userData.fullName | shotUserName }}
+                          </span>
+                        </a>
+                        <div ngbDropdownMenu aria-labelledby="profile">
+                          <h4 class="d-lg-block dropdown-item-title">{{ 'components.header.my-account' | translate }}</h4>
+                          <ul>
+                            <li>
+                              <a ngbDropdownItem routerLink="/{{ virtualChallengeRoutes.main }}/{{ virtualChallengeRoutes.userProfile }}">{{
+                                'components.header.my-profile' | translate
+                              }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem routerLink="/teamcenter">{{ 'components.header.team-center' | translate }}</a>
+                            </li>
+                            <li>
+                              <a ngbDropdownItem (click)="logout()" class="user-btn">{{ 'components.header.sign-out' | translate }}</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                      <li class="d-lg-none humburg_icon">
+                        <a (click)="openMenu()"><span [class.close_icon]="show.mobileNav"></span></a>
+                      </li>
+                    </ul>
+                    <ul *ngIf="!userData" class="d-lg-flex align-items-center">
+                      <!-- When user is not logged in -->
+                      <li class="d-lg-inline-block d-block nav-item" ngbDropdown display="dynamic">
+                        <!-- routerLink="/{{ authRoutes.main }}/{{ authRoutes.login }}" -->
+                        <a (click)="loginWithRedirection()" class="nav-link">{{ 'components.header.sign-in-out' | translate }}</a>
+                      </li>
+                      <li ngbDropdown display="dynamic" class="d-lg-inline-block d-block h-news-letter">
+                        <a class="btn theme-btn no-arrow" id="gear" ngbDropdownToggle>{{ 'components.header.news-letter' | translate }}</a>
+                        <div ngbDropdownMenu aria-labelledby="gear">
+                          <form #form action="https://services.ascentcrm.com/remotesurvey.asmx/ProcessForm">
+                            <input type="hidden" name="survey" value="282" />
+                            <input type="hidden" name="survey_version" value="1552" />
+                            <input
+                              type="email"
+                              class="form-control newsletter-email"
+                              name="email"
+                              placeholder="Enter your email address"
+                              aria-invalid="false"
+                              [(ngModel)]="newsLetterEmail"
+                              (focus)="formElementEnter()"
+                              (blur)="formElementExit()"
+                            />
+                            <button
+                              type="button"
+                              (click)="form.submit()"
+                              class="btn theme-btn ltl-signup-btn d-block w-100 mt-1"
+                              value="Submit"
+                            >
+                              {{ 'components.header.sign-me-up' | translate }}
+                            </button>
+                          </form>
+                        </div>
+                      </li>
+                      <li class="d-lg-none humburg_icon">
+                        <a (click)="openMenu()"><span [class.close_icon]="show.mobileNav"></span></a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- <a class="covid_info" href="https://run.ragnarrelay.com/covid_general/" target="_blank"
+      ><span class="">COVID-19 INFO & 2021 EVENTS</span></a
+    > -->
+  </div>
+  

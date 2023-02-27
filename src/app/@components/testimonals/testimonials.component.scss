@@ -1,0 +1,85 @@
+@import '../../../assets/styles/vars';
+@import '../../../assets/styles/mixins';
+
+/******* TESTIMONIAL START *******/
+::ng-deep {
+  .home-testimonial {
+    padding: 76px 0;
+    background-color: #f7f7f7;
+    @media (max-width: $screen-xs-max) {
+      padding: 95px 0;
+    }
+    ::ng-deep {
+      .slick-arrow {
+        display: none !important;
+      }
+    }
+    .container {
+      position: relative;
+      &::before,
+      &::after {
+        position: absolute;
+        content: '';
+        width: 69px;
+        height: 72px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        @media (max-width: $screen-sm-max) {
+          width: 50px;
+          height: 52px;
+        }
+      }
+      &::before {
+        background-image: url(/assets/images/home/quote-left.svg);
+        top: -30px;
+        left: 15px;
+        @media (max-width: $screen-xs-max) {
+          top: -65px;
+        }
+      }
+      &::after {
+        background-image: url(/assets/images/home/quote-right.svg);
+        right: 15px;
+        bottom: -30px;
+        @media (max-width: $screen-xs-max) {
+          bottom: -65px;
+        }
+      }
+    }
+    .main-text {
+      font-size: 42px;
+      font-weight: 600;
+      font-family: $font_family_lato;
+      text-transform: uppercase;
+      line-height: 1.71;
+      letter-spacing: 2px;
+      text-align: center;
+      width: 100%;
+      display: inline-block;
+      @media (max-width: $screen-sm-max) {
+        font-size: 30px;
+      }
+      @media (max-width: $screen-xs-max) {
+        font-size: 22px;
+      }
+    }
+    .sub-text {
+      font-size: 24px;
+      color: $navy;
+      display: block;
+      font-family: $font_family_lato;
+      margin-top: 20px;
+      text-transform: capitalize;
+      text-align: center;
+      @media (max-width: $screen-sm-max) {
+        font-size: 18px;
+      }
+      @media (max-width: $screen-xs-max) {
+        font-size: 16px;
+        margin-top: 15px;
+      }
+    }
+  }
+}
+/******* TESTIMONIAL END *******/

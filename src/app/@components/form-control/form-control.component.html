@@ -1,0 +1,105 @@
+<div class="container mt-5">
+  <h1>{{ 'components.form-control.heading-one' | translate }}</h1>
+  <h2>{{ 'components.form-control.heading-two' | translate }}</h2>
+  <h3>{{ 'components.form-control.heading-three' | translate }}</h3>
+  <h4>{{ 'components.form-control.heading-four' | translate }}</h4>
+  <h5 class="mb-4">{{ 'components.form-control.heading-five' | translate }}</h5>
+
+  <span class="iconm-add-a-photo"></span>
+
+  <p class="mb-5 mt-5">
+    {{ 'components.form-control.letter-spacing' | translate }}
+  </p>
+
+  <button class="rg_btn rg_bbtn mb-3" (click)="showPendingInvites()">{{ 'components.form-control.pending-invites' | translate }}</button>
+  <button class="rg_btn rg_bbtn mb-3" (click)="openUpSell()">{{ 'components.form-control.upSell' | translate }}</button>
+
+  <button class="rg_btn rg_bbtn mb-3" (click)="challengeProgress()">{{ 'components.form-control.challenge-progress' | translate }}</button>
+
+  <button class="rg_btn rg_bbtn mb-3" (click)="renameTeam()">{{ 'components.form-control.rename' | translate }}</button>
+
+  <button class="rg_btn rg_bbtn mb-3" (click)="openWaiver()">{{ 'components.form-control.waiver' | translate }}</button>
+
+  <button class="rg_btn mb-3">{{ 'components.form-control.accept-invite' | translate }}</button>
+  <button class="rg_btn rg_bbtn mb-3">{{ 'components.form-control.accept-invite' | translate }}</button>
+  <button class="rg_btn rg_gbtn mb-3">{{ 'components.form-control.accept-invite' | translate }}</button>
+  <button class="rg_btn rg_gbtn rg_btnstrava mb-3">{{ 'components.form-control.accept-invite' | translate }}</button>
+  <button class="rg_btn btn_lable rg_bbtn mb-3">
+    <p>{{ 'components.form-control.mi' | translate }}</p>
+    <span>5/23/2020</span>
+  </button>
+  <button class="rg_btn mb-3">{{ 'components.form-control.accept-invite' | translate }}</button>
+
+  <form action="#" class="mt-5">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <input type="email" class="form-control" placeholder="Enter an email to invite" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group error_input">
+          <input type="password" class="form-control" placeholder="Password" />
+          <div class="error_msg">{{ 'components.form-control.valid-email' | translate }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="lable1">{{ 'components.form-control.title' | translate }}</label>
+          <input type="email" id="lable1" class="form-control" placeholder="Enter an email to invite" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="lable2">{{ 'components.form-control.title' | translate }}</label>
+          <input type="password" id="lable2" class="form-control" placeholder="Password" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group input_inside">
+          <input type="email" class="form-control" placeholder="Enter an email to invite" />
+          <input class="over_btn" type="submit" value="Invite" name="Invite" />
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <select class="form-control select_arrow" id="inlineFormCustomSelectPref">
+            <option selected>{{ 'components.form-control.choose' | translate }}</option>
+            <option value="1">{{ 'components.form-control.one' | translate }}</option>
+            <option value="2">{{ 'components.form-control.two' | translate }}</option>
+            <option value="3">{{ 'components.form-control.three' | translate }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="">{{ 'components.form-control.title' | translate }}</label>
+          <select class="form-control select_arrow" id="inlineFormCustomSelectPref">
+            <option selected>{{ 'components.form-control.choose' | translate }}</option>
+            <option value="1">{{ 'components.form-control.one' | translate }}</option>
+            <option value="2">{{ 'components.form-control.two' | translate }}</option>
+            <option value="3">{{ 'components.form-control.three' | translate }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group error_input">
+          <label for="">Title</label>
+          <select class="form-control select_arrow" id="inlineFormCustomSelectPref">
+            <option selected>{{ 'components.form-control.choose' | translate }}</option>
+            <option value="1">{{ 'components.form-control.one' | translate }}</option>
+            <option value="2">{{ 'components.form-control.two' | translate }}</option>
+            <option value="3">{{ 'components.form-control.three' | translate }}</option>
+          </select>
+          <div class="error_msg">{{ 'components.form-control.error-message' | translate }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customCheck1" />
+          <label class="custom-control-label" for="customCheck1">{{ 'components.form-control.custom' | translate }}</label>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

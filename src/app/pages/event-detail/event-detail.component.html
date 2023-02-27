@@ -1,0 +1,106 @@
+<div *ngIf="loadingGlobal">
+  <div class="loading-template"><img src="assets/images/loading.gif" /></div>
+</div>
+<div class="event-detail" *ngIf="!loadingGlobal">
+   <div class="tab-options" *ngIf="overviewData">
+    <ul>
+      <li appScrollIntoView><a [routerLink]="'.'" fragment="overview" [class.active]="show.activeTab === 'overview'">Overview</a></li>
+     <li appScrollIntoView>
+        <a
+          [routerLink]="'.'"
+          fragment="registration"
+          [class.active]="show.activeTab === 'registration'"
+          (click)="addPageInitEvent('event-detail-registration')"
+          >Registration</a
+        >
+      </li>
+      <li appScrollIntoView>
+        <a
+          [routerLink]="'.'"
+          fragment="course"
+          [class.active]="show.activeTab === 'course'"
+          (click)="addPageInitEvent('event-detail-course')"
+          >Course</a
+        >
+      </li>
+      <li appScrollIntoView>
+        <a
+          [routerLink]="'.'"
+          fragment="datesnupdates"
+          [class.active]="show.activeTab === 'datesnupdates'"
+          (click)="addPageInitEvent('event-detail-dates-and-updates')"
+          >Dates/Updates</a
+        >
+      </li>
+      <li appScrollIntoView>
+        <a
+          [routerLink]="'.'"
+          fragment="getready"
+          [class.active]="show.activeTab === 'getready'"
+          (click)="addPageInitEvent('event-detail-get-ready')"
+          >Get Ready</a
+        >
+      </li>
+      <li appScrollIntoView>
+        <a
+          [routerLink]="'.'"
+          fragment="charities"
+          [class.active]="show.activeTab === 'charities'"
+          [hidden]="!overviewData.charity"
+          (click)="addPageInitEvent('event-detail-our-cause')"
+          >Our Cause</a
+        >
+      </li>
+      <li appScrollIntoView>
+        <a
+          [routerLink]="'.'"
+          fragment="resultsphotos"
+          [class.active]="show.activeTab === 'resultsphotos'"
+          [hidden]="!overviewData.social_photos.length && !overviewData.social_results.length"
+          (click)="addPageInitEvent('event-detail-results-photos')"
+          >Results/Photos</a
+        >
+      </li>
+    </ul>
+  </div>
+
+<div class="right_panel" *ngIf="overviewData">
+    <!-- TODO: Need to display Error page if data not found -->
+   <app-event-detail-overview
+      *ngIf="show.activeTab === 'overview'"
+      [hidden]="show.activeTab !== 'overview'"
+      [overviewData]="overviewData"
+      [pricingStages]="pricingStages"
+    ></app-event-detail-overview>
+
+     <app-event-detail-registration
+      [hidden]="show.activeTab !== 'registration'"
+      [registrationData]="overviewData"
+    ></app-event-detail-registration>
+
+    <app-event-detail-course *ngIf="show.activeTab === 'course'"></app-event-detail-course>
+
+    <app-event-detail-dates-and-updates
+      [hidden]="show.activeTab !== 'datesnupdates'"
+      [dateAndUpdateData]="overviewData"
+    ></app-event-detail-dates-and-updates>
+
+    <app-event-detail-get-ready [hidden]="show.activeTab !== 'getready'" [getReadyData]="overviewData"></app-event-detail-get-ready>
+
+    <app-event-detail-charities
+      [hidden]="show.activeTab !== 'charities'"
+      *ngIf="show.activeTab === 'charities'"
+      [charitiesData]="overviewData"
+    ></app-event-detail-charities>
+    <app-event-detail-results-photos
+      [hidden]="show.activeTab !== 'resultsphotos'"
+      [resultPhotosData]="overviewData"
+    ></app-event-detail-results-photos>
+  </div>
+</div>
+<!-- 
+    @todo: suppose to use the ngIf in some of the component and hide in the most active component.
+    @todo: combine the most relevant data into the single api call like overview and most basics data.
+    @todo: will get the data from the server. which is most relevant.
+    @todo: send the data from here.
+  -->

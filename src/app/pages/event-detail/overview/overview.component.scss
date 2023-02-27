@@ -1,0 +1,352 @@
+@import 'vars';
+
+.overview_main {
+  .overview_hero {
+    background-size: cover;
+    background-position: center;
+    padding: 50px 75px 50px 0;
+    width: 100%;
+    @include flexbox();
+    @include justify-content(flex-end);
+    @media (max-width: $screen-xs-max) {
+      padding: 0;
+    }
+    .overview_register {
+      width: 100%;
+      max-width: 450px;
+      @media (max-width: $screen-xs-max) {
+        max-width: 100%;
+      }
+      .event_location {
+        background-color: $brand-secondary;
+        padding: 15px 20px;
+        text-align: center;
+        img {
+          max-width: 100%;
+        }
+      }
+      .porsche_event_location {
+        background-color: $porsche_event_gray;
+        padding: 15px 20px;
+        text-align: center;
+        img {
+          max-width: 100%;
+        }
+      }
+      .event_register {
+        background: rgba(255, 255, 255, 0.9);
+        padding: 30px 20px 40px;
+        text-align: center;
+        h3 {
+          font-size: $font_size_medium;
+          line-height: 24px;
+          text-align: center;
+          color: $grey-mid;
+          font-family: $font_family_barlow_Condensed;
+          font-weight: 600;
+          margin-top: 0;
+          margin-bottom: 10px;
+          letter-spacing: 0;
+        }
+        .event-date-value {
+          font-size: 16px;
+          line-height: 24px;
+          text-align: center;
+          color: $black3;
+          letter-spacing: 0;
+        }
+        .register_status {
+          ::ng-deep {
+            p {
+              font-size: 16px;
+              line-height: 22px;
+              text-align: center;
+              color: $event_gray;
+              font-weight: 400;
+              @include font-weight(500);
+              margin-top: 40px;
+              margin-bottom: 50px;
+            }
+            h4 {
+              font-size: 16px;
+              line-height: 24px;
+              text-align: center;
+              color: $event_gray;
+              font-weight: 400;
+              @include font-weight(500);
+              margin-top: 0px;
+              margin-bottom: 10px;
+              padding: 0 15px;
+            }
+          }
+          .blue-cta-btn {
+            @include theme_btn2(0 25px, 16px);
+            background-color: $blue;
+            line-height: 46px;
+            margin-top: 25px;
+            @include font-weight(500);
+            &:hover {
+              text-decoration: none;
+              background-color: $blue_hover;
+              color: $white;
+              &:before {
+                background-color: $blue;
+              }
+            }
+          }
+        }
+        .race_not_open_yet {
+          .reg_opens_date {
+            margin: 10px auto 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ccc;
+            font-size: 24px;
+            line-height: 24px;
+            text-align: center;
+            color: #4a4a4a;
+            font-weight: 400;
+            @include font-weight(500);
+          }
+          .duration {
+            .unit_box {
+              font-size: 18px;
+              line-height: 18px;
+              text-align: center;
+              color: $event_gray;
+              font-weight: 400;
+              @include font-weight(400);
+            }
+            .unit {
+              color: $orange-brand;
+              margin: 10px 0;
+              font-size: 16px;
+              line-height: 16px;
+              @include font-weight(400!important);
+              text-transform: capitalize;
+            }
+          }
+        }
+        .booking_schedule {
+          width: 100%;
+          display: inline-block;
+          margin: 50px auto 40px;
+          text-align: center;
+          ul {
+            @include flexbox();
+            @include justify-content(center);
+            position: relative;
+            li {
+              text-align: center;
+              padding: 0 6px;
+              position: relative;
+              &.date_block.coming_dates:before {
+                background: $brand-secondary;
+                height: 2px !important;
+                top: 34px !important;
+              }
+              &.date_block.inactive_dates:before {
+                background: #969696;
+                height: 2px;
+                top: 34px;
+              }
+              &:first-child {
+                &:before {
+                  width: 25px;
+                  right: 0;
+                  left: auto;
+                }
+              }
+              &:last-child:before {
+                width: 60%;
+                right: 40%;
+              }
+              &:before {
+                top: 34px;
+                left: 0;
+                position: absolute;
+                content: ' ';
+                width: 100%;
+                height: 2px;
+              }
+              &.active_dates {
+                &:before {
+                  background-image: url('/assets/images/event-detail/overview/active-booking-line.png');
+                  background-repeat: no-repeat;
+                  background-position: center;
+                  top: 25px;
+                  height: 11px !important;
+                }
+                .entry_status {
+                  font-size: 18px;
+                  line-height: 18px;
+                  font-weight: 500;
+                  color: $gray2;
+                  @media (max-width: 400px) {
+                    font-size: 14px;
+                  }
+                }
+                .booking_dates {
+                  font-size: 18px;
+                  line-height: 18px;
+                  font-weight: 500;
+                  color: $event_gray;
+                  @media (max-width: 400px) {
+                    font-size: 14px;
+                  }
+                }
+              }
+              .entry_status {
+                text-align: center;
+                margin-bottom: 25px;
+                margin-top: 0;
+                font-size: 14px;
+                line-height: 18px;
+                color: $gray3;
+                letter-spacing: 0;
+                @include font-weight(400);
+              }
+              .booking_dates {
+                color: $gray3;
+                text-align: center;
+                letter-spacing: 0;
+              }
+              @media (max-width: 1499px) and (min-width: 1401px) {
+                .relay-event-details ul.timeline li {
+                  padding: 0 11px;
+                }
+              }
+            }
+          }
+        }
+        .register_cta_quick {
+          font-size: 18px;
+          line-height: 24px;
+          text-align: center;
+          color: $black3;
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+      }
+      .affirm-buy-monthly {
+        a {
+          display: block;
+          img {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .overview_spe_offer {
+    padding: 50px 0;
+    h1 {
+      font-size: 24px;
+      line-height: 30px;
+      text-align: center;
+      color: $grey-mid;
+      margin-bottom: 50px;
+      margin-top: 0;
+      font-family: $font_family_barlow_Condensed;
+      letter-spacing: 0;
+      @include font-weight(600);
+    }
+    .spe_offer_right {
+      padding-left: 15px;
+      padding-right: 15px;
+      width: 70%;
+      margin: 0 auto;
+      color: $gray2;
+      padding-left: 15px;
+      color: $event_gray !important;
+      font-weight: 400;
+      margin-bottom: 60px;
+      @media (max-width: $screen-xs-max) {
+        width: 100%;
+        overflow: hidden;
+      }
+      ::ng-deep {
+        p {
+          margin-bottom: 10px;
+          font-size: 16px;
+          letter-spacing: 0;
+        }
+        hr {
+          margin-top: 20px;
+          margin-bottom: 20px;
+          border-top: 1px solid #eee;
+        }
+        h2,
+        h3,
+        h4 {
+          font-family: $font_family_barlow_Condensed;
+          font-weight: 600;
+          margin: 10px 0;
+          line-height: 1;
+        }
+        ol {
+          padding-left: 15px;
+          margin-top: 15px;
+          li {
+            list-style: inherit;
+            margin-bottom: 10px;
+          }
+        }
+        img {
+          max-width: 100%;
+        }
+      }
+    }
+    .overview_video {
+      background: $white2;
+      padding: 100px 0 50px;
+      width: 100%;
+      @media (max-width: $screen-xs-max) {
+        padding: 20px;
+      }
+      .embed_responsive_16by9 {
+        padding-bottom: 56.25%;
+        @media (min-width: 1199px) {
+          padding-bottom: 40% !important;
+          width: 70% !important;
+          margin: 0 auto !important;
+        }
+      }
+    }
+    .lets_be_social {
+      background: $white2;
+      padding: 50px 0;
+      width: 100%;
+      h2 {
+        font-size: 24px;
+        line-height: 30px;
+        text-align: center;
+        color: $event_gray;
+        margin-top: 0;
+        font-family: $font_family_barlow_Condensed;
+        @include font-weight(600);
+      }
+      .be_social_logos {
+        text-align: center;
+        margin: 45px auto 50px;
+        a.logo_links {
+          display: inline-block;
+          margin: 0 30px;
+          img {
+            width: 30px;
+            height: auto;
+          }
+        }
+      }
+    }
+    .be_social_feeds {
+      padding-bottom: 50%;
+      @media (max-width: $screen-xs-max) {
+        padding-bottom: 0;
+        iframe {
+          position: relative;
+          height: 1000px;
+        }
+      }
+    }
+  }
+}

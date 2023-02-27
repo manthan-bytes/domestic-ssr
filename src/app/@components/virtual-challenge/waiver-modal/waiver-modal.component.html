@@ -1,0 +1,12 @@
+<!-- Header -->
+<div class="modal-header">
+  <h6 class="modal-title">{{ componentData.title }}</h6>
+</div>
+<!-- Waiver -->
+<div class="modal-body" id="waiver_body">
+  <div id="print-section" [innerHTML]="componentData.waiverInfo"></div>
+</div>
+<div class="modal-footer">
+  <button (click)="closeModal()" class="rg_btn rg_bbtn mb-2">{{ 'components.virtual-challenge.waiver.close' | translate }}</button>
+  <button (click)="printWaiver()" class="rg_btn mb-2">{{ 'common-data.print' | translate }}</button>
+</div>

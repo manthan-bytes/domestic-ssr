@@ -1,0 +1,252 @@
+<div class="get_ready_layout container-fluid">
+  <div class="row">
+    <div class="col-12 get_ready_intro">
+      <p>{{ getReadyData.name }}</p>
+      <h3>{{ 'event-detail.get-ready.title' | translate }}</h3>
+    </div>
+    <div class="col-12 get_ready_block">
+      <div class="get_menu_cover">
+        <div class="get_ready_menu" [class.menu_nav]="captainTool" (mouseover)="captainTool = true" (mouseout)="captainTool = false">
+          <a class="menu_nav_toggle">
+            <img src="assets/images/event-detail/get-ready/captain-icon.png" alt="Get Ready Icon" class="center-block" />
+            <p class="get_ready_menu_title">{{ 'event-detail.get-ready.tools' | translate }}</p>
+          </a>
+          <div class="more_option">
+            <ul>
+              <li *ngFor="let captains_tool of getReadyData.captains_tools">
+                <div class="text-center" *ngIf="captains_tool.value_type === 'image'">
+                  <a href="{{ captains_tool.value }}" title="{{ captains_tool.title }}">{{ captains_tool.title }}</a>
+                </div>
+                <div class="text-center" *ngIf="captains_tool.value_type === 'url'">
+                  <a href="{{ captains_tool.value }}" target="_blank" title="{{ captains_tool.title }}">{{ captains_tool.title }}</a>
+                </div>
+              </li>
+              <li class="close-x">
+                <a class="iconm-X" (click)="captainTool = false"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="get_ready_menu" [class.menu_nav]="planYourTrip" (mouseover)="planYourTrip = true" (mouseout)="planYourTrip = false">
+          <a class="menu_nav_toggle">
+            <img src="assets/images/event-detail/get-ready/plan-trip-icon.png" alt="Plan Your Trip" />
+            <p class="get_ready_menu_title">{{ 'event-detail.get-ready.plan-your-trip' | translate }}</p>
+          </a>
+          <div class="more_option" *ngIf="getReadyData.trips.length">
+            <ul *ngIf="getReadyData.type === 'relay' || getReadyData.type === 'sprint'">
+              <li *ngFor="let trip of getReadyData.trips">
+                <div class="text-center" *ngIf="trip.type === 'url'">
+                  <a href="{{ trip.value }}" target="_blank" title="{{ trip.title }}">{{ trip.title }}</a>
+                </div>
+                <div class="text-center" *ngIf="trip.type === 'image'">
+                  <a href="{{ trip.value }}" title="{{ trip.title }}">{{ trip.title }}</a>
+                </div>
+              </li>
+              <li class="close-x">
+                <a class="iconm-X" (click)="planYourTrip = false"></a>
+              </li>
+            </ul>
+
+            <ul *ngIf="getReadyData.type === 'trail'">
+              <li ng-class="{ 'getready-img-view': trip.type === 'image' }" *ngFor="let trip of getReadyData.trips">
+                <div class="text-center" *ngIf="trip.type === 'url'">
+                  <a href="{{ trip.value }}" title="{{ trip.title }}">{{ trip.title }}</a>
+                </div>
+                <div class="text-center" *ngIf="trip.type === 'image'">
+                  <a href="{{ trip.value }}" title="{{ trip.title }}">{{ trip.title }}</a>
+                </div>
+              </li>
+              <li class="close-x">
+                <a class="iconm-X" (click)="planYourTrip = false"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="get_ready_menu" [class.menu_nav]="shopforgear" (mouseover)="shopforgear = true" (mouseout)="shopforgear = false">
+          <a class="menu_nav_toggle">
+            <img src="assets/images/event-detail/get-ready/ragnar-gear-icon.png" alt="Shop For Gear" class="img-responsive center-block" />
+            <p class="get_ready_menu_title">{{ 'event-detail.get-ready.shop' | translate }}</p>
+          </a>
+          <div class="more_option">
+            <ul>
+              <li *ngFor="let link of shopForGearLinks">
+                <div>
+                  <a href="{{ link.value }}" target="_blank" title="{{ link.title }}">{{ link.title }}</a>
+                </div>
+              </li>
+              <li class="close-x">
+                <a class="iconm-X" (click)="shopforgear = false"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="get_ready_menu" [class.menu_nav]="training" (mouseover)="training = true" (mouseout)="training = false">
+          <!-- ui-sref="app.staticPages.training.relay" -->
+          <a *ngIf="getReadyData.type === 'relay' || getReadyData.type === 'sprint'" class="menu_nav_toggle">
+            <img src="assets/images/event-detail/get-ready/training-icon.png" alt="Training" class="img-responsive center-block" />
+            <p class="get_ready_menu_title">{{ 'event-detail.get-ready.training' | translate }}</p>
+          </a>
+          <a *ngIf="getReadyData.type === 'trail'" class="menu_nav_toggle">
+            <img src="assets/images/event-detail/get-ready/training-icon.png" alt="Training" class="img-responsive center-block" />
+            <p class="get_ready_menu_title">{{ 'event-detail.get-ready.training' | translate }}</p>
+          </a>
+          <a *ngIf="getReadyData.type === 'sunset' || getReadyData.type === 'trail_sprint'" class="menu_nav_toggle">
+            <img src="assets/images/event-detail/get-ready/training-icon.png" alt="Training" class="img-responsive center-block" />
+            <p class="get_ready_menu_title">{{ 'event-detail.get-ready.training' | translate }}</p>
+          </a>
+          <div class="more_option">
+            <ul>
+              <li *ngFor="let link of trainingLinks">
+                <div>
+                  <a href="{{ link.value }}" target="_blank" title="{{ link.title }}">{{ link.title }}</a>
+                </div>
+              </li>
+              <li class="close-x">
+                <a class="iconm-X" (click)="training = false"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="get_ready_menu">
+          <a
+            *ngIf="
+              getReadyData.type !== 'trail' &&
+              getReadyData.type !== 'sunset' &&
+              getReadyData.type !== 'trail_sprint' &&
+              getReadyData.id !== '107' &&
+              getReadyData.id !== '123' &&
+              getReadyData.id !== '98'
+            "
+            href="{{
+              getReadyData.files.race_bible
+                ? getReadyData.files.race_bible
+                : 'https://images.runragnar.com/files/race_documents/02%20-%20Race%20Bible.pdf'
+            }}"
+            target="_blank"
+            class="menu_nav_toggle"
+          >
+            <img src="assets/images/event-detail/get-ready/race-bible-icon.png" alt="Race Bible" class="img-responsive center-block" />
+            <p class="get_ready_menu_title">{{ 'common-data.race-bible' | translate }}</p>
+          </a>
+          <!-- Removing below code as it's for internation races -->
+          <!-- <a
+          *ngIf="!isObject(getReadyData.files.race_bible) && getReadyData.id === '98'"
+          href="{{
+            getReadyData.files.race_bible
+              ? getReadyData.files.race_bible
+              : 'https://images.runragnar.com/files/race_documents/02%20-%20Race%20Bible.pdf'
+          }}"
+          target="_blank"
+          class="menu_nav_toggle"
+        >
+          <img src="assets/images/event-detail/get-ready/race-bible-icon.png" alt="Race Bible" class="img-responsive center-block" />
+          <p class="get_ready_menu_title">{{ 'common-data.race-bible' | translate }}</p>
+        </a>
+        <a
+          *ngIf="isObject(getReadyData.files.race_bible) && getReadyData.id === '98'"
+          href="{{ getReadyData.files.race_bible }}"
+          target="_blank"
+          class="menu_nav_toggle"
+        >
+          <img src="assets/images/event-detail/get-ready/race-bible-icon.png" alt="Race Bible" class="img-responsive center-block" />
+          <p class="get_ready_menu_title">{{ 'common-data.race-bible' | translate }}</p>
+        </a> -->
+          <a
+            *ngIf="getReadyData.type === 'trail'"
+            href="{{
+              getReadyData.files.race_bible
+                ? getReadyData.files.race_bible
+                : 'https://images.runragnar.com/files/i/trail/Trail%20Guide%20Master/Trail%20Guide%20-%20Master.pdf'
+            }}"
+            target="_blank"
+            class="menu_nav_toggle"
+          >
+            <img src="assets/images/event-detail/get-ready/race-bible-icon.png" alt="Trail Guide" class="img-responsive center-block" />
+            <p class="get_ready_menu_title">{{ 'common-data.trail-guide' | translate }}</p>
+          </a>
+          <!-- Removing condition for 107 as it's for internation race -->
+          <a
+            *ngIf="getReadyData.type !== 'trail' && getReadyData.id === '123'"
+            href="{{ getReadyData.files.race_bible }}"
+            target="_blank"
+            class="menu_nav_toggle"
+          >
+            <img src="assets/images/event-detail/get-ready/race-bible-icon.png" alt="Race Bible" class="img-responsive center-block" />
+            <p class="get_ready_menu_title">{{ 'common-data.race-bible' | translate }}</p>
+          </a>
+          <a
+            *ngIf="getReadyData.type === 'sunset' || getReadyData.type === 'trail_sprint'"
+            href="{{ getReadyData.files.race_bible ? getReadyData.files.race_bible : getReadyData.files.race_bible }}"
+            target="_blank"
+            class="menu_nav_toggle"
+          >
+            <img src="assets/images/event-detail/get-ready/race-bible-icon.png" alt="Race Bible" class="img-responsive center-block" />
+            <p class="get_ready_menu_title">{{ 'common-data.race-bible' | translate }}</p>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 partner_logo" *ngIf="getReadyData.sponsors">
+      <div class="col-xs-12 col-sm-12" *ngIf="getReadyData.type === 'relay' || getReadyData.type === 'sprint'">
+        <h2 class="partner_title">Partners</h2>
+      </div>
+      <div
+        class="col-xs-12 col-sm-12"
+        *ngIf="getReadyData.type === 'trail' || getReadyData.type === 'sunset' || getReadyData.type === 'trail_sprint'"
+      >
+        <h2 class="partner_title">A Huge Thank You To Our Partners And Sponsors</h2>
+      </div>
+
+      <div class="col-xs-12 col-sm-12" *ngIf="getReadyData.type === 'relay' || getReadyData.type === 'sprint'">
+        <div class="row partner_logo_row">
+          <div
+            class="col-xs-12 text-center sponsor_logos"
+            *ngFor="let sponsor_logo of getReadyData.sponsors"
+            [ngClass]="{ lead_sponsor: sponsor_logo.name === 'Reebok' }"
+          >
+            <a
+              *ngIf="(!sponsor_logo.trail_official && !sponsor_logo.relay_official) || !sponsor_logo.isActive"
+              href="{{ sponsor_logo.url }}"
+              target="_blank"
+            >
+              <img src="{{ sponsor_logo.logo_white | parseImageUrl }}" alt="" class="img-responsive center-block" />
+            </a>
+            <a
+              *ngIf="(sponsor_logo.trail_official || sponsor_logo.relay_official) && sponsor_logo.isActive"
+              (click)="goToDetails(sponsor_logo.slug)"
+            >
+              <img src="{{ sponsor_logo.logo_white | parseImageUrl }}" alt="" class="img-responsive center-block" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="col-xs-12 col-sm-12"
+        *ngIf="getReadyData.type === 'trail' || getReadyData.type === 'sunset' || getReadyData.type === 'trail_sprint'"
+      >
+        <div class="row partner_logo_row">
+          <div
+            class="col-xs-12 text-center sponsor_logos"
+            *ngFor="let sponsor_logo of getReadyData.sponsors"
+            [ngClass]="{ lead_sponsor: sponsor_logo.name === 'Salomon' }"
+          >
+            <a
+              *ngIf="(!sponsor_logo.trail_official && !sponsor_logo.relay_official) || !sponsor_logo.isActive"
+              href="{{ sponsor_logo.url }}"
+              target="_blank"
+            >
+              <img src="{{ sponsor_logo.logo_white | parseImageUrl }}" alt="" class="img-responsive center-block" />
+            </a>
+            <a
+              *ngIf="(sponsor_logo.trail_official || sponsor_logo.relay_official) && sponsor_logo.isActive"
+              (click)="goToDetails(sponsor_logo.slug)"
+            >
+              <img src="{{ sponsor_logo.logo_white | parseImageUrl }}" alt="" class="img-responsive center-block" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="results_photos_layout">
+  <div class="container">
+    <div class="results_photos_intro">
+      <p>{{ resultPhotosData.name }}</p>
+      <h3>{{ 'event-detail.result-photos.results' | translate }} &amp; {{ 'event-detail.result-photos.photos' | translate }}</h3>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 social_results_block" *ngIf="resultPhotosData.social_results.length > 0">
+        <div class="box_overlay_text">
+          <img src="assets/images/event-detail/results-photos/result-img.png" alt="photos-img" />
+          <div class="box_text">
+            <h3>{{ 'event-detail.result-photos.results' | translate }}</h3>
+            <p>{{ 'event-detail.result-photos.you-were-fast' | translate }}</p>
+          </div>
+        </div>
+        <ul>
+          <li *ngFor="let result of resultPhotosData.social_results">
+            <a href="{{ result.url }}" target="blank">{{ result.year }}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-6 social_results_block" *ngIf="resultPhotosData.social_photos.length > 0">
+        <div class="box_overlay_text">
+          <img src="assets/images/event-detail/results-photos/photos-img.png" alt="photos-img" />
+          <div class="box_text">
+            <h3>{{ 'event-detail.result-photos.photos' | translate }}</h3>
+            <p>{{ 'event-detail.result-photos.you-look-good' | translate }}</p>
+          </div>
+        </div>
+        <ul>
+          <li *ngFor="let result of resultPhotosData.social_photos">
+            <a href="{{ result.url }}" target="blank">{{ result.year }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

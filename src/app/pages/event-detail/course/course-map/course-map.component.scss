@@ -1,0 +1,37 @@
+@import 'vars';
+
+.right_side_bar {
+  height: 680px;
+  @media (max-width: $screen-xs-max) {
+    height: 440px;
+  }
+  ::ng-deep .mapboxgl_override {
+    max-width: 345px !important;
+    width: 100%;
+  }
+}
+
+.right_side_bar-trail {
+  height: 510px;
+  @media (max-width: $screen-xs-max) {
+    height: 440px;
+  }
+  ::ng-deep .mapboxgl_override {
+    max-width: 345px !important;
+    width: 100%;
+  }
+}
+
+::ng-deep {
+  .ng-dygraphs {
+    .ng-dygraphs-chart-container {
+      background-color: #ccc !important;
+      height: 680px;
+      display: flex;
+      align-items: center;
+      > div {
+        width: 100%;
+      }
+    }
+  }
+}

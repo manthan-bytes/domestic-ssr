@@ -1,0 +1,91 @@
+@import '../../../../assets/styles/vars';
+@import '../../../../assets/styles/mixins';
+.legs_table {
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $white;
+  }
+  .head_style {
+    @include heading-6();
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-bottom: 2px solid $white;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    span {
+      font-size: 11px;
+    }
+  }
+  .edit_row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      width: calc(100% - 58px);
+      background-color: $grey-mid;
+      height: 1px;
+      bottom: -12px;
+      right: 0;
+    }
+    .avtar_box {
+      width: 40px;
+      height: 40px;
+      position: relative;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 32px;
+      border: 1px solid #1bdbdb;
+      margin-right: 18px;
+      border-radius: 100%;
+      color: $white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      letter-spacing: -0.02em;
+      padding: 0 7px;
+      &:before {
+        content: '#';
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 16px;
+        margin-top: -4px;
+      }
+    }
+    .img_col {
+      display: flex;
+      align-items: center;
+      img {
+        margin-right: 18px;
+        max-width: 40px;
+        border-radius: 100%;
+      }
+      h4 {
+        font-size: 14px;
+        line-height: normal;
+        margin-bottom: 0;
+        color: $white2;
+        font-weight: normal;
+      }
+      h5 {
+        color: $grey;
+        margin-bottom: 0;
+      }
+    }
+    .btn_highf {
+      i {
+        font-size: 9px;
+      }
+    }
+  }
+}

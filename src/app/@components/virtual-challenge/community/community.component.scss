@@ -1,0 +1,101 @@
+@import '../../../../assets/styles/vars';
+@import '../../../../assets/styles/mixins';
+
+.community_band {
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $white;
+  }
+  .stats_cols {
+    margin-bottom: 40px;
+    h5 {
+      margin-bottom: 5px;
+    }
+  }
+  .recent_community {
+    margin-bottom: 40px;
+    .community_row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      .img_col {
+        display: flex;
+        align-items: center;
+        img {
+          margin-right: 18px;
+          max-width: 40px;
+          border-radius: 100%;
+        }
+        h4 {
+          font-size: 14px;
+          line-height: normal;
+          margin-bottom: 0;
+          color: $white2;
+          font-weight: normal;
+        }
+        h5 {
+          color: $grey;
+          margin-bottom: 0;
+        }
+      }
+      .btn_highf {
+        position: relative;
+        strong {
+          font-weight: 600;
+          font-size: 11px;
+          line-height: 16px;
+          color: $grey;
+          position: absolute;
+          right: calc(100% + 6px);
+          top: 3px;
+        }
+      }
+    }
+  }
+  .insta_band {
+    img {
+      max-width: 100%;
+    }
+    h6 {
+      span {
+        color: $peach;
+        position: absolute;
+        right: 28px;
+        top: 0;
+        font-size: 11px;
+        text-transform: uppercase;
+      }
+    }
+  }
+  .head_style {
+    @include heading-6();
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-bottom: 2px solid $white;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    span {
+      font-size: 11px;
+    }
+  }
+  .activity_indicate {
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: conic-gradient(from 60.64deg at 50% 50%, rgba(255, 182, 114, 0) 0deg, rgba(255, 182, 114, 0) 65.63deg, #ffb672 360deg);
+      top: 0;
+      right: 0;
+      border-radius: 100%;
+    }
+  }
+}

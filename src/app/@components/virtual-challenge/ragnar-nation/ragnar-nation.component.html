@@ -1,0 +1,84 @@
+<div class="nation-outer" *ngIf="ragnarNation">
+  <div class="event-summary" *ngIf="!checkMobileScreen()">
+    <ul>
+      <li>
+        <h6>Participants</h6>
+        <span>{{ ragnarNation.totalParticipants }}</span>
+      </li>
+      <li>
+        <h6>Total Activities</h6>
+        <span>{{ ragnarNation.totalActivities }}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="first-activity-text-wrapper" *ngIf="activities.length < 1">
+    <div class="first-activity-text">
+      Be the first to log an<br />
+      activity
+    </div>
+  </div>
+  <div class="title" [ngStyle]="{ 'justify-content': activities.length > 0 ? '' : 'end' }">
+    <h3 *ngIf="activities.length > 0">
+      {{ 'virtual-challenge.dc-dashboard.ragnar-nation.top-activities-for-ragnarians' | translate }}
+    </h3>
+    <div class="see-all d-none d-sm-block" *ngIf="ragnarNation.activities.length > 5">
+      <button class="rg_btn" *ngIf="!btnFlag" (click)="showAll()">
+        {{ 'virtual-challenge.dc-dashboard.ragnar-nation.see-all' | translate }}
+      </button>
+      <button class="rg_btn" *ngIf="btnFlag" (click)="showAll()">
+        {{ 'virtual-challenge.dc-dashboard.ragnar-nation.hide-all' | translate }}
+      </button>
+    </div>
+  </div>
+  <div class="feed-main">
+    <div class="no-data d-none">{{ 'virtual-challenge.dc-dashboard.ragnar-nation.be-the-first' | translate }}</div>
+    <div [ngClass]="[unavailableImages.includes(activity.activityType) ? 'd-none' : 'feed-column']" *ngFor="let activity of activities">
+      <img [src]="getImagePath(activity.activityType)" alt="{{ activity.activityType }}" />
+      <h3 style="overflow-wrap: break-word">{{ activity.activityType }}</h3>
+      <div
+        class="fill-feed"
+        [class]="activity.count ? 'activity-chart-' + calculateHeight((activity.count * 100) / ragnarNation.totalActivities) : ''"
+      >
+        <span>{{ activity.count }}</span>
+      </div>
+    </div>
+  </div>
+  <div class="see-all d-sm-none" *ngIf="mobileScreen && activities.length > 1">
+    <button class="rg_btn" *ngIf="!btnFlag" (click)="showAll()">
+      {{ 'virtual-challenge.dc-dashboard.ragnar-nation.see-all' | translate }}
+    </button>
+    <button class="rg_btn" *ngIf="btnFlag" (click)="showAll()">
+      {{ 'virtual-challenge.dc-dashboard.ragnar-nation.hide-all' | translate }}
+    </button>
+  </div>
+  <div class="social-feed">
+    <h2 style="text-align: 'center'">{{ 'virtual-challenge.dc-dashboard.ragnar-nation.lets-be-social' | translate }}</h2>
+    <div style="text-align: 'center'">
+      <a href="https://paceline.fit/ragnar/" target="_blank">
+        <img src="assets/images/virtual-challenge/pace_line.png" style="width: 290px" alt="Client " />
+      </a>
+    </div>
+    <!-- <ul>
+      <li>
+        <a href="https://paceline.fit/ragnar/" target="_blank">
+          <img src="assets/images/virtual-challenge/pace_line.png" style="width: 290px;" alt="Client " />
+        </a>
+      </li>
+      <li>
+        <a href="https://procompression.com/" target="_blank">
+          <img src="assets/images/virtual-challenge/client02.png " alt="Client " />
+        </a>
+      </li>
+      <li>
+        <a href="https://www.kttape.com/" target="_blank">
+          <img src="assets/images/virtual-challenge/client03.png " alt="Client " />
+        </a>
+      </li>
+      <li>
+        <a href="https://tailwindnutrition.com/" target="_blank">
+          <img src="assets/images/virtual-challenge/client04.png " alt="Client " />
+        </a>
+      </li>
+    </ul> -->
+  </div>
+</div>

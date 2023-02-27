@@ -1,0 +1,400 @@
+<div *ngIf="loadingGlobal">
+  <div class="loading-template"><img src="assets/images/loading.gif" /></div>
+</div>
+<div class="dates_updates_layout container-fluid" *ngIf="!loadingGlobal">
+  <div class="row align-items-start registeration_main">
+    <div class="col-12 registration_intro">
+      <p>{{ courseData.name }}</p>
+      <h3>{{ 'event-detail.course.title' | translate }}</h3>
+    </div>
+    <div class="tab_switcher">
+      <button
+        type="button"
+        class="btn btn-link"
+        [ngClass]="{ active: this.activeSection === 'mapElevation' }"
+        (click)="scroll('mapElevation')"
+      >
+        {{ 'event-detail.course.maps-legs' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-link"
+        [ngClass]="{ active: this.activeSection === 'exchangeHls' }"
+        (click)="scroll('exchangeHls')"
+        *ngIf="courseData.type === 'relay' || courseData.type === 'sprint'"
+      >
+        {{ 'event-detail.course.highlights' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-link"
+        [ngClass]="{ active: this.activeSection === 'ragnarVillage' }"
+        (click)="scroll('ragnarVillage')"
+        *ngIf="courseData.type === 'trail' || courseData.type === 'sunset' || courseData.type === 'trail_sprint'"
+      >
+        {{ 'event-detail.course.village' | translate }}
+      </button>
+      <button
+        type="button"
+        class="btn btn-link"
+        [ngClass]="{ active: this.activeSection === 'coursePhotos' }"
+        (click)="scroll('coursePhotos')"
+        *ngIf="courseData.files.photos['length'] !== 0 && courseData.files.photos"
+      >
+        {{ 'event-detail.course.photos' | translate }}
+      </button>
+    </div>
+    <!-- Map & Elevation -->
+    <div class="col-12" id="mapElevation">
+      <div class="row mt-4">
+        <div class="col-md-12 col-lg-7 p-0">
+          <div *ngIf="courseData" class="tabbable_panel">
+            <button (click)="this.showMap = true" [ngClass]="{ active: this.showMap }">{{ 'event-detail.course.map' | translate }}</button>
+            <button (click)="this.showMap = false" [ngClass]="{ active: !this.showMap }">
+              {{ 'event-detail.course.elevation' | translate }}
+            </button>
+            <a
+              [ngClass]="!courseData.legsDistances.showBlackLoopToggle ? '' : 'hidden'"
+              [href]="courseData.files.racebook"
+              *ngIf="courseData.files.racebook && courseData.showPdf"
+              title="Racebook"
+              target="_blank"
+              [download]="courseData.files.racebook"
+              class="download-overview"
+            >
+              <img
+                src="../../../../../assets/images/event-detail/course/pdf-download-icon.png"
+                alt="racebook pdf"
+                class="img-responsive center-block"
+              />
+            </a>
+          </div>
+          <div class="lap_readings" *ngIf="courseData.type === 'trail'">
+            <table class="loop_info_table">
+              <tr>
+                <td>
+                  <div class="loop-info-content tiny-text text-center font-light">
+                    <div class="leg-info-item">
+                      <span class="top_t">{{ 'event-detail.course.gain-loss' | translate }}<br /></span>
+                      <span class="leg-info-value"
+                        >{{ isKm ? selectedLeg.elevation_gain_m : selectedLeg.elevation_gain }} {{ isKm ? 'm.' : 'ft.' }}</span
+                      >
+                    </div>
+                    <div
+                      class="leg-info-item"
+                      role="button"
+                      (click)="selectTrailLeg(1)"
+                      [ngClass]="{ 'bg-trail-green': selectedLeg.difficulty === 'Easiest' }"
+                    >
+                      <span class="top_t">{{ 'event-detail.course.green-loop' | translate }}<br /></span>
+                      <span class="leg-info-value"
+                        >{{ isKm ? courseData.legs[0].distance_km : courseData.legs[0].distance }}/{{
+                          'event-detail.course.easiest' | translate
+                        }}</span
+                      >
+                    </div>
+                    <div
+                      class="leg-info-item"
+                      role="button"
+                      (click)="selectTrailLeg(2)"
+                      [ngClass]="{ 'bg-trail-yellow': selectedLeg.difficulty === 'Intermediate' }"
+                    >
+                      <span class="top_t">{{ 'event-detail.course.yellow-loop' | translate }}<br /></span>
+                      <span class="leg-info-value"
+                        >{{ isKm ? courseData.legs[1].distance_km : courseData.legs[1].distance }}/{{
+                          'event-detail.course.inter' | translate
+                        }}</span
+                      >
+                    </div>
+                    <div
+                      class="leg-info-item"
+                      role="button"
+                      (click)="selectTrailLeg(3)"
+                      [ngClass]="{ 'bg-trail-red': selectedLeg.difficulty === 'Hardest' }"
+                    >
+                      <span class="top_t">{{ 'event-detail.course.red-loop' | translate }}<br /></span>
+                      <span class="leg-info-value"
+                        >{{ isKm ? courseData.legs[2].distance_km : courseData.legs[2].distance }}/{{
+                          'event-detail.course.hardest' | translate
+                        }}</span
+                      >
+                    </div>
+                    <div
+                      class="leg-info-item"
+                      role="button"
+                      (click)="selectTrailLeg(4)"
+                      *ngIf="isBlackLoopSelected"
+                      [ngClass]="{ 'bg-trail-black': selectedLeg.difficulty === 'Black Loop' }"
+                    >
+                      <span class="top_t">{{ 'event-detail.course.black-loop' | translate }}<br /></span>
+                      <span class="leg-info-value"
+                        >{{ isKm ? courseData.legs[3].distance_km : courseData.legs[3].distance }}/{{
+                          'event-detail.course.black-loop1' | translate
+                        }}</span
+                      >
+                    </div>
+                    <div class="leg-info-item">
+                      <span class="top_t">{{ 'event-detail.course.total' | translate }}<br /></span>
+                      <span class="leg-info-value">{{ totalTrailDistance | number }} {{ isKm ? 'Kilometers' : 'Miles' }}</span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <div class="lap_readings" *ngIf="courseData.type === 'sunset'">
+            <table class="loop_info_table">
+              <tr>
+                <td>
+                  <div class="loop-info-content tiny-text text-center font-light">
+                    <div class="leg-info-item">
+                      <span>{{ 'event-detail.course.gain-loss' | translate }}<br /></span>
+                      <span class="leg-info-value"
+                        >{{ isKm ? selectedLeg.elevation_gain_m : selectedLeg.elevation_gain }} {{ isKm ? 'm.' : 'ft.' }}</span
+                      >
+                    </div>
+
+                    <div
+                      class="leg-info-item"
+                      *ngFor="let leg of courseData.legs; let i = index"
+                      [ngClass]="
+                        leg.difficulty === 'Easiest'
+                          ? 'bg-trail-green'
+                          : leg.difficulty === 'Intermediate'
+                          ? 'bg-trail-yellow'
+                          : leg.difficulty === 'Hardest'
+                          ? 'bg-trail-red'
+                          : ''
+                      "
+                      (click)="selectSunsetLegDifficulty(i + 1)"
+                    >
+                      <span>{{ 'event-detail.course.loop' | translate }} #{{ i + 1 }}<br /></span>
+                      <span class="leg-info-value">{{ isKm ? leg.distance_km : leg.distance }}/{{ leg.difficulty }}</span>
+                    </div>
+                    <div class="leg-info-item">
+                      <span>{{ 'event-detail.course.total' | translate }}<br /></span>
+                      <span class="leg-info-value">
+                        {{
+                          courseData.type === 'sunset' &&
+                          courseData.id !== '130' &&
+                          courseData.id !== '144' &&
+                          courseData.id !== '154' &&
+                          courseData.id !== '157'
+                            ? totalTrailDistance * 2
+                            : totalTrailDistance
+                        }}
+                        {{ isKm ? 'Kilometers' : 'Miles' }}
+                      </span>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <app-course-map *ngIf="mapCourseData" [hidden]="!this.showMap" [mapCourseData]="mapCourseData"></app-course-map>
+          <app-course-elevation *ngIf="!this.showMap" [mapCourseData]="mapCourseData"> </app-course-elevation>
+        </div>
+        <div class="col-md-12 col-lg-5 p-0 table_row">
+          <app-course-table [courseData]="courseData" (selectLegData)="selectLegData($event)" (selectBlackLoop)="selectBlackLoop($event)">
+          </app-course-table>
+        </div>
+      </div>
+      <div class="col-md-12 col-xs-12 selection-overview selection-overview-trail" *ngIf="courseData.type === 'trail'">
+        <div class="col-xs-12">
+          <div id="trail-btn-tabs">
+            <div class="text-center">
+              <div *ngIf="courseData.type === 'trail' && selectedLeg" class="leg-total-dist">
+                <h3>
+                  <span>{{ 'event-detail.course.mileage' | translate }} = &nbsp;</span>
+                  <span class="leg-info-value"> {{ totalTrailDistance | number }} {{ isKm ? 'Kilometers' : 'Miles' }}</span>
+                </h3>
+              </div>
+              <div class="btn-group" role="group">
+                <button
+                  class="btn btn-tab-custom green tiny-text font-medium"
+                  [ngClass]="{ active: selectedLeg.difficulty === 'Easiest' }"
+                  (click)="selectTrailLeg(1)"
+                >
+                  <div class="icon-tab">
+                    <span class="circle-base green"> &nbsp; </span>
+                  </div>
+                  <p class="difficulty-tab">{{ 'event-detail.course.easy' | translate }}</p>
+                </button>
+                <button
+                  class="btn btn-tab-custom yellow tiny-text font-medium"
+                  [ngClass]="{ active: selectedLeg.difficulty === 'Intermediate' }"
+                  (click)="selectTrailLeg(2)"
+                >
+                  <div class="icon-tab">
+                    <span class="square yellow"> &nbsp; </span>
+                  </div>
+                  <p class="difficulty-tab">{{ 'event-detail.course.intermediate' | translate }}</p>
+                </button>
+                <button
+                  class="btn btn-tab-custom red tiny-text font-medium"
+                  [ngClass]="{ active: selectedLeg.difficulty === 'Hardest' }"
+                  (click)="selectTrailLeg(3)"
+                >
+                  <div class="icon-tab">
+                    <span class="diamond red"> &nbsp; </span>
+                  </div>
+                  <p class="difficulty-tab">{{ 'event-detail.course.hard' | translate }}</p>
+                </button>
+                <button
+                  class="btn btn-tab-custom black tiny-text font-medium"
+                  [ngClass]="{ active: selectedLeg.difficulty === 'Black Loop' }"
+                  *ngIf="isBlackLoopSelected"
+                  (click)="selectTrailLeg(4)"
+                >
+                  <div class="icon-tab">
+                    <span class="double-diamond black"> &nbsp; </span>
+                  </div>
+                  <p class="difficulty-tab">{{ 'event-detail.course.black' | translate }}</p>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 offset-md-2 col-md-8 p-0">
+            <div class="leg-loop-notes" *ngIf="selectedLeg">
+              <div class="leg-loop-title-sec">
+                <h2>{{ selectedLeg.name }}</h2>
+                <div class="distance">
+                  {{ 'event-detail.course.distance' | translate
+                  }}<span>{{ selectedLeg.distance }} {{ 'event-detail.course.miles' | translate }}</span>
+                </div>
+                <div class="elevation">
+                  {{ 'event-detail.course.elevation-gain' | translate
+                  }}<span>{{ selectedLeg.elevation_gain }} {{ 'event-detail.course.feet' | translate }}</span>
+                </div>
+              </div>
+              <div class="note" *ngIf="selectedLeg.description">
+                <h5>{{ 'event-detail.course.loop-description' | translate }}</h5>
+                <div [innerHtml]="selectedLeg.description"></div>
+              </div>
+              <div class="note" *ngIf="selectedLeg.notes">
+                <h5>{{ 'event-detail.course.notes' | translate }}</h5>
+                <div [innerHtml]="selectedLeg.notes"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-12 col-xs-12 selection-overview selection-overview-sprint hidden-xs"
+        *ngIf="(courseData.type === 'sprint' || courseData.type === 'relay') && selectedLeg"
+        [ngClass]="!isAnyLegSelected ? 'showData' : ''"
+      >
+        <div class="selection-values-sprint" *ngIf="selectedLeg && isAnyLegSelected">
+          <ul>
+            <li>{{ 'event-detail.course.details-leg' | translate }} {{ selectedLeg.leg_number }}</li>
+            <li>
+              {{ 'event-detail.course.distance' | translate }}
+              {{ isKm ? selectedLeg.distance_km + ' kilometers' : selectedLeg.distance + ' miles' }}
+            </li>
+            <li>
+              {{ 'event-detail.course.elevation-gain' | translate }}
+              {{ isKm ? selectedLeg.elevation_gain_m : selectedLeg.elevation_gain }}
+            </li>
+            <li>
+              {{ 'event-detail.course.elevation-loss' | translate }}
+              {{ isKm ? selectedLeg.elevation_loss_m : selectedLeg.elevation_loss }}
+            </li>
+            <li>{{ 'event-detail.course.difficulty' | translate }} {{ selectedLeg.difficulty }}</li>
+          </ul>
+        </div>
+        <div class="row">
+          <div class="col-md-3 col-xs-12 selected-value-col-sprint" *ngIf="selectedLeg && isAnyLegSelected">
+            <h5>{{ 'event-detail.course.address' | translate }}</h5>
+            <p *ngIf="selectedLeg.exchange_address.address_1">
+              {{ selectedLeg.exchange_address.name }} <br />
+              {{ selectedLeg.exchange_address.address_1 }} <br />
+              {{ selectedLeg.exchange_address.city }}, {{ selectedLeg.exchange_address.state }}
+              {{ selectedLeg.exchange_address.postal_code }} {{ selectedLeg.exchange_address.country }}
+            </p>
+            <p *ngIf="selectedLeg.exchange_address.latitude">
+              {{ '(' + selectedLeg.exchange_address.latitude + ', ' + selectedLeg.exchange_address.longitude + ')' }}
+            </p>
+          </div>
+          <div class="col-md-3 col-xs-12 selected-value-col-sprint" *ngIf="selectedLeg && isAnyLegSelected">
+            <h5>{{ 'event-detail.course.turn-by' | translate }}</h5>
+            <div [innerHtml]="selectedLeg.turn_by_turn"></div>
+          </div>
+          <div class="col-md-3 col-xs-12 selected-value-col-sprint" *ngIf="selectedLeg && isAnyLegSelected">
+            <h5>{{ 'event-detail.course.van-directions' | translate }}</h5>
+            <div class="bind-content" *ngIf="selectedLeg.van_directions" [innerHtml]="selectedLeg.van_directions"></div>
+            <div class="bind-content" *ngIf="!selectedLeg.van_directions">-</div>
+          </div>
+          <div class="col-md-3 col-xs-12 selected-value-col-sprint" *ngIf="selectedLeg && isAnyLegSelected">
+            <h5>{{ 'event-detail.course.notes1' | translate }}</h5>
+            <div class="bind-content" [innerHtml]="selectedLeg.notes"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Ragnar Village-->
+    <div
+      class="col-12 ragnar_village_block"
+      *ngIf="courseData.type === 'trail' || courseData.type === 'sunset' || courseData.type === 'trail_sprint'"
+      id="ragnarVillage"
+    >
+      <div class="col-12 dates_updates_intro">
+        <h3>{{ 'event-detail.course.village' | translate }}</h3>
+      </div>
+      <div class="col-xs-12 offset-md-2 col-md-8 p-0 ragnar-village-content" [innerHtml]="courseData.village"></div>
+    </div>
+    <!-- Exchange Highlights -->
+    <div class="col-12 p-0" *ngIf="courseData.type === 'relay' || courseData.type === 'sprint'" id="exchangeHls">
+      <div class="col-12 dates_updates_intro">
+        <p>{{ courseData.name }}</p>
+        <h3>{{ 'event-detail.course.highlights' | translate }}</h3>
+      </div>
+      <ngb-accordion [closeOthers]="true" animation="true">
+        <ngb-panel *ngFor="let exchange of courseData.exchanges">
+          <ng-template ngbPanelTitle>
+            <span> {{ exchange.name }} </span>
+          </ng-template>
+          <ng-template ngbPanelContent>
+            <p class="px-4" [innerHtml]="exchange.description"></p>
+            <div *ngIf="exchange.photo">
+              <a *ngIf="!isObject(exchange.photo)" href="{{ exchange.photo | parseImageUrl }}">
+                <img [src]="exchange.photo" />
+              </a>
+              <div *ngIf="isObject(exchange.photo)">
+                <a *ngFor="let photo of exchange.photo" href="{{ photo | parseImageUrl }}">
+                  <img [src]="photo" />
+                </a>
+              </div>
+            </div>
+          </ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
+    <!-- Course Photos-->
+    <div
+      class="col-12 p-0 course-photos-block course-photos-block-trail"
+      id="coursePhotos"
+      *ngIf="courseData.files.photos['length'] !== 0 && courseData.files.photos"
+    >
+      <div class="col-12 dates_updates_intro">
+        <p>{{ courseData.name }}</p>
+        <h3>{{ 'event-detail.course.photos' | translate }}</h3>
+        <div class="course-photos-slider">
+          <div id="tiny-slider">
+            <div *ngFor="let photo of courseData.files.photos">
+              <a>
+                <img [src]="photo.path" alt="ragnar-course-photo" height="80" class="img-responsive center-block" />
+              </a>
+            </div>
+          </div>
+          <!-- <ngb-carousel [showNavigationIndicators]="false">
+            <ng-template ngbSlide *ngFor="let photo of courseData.files.photos">
+              <a>
+                <img [src]="photo.path" alt="ragnar-course-photo" height="80" class="img-responsive center-block" />
+              </a>
+            </ng-template>
+          </ngb-carousel> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

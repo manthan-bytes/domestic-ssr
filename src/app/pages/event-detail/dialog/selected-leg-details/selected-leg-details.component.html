@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <button type="button" (click)="closeModal()" data-dismiss="modal" class="close"><i class="iconm-X" aria-hidden="true"></i></button>
+</div>
+<div class="modal-body">
+  <div class="col-xs-12 selected-value-col leg-value-xs">
+    <h5>Exchange Address 1:</h5>
+    <p *ngIf="selectedLegData.exchange_address.address_1">
+      {{ selectedLegData.exchange_address.name }} <br />
+      {{ selectedLegData.exchange_address.address_1 }} <br />
+      {{ selectedLegData.exchange_address.city }}, {{ selectedLegData.exchange_address.state }}
+      {{ selectedLegData.exchange_address.postal_code }} {{ selectedLegData.exchange_address.country }}
+    </p>
+    <p *ngIf="selectedLegData.exchange_address.latitude">
+      {{ '(' + selectedLegData.exchange_address.latitude + ', ' + selectedLegData.exchange_address.longitude + ')' }}
+    </p>
+  </div>
+  <div class="col-xs-12 selected-value-col leg-value-xs">
+    <h5>{{ 'event-detail.course.turn-by' | translate }}</h5>
+    <div [innerHtml]="selectedLegData.turn_by_turn"></div>
+  </div>
+  <div class="col-xs-12 selected-value-col leg-value-xs">
+    <h5>{{ 'event-detail.course.van-directions' | translate }}</h5>
+    <div class="bind-content" *ngIf="selectedLegData.van_directions" [innerHtml]="selectedLegData.van_directions"></div>
+    <div class="bind-content" *ngIf="!selectedLegData.van_directions">-</div>
+  </div>
+  <div class="col-xs-12 selected-value-col leg-value-xs">
+    <h5>{{ 'event-detail.course.notes1' | translate }}</h5>
+    <div class="bind-content" ng-bind-html="selectedLegData.notes"></div>
+  </div>
+</div>

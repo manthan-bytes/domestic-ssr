@@ -1,0 +1,47 @@
+<div>
+  <div class="popup-mainpage">
+    <div class="popup-mainpage-close">
+      <a style="cursor: pointer" (click)="close()">x</a>
+    </div>
+    <div class="popup-mainpage-data">
+      <div class="popup-mainpage-data-left">
+        <h2>Want 10% off?</h2>
+        <h5>Sign up and save on your first AeroPress Purchase and receive the latest in product drops,events,exclusive offers and more.</h5>
+        <form #emailForm="ngForm" #form action="https://services.ascentcrm.com/remotesurvey.asmx/ProcessForm">
+          <input type="hidden" name="survey" value="282" />
+          <input type="hidden" name="survey_version" value="1552" />
+          <input
+            type="email"
+            name="emailVal"
+            [(ngModel)]="email"
+            #emailVal="ngModel"
+            pattern="[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"
+            placeholder="Enter your email address"
+            required
+          />
+          <ng-container *ngIf="emailForm.submitted">
+            <span class="error_msg" *ngIf="emailVal.errors?.required"> Email Required! </span>
+            <span class="error_msg" *ngIf="emailVal.errors?.pattern"> Valid Email Required!</span>
+          </ng-container>
+          <button
+            type="button"
+            [disabled]="emailVal.errors?.required || emailVal.errors?.pattern"
+            (click)="form.submit(); submit()"
+            class="btn theme-btn ltl-signup-btn d-block w-100 mt-1"
+            value="Submit"
+          >
+            Submit
+          </button>
+        </form>
+        <p>**discount code will be sent to you via email after sign up is completed.</p>
+        <p>**Exclusions apply and promo codes may not be eligible for products on sale.</p>
+      </div>
+      <div class="popup-mainpage-data-right">
+        <img
+          src="https://s3.amazonaws.com/com.runragnar.images.dev/banners/1675254994429_1651147937774_Discover%20Ragnar%20Slider%20Image.webp"
+          alt="popup-image"
+        />
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,231 @@
+<div class="overview_main" *ngIf="overviewData">
+  <div class="overview_hero" [ngStyle]="{ 'background-image': 'url(' + overviewData.files.banner + ')' }">
+    <div class="overview_register">
+      <div [ngClass]="overviewData.name.toLowerCase().includes('porsche') ? 'porsche_event_location' : 'event_location'">
+        <img
+          alt="{{ overviewData.start_city }} {{ overviewData.end_city ? 'to ' + overviewData.end_city : '' }}"
+          class="img-responsive"
+          [src]="overviewData.files.logo_white"
+        />
+      </div>
+      <div class="event_register">
+        <!-- TODO: create a utilty function here which returns appropriate data from the API. -->
+        <h3
+          class="event-between-place"
+          *ngIf="(overviewData.type === 'relay' || overviewData.type === 'sprint') && overviewData.start_city && overviewData.end_city"
+        >
+          {{ overviewData.start_city }} to {{ overviewData.end_city }}
+        </h3>
+        <h3
+          class="event-between-place"
+          *ngIf="overviewData.type === 'trail' || overviewData.type === 'sunset' || overviewData.type === 'trail_sprint'"
+        >
+          {{ overviewData.start_city }}
+        </h3>
+
+        <p
+          class="event-date-value"
+          *ngIf="
+            (overviewData.start_date | dateFormat : 'MMM') !== (overviewData.end_date | dateFormat : 'MMM') &&
+            overviewData.type !== 'sunset' &&
+            overviewData.type !== 'trail_sprint'
+          "
+        >
+          {{ overviewData.start_date | dateFormat : 'MMMM D' }}-{{ overviewData.end_date | dateFormat : 'MMMM D' }},
+          {{ overviewData.start_date | dateFormat : 'YYYY' }}
+        </p>
+
+        <!--  For SUNSET type start-->
+        <p
+          class="event-date-value"
+          *ngIf="overviewData.start_date && (overviewData.type === 'sunset' || overviewData.type === 'trail_sprint')"
+        >
+          {{ overviewData.start_date | dateFormat : 'MMMM D , YYYY' }}
+        </p>
+        <!--  For SUNSET type end-->
+        <p
+          class="event-date-value"
+          *ngIf="
+            (overviewData.start_date | dateFormat : 'MMM') === (overviewData.end_date | dateFormat : 'MMM') &&
+            (overviewData.start_date | dateFormat : 'D') !== (overviewData.end_date | dateFormat : 'D') &&
+            overviewData.type !== 'sunset' &&
+            overviewData.type !== 'trail_sprint'
+          "
+        >
+          {{ overviewData.start_date | dateFormat : 'MMMM D' }}-{{ overviewData.end_date | dateFormat : 'D' }},
+          {{ overviewData.start_date | dateFormat : 'YYYY' }}
+        </p>
+
+        <p
+          class="event-date-value"
+          *ngIf="
+            (overviewData.start_date | dateFormat : 'MMMM') === (overviewData.end_date | dateFormat : 'MMMM') &&
+            (overviewData.start_date | dateFormat : 'D') === (overviewData.end_date | dateFormat : 'D') &&
+            overviewData.type !== 'sunset' &&
+            overviewData.type !== 'trail_sprint'
+          "
+        >
+          {{ overviewData.start_date | dateFormat : 'MMMM D' }}, {{ overviewData.start_date | dateFormat : 'YYYY' }}
+        </p>
+        <div class="register_status">
+          <!-- Title -->
+          <!-- {{overviewData.registration_close_reason | json}} -->
+          <ng-container *ngIf="overviewData.regStatus === 'WAIT_LIST' && !overviewData.is_registartion_close">
+            <p>{{ 'event-detail.overview.registration-closed' | translate }}</p>
+          </ng-container>
+          <ng-container *ngIf="overviewData.regStatus === 'WAIT_LIST' && overviewData.is_registartion_close">
+            <p>{{ overviewData.registration_close_reason.title }}</p>
+          </ng-container>
+
+          <!-- Description -->
+          <ng-container *ngIf="overviewData.regStatus === 'WAIT_LIST' && !overviewData.is_registartion_close">
+            <p>{{ 'event-detail.overview.waitlist-info' | translate }}</p>
+          </ng-container>
+          <ng-container *ngIf="overviewData.regStatus === 'WAIT_LIST' && overviewData.is_registartion_close">
+            <p>{{ overviewData.registration_close_reason.description }}</p>
+          </ng-container>
+
+          <h4
+            *ngIf="
+              !eventService.excludesId.includes(overviewData.id) &&
+              statusMsg &&
+              overviewData.regStatus !== 'NOT_OPEN_YET' &&
+              overviewData.regStatus !== 'WAIT_LIST'
+            "
+          >
+            {{ statusMsg }}
+          </h4>
+          <h4
+            *ngIf="!eventService.excludesId.includes(overviewData.id) && statusMsg && overviewData.regStatus === 'NOT_OPEN_YET'"
+            class="status-msg-not-open"
+          >
+            {{ statusMsg }}
+          </h4>
+          <!--TODO: Need to add disable class -->
+          <!--TODO: Need to add google analytics-->
+          <!-- <a appRegisterButton [event]="overviewData" class="blue-cta-btn" *ngIf="overviewData.regStatus !== 'NOT_OPEN_YET'">
+            {{ overviewData.regStatusLabel }}
+          </a> -->
+          <a
+            [routerLink]="'.'"
+            class="blue-cta-btn"
+            fragment="registration"
+            (click)="addPageInitEvent('event-detail-registration')"
+            *ngIf="overviewData.regStatus !== 'NOT_OPEN_YET' && overviewData.regStatus !== 'WAIT_LIST'"
+          >
+            {{ 'common-data.view-price' | translate }}</a
+          >
+          <a
+            [routerLink]="'.'"
+            class="blue-cta-btn"
+            fragment="registration"
+            (click)="addPageInitEvent('event-detail-registration')"
+            *ngIf="overviewData.regStatus === 'WAIT_LIST'"
+          >
+            {{ 'common-data.join-waitlist' | translate }}</a
+          >
+        </div>
+        <ng-container *ngIf="statusMsg && !eventService.excludesId.includes(overviewData.id)">
+          <h5 *ngIf="eventService.includesId.includes(overviewData.id)">
+            {{ 'common-data.sign-up' | translate }}
+          </h5>
+          <!-- TODO: Need to add CSS for below class -->
+          <div class="race_not_open_yet" *ngIf="overviewData.regStatus === 'NOT_OPEN_YET'">
+            <div class="text-center">
+              <div class="reg_opens_date text-center">{{ overviewData.registration_opens | dateFormat : 'MMMM D, YYYY' }}</div>
+            </div>
+            <div class="duration col-xs-12 text-center">
+              <div class="col-xs-4">
+                <div class="unit_box">
+                  <div>{{ eventService.remainsToOpenRegs.days }}</div>
+                  <div class="unit">{{ 'common-data.days' | translate }}</div>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="unit_box">
+                  <div>{{ eventService.remainsToOpenRegs.hours }}</div>
+                  <div class="unit">{{ 'common-data.hours' | translate }}</div>
+                </div>
+              </div>
+              <div class="col-xs-4">
+                <div class="unit_box">
+                  <div>{{ eventService.remainsToOpenRegs.minutes }}</div>
+                  <div class="unit">{{ 'common-data.minutes' | translate }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Worked till here -->
+        <!-- REGISTRATION TIMELINE -->
+        <ng-container
+          *ngIf="
+            overviewData.regStatus !== 'WAIT_LIST' && overviewData.regStatus !== 'NOT_OPEN_YET' && overviewData.regStatus !== 'SOLD_OUT'
+          "
+        >
+          <div class="booking_schedule">
+            <ul class="timeline" *ngIf="pricingStages.REGULAR">
+              <li
+                class="date_block"
+                [ngClass]="{ active_dates: stage.isActive, coming_dates: stage.isComing, inactive_dates: stage.isInactive }"
+                *ngFor="let stage of pricingStages.REGULAR.stages"
+              >
+                <h4 class="entry_status">{{ stage.label }}</h4>
+                <p class="booking_dates">{{ stage.startDate | dateFormat : 'MMM D' }}</p>
+              </li>
+            </ul>
+          </div>
+          <!-- REGISTRATION TIMELINE : END -->
+          <p
+            class="register_cta_quick"
+            *ngIf="overviewData.regStatus !== 'COMING_SOON' && !overviewData.name.toLowerCase().includes('porsche')"
+          >
+            {{ 'event-detail.overview.register-before-prices' | translate }}
+          </p>
+          <p class="register_cta_quick" *ngIf="overviewData.regStatus === 'COMING_SOON'">{{ statusMsg }}</p>
+        </ng-container>
+      </div>
+
+      <!-- <div class="affirm-buy-monthly">
+        <a class="affirm-site-modal" data-page-type="banner"> <img src="assets/images/event-detail/overview/affirm-buy-monthly.png" /></a>
+      </div> -->
+    </div>
+  </div>
+  <div class="overview_spe_offer">
+    <h1>{{ overviewData.name }}</h1>
+    <div class="spe_offer_right">
+      <p [innerHtml]="overviewData.intro | sanitizeHtml"></p>
+    </div>
+    <section class="overview_video" id="video" *ngIf="overviewData.video_url">
+      <div class="embed-responsive embed_responsive_16by9">
+        <iframe class="embed_responsive_item" width="100%" height="480" [src]="overviewData.video_url | sanitizeUrl"></iframe>
+      </div>
+    </section>
+    <div class="lets_be_social">
+      <h2>{{ 'event-detail.overview.Lets-be-social' | translate }}</h2>
+      <div class="be_social_logos">
+        <a href="https://www.instagram.com/ragnarrelay/" class="logo_links" target="_blank">
+          <img
+            src="assets/images/event-detail/overview/follow-on-instagram.png"
+            alt="follow-on-instagram"
+            class="img-responsive center-block"
+          />
+        </a>
+        <a href="https://www.facebook.com/TheRagnarRelaySeries" class="logo_links" target="_blank">
+          <img src="assets/images/event-detail/overview/join-on-fb.png" alt="join-on-fb" class="img-responsive center-block" />
+        </a>
+      </div>
+    </div>
+    <!-- <div class="be_social_feeds embed-responsive" *ngIf="overviewData.juicer_id"> -->
+    <!-- <ul class="juicer-feed" data-feed-id="{{this.overviewData.juicer_id}}"></ul> -->
+    <!-- <iframe
+        width="100%"
+        height="1000"
+        style="display: block; margin: 0 auto"
+        [src]="'https://www.juicer.io/api/feeds/' + this.overviewData.juicer_id + '/iframe' | sanitizeUrl"
+      >
+      </iframe> -->
+    <!-- </div> -->
+  </div>
+</div>

@@ -1,0 +1,106 @@
+@import '../../../../assets/styles/vars';
+@import '../../../../assets/styles/mixins';
+
+.pre_footer_virtual_challenge {
+  border-top: 1px solid $grey-mid;
+  border-bottom: 1px solid $grey-mid;
+  padding: 60px 0 70px;
+  .pre_footer {
+    padding: 40px 15px;
+    background: #f9f9f9;
+  }
+  .testimonial-container-fluid {
+    padding: 40px 15px;
+    background: #f9f9f9;
+    @media screen and (max-width: $screen-xs-max) {
+      padding: 33px 0 55px 0;
+    }
+    .carousel-indicators {
+      bottom: -25px;
+      z-index: 1;
+      li {
+        border-color: $black2;
+        width: 7px;
+        height: 7px;
+        margin: 6px;
+        text-indent: -999px;
+        border: 1px solid $black2;
+        border-radius: 10px;
+        cursor: pointer;
+        @media screen and (max-width: $screen-xs-max) {
+          width: 11px;
+          height: 11px;
+        }
+        @media screen and (max-width: 320px) {
+          margin: 3px;
+        }
+        &:hover,
+        &.active {
+          background: $black2;
+        }
+      }
+    }
+    .carousel-inner {
+      .carousel-item {
+        transition: all 0.5s ease;
+        .quote {
+          .quote-text {
+            @include font-weight(500);
+            font-size: 18px;
+            color: $black2;
+            margin-bottom: 22px;
+            @media screen and (max-width: $screen-xs-max) {
+              font-size: 16px;
+            }
+          }
+          .quote-by {
+            @include font-weight(500);
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+          }
+        }
+      }
+    }
+  }
+  @media (max-width: $screen-xs-max) {
+    padding: 30px 0 10px;
+    border: 0;
+  }
+  .col-md-4 {
+    @media (max-width: $screen-xs-max) {
+      margin-bottom: 30px;
+    }
+    @media (max-width: $screen-xxs-max) {
+      &:nth-child(1) {
+        order: 1;
+      }
+      &:nth-child(2) {
+        order: 3;
+      }
+      &:nth-child(3) {
+        order: 2;
+        margin: 30px 0;
+      }
+    }
+  }
+  @media (max-width: $screen-xxs-max) {
+    .col-md-8 {
+      order: 3;
+    }
+  }
+  .row {
+    @media (min-width: $screen-lg-max) {
+      margin-left: -40px;
+      margin-right: -40px;
+      .col-md-4 {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+    }
+  }
+  .rg_btn {
+    max-width: 320px;
+    margin: 0 auto;
+  }
+}

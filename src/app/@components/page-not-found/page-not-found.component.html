@@ -1,0 +1,19 @@
+<div class="not-found">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="not-found-img">
+        <img class="img-responsive" src="assets/images/static-pages/whatis-ragnar/what-is-ragnar-banner.jpg" />
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="not-found-content">
+        <p class="main-text">{{ 'components.page-not-found.main-title' | translate }}</p>
+        <h2 class="title">{{ 'components.page-not-found.title' | translate }}</h2>
+        <small class="sub-title">{{ 'components.page-not-found.page-unavailable' | translate }}</small>
+        <button nbButton fullWidth (click)="goToHome()" type="button" class="home-button">
+          {{ 'components.page-not-found.take-me-home' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

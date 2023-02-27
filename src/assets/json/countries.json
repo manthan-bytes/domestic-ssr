@@ -1,0 +1,981 @@
+[{
+	"name": "United States",
+	"value": "USA",
+	"regionFile": "united-states"
+}, {
+	"name": "Canada",
+	"value": "CAN",
+	"regionFile": "canada"
+}, {
+	"name": "Afghanistan",
+	"value": "AFG",
+	"regionFile": "afghanistan"
+}, {
+	"name": "Albania",
+	"value": "ALB",
+	"regionFile": "albania"
+}, {
+	"name": "Algeria",
+	"value": "DZA",
+	"regionFile": "algeria"
+}, {
+	"name": "American Samoa",
+	"value": "ASM",
+	"regionFile": "american-samoa"
+}, {
+	"name": "Andorra",
+	"value": "AND",
+	"regionFile": "andorra"
+}, {
+	"name": "Angola",
+	"value": "AGO",
+	"regionFile": "angola"
+}, {
+	"name": "Anguilla",
+	"value": "AIA",
+	"regionFile": "anguilla"
+}, {
+	"name": "Antarctica",
+	"value": "ATA",
+	"regionFile": "antarctica"
+}, {
+	"name": "Antigua & Barbuda",
+	"value": "ATG",
+	"regionFile": "antigua-&-barbuda"
+}, {
+	"name": "Argentina",
+	"value": "ARG",
+	"regionFile": "argentina"
+}, {
+	"name": "Armenia",
+	"value": "ARM",
+	"regionFile": "armenia"
+}, {
+	"name": "Aruba",
+	"value": "ABW",
+	"regionFile": "aruba"
+}, {
+	"name": "Australia",
+	"value": "AUS",
+	"regionFile": "australia"
+}, {
+	"name": "Austria",
+	"value": "AUT",
+	"regionFile": "austria"
+}, {
+	"name": "Azerbaijan",
+	"value": "AZE",
+	"regionFile": "azerbaijan"
+}, {
+	"name": "Bahamas, The",
+	"value": "BHS",
+	"regionFile": "bahamas,-the"
+}, {
+	"name": "Bahrain",
+	"value": "BHR",
+	"regionFile": "bahrain"
+}, {
+	"name": "Bangladesh",
+	"value": "BGD",
+	"regionFile": "bangladesh"
+}, {
+	"name": "Barbados",
+	"value": "BRB",
+	"regionFile": "barbados"
+}, {
+	"name": "Belarus",
+	"value": "BLR",
+	"regionFile": "belarus"
+}, {
+	"name": "Belgium",
+	"value": "BEL",
+	"regionFile": "belgium"
+}, {
+	"name": "Belize",
+	"value": "BLZ",
+	"regionFile": "belize"
+}, {
+	"name": "Benin",
+	"value": "BEN",
+	"regionFile": "benin"
+}, {
+	"name": "Bermuda",
+	"value": "BMU",
+	"regionFile": "bermuda"
+}, {
+	"name": "Bhutan",
+	"value": "BTN",
+	"regionFile": "bhutan"
+}, {
+	"name": "Bolivia",
+	"value": "BOL",
+	"regionFile": "bolivia"
+}, {
+	"name": "Bonaire, Sint Eustatius and Saba",
+	"value": "BES",
+	"regionFile": "bonaire,-sint-eustatius-and-saba"
+}, {
+	"name": "Bosnia and Herzegovina",
+	"value": "BIH",
+	"regionFile": "bosnia-and-herzegovina"
+}, {
+	"name": "Botswana",
+	"value": "BWA",
+	"regionFile": "botswana"
+}, {
+	"name": "Bouvet Island",
+	"value": "BVT",
+	"regionFile": "bouvet-island"
+}, {
+	"name": "Brazil",
+	"value": "BRA",
+	"regionFile": "brazil"
+}, {
+	"name": "British Indian Ocean Territory",
+	"value": "IOT",
+	"regionFile": "british-indian-ocean-territory"
+}, {
+	"name": "Brunei",
+	"value": "BRN",
+	"regionFile": "brunei"
+}, {
+	"name": "Bulgaria",
+	"value": "BGR",
+	"regionFile": "bulgaria"
+}, {
+	"name": "Burkina Faso",
+	"value": "BFA",
+	"regionFile": "burkina-faso"
+}, {
+	"name": "Burundi",
+	"value": "BDI",
+	"regionFile": "burundi"
+}, {
+	"name": "Cambodia",
+	"value": "KHM",
+	"regionFile": "cambodia"
+}, {
+	"name": "Cameroon",
+	"value": "CMR",
+	"regionFile": "cameroon"
+}, {
+	"name": "Cape Verde",
+	"value": "CPV",
+	"regionFile": "cape-verde"
+}, {
+	"name": "Cayman Islands",
+	"value": "CYM",
+	"regionFile": "cayman-islands"
+}, {
+	"name": "Central African Republic",
+	"value": "CAF",
+	"regionFile": "central-african-republic"
+}, {
+	"name": "Chad",
+	"value": "TCD",
+	"regionFile": "chad"
+}, {
+	"name": "Chile",
+	"value": "CHL",
+	"regionFile": "chile"
+}, {
+	"name": "China",
+	"value": "CHN",
+	"regionFile": "china"
+}, {
+	"name": "Christmas Island",
+	"value": "CXR",
+	"regionFile": "christmas-island"
+}, {
+	"name": "Cocos (Keeling) Islands",
+	"value": "CCK",
+	"regionFile": "cocos-(keeling)-islands"
+}, {
+	"name": "Colombia",
+	"value": "COL",
+	"regionFile": "colombia"
+}, {
+	"name": "Comoros",
+	"value": "COM",
+	"regionFile": "comoros"
+}, {
+	"name": "Congo (Brazzaville)",
+	"value": "COG",
+	"regionFile": "congo-(brazzaville)"
+}, {
+	"name": "Congo (Kinshasa)",
+	"value": "COD",
+	"regionFile": "congo-(kinshasa)"
+}, {
+	"name": "Cook Islands",
+	"value": "COK",
+	"regionFile": "cook-islands"
+}, {
+	"name": "Costa Rica",
+	"value": "CRI",
+	"regionFile": "costa-rica"
+}, {
+	"name": "Croatia",
+	"value": "HRV",
+	"regionFile": "croatia"
+}, {
+	"name": "Curacao",
+	"value": "CUW",
+	"regionFile": "curacao"
+}, {
+	"name": "Cyprus",
+	"value": "CYP",
+	"regionFile": "cyprus"
+}, {
+	"name": "Czech Republic",
+	"value": "CZE",
+	"regionFile": "czech-republic"
+}, {
+	"name": "Denmark",
+	"value": "DNK",
+	"regionFile": "denmark"
+}, {
+	"name": "Djibouti",
+	"value": "DJI",
+	"regionFile": "djibouti"
+}, {
+	"name": "Dominica",
+	"value": "DMA",
+	"regionFile": "dominica"
+}, {
+	"name": "Dominican Republic",
+	"value": "DOM",
+	"regionFile": "dominican-republic"
+}, {
+	"name": "East Timor",
+	"value": "TLS",
+	"regionFile": "east-timor"
+}, {
+	"name": "Ecuador",
+	"value": "ECU",
+	"regionFile": "ecuador"
+}, {
+	"name": "Egypt",
+	"value": "EGY",
+	"regionFile": "egypt"
+}, {
+	"name": "El Salvador",
+	"value": "SLV",
+	"regionFile": "el-salvador"
+}, {
+	"name": "Equatorial Guinea",
+	"value": "GNQ",
+	"regionFile": "equatorial-guinea"
+}, {
+	"name": "Eritrea",
+	"value": "ERI",
+	"regionFile": "eritrea"
+}, {
+	"name": "Estonia",
+	"value": "EST",
+	"regionFile": "estonia"
+}, {
+	"name": "Ethiopia",
+	"value": "ETH",
+	"regionFile": "ethiopia"
+}, {
+	"name": "Falkland Islands (Malvinas)",
+	"value": "FLK",
+	"regionFile": "falkland-islands-(malvinas)"
+}, {
+	"name": "Faroe Islands",
+	"value": "FRO",
+	"regionFile": "faroe-islands"
+}, {
+	"name": "Fiji",
+	"value": "FJI",
+	"regionFile": "fiji"
+}, {
+	"name": "Finland",
+	"value": "FIN",
+	"regionFile": "finland"
+}, {
+	"name": "France",
+	"value": "FRA",
+	"regionFile": "france"
+}, {
+	"name": "French Guiana",
+	"value": "GUF",
+	"regionFile": "french-guiana"
+}, {
+	"name": "French Polynesia",
+	"value": "PYF",
+	"regionFile": "french-polynesia"
+}, {
+	"name": "French Southern Territories",
+	"value": "ATF",
+	"regionFile": "french-southern-territories"
+}, {
+	"name": "Gabon",
+	"value": "GAB",
+	"regionFile": "gabon"
+}, {
+	"name": "Gambia, The",
+	"value": "GMB",
+	"regionFile": "gambia,-the"
+}, {
+	"name": "Georgia",
+	"value": "GEO",
+	"regionFile": "georgia"
+}, {
+	"name": "Germany",
+	"value": "DEU",
+	"regionFile": "germany"
+}, {
+	"name": "Ghana",
+	"value": "GHA",
+	"regionFile": "ghana"
+}, {
+	"name": "Gibraltar",
+	"value": "GIB",
+	"regionFile": "gibraltar"
+}, {
+	"name": "Greece",
+	"value": "GRC",
+	"regionFile": "greece"
+}, {
+	"name": "Greenland",
+	"value": "GRL",
+	"regionFile": "greenland"
+}, {
+	"name": "Grenada",
+	"value": "GRD",
+	"regionFile": "grenada"
+}, {
+	"name": "Guadeloupe",
+	"value": "GLP",
+	"regionFile": "guadeloupe"
+}, {
+	"name": "Guam",
+	"value": "GUM",
+	"regionFile": "guam"
+}, {
+	"name": "Guatemala",
+	"value": "GTM",
+	"regionFile": "guatemala"
+}, {
+	"name": "Guernsey",
+	"value": "GGY",
+	"regionFile": "guernsey"
+}, {
+	"name": "Guinea",
+	"value": "GIN",
+	"regionFile": "guinea"
+}, {
+	"name": "Guinea Bissau",
+	"value": "GNB",
+	"regionFile": "guinea-bissau"
+}, {
+	"name": "Guyana",
+	"value": "GUY",
+	"regionFile": "guyana"
+}, {
+	"name": "Haiti",
+	"value": "HTI",
+	"regionFile": "haiti"
+}, {
+	"name": "Heard Island and McDonald Islands",
+	"value": "HMD",
+	"regionFile": "heard-island-and-mcdonald-islands"
+}, {
+	"name": "Holy See (Vatican City State)",
+	"value": "VAT",
+	"regionFile": "holy-see-(vatican-city-state)"
+}, {
+	"name": "Honduras",
+	"value": "HND",
+	"regionFile": "honduras"
+}, {
+	"name": "Hong Kong",
+	"value": "HKG",
+	"regionFile": "hong-kong"
+}, {
+	"name": "Hungary",
+	"value": "HUN",
+	"regionFile": "hungary"
+}, {
+	"name": "Iceland",
+	"value": "ISL",
+	"regionFile": "iceland"
+}, {
+	"name": "India",
+	"value": "IND",
+	"regionFile": "india"
+}, {
+	"name": "Indonesia",
+	"value": "IDN",
+	"regionFile": "indonesia"
+}, {
+	"name": "Iraq",
+	"value": "IRQ",
+	"regionFile": "iraq"
+}, {
+	"name": "Ireland",
+	"value": "IRL",
+	"regionFile": "ireland"
+}, {
+	"name": "Isle of Man",
+	"value": "IMN",
+	"regionFile": "isle-of-man"
+}, {
+	"name": "Israel",
+	"value": "ISR",
+	"regionFile": "israel"
+}, {
+	"name": "Italy",
+	"value": "ITA",
+	"regionFile": "italy"
+}, {
+	"name": "Ivory Coast",
+	"value": "CIV",
+	"regionFile": "ivory-coast"
+}, {
+	"name": "Jamaica",
+	"value": "JAM",
+	"regionFile": "jamaica"
+}, {
+	"name": "Japan",
+	"value": "JPN",
+	"regionFile": "japan"
+}, {
+	"name": "Jersey",
+	"value": "JEY",
+	"regionFile": "jersey"
+}, {
+	"name": "Jordan",
+	"value": "JOR",
+	"regionFile": "jordan"
+}, {
+	"name": "Kazakhstan",
+	"value": "KAZ",
+	"regionFile": "kazakhstan"
+}, {
+	"name": "Kenya",
+	"value": "KEN",
+	"regionFile": "kenya"
+}, {
+	"name": "Kiribati",
+	"value": "KIR",
+	"regionFile": "kiribati"
+}, {
+	"name": "Kosovo",
+	"value": "KO-",
+	"regionFile": "kosovo"
+}, {
+	"name": "Kuwait",
+	"value": "KWT",
+	"regionFile": "kuwait"
+}, {
+	"name": "Kyrgyzstan",
+	"value": "KGZ",
+	"regionFile": "kyrgyzstan"
+}, {
+	"name": "Laos",
+	"value": "LAO",
+	"regionFile": "laos"
+}, {
+	"name": "Latvia",
+	"value": "LVA",
+	"regionFile": "latvia"
+}, {
+	"name": "Lebanon",
+	"value": "LBN",
+	"regionFile": "lebanon"
+}, {
+	"name": "Lesotho",
+	"value": "LSO",
+	"regionFile": "lesotho"
+}, {
+	"name": "Liberia",
+	"value": "LBR",
+	"regionFile": "liberia"
+}, {
+	"name": "Liechtenstein",
+	"value": "LIE",
+	"regionFile": "liechtenstein"
+}, {
+	"name": "Lithuania",
+	"value": "LTU",
+	"regionFile": "lithuania"
+}, {
+	"name": "Luxembourg",
+	"value": "LUX",
+	"regionFile": "luxembourg"
+}, {
+	"name": "Macau",
+	"value": "MAC",
+	"regionFile": "macau"
+}, {
+	"name": "Macedonia",
+	"value": "MKD",
+	"regionFile": "macedonia"
+}, {
+	"name": "Madagascar",
+	"value": "MDG",
+	"regionFile": "madagascar"
+}, {
+	"name": "Malawi",
+	"value": "MWI",
+	"regionFile": "malawi"
+}, {
+	"name": "Malaysia",
+	"value": "MYS",
+	"regionFile": "malaysia"
+}, {
+	"name": "Maldives",
+	"value": "MDV",
+	"regionFile": "maldives"
+}, {
+	"name": "Mali",
+	"value": "MLI",
+	"regionFile": "mali"
+}, {
+	"name": "Malta",
+	"value": "MLT",
+	"regionFile": "malta"
+}, {
+	"name": "Marshall Islands",
+	"value": "MHL",
+	"regionFile": "marshall-islands"
+}, {
+	"name": "Martinique",
+	"value": "MTQ",
+	"regionFile": "martinique"
+}, {
+	"name": "Mauritania",
+	"value": "MRT",
+	"regionFile": "mauritania"
+}, {
+	"name": "Mauritius",
+	"value": "MUS",
+	"regionFile": "mauritius"
+}, {
+	"name": "Mayotte",
+	"value": "MYT",
+	"regionFile": "mayotte"
+}, {
+	"name": "Mexico",
+	"value": "MEX",
+	"regionFile": "mexico"
+}, {
+	"name": "Micronesia, Federated States of",
+	"value": "FSM",
+	"regionFile": "micronesia,-federated-states-of"
+}, {
+	"name": "Moldova",
+	"value": "MDA",
+	"regionFile": "moldova"
+}, {
+	"name": "Monaco",
+	"value": "MCO",
+	"regionFile": "monaco"
+}, {
+	"name": "Mongolia",
+	"value": "MNG",
+	"regionFile": "mongolia"
+}, {
+	"name": "Montenegro",
+	"value": "MNE",
+	"regionFile": "montenegro"
+}, {
+	"name": "Montserrat",
+	"value": "MSR",
+	"regionFile": "montserrat"
+}, {
+	"name": "Morocco",
+	"value": "MAR",
+	"regionFile": "morocco"
+}, {
+	"name": "Mozambique",
+	"value": "MOZ",
+	"regionFile": "mozambique"
+}, {
+	"name": "Myanmar",
+	"value": "MMR",
+	"regionFile": "myanmar"
+}, {
+	"name": "Namibia",
+	"value": "NAM",
+	"regionFile": "namibia"
+}, {
+	"name": "Nauru",
+	"value": "NRU",
+	"regionFile": "nauru"
+}, {
+	"name": "Nepal",
+	"value": "NPL",
+	"regionFile": "nepal"
+}, {
+	"name": "Netherlands",
+	"value": "NLD",
+	"regionFile": "netherlands"
+}, {
+	"name": "New Caledonia",
+	"value": "NCL",
+	"regionFile": "new-caledonia"
+}, {
+	"name": "New Zealand",
+	"value": "NZL",
+	"regionFile": "new-zealand"
+}, {
+	"name": "Nicaragua",
+	"value": "NIC",
+	"regionFile": "nicaragua"
+}, {
+	"name": "Niger",
+	"value": "NER",
+	"regionFile": "niger"
+}, {
+	"name": "Nigeria",
+	"value": "NGA",
+	"regionFile": "nigeria"
+}, {
+	"name": "Niue",
+	"value": "NIU",
+	"regionFile": "niue"
+}, {
+	"name": "Norfolk Island",
+	"value": "NFK",
+	"regionFile": "norfolk-island"
+}, {
+	"name": "Northern Mariana Islands",
+	"value": "MNP",
+	"regionFile": "northern-mariana-islands"
+}, {
+	"name": "Norway",
+	"value": "NOR",
+	"regionFile": "norway"
+}, {
+	"name": "Oman",
+	"value": "OMN",
+	"regionFile": "oman"
+}, {
+	"name": "Pakistan",
+	"value": "PAK",
+	"regionFile": "pakistan"
+}, {
+	"name": "Palau",
+	"value": "PLW",
+	"regionFile": "palau"
+}, {
+	"name": "Palestine, State of",
+	"value": "PSE",
+	"regionFile": "palestine,-state-of"
+}, {
+	"name": "Panama",
+	"value": "PAN",
+	"regionFile": "panama"
+}, {
+	"name": "Papua New Guinea",
+	"value": "PNG",
+	"regionFile": "papua-new-guinea"
+}, {
+	"name": "Paraguay",
+	"value": "PRY",
+	"regionFile": "paraguay"
+}, {
+	"name": "Peru",
+	"value": "PER",
+	"regionFile": "peru"
+}, {
+	"name": "Philippines",
+	"value": "PHL",
+	"regionFile": "philippines"
+}, {
+	"name": "Pitcairn",
+	"value": "PCN",
+	"regionFile": "pitcairn"
+}, {
+	"name": "Poland",
+	"value": "POL",
+	"regionFile": "poland"
+}, {
+	"name": "Portugal",
+	"value": "PRT",
+	"regionFile": "portugal"
+}, {
+	"name": "Puerto Rico",
+	"value": "PRI",
+	"regionFile": "puerto-rico"
+}, {
+	"name": "Qatar",
+	"value": "QAT",
+	"regionFile": "qatar"
+}, {
+	"name": "Romania",
+	"value": "ROU",
+	"regionFile": "romania"
+}, {
+	"name": "Russia",
+	"value": "RUS",
+	"regionFile": "russia"
+}, {
+	"name": "Rwanda",
+	"value": "RWA",
+	"regionFile": "rwanda"
+}, {
+	"name": "R\u00e9union Island",
+	"value": "REU",
+	"regionFile": "runion-island"
+}, {
+	"name": "Saint Barth\u00e9lemy",
+	"value": "BLM",
+	"regionFile": "saint-barthlemy"
+}, {
+	"name": "Saint Helena, Ascension and Tristan da Cunha",
+	"value": "SHN",
+	"regionFile": "saint-helena,-ascension-and-tristan-da-cunha"
+}, {
+	"name": "Saint Kitts and Nevis",
+	"value": "KNA",
+	"regionFile": "saint-kitts-and-nevis"
+}, {
+	"name": "Saint Lucia",
+	"value": "LCA",
+	"regionFile": "saint-lucia"
+}, {
+	"name": "Saint Martin (French part)",
+	"value": "MAF",
+	"regionFile": "saint-martin-(french-part)"
+}, {
+	"name": "Saint Pierre and Miquelon",
+	"value": "SPM",
+	"regionFile": "saint-pierre-and-miquelon"
+}, {
+	"name": "Saint Vincent and the Grenadines",
+	"value": "VCT",
+	"regionFile": "saint-vincent-and-the-grenadines"
+}, {
+	"name": "Samoa",
+	"value": "WSM",
+	"regionFile": "samoa"
+}, {
+	"name": "San Marino",
+	"value": "SMR",
+	"regionFile": "san-marino"
+}, {
+	"name": "Sao Tome and Principe",
+	"value": "STP",
+	"regionFile": "sao-tome-and-principe"
+}, {
+	"name": "Saudi Arabia",
+	"value": "SAU",
+	"regionFile": "saudi-arabia"
+}, {
+	"name": "Senegal",
+	"value": "SEN",
+	"regionFile": "senegal"
+}, {
+	"name": "Serbia",
+	"value": "SRB",
+	"regionFile": "serbia"
+}, {
+	"name": "Seychelles",
+	"value": "SYC",
+	"regionFile": "seychelles"
+}, {
+	"name": "Sierra Leone",
+	"value": "SLE",
+	"regionFile": "sierra-leone"
+}, {
+	"name": "Singapore",
+	"value": "SGP",
+	"regionFile": "singapore"
+}, {
+	"name": "Sint Maarten (Dutch part)",
+	"value": "SXM",
+	"regionFile": "sint-maarten-(dutch-part)"
+}, {
+	"name": "Slovakia",
+	"value": "SVK",
+	"regionFile": "slovakia"
+}, {
+	"name": "Slovenia",
+	"value": "SVN",
+	"regionFile": "slovenia"
+}, {
+	"name": "Solomon Islands",
+	"value": "SLB",
+	"regionFile": "solomon-islands"
+}, {
+	"name": "Somalia",
+	"value": "SOM",
+	"regionFile": "somalia"
+}, {
+	"name": "South Africa",
+	"value": "ZAF",
+	"regionFile": "south-africa"
+}, {
+	"name": "South Georgia and the South Sandwich Islands",
+	"value": "SGS",
+	"regionFile": "south-georgia-and-the-south-sandwich-islands"
+}, {
+	"name": "South Korea",
+	"value": "KOR",
+	"regionFile": "south-korea"
+}, {
+	"name": "South Sudan",
+	"value": "SSD",
+	"regionFile": "south-sudan"
+}, {
+	"name": "Spain",
+	"value": "ESP",
+	"regionFile": "spain"
+}, {
+	"name": "Sri Lanka",
+	"value": "LKA",
+	"regionFile": "sri-lanka"
+}, {
+	"name": "Suriname",
+	"value": "SUR",
+	"regionFile": "suriname"
+}, {
+	"name": "Svalbard and Jan Mayen",
+	"value": "SJM",
+	"regionFile": "svalbard-and-jan-mayen"
+}, {
+	"name": "Swaziland",
+	"value": "SWZ",
+	"regionFile": "swaziland"
+}, {
+	"name": "Sweden",
+	"value": "SWE",
+	"regionFile": "sweden"
+}, {
+	"name": "Switzerland",
+	"value": "CHE",
+	"regionFile": "switzerland"
+}, {
+	"name": "Syrian Arab Republic",
+	"value": "SYR",
+	"regionFile": "syrian-arab-republic"
+}, {
+	"name": "Taiwan",
+	"value": "TWN",
+	"regionFile": "taiwan"
+}, {
+	"name": "Tajikistan",
+	"value": "TJK",
+	"regionFile": "tajikistan"
+}, {
+	"name": "Tanzania",
+	"value": "TZA",
+	"regionFile": "tanzania"
+}, {
+	"name": "Thailand",
+	"value": "THA",
+	"regionFile": "thailand"
+}, {
+	"name": "Togo",
+	"value": "TGO",
+	"regionFile": "togo"
+}, {
+	"name": "Tokelau",
+	"value": "TKL",
+	"regionFile": "tokelau"
+}, {
+	"name": "Tonga",
+	"value": "TON",
+	"regionFile": "tonga"
+}, {
+	"name": "Trinidad and Tobago",
+	"value": "TTO",
+	"regionFile": "trinidad-and-tobago"
+}, {
+	"name": "Tunisia",
+	"value": "TUN",
+	"regionFile": "tunisia"
+}, {
+	"name": "Turkey",
+	"value": "TUR",
+	"regionFile": "turkey"
+}, {
+	"name": "Turkmenistan",
+	"value": "TKM",
+	"regionFile": "turkmenistan"
+}, {
+	"name": "Turks and Caicos Islands",
+	"value": "TCA",
+	"regionFile": "turks-and-caicos-islands"
+}, {
+	"name": "Tuvalu",
+	"value": "TUV",
+	"regionFile": "tuvalu"
+}, {
+	"name": "Uganda",
+	"value": "UGA",
+	"regionFile": "uganda"
+}, {
+	"name": "Ukraine",
+	"value": "UKR",
+	"regionFile": "ukraine"
+}, {
+	"name": "United Arab Emirates",
+	"value": "ARE",
+	"regionFile": "united-arab-emirates"
+}, {
+	"name": "United Kingdom",
+	"value": "GBR",
+	"regionFile": "united-kingdom"
+}, {
+	"name": "United States Minor Outlying Islands",
+	"value": "UMI",
+	"regionFile": "united-states-minor-outlying-islands"
+}, {
+	"name": "Uruguay",
+	"value": "URY",
+	"regionFile": "uruguay"
+}, {
+	"name": "Uzbekistan",
+	"value": "UZB",
+	"regionFile": "uzbekistan"
+}, {
+	"name": "Vanuatu",
+	"value": "VUT",
+	"regionFile": "vanuatu"
+}, {
+	"name": "Venezuela",
+	"value": "VEN",
+	"regionFile": "venezuela"
+}, {
+	"name": "Vietnam",
+	"value": "VNM",
+	"regionFile": "vietnam"
+}, {
+	"name": "Virgin Islands, British",
+	"value": "VGB",
+	"regionFile": "virgin-islands,-british"
+}, {
+	"name": "Virgin Islands, U.S.",
+	"value": "VIR",
+	"regionFile": "virgin-islands,-u.s."
+}, {
+	"name": "Wallis and Futuna",
+	"value": "WLF",
+	"regionFile": "wallis-and-futuna"
+}, {
+	"name": "Western Sahara",
+	"value": "ESH",
+	"regionFile": "western-sahara"
+}, {
+	"name": "Yemen",
+	"value": "YEM",
+	"regionFile": "yemen"
+}, {
+	"name": "Zambia",
+	"value": "ZMB",
+	"regionFile": "zambia"
+}, {
+	"name": "Zimbabwe",
+	"value": "ZWE",
+	"regionFile": "zimbabwe"
+}, {
+	"name": "\u00c5land Islands",
+	"value": "ALA",
+	"regionFile": "land-islands"
+}]

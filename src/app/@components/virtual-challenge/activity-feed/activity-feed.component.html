@@ -1,0 +1,96 @@
+<div class="teamfeed">
+  <h6>{{ 'components.virtual-challenge.activity-feed.team-activity' | translate }}</h6>
+  <hr class="white_hr" />
+  <h5>{{ activityFeedDate | translate }}</h5>
+  <div class="feed_cover">
+    <div class="feed_inner">
+      <!-- for feeds -->
+      <div class="feed_row" *ngFor="let feed of teamFeedData | keyvalue : keyDescOrder; let i = index">
+        <div *ngIf="i < teamFeedDataLength">
+          <!-- <img class="user_img" src="{{ fetchProfilePicture(feed.value.profileId) }}" alt="Avtar" /> -->
+          <!-- if no image -->
+          <img
+            class="user_img"
+            *ngIf="fetchProfilePicture(feed.value.profileId)"
+            src="{{ fetchProfilePicture(feed.value.profileId) }}"
+            alt="Avtar"
+          />
+          <label for="profil_pc" class="profil_pc" [hidden]="fetchProfilePicture(feed.value.profileId)">
+            <span>{{ fetchProfileInitials(feed.value.profileId) }}</span>
+          </label>
+          <!-- if no image end -->
+          <div class="post_detail">
+            <p>
+              {{ fetchUserName(feed.value.profileId) | translate }} added {{ feed.value.loggedMile }}
+              {{ isCommunityChallenge ? 'Activity' : 'mi' }}
+            </p>
+            <h5>{{ fetchCommentTime(feed.value.createdAt) | translate }}</h5>
+            <span *ngIf="feed.value.likes[this.userData.id]; else elseBlock">
+              <button class="btn_highf" (click)="toggleLike(feed)">
+                <i class="iconm-highfive"></i> {{ 'components.virtual-challenge.activity-feed.dislike' | translate }}
+              </button>
+            </span>
+            <ng-template #elseBlock>
+              <button class="btn_highf" (click)="toggleLike(feed)">
+                <i class="iconm-highfive"></i> {{ 'components.virtual-challenge.activity-feed.like' | translate }}
+              </button>
+            </ng-template>
+            <span class="like_count">{{ likesCount(feed.value.likes) }}</span>
+            <button class="btn_highf" (click)="showContent(i)">
+              <i class="iconm-comment"></i> {{ 'components.virtual-challenge.activity-feed.comment' | translate }}
+            </button>
+          </div>
+          <!-- add-comment box -->
+          <div *ngIf="selectedIndex === i" class="feed_row textarea_feed">
+            <img
+              class="user_img"
+              *ngIf="fetchProfilePicture(this.userData.id)"
+              src="{{ fetchProfilePicture(this.userData.id) }}"
+              alt="Avtar"
+            />
+            <label for="profil_pc" class="profil_pc" [hidden]="fetchProfilePicture(this.userData.id)">
+              <span>{{ userData.firstName.charAt(0).toUpperCase() }}{{ userData.lastName.charAt(0).toUpperCase() }}</span>
+            </label>
+            <div class="post_detail textarea_feed">
+              <textarea name="feed_comment" cols="30" rows="5" placeholder="Add Comment" [(ngModel)]="feedComment"></textarea>
+              <button class="btn_highf" (click)="addFeedComment(feed)">
+                {{ 'components.virtual-challenge.activity-feed.post-comment' | translate }}
+              </button>
+            </div>
+          </div>
+          <!-- to show comment -->
+          <div class="feed_row comment_box" *ngFor="let feedDetails of feed.value.comments | keyvalue; let index = index">
+            <img
+              class="user_img"
+              *ngIf="fetchProfilePicture(feedDetails.value.profileId)"
+              src="{{ fetchProfilePicture(feedDetails.value.profileId) }}"
+              alt="Avtar"
+            />
+            <label for="profil_pc" class="profil_pc" [hidden]="fetchProfilePicture(feedDetails.value.profileId)">
+              <span>{{ fetchProfileInitials(feedDetails.value.profileId) }}</span>
+            </label>
+            <div class="post_detail">
+              <p>
+                <b> {{ feedDetails.value.profileId | profileName : userProfileDetails }} </b>
+                {{ feedDetails.value.message | translate }}
+              </p>
+              <h5>{{ fetchCommentTime(feedDetails.value.createdAt) | translate }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="feed_row" *ngIf="!teamFeedData">
+        <!-- no-feed-available -->
+        <p>{{ 'components.virtual-challenge.activity-feed.no-feed-available' | translate }}</p>
+      </div>
+    </div>
+    <div class="see-all" *ngIf="totalLength > 5">
+      <button class="rg_btn" (click)="showAll()" *ngIf="!btnFlag">
+        {{ 'virtual-challenge.dc-dashboard.ragnar-nation.see-all' | translate }}
+      </button>
+      <button class="rg_btn" (click)="showAll()" *ngIf="btnFlag">
+        {{ 'virtual-challenge.dc-dashboard.ragnar-nation.hide-all' | translate }}
+      </button>
+    </div>
+  </div>
+</div>

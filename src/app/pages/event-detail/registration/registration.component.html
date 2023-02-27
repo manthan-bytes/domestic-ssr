@@ -1,0 +1,238 @@
+<div class="registeration_main">
+  <div class="col-xs-12 registration_intro">
+    <p>{{ registrationData.name }}</p>
+    <h3>{{ 'event-detail.registration.title' | translate }}</h3>
+  </div>
+  <div class="container-fluid">
+    <div *ngIf="statusMsg" class="add_fees_info">
+      <div class="col-xs-12">
+        <div class="col-xs-12">
+          <div class="col-xs-12">
+            <h4 *ngIf="!eventService.covid19Id.includes(registrationData.id.toString()) && registrationData.regStatus !== 'NOT_OPEN_YET'">
+              {{ statusMsg }}
+            </h4>
+            <h4 *ngIf="eventService.covid19Id.includes(registrationData.id.toString())">
+              {{ 'event-detail.registration.covid-info' | translate }}
+            </h4>
+            <h4 *ngIf="eventService.includesId.includes(registrationData.id.toString())" class="text-center">
+              {{ 'common-data.sign-up' | translate }}
+            </h4>
+            <div class="race-not-open-yet">
+              <div class="text-center" *ngIf="registrationData.regStatus === 'NOT_OPEN_YET'">
+                <div class="reg-opens-date text-center">{{ registrationData.registration_opens | date : 'MMM D YYYY' }}</div>
+              </div>
+              <!-- TODO: Need to add CSS for below class -->
+              <div class="race_not_open_yet" *ngIf="registrationData.regStatus === 'NOT_OPEN_YET'">
+                <div class="text-center">
+                  <div class="reg_opens_date text-center">
+                    {{ registrationData.registration_opens | dateFormat : 'MMM D YYYY' }}
+                  </div>
+                </div>
+                <div class="duration col-xs-12 text-center">
+                  <div class="col-xs-4">
+                    <div class="unit_box">
+                      <div>{{ eventService.remainsToOpenRegs.days }}</div>
+                      <div class="unit">{{ 'common-data.days' | translate }}</div>
+                    </div>
+                  </div>
+                  <div class="col-xs-4">
+                    <div class="unit_box">
+                      <div>{{ eventService.remainsToOpenRegs.hours }}</div>
+                      <div class="unit">{{ 'common-data.hours' | translate }}</div>
+                    </div>
+                  </div>
+                  <div class="col-xs-4">
+                    <div class="unit_box">
+                      <div>{{ eventService.remainsToOpenRegs.minutes }}</div>
+                      <div class="unit">{{ 'common-data.minutes' | translate }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="registrationData.regStatus === 'WAIT_LIST'" class="text-center">
+                <a class="blue-cta-btn" appRegisterButton [event]="registrationData" target="_blank">
+                  {{ 'event-detail.registration.waitlist' | translate }}
+                </a>
+              </div>
+              <div *ngIf="registrationData.regStatus === 'LOTTERY'" class="text-center">
+                <a class="blue-cta-btn" appRegisterButton [event]="registrationData" target="_blank"
+                  >{{ 'event-detail.registration.lottery' | translate }}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row"
+      *ngIf="
+        registrationData.pricing && !eventService.excludesId.includes(registrationData.id) && registrationData.regStatus === 'REGISTER'
+      "
+    >
+      <div
+        class="col-lg-3 col-xs-12 team_registration first_team col-sm-6"
+        *ngFor="let pricing of pricingStages"
+        [hidden]="!pricing.regType"
+      >
+        <!-- *ngIf="pricing.teamPrice" -->
+        <div class="team_category">
+          {{ pricing.regType === 'Regular' ? 'Standard' : pricing.regType }} {{ 'common-data.team2' | translate }}
+        </div>
+        <div class="team_register_info">
+          <div class="team_cost">
+            <span *ngIf="!registrationData.name.toLowerCase().includes('porsche')"
+              >{{ pricing.teamPrice | currencyFormat }}/{{ 'event-detail.registration.team' | translate }}</span
+            >
+            <span *ngIf="registrationData.name.toLowerCase().includes('porsche')"
+              >{{ pricing.teamPrice | currencyFormat }}/{{ 'event-detail.registration.porsche-team' | translate }}</span
+            >
+          </div>
+          <div class="team_info" *ngIf="registrationData.type === 'relay'">
+            <span
+              *ngIf="
+                pricing.regType === 'Regular' &&
+                registrationData.id !== '107' &&
+                registrationData.id !== '123' &&
+                registrationData.id !== '163' &&
+                registrationData.id !== '47' &&
+                registrationData.id !== '45' &&
+                registrationData.id !== '42' &&
+                registrationData.id !== '95' &&
+                registrationData.id !== '36'
+              "
+            >
+              {{ 'event-detail.registration.relay-experience' | translate }}
+              {{ getCategoryRunnersMax(registrationData.type.toUpperCase(), pricing.regType.toUpperCase()) }}
+              {{ 'event-detail.registration.runners-conquering-p1' | translate }}</span
+            >
+            <span *ngIf="pricing.regType === 'Regular' && registrationData.id === '107'">
+              {{ 'event-detail.registration.relay-experience' | translate }}
+              {{ getCategoryRunnersMax(registrationData.type.toUpperCase(), pricing.regType.toUpperCase()) }}
+              {{ 'event-detail.registration.runners-conquering-p2' | translate }}</span
+            >
+            <span *ngIf="pricing.regType === 'Regular' && registrationData.id === '123'">
+              {{ 'event-detail.registration.new-experience' | translate }}</span
+            >
+            <span
+              *ngIf="
+                pricing.regType === 'Regular' &&
+                (registrationData.id === '163' ||
+                  registrationData.id === '47' ||
+                  registrationData.id === '45' ||
+                  registrationData.id === '42' ||
+                  registrationData.id === '95' ||
+                  registrationData.id === '36')
+              "
+              >{{ 'event-detail.registration.relay-experience' | translate }}
+              {{ 'event-detail.registration.regular-team' | translate }}</span
+            >
+            <span *ngIf="pricing.regType === 'Six-Pack'"
+              >{{ 'event-detail.registration.six-pack-p1' | translate }}
+              {{ getCategoryRunnersMax(registrationData.type.toUpperCase(), pricing.regType.toUpperCase()) }}
+              {{ 'event-detail.registration.six-pack-p2' | translate }}</span
+            >
+            <span *ngIf="pricing.regType === '5-Pack'"
+              >{{ 'event-detail.registration.six-pack-p1' | translate }}
+              {{ getCategoryRunnersMax(registrationData.type.toUpperCase(), pricing.regType.toUpperCase()) }}
+              {{ 'event-detail.registration.5-pack' | translate }}</span
+            >
+            <span
+              *ngIf="
+                pricing.regType === 'Ultra' &&
+                registrationData.id !== '123' &&
+                registrationData.id !== '163' &&
+                registrationData.id !== '47' &&
+                registrationData.id !== '45' &&
+                registrationData.id !== '42' &&
+                registrationData.id !== '95' &&
+                registrationData.id !== '36'
+              "
+              >{{ 'event-detail.registration.ultra-team-p1' | translate }}
+              {{ getCategoryRunnersMax(registrationData.type.toUpperCase(), pricing.regType.toUpperCase()) }}
+              {{ 'event-detail.registration.ultra-team-p2' | translate }}</span
+            >
+            <span *ngIf="pricing.regType === 'Ultra' && registrationData.id === '123'">{{
+              'event-detail.registration.ultra-team-p3' | translate
+            }}</span>
+            <span
+              *ngIf="
+                pricing.regType === 'Ultra' &&
+                (registrationData.id === '163' ||
+                  registrationData.id === '47' ||
+                  registrationData.id === '45' ||
+                  registrationData.id === '42' ||
+                  registrationData.id === '95' ||
+                  registrationData.id === '36')
+              "
+              >{{ 'event-detail.registration.ultra-team-p4' | translate }}</span
+            >
+            <span *ngIf="pricing.regType === 'High School'"> {{ 'event-detail.registration.high-school' | translate }}</span>
+            <!-- <span >{{ 'event-detail.registration.trail-experience' | translate }}</span> -->
+          </div>
+          <div class="team-info" *ngIf="registrationData.type === 'trail'">
+            <span *ngIf="pricing.regType === 'Regular'"> {{ 'event-detail.registration.trail-experience' | translate }}</span>
+            <span *ngIf="pricing.regType === 'Ultra'">{{ 'event-detail.registration.ultra-pricing' | translate }}</span>
+            <span *ngIf="pricing.regType === 'High School'">{{ 'event-detail.registration.high-school-pricing' | translate }}</span>
+            <span *ngIf="pricing.regType === 'Regular' && registrationData.id === '104'"
+              >{{ pricing.teamPrice }}/{{ 'event-detail.registration.ragular-pricing-p1' | translate }}</span
+            >
+            <span *ngIf="pricing.regType === 'Ultra' && registrationData.id === '104'"
+              >{{ pricing.teamPrice }}/{{ 'event-detail.registration.ragular-ultra-team' | translate }}</span
+            >
+            <span *ngIf="pricing.regType === 'Black Loop'">{{ 'event-detail.registration.black-loop-info' | translate }} </span>
+          </div>
+          <div class="team-info" *ngIf="registrationData.type === 'trail_sprint'">
+            <span> {{ 'event-detail.registration.trail-sprint-experience' | translate }}</span>
+          </div>
+          <div class="team-info" *ngIf="registrationData.name.toLowerCase().includes('porsche')">
+            <span *ngIf="pricing.regType === 'Ultra'">{{ 'event-detail.registration.porsche-info' | translate }}</span>
+          </div>
+          <div
+            class="text-center"
+            *ngIf="registrationData.regStatus === 'REGISTER' && registrationData.id !== '103' && registrationData.id !== '98'"
+          >
+            <a
+              appRegisterButton
+              [event]="registrationData"
+              class="blue-cta-btn"
+              (click)="eCommerceAddToCartItemEvent(registrationData, pricing.teamPrice, pricing.regType)"
+            >
+              {{ registrationData.regStatusLabel }}
+            </a>
+          </div>
+
+          <div class="booking_schedule">
+            <ul class="timeline" *ngIf="!registrationData.name.toLowerCase().includes('porsche')">
+              <li
+                class="date_block"
+                [ngClass]="{ active_dates: stage.isActive, coming_dates: stage.isComing, inactive_dates: stage.isInactive }"
+                *ngFor="let stage of pricing.stages"
+              >
+                <h4 class="entry_status">{{ stage.teamPrice | currencyFormat }}</h4>
+                <p class="booking_dates">
+                  {{ stage.startDate | dateFormat : 'MMM D YYYY' }}
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container
+    *ngIf="
+      registrationData.pricing && registrationData.id !== '103' && registrationData.id !== '98' && registrationData.regStatus === 'REGISTER'
+    "
+  >
+    <div class="affirm_overtime" *ngIf="!registrationData.name.toLowerCase().includes('porsche')">
+      <b>{{ 'event-detail.registration.buy-now' | translate }}</b>
+      <img src="assets/images/event-detail/result/affirm-black-logo.png" alt="Affirm Logo" />
+      <a class="affirm-site-modal" data-page-type="banner">{{ 'common-data.learn-more' | translate }}</a>
+    </div>
+    <div class="col-xs-12 add_fees_info" *ngIf="!registrationData.name.toLowerCase().includes('porsche')">
+      <p>{{ 'event-detail.registration.add-fees-p1' | translate }}</p>
+      <p>{{ 'event-detail.registration.review' | translate }}</p>
+    </div>
+  </ng-container>
+</div>
