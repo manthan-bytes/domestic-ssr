@@ -1,4 +1,4 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID, QueryList, ViewChildren } from '@angular/core';
 import { NgbDropdown, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute, Router, RouterEvent, NavigationEnd } from '@angular/router';
 import cloneDeep from 'lodash/cloneDeep';
@@ -8,6 +8,8 @@ import { RagnarCMSDataService, RCMSEventDataService, VirtualChallengeDataService
 import { DashboardBehviourSubject } from 'src/app/@core/interfaces/virtual-challenge.interface';
 import { authRoutes, virtualChallengeRoutes, headerRoutes, RACE_CONFIG, LocalStorageService, VirtualChallengeSharedDataService, DataLayerService, localStorageConstant, registrationRoutes } from 'src/app/@core/utils';
 import { CommonModelDialogComponent } from '../virtual-challenge/common-model-dialog/common-model-dialog.component';
+import { isPlatformBrowser } from '@angular/common';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -83,6 +85,7 @@ export class HeaderComponent implements OnInit {
     private rcmsEventDataService: RCMSEventDataService,
     private virtualChallengeDataService: VirtualChallengeDataService,
     private dataLayerService: DataLayerService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
@@ -141,7 +144,9 @@ export class HeaderComponent implements OnInit {
   }
 
   onDashboardScreenChange(screenName: string) {
-    window.location.hash = screenName;
+    if (isPlatformBrowser(this.platformId)) {
+      window.location.hash = screenName;
+    }
   }
 
   setUserData() {
@@ -204,7 +209,9 @@ export class HeaderComponent implements OnInit {
 
   redirectToURL(url, routeFlag) {
     this.show.mobileNav = false;
-    routeFlag ? this.router.navigateByUrl(`/${url}`) : window.open(url, '_blank');
+    if (isPlatformBrowser(this.platformId)) {
+      routeFlag ? this.router.navigateByUrl(`/${url}`) : window.open(url, '_blank');
+    }
   }
 
   setVirtualChallengePeriod() {
@@ -248,22 +255,24 @@ export class HeaderComponent implements OnInit {
     this.show.mobileNav = false;
   }
   loginWithRedirection() {
-    const isRediretToVC = window.location.pathname === '/challenge/info' && window.location.href?.split('?')[1]?.includes('challengeId');
-    const params = window.location.href?.split('?')[1]?.split('&');
-    if (params) {
-      const challengeId = params[0]?.split('=')[1];
-      const challengeTeamId = params[1]?.split('=')[1];
-      if (isRediretToVC) {
-        this.localStorageService.set(
-          localStorageConstant.redirectTo,
-          `/${authRoutes.main}/${registrationRoutes.main}/${registrationRoutes.virtualChallenge}/${challengeId}/${registrationRoutes.personalInfo}`,
-        );
-        this.localStorageService.set('challengeTeamId', challengeTeamId);
+    if (isPlatformBrowser(this.platformId)) {
+      const isRediretToVC = window.location.pathname === '/challenge/info' && window.location.href?.split('?')[1]?.includes('challengeId');
+      const params = window.location.href?.split('?')[1]?.split('&');
+      if (params) {
+        const challengeId = params[0]?.split('=')[1];
+        const challengeTeamId = params[1]?.split('=')[1];
+        if (isRediretToVC) {
+          this.localStorageService.set(
+            localStorageConstant.redirectTo,
+            `/${authRoutes.main}/${registrationRoutes.main}/${registrationRoutes.virtualChallenge}/${challengeId}/${registrationRoutes.personalInfo}`,
+          );
+          this.localStorageService.set('challengeTeamId', challengeTeamId);
+        }
       }
+  
+      this.router.navigate([`/${this.authRoutes.main}/${this.authRoutes.login}`]);
+      this.show.mobileNav = false;
     }
-
-    this.router.navigate([`/${this.authRoutes.main}/${this.authRoutes.login}`]);
-    this.show.mobileNav = false;
   }
   formElementEnter() {
     this.inputFocusCount++;

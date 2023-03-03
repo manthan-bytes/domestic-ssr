@@ -1,0 +1,283 @@
+<div class="container text-center display-content-center" *ngIf="show.pageLoading">
+  <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+</div>
+<div class="team_center" *ngIf="!show.pageLoading && !show.notRegisterMessage">
+  <div class="team-event-tabs">
+    <ul class="text-center event-status-tabs hidden-xs">
+      <li
+        [hidden]="eventData.ongoing.length <= 0"
+        [ngClass]="{ 'active-event': show.activeEvent }"
+        (click)="show.activeEvent = true; selectEvent(eventData.ongoing[0], true)"
+      >
+        <a>Active Events</a>
+      </li>
+      <li
+        [hidden]="eventData.past.length <= 0"
+        [ngClass]="{ 'active-event': !show.activeEvent }"
+        (click)="show.activeEvent = false; selectEvent(eventData.past[0], false); teamCenterListEvents()"
+      >
+        <a>Past Events</a>
+      </li>
+    </ul>
+
+    <div class="city-team-race slide-slider" [hidden]="!show.activeEvent">
+      <ul ngbNav #nav="ngbNav" [(activeId)]="selected.ongoingTabIndex" class="nav-tabs upcoming-events">
+        <li
+          [ngbNavItem]="index"
+          (click)="selectEvent(ongoing, true, false, index)"
+          *ngFor="let ongoing of eventData.ongoing; let index = index"
+        >
+          <a ngbNavLink [class]="ongoing.id">{{ ongoing.name + ' (' + ongoing.raceYear + ')' }}</a>
+        </li>
+      </ul>
+      <button class="nav-prev nav-upcoming-prev slide-slider-control" type="button"><</button>
+      <button class="nav-next nav-upcoming-next slide-slider-control" type="button">></button>
+    </div>
+    <div class="city-team-race slide-slider" [hidden]="show.activeEvent">
+      <ul ngbNav #nav="ngbNav" [(activeId)]="selected.pastTabIndex" class="nav-tabs past-events">
+        <li [ngbNavItem]="index" (click)="selectEvent(past, false, false, index)" *ngFor="let past of eventData.past; let index = index">
+          <a ngbNavLink>{{ past.name + ' (' + past.raceYear + ')' }}</a>
+        </li>
+      </ul>
+      <button class="nav-prev nav-past-prev slide-slider-control" type="button"><</button>
+      <button class="nav-next nav-past-next slide-slider-control" type="button">></button>
+    </div>
+  </div>
+  <div class="d-block d-xl-none d-lg-none d-md-none d-sm-block">
+    <div ngbDropdown placement="bottom-left" container="body" class="d-inline-block">
+      <button type="button" class="custom-selectbox" id="eventList" ngbDropdownToggle>
+        {{ selected.event.name + ' (' + selected.event.raceYear + ')' }}
+      </button>
+      <div ngbDropdownMenu class="dropdown-menu custom-option" aria-labelledby="eventList">
+        <li [hidden]="eventData.ongoing.length <= 0" [ngClass]="{ 'active-li': show.activeEvent, 'disable-li': !show.activeEvent }">
+          <a>Active Events</a>
+        </li>
+        <li
+          [hidden]="eventData.ongoing.length <= 0"
+          [ngClass]="{ 'active-event-li': selected.event.name === ongoing.name }"
+          (click)="selectEvent(ongoing, true)"
+          *ngFor="let ongoing of eventData.ongoing"
+        >
+          <a ngbDropdownItem>{{ ongoing.name + ' (' + ongoing.raceYear + ')' }}</a>
+        </li>
+
+        <li
+          [hidden]="eventData.past.length <= 0"
+          class="past-event-li"
+          [ngClass]="{ 'active-li': !show.activeEvent, 'disable-li': show.activeEvent }"
+        >
+          <a>Past Events</a>
+        </li>
+        <li
+          [hidden]="eventData.past.length <= 0"
+          [ngClass]="{ 'active-event-li': selected.event.name === past.name }"
+          (click)="selectEvent(past, false)"
+          *ngFor="let past of eventData.past"
+        >
+          <a ngbDropdownItem>{{ past.name + ' (' + past.raceYear + ')' }}</a>
+        </li>
+      </div>
+    </div>
+  </div>
+  <div class="tab_view">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 p-0">
+          <div class="team-center-tabs" *ngIf="!show.showMultiEventPopup">
+            <ul class="nav nav-tabs" role="tablist">
+              <li
+                appScrollIntoView
+                class="Team_Details"
+                [ngClass]="{
+                  active: show.activeTab === 'Team_Details' || show.activeTab === 'Covid_Check_In',
+                  pastEvent: !show.activeEvent
+                }"
+              >
+                <a
+                  [routerLink]="'.'"
+                  fragment="Team_Details"
+                  role="tab"
+                  data-toggle="tab"
+                  (click)="addPageInitEvent('team-center-team-detail')"
+                >
+                  <h4 class="text-center">Team Details</h4>
+                </a>
+              </li>
+              <li appScrollIntoView class="Roster" [ngClass]="{ active: show.activeTab === 'Roster', pastEvent: !show.activeEvent }">
+                <a [routerLink]="'.'" fragment="Roster" role="tab" data-toggle="tab" (click)="addPageInitEvent('team-center-roster')">
+                  <h4 class="text-center">Roster</h4>
+                </a>
+              </li>
+              <li
+                appScrollIntoView
+                class="Runner_Assignments"
+                [ngClass]="{ active: show.activeTab === 'Runner_Assignments', pastEvent: !show.activeEvent }"
+              >
+                <a
+                  [routerLink]="'.'"
+                  fragment="Runner_Assignments"
+                  role="tab"
+                  data-toggle="tab"
+                  (click)="addPageInitEvent('team-center-runner-assignment')"
+                >
+                  <h4 class="text-center">Runner Assignments</h4>
+                </a>
+              </li>
+              <li
+                appScrollIntoView
+                class="Volunteers"
+                [ngClass]="{ active: show.activeTab === 'Volunteers', pastEvent: !show.activeEvent, lastTab: !show.activeEvent }"
+                *ngIf="!this.selected.event.name.toLowerCase().includes('porsche')"
+              >
+                <a
+                  [routerLink]="'.'"
+                  fragment="Volunteers"
+                  role="tab"
+                  data-toggle="tab"
+                  (click)="addPageInitEvent('team-center-volunteers')"
+                >
+                  <h4 class="text-center">Volunteers</h4>
+                </a>
+              </li>
+              <li
+                appScrollIntoView
+                *ngIf="show.activeEvent"
+                class="Race_Updates"
+                [ngClass]="{ active: show.activeTab === 'Race_Updates', pastEvent: !show.activeEvent }"
+              >
+                <a
+                  [routerLink]="'.'"
+                  fragment="Race_Updates"
+                  role="tab"
+                  data-toggle="tab"
+                  (click)="addPageInitEvent('team-center-race-updates')"
+                >
+                  <h4 class="text-center">Race Updates</h4>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="container text-center" *ngIf="show.dataLoading && !show.showMultiEventPopup">
+            <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+          </div>
+
+          <div class="team-center-tabs-details" *ngIf="!show.dataLoading && !show.showMultiEventPopup">
+            <div [ngClass]="{ active: show.activeTab === 'Team_Details' }" [hidden]="show.activeTab !== 'Team_Details'">
+              <app-team-center-team-details
+                [isCaptain]="show.isCaptain"
+                [glampingCount]="glampingCount"
+                [selectedEvent]="selected.event"
+                [volunteerInformation]="information.volunteers"
+                [teamInformation]="information.team"
+                [eventData]="eventData"
+                [teamDetailConfig]="tabConfig.teamDetail"
+                [showGlampingAd]="show.glampingAd"
+                [isActive]="show.activeEvent"
+                [captainInformation]="information.captain"
+                [myRunnerData]="myRunnerData"
+                (switchTab)="switchTab($event)"
+              ></app-team-center-team-details>
+            </div>
+            <div [ngClass]="{ active: show.activeTab === 'Roster' }" [hidden]="show.activeTab !== 'Roster'">
+              <app-team-center-roster
+                [isCaptain]="show.isCaptain"
+                [selectedEvent]="selected.event"
+                [teamInformation]="information.team"
+                [runnerInformation]="information.runners"
+                [invitationInformation]="information.invite"
+                [eventData]="eventData"
+                [rosterConfig]="tabConfig.roster"
+                (reloadEvent)="reloadEvent()"
+              ></app-team-center-roster>
+            </div>
+            <div [ngClass]="{ active: show.activeTab === 'Runner_Assignments' }" [hidden]="show.activeTab !== 'Runner_Assignments'">
+              <app-team-center-runner-assignments
+                [isCaptain]="show.isCaptain"
+                [selectedEvent]="selected.event"
+                [teamInformation]="information.team"
+                [legs]="eventData.legs"
+                [runnerInformation]="information.runners"
+                [eventData]="eventData"
+                [profileImages]="profileImages"
+                [eventType]="selected.event.type"
+              >
+              </app-team-center-runner-assignments>
+            </div>
+            <div [ngClass]="{ active: show.activeTab === 'Volunteers' }" [hidden]="show.activeTab !== 'Volunteers'">
+              <app-team-center-volunteers
+                [isCaptain]="show.isCaptain"
+                [selectedEvent]="selected.event"
+                [teamInformation]="information.team"
+                [volunteerInformation]="information.volunteers"
+                [invitationInformation]="information.invite"
+                [captainInformation]="information.captain"
+                [cmsEvent]="eventData.cmsEvent"
+                [volunteerConfig]="tabConfig.volunteer"
+                (reloadEvent)="reloadEvent()"
+              >
+              </app-team-center-volunteers>
+            </div>
+            <div [ngClass]="{ active: show.activeTab === 'Race_Updates' }" [hidden]="show.activeTab !== 'Race_Updates'">
+              <app-team-center-race-updates [eventData]="eventData"></app-team-center-race-updates>
+            </div>
+            <div [ngClass]="{ active: show.activeTab === 'Check_In' }" *ngIf="show.activeTab === 'Check_In'">
+              <app-team-center-check-in
+                [isCaptain]="show.isCaptain"
+                [selectedEvent]="selected.event"
+                [teamInformation]="information.team"
+                [runnerInformation]="information.runners"
+                [volunteerInformation]="information.volunteers"
+                [captainInformation]="information.captain"
+                [checkInConfig]="tabConfig.checkIn"
+                (switchTab)="switchTab($event)"
+              ></app-team-center-check-in>
+            </div>
+            <div [ngClass]="{ active: show.activeTab === 'Covid_Check_In' }" *ngIf="show.activeTab === 'Covid_Check_In'">
+              <app-team-center-covid-check-in
+                [isCaptain]="show.isCaptain"
+                [selectedEvent]="selected.event"
+                [teamInformation]="information.team"
+                [runnerInformation]="information.runners"
+                [captainInformation]="information.captain"
+                [volunteerInformation]="information.volunteers"
+                [eventData]="eventData"
+                [divisionBackup]="divisionBackup"
+                [classificationBackup]="classificationBackup"
+                [runnerSection]="runnerSection"
+                [captainSection]="captainSection"
+                (switchTab)="switchTab($event)"
+                [activeRunnerTab]="activeRunnerTab"
+                [activeCaptainTab]="activeCaptainTab"
+                [isAllRunnerCheckin]="isAllRunnerCheckin"
+              >
+              </app-team-center-covid-check-in>
+            </div>
+          </div>
+
+          <div class="tab-content tab-data multi-team-shadow display-content-center" *ngIf="show.showMultiEventPopup">
+            <div class="tab-pane" [ngClass]="{ active: show.showMultiEventPopup }">
+              <div class="multi-team-error-wrapper">
+                <div class="multi-team-error">
+                  <p>
+                    Oops! You are registered for more than one team for this event. Please email support at<br />
+                    <a style="color: #428bca" href="mailto:tech@ragnarrelay.com">tech@ragnarrelay.com</a>
+                  </p>
+                  <div class="ragnar-innovation-lab">
+                    <div class="img img-responsive center-block"></div>
+                    <!-- <img class="img-responsive center-block" src="images/login/innovation-lab.png" alt="Innovation Lab"> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container text-center display-content-center" *ngIf="!show.pageLoading && show.notRegisterMessage">
+  <h3>{{ show.notRegisterBody }}</h3>
+</div>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

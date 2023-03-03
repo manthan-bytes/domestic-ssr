@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import {isPlatformBrowser} from '@angular/common'
 
 @Component({
   selector: 'app-virtual-challenge-ragnar-nation',
@@ -15,7 +16,7 @@ export class RagnarNationComponent implements OnInit {
   show = {
     ragnarNationLimit: 5,
   };
-  constructor() {}
+  constructor(@Inject(PLATFORM_ID) private platformId:Object) {}
   public frontActivitiesCount = 0;
 
   ngOnInit(): void {
@@ -27,7 +28,7 @@ export class RagnarNationComponent implements OnInit {
     });
     this.activities = this.frontActivities;
 
-    this.mobileScreen = window.screen.width <= 767 ? true : false;
+    this.mobileScreen = (isPlatformBrowser(this.platformId) && (window.screen.width <= 767 ))? true : false;
   }
 
   calculateHeight(percentage) {
@@ -47,6 +48,6 @@ export class RagnarNationComponent implements OnInit {
   }
 
   checkMobileScreen(): boolean {
-    return window.screen.width <= 767 ? true : false;
+    return (isPlatformBrowser(this.platformId) && (window.screen.width <= 767 )) ? true : false;
   }
 }

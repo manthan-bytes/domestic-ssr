@@ -1,0 +1,276 @@
+<div class="modal-header">
+  <button type="button" (click)="close()" data-dismiss="modal" class="close"><i class="iconm-X" aria-hidden="true"></i></button>
+</div>
+<div class="modal-body">
+  <div *ngIf="!isPaymentDone">
+    <div class="payment-component">
+      <!-- [hidden]="!paymentCardInfo" -->
+      <h2>{{ 'team-center.dialog.team-volunteer-fees.glamping-payment' | translate }}</h2>
+      <div class="product-list">
+        <div class="row list-header hidden-xs">
+          <div class="col-sm-3 list-title">{{ 'common-data.date' | translate }}</div>
+          <div class="col-sm-7 list-title">{{ 'team-center.dialog.team-volunteer-fees.item-info' | translate }}</div>
+          <div class="col-sm-2 list-title">{{ 'common-data.price' | translate }}</div>
+        </div>
+        <div class="row product-row">
+          <div class="col-sm-3 product-date-time">
+            <div class="week">{{ today | dateFormat : 'dddd' }}</div>
+            <div class="date">{{ today | dateFormat : 'MMMM D, YYYY' }}</div>
+          </div>
+          <div class="col-sm-7 product-info">
+            <div class="product-name">{{ componentData.selectedEvent.name }} Glamping</div>
+          </div>
+          <div class="col-sm-2 product-price">
+            <div class="price">{{ componentData.selectedEvent.glampingPrice | currency }}</div>
+          </div>
+        </div>
+
+        <div class="set-prom">
+          <input
+            type="text"
+            maxlength="23"
+            class="form-control set-promocode"
+            name="promoCode"
+            #promoCode="ngModel"
+            id="promoCode"
+            placeholder="Promocode"
+            [(ngModel)]="promocode"
+            (focus)="formElementEnter()"
+            (blur)="formElementExit()"
+          />
+          <button (click)="applyPromocode()" class="rg_btn mb-2 ml-2 set-apply-button">
+            <span class="text-dark" role="status"></span>
+            Apply
+          </button>
+        </div>
+        <div class="row final-calculation">
+          <div class="col-sm-10 col-6">
+            <div class="label-row title">
+              <label for="" class="label-title">{{ 'common-data.sub-total' | translate }}</label>
+            </div>
+          </div>
+          <div class="col-sm-2 col-6 pl-0 clearfix">
+            <div class="label-row pull-left">
+              <label for="" class="label-value pull-left"> {{ componentData.selectedEvent.glampingPrice | currency }}</label>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-sm-10 col-6" *ngIf="glampingCoupon">
+            <div class="label-row title">
+              <label for="" class="label-title">{{ 'common-data.discount' | translate }}</label>
+            </div>
+          </div>
+          <div class="col-sm-2 col-6 pl-0 clearfix">
+            <div class="label-row pull-left">
+              <label for="" class="label-value pull-left" *ngIf="glampingCoupon"> {{ glampingCoupon.discounts | currency }}</label>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+
+          <div class="col-sm-10 col-6" *ngIf="glampingCoupon">
+            <div class="label-row title">
+              <label for="" class="label-title">{{ 'common-data.total' | translate }}</label>
+            </div>
+          </div>
+          <div class="col-sm-2 col-6 pl-0 clearfix" *ngIf="glampingCoupon">
+            <div class="label-row pull-left">
+              <label for="" class="label-value pull-left"> {{ glampingCoupon.total | currency }}</label>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="row final-calculation total-calculation">
+          <div class="col-sm-10 col-6">
+            <div class="label-row total-amount title">
+              <label for="" class="label-title">{{ 'common-data.total-amount' | translate }}</label>
+            </div>
+          </div>
+          <div class="col-sm-2 col-6 pl-0 clearfix">
+            <div class="label-row total-amount pull-left">
+              <label for="" class="label-value pull-left" *ngIf="!glampingCoupon">{{
+                componentData.selectedEvent.glampingPrice | currency
+              }}</label>
+              <label for="" class="label-value pull-left" *ngIf="glampingCoupon">{{ glampingCoupon.total | currency }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="payment-card-info"
+      *ngIf="!hidePayment"
+      [hidden]="
+        !paymentCardInfo &&
+        filteredDate &&
+        filteredDate.prices &&
+        filteredDate.prices.USD &&
+        +componentData.selectedEvent.glampingPrice <= 0
+      "
+    >
+      <h2>{{ 'common-data.card-information' | translate }}</h2>
+      <form #cardForm="ngForm">
+        <div class="card-container row">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group" [ngClass]="{ error_input: cardForm.submitted && cardName.errors?.required }">
+                <label for="cardName">{{ 'common-data.card-name' | translate }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="cardName"
+                  #cardName="ngModel"
+                  id="cardName"
+                  placeholder="Name on Card"
+                  [(ngModel)]="cardData.cardName"
+                  (change)="cardData.cardName = cardData.cardName.trim()"
+                  required
+                />
+
+                <ng-container *ngIf="cardForm.submitted">
+                  <span class="error_msg" *ngIf="cardName.errors?.required"> {{ 'common-data.name-required' | translate }} </span>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group card_number" [ngClass]="{ error_input: cardForm.submitted && cardNumber.errors?.required }">
+                <label for="cardNumber">{{ 'common-data.card-number' | translate }}</label>
+                <input
+                  type="tel"
+                  maxlength="23"
+                  class="form-control"
+                  name="cardNumber"
+                  #cardNumber="ngModel"
+                  id="cardNumber"
+                  placeholder="Card Number"
+                  [(ngModel)]="cardData.cardNumber"
+                  (change)="validateCC(cardData.cardNumber)"
+                  (input)="clearError(cardData.cardNumber)"
+                  required
+                />
+                <div class="card_icon">
+                  <img *ngIf="cardType === 'visa' || cardType === null" src="{{ svgVisa }}" />
+                  <img *ngIf="cardType === 'master' || cardType === null" src="{{ svgMastercard }}" />
+                  <img *ngIf="cardType === 'discover' || cardType === null" src="{{ svgDiscover }}" />
+                </div>
+                <ng-container *ngIf="cardForm.submitted">
+                  <span class="error_msg" *ngIf="cardNumber.errors?.required"> {{ 'common-data.card-number-required' | translate }} </span>
+                </ng-container>
+                <span class="error_msg" *ngIf="!cardNumber.errors?.required && !show.cardCheck">
+                  {{ 'common-data.not-accepted' | translate }} <br />{{ 'common-data.try-other' | translate }}
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row cvv-detail">
+            <div class="col-xs-6 col-sm-5 form-group">
+              <div [ngClass]="{ error_input: cardForm.submitted && expire.errors?.required }">
+                <label for="expire">{{ 'common-data.expiration' | translate }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="expire"
+                  #expire="ngModel"
+                  id="expire"
+                  placeholder="MM/YY"
+                  maxlength="5"
+                  [(ngModel)]="cardData.expiration"
+                  (input)="validateCardExpiry(cardData.expiration)"
+                  required
+                />
+                <ng-container *ngIf="cardForm.submitted">
+                  <span class="error_msg" *ngIf="expire.errors?.required"> {{ 'common-data.expiration-required' | translate }} </span>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-xs-2 col-sm-3 form-group">
+              <div [ngClass]="{ error_input: cardForm.submitted && (cvv.errors?.required || cvv.errors?.pattern) }">
+                <label for="cvv">{{ 'common-data.cvv' | translate }}</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="cvv"
+                  #cvv="ngModel"
+                  id="cvv"
+                  pattern="^[0-9]{3,4}$"
+                  placeholder="CVV"
+                  [(ngModel)]="cardData.cardCode"
+                  required
+                />
+                <ng-container *ngIf="cardForm.submitted">
+                  <span class="error_msg" *ngIf="cvv.errors?.required"> {{ 'common-data.cvv-required' | translate }} </span>
+                  <span class="error_msg" *ngIf="cvv.errors?.pattern"> {{ 'common-data.valid-cvv' | translate }} </span>
+                </ng-container>
+              </div>
+            </div>
+            <div class="col-xs-4 col-sm-4 form-group">
+              <div [ngClass]="{ error_input: cardForm.submitted && (zipCode.errors?.required || zipCode.errors?.pattern) }">
+                <label for="zipCode">{{ 'common-data.zipcode' | translate }}</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="zipCode"
+                  #zipCode="ngModel"
+                  id="zipCode"
+                  pattern="^(?=.{5,8}$)[A-Za-z0-9]+(?:\s[A-Za-z0-9]+)*$"
+                  placeholder="Zipcode"
+                  [(ngModel)]="cardData.zip"
+                  required
+                />
+                <ng-container *ngIf="cardForm.submitted">
+                  <span class="error_msg" *ngIf="zipCode.errors?.required"> {{ 'common-data.zipcode-required' | translate }} </span>
+                  <span class="error_msg" *ngIf="zipCode.errors?.pattern"> {{ 'common-data.valid-zipcode' | translate }} </span>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="policy-agree">
+          {{ 'team-center.dialog.team-volunteer-fees.policy-agree' | translate }}
+          <a href="/{{ headerRoutes.purchasePolicy }}" target="_blank">{{ 'common-data.purchase-policy' | translate }}</a
+          >. {{ 'team-center.dialog.team-volunteer-fees.final' | translate }}
+          <b>{{ 'team-center.dialog.team-volunteer-fees.payment-details' | translate }}</b
+          >..
+        </div>
+
+        <!-- <button type="submit" [disabled]="cardForm.$invalid" class="purchase-btn">Purchase</button> -->
+        <button (click)="complete(cardForm)" class="rg_btn mb-2" [disabled]="show.loading">
+          <span class="spinner-grow spinner-grow-sm text-dark" role="status" aria-hidden="true" [hidden]="!show.loading"></span>
+          {{ show.loading ? 'Purchasing' : 'Purchase' }}
+        </button>
+      </form>
+    </div>
+    <div *ngIf="hidePayment" class="payment-card-info">
+      <div class="policy-agree">
+        {{ 'team-center.dialog.team-volunteer-fees.policy-agree' | translate }}
+        <a href="/{{ headerRoutes.purchasePolicy }}" target="_blank">{{ 'common-data.purchase-policy' | translate }}</a
+        >. {{ 'team-center.dialog.team-volunteer-fees.final' | translate }}
+        <b>{{ 'team-center.dialog.team-volunteer-fees.payment-details' | translate }}</b
+        >..
+      </div>
+
+      <!-- <button type="submit" [disabled]="cardForm.$invalid" class="purchase-btn">Purchase</button> -->
+      <button (click)="completeOrder()" class="rg_btn mb-2" [disabled]="show.loading">
+        <span class="spinner-grow spinner-grow-sm text-dark" role="status" aria-hidden="true" [hidden]="!show.loading"></span>
+        {{ show.loading ? 'Purchasing' : 'Purchase' }}
+      </button>
+    </div>
+  </div>
+  <div class="roster-invite-inner link-sent" *ngIf="isPaymentDone">
+    <div class="invite-link text-center">
+      <h3 class="text-info payment-component set-payment-model-margin">
+        {{ 'team-center.dialog.team-volunteer-fees.payment-done-line-1' | translate }}<br />
+        {{ 'team-center.dialog.team-volunteer-fees.payment-done-line-2' | translate }}
+      </h3>
+      <img
+        class="img-responsive center-block check-png-payment"
+        src="assets/images/team-center/link-sent-check.png"
+        alt="link-sent check"
+      />
+    </div>
+  </div>
+</div>

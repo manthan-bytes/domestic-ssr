@@ -1,36 +1,61 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class MobileDetectionService {
-  constructor() {}
 
-  static isAndroid() {
-    return navigator.userAgent.match(/Android/i);
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+
+  isAndroid() {
+    if (isPlatformBrowser(this.platformId)) {
+      return navigator.userAgent.match(/Android/i);
+    } else {
+      return false; // Return a default value when running on the server side
+    }
   }
 
-  static isBlackBerry() {
-    return navigator.userAgent.match(/BlackBerry/i);
+  isBlackBerry() {
+    if (isPlatformBrowser(this.platformId)) {
+      return navigator.userAgent.match(/BlackBerry/i);
+    } else {
+      return false; // Return a default value when running on the server side
+    }
   }
 
-  static isiOS() {
-    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  isiOS() {
+    if (isPlatformBrowser(this.platformId)) {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    } else {
+      return false; // Return a default value when running on the server side
+    }
   }
 
-  static isOpera() {
-    return navigator.userAgent.match(/Opera Mini/i);
+  isOpera() {
+    if (isPlatformBrowser(this.platformId)) {
+      return navigator.userAgent.match(/Opera Mini/i);
+    } else {
+      return false; // Return a default value when running on the server side
+    }
   }
 
-  static isWindows() {
-    return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+  isWindows() {
+    if (isPlatformBrowser(this.platformId)) {
+      return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    } else {
+      return false; // Return a default value when running on the server side
+    }
   }
 
-  static isAnyMobile() {
+  isAnyMobile() {
     return (
-      MobileDetectionService.isAndroid() ||
-      MobileDetectionService.isBlackBerry() ||
-      MobileDetectionService.isiOS() ||
-      MobileDetectionService.isOpera() ||
-      MobileDetectionService.isWindows()
+      this.isAndroid() ||
+      this.isBlackBerry() ||
+      this.isiOS() ||
+      this.isOpera() ||
+      this.isWindows()
     );
   }
+
 }

@@ -1,0 +1,555 @@
+<div class="map_component" [ngClass]="{ view_list_info: listTabView, 'view-list-detail': !listTabView }">
+  <div class="container-fluid">
+    <div class="row map_component_wrapper_row" [ngClass]="{ side_drawer_opened: uiHandler.openDrawer }">
+      <div class="col-md-4 map_side_slide" [ngClass]="{ race_details_mobile: uiHandler.sideBarDefault }">
+        <div class="map_side_container">
+          <!-- NOTE : SIDE BAR BEFORE SELECT [START] -->
+          <div [hidden]="isRaceSelected" class="search_lists_view">
+            <div class="search_ragnar_map hidden-xs">
+              <input
+                type="text"
+                [(ngModel)]="searchText"
+                name="searchText1"
+                class="search_map_box form-control"
+                placeholder="Search the Ragnar Map"
+                (keyup)="filterRaces()"
+                (focus)="formElementEnter()"
+                (blur)="formElementExit()"
+              />
+
+              <div *ngIf="appliedFilters.length" class="search_filter_links justify-content-between d-flex">
+                <a class="pull_left">{{ 'map.filters' | translate }}</a>
+                <a (click)="clickOnFilterManager('clearFilter')" class="pull_right">{{ 'map.reset-filters' | translate }}</a>
+              </div>
+              <div *ngIf="appliedFilters.length" class="selected_location">
+                <a *ngFor="let filter of appliedFilters" (click)="removeFilter(filter)" class="selected_tag">
+                  {{ filter.name }}
+                  <span class="iconm-X"></span>
+                </a>
+              </div>
+            </div>
+            <div class="reset_filters_xs visible-xs d-none" role="button" tabindex="0">
+              <a class="pull-left" (click)="clickOnFilterManager('clearFilter')">{{ 'map.reset-filters' | translate }}</a>
+            </div>
+            <!-- FEATURED RACE  -->
+            <div class="featured_race">
+              <div class="featured_list_action">
+                <span class="featured_title">{{ 'map.by' | translate }} {{ selectedFilter.sortName }}</span>
+                <div ngbDropdown class="d-inline-block sort_by">
+                  <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+                    {{ 'map.sort-by' | translate }}
+                  </button>
+                  <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <li class="text-right">
+                      {{ 'map.sort-by' | translate }}
+                      <i class="iconm-sort"></i>
+                    </li>
+                    <li
+                      *ngFor="
+                        let radio of [
+                          { name: 'Date', value: 'start_date' },
+                          { name: 'Location', value: 'start_state' },
+                          { name: 'Name', value: 'aliasName' }
+                        ]
+                      "
+                      ngbDropdownItem
+                    >
+                      <label (change)="clickOnFilterManager('sort', radio)">
+                        <input checked type="radio" name="r1" /><span class="toggle-list-title">{{ radio.name }}</span></label
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="featured_races_list" [ngClass]="{ filter_add_list: appliedFilters.length > 0 }">
+                <ul>
+                  <li
+                    (click)="selectEventFromList(event, true, true)"
+                    class="race_info_block"
+                    *ngFor="let event of events | objectSearch : 'aliasName' : filterSearchText; let i = index"
+                  >
+                    <div class="state_seperator" *ngIf="selectedFilter.sortOn === 'start_state'">
+                      {{
+                        events[i - 1] && events[i - 1].start_state
+                          ? events[i - 1].start_state !== events[i].start_state
+                            ? events[i].start_state
+                            : ''
+                          : ''
+                      }}
+                    </div>
+                    <a>
+                      <div class="race_tile">
+                        <img src="{{ event.files.tile }}" alt="Race Event City" class="img-responsive center-block" />
+                      </div>
+                      <div class="race_highlights">
+                        <div class="race_event_type">
+                          {{ 'common-data.ragnar' | translate }}
+                          {{ event.type.toUpperCase() === 'RELAY' ? 'ROAD' : event.type.toUpperCase() }}
+                        </div>
+                        <h3>{{ event.aliasName }}</h3>
+                        <div class="race_date_venue">
+                          <span class="race-date" *ngIf="!event.coming_soon && event.type !== 'sunset' && event.type !== 'trail_sprint'">
+                            {{ event.start_date | dateFormat : 'MMMM D' }}
+                            {{ event.end_date === event.start_date ? '' : '-' + (event.end_date | dateFormat : 'D') }},
+                            {{ event.start_date | dateFormat : 'YYYY' }}
+                          </span>
+                          <span class="race-date" *ngIf="(event.type === 'sunset' || event.type === 'trail_sprint') && !event.coming_soon">
+                            {{ event.start_date | dateFormat : 'MMMM' }}
+                            {{ event.start_date | dateFormat : 'D' }},
+                            {{ event.start_date | dateFormat : 'YYYY' }}
+                          </span>
+                          <span class="race-date" *ngIf="event.coming_soon">{{ 'map.coming-soon' | translate }}</span>
+                          <span class="race_venue_info">{{
+                            event.type === 'relay' || event.type === 'sprint'
+                              ? event.start_city + ' to ' + event.end_city
+                              : event.start_city
+                          }}</span>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- NOTE : SIDE BAR BEFORE SELECT [END] -->
+
+          <!-- NOTE : SIDE BAR AFTER SELECT [START] -->
+          <div *ngIf="uiHandler.sideBarDefault && isRaceSelected" class="selected_city_view">
+            <img
+              class="img-responsive center-block"
+              src="../../../assets/images/map-page/loading.gif"
+              style="width: 100px"
+              *ngIf="!selectedEvent"
+            />
+            <div class="city_info_action d-flex justify-content-between" *ngIf="selectedEvent">
+              <a (click)="goBackToListView()" class="pull-left return_to_result">{{ 'map.full-results' | translate }}</a>
+              <a (click)="goBackToListView()" class="pull-right close_for_result"><i class="iconm-X"></i></a>
+            </div>
+            <div class="city_info_box" *ngIf="selectedEvent">
+              <div class="city_info_inner">
+                <div class="city_img">
+                  <img alt="Race Event City" [src]="selectedEvent.files.banner" />
+                </div>
+                <div class="city_info_text">
+                  <div class="city_text">
+                    <span class="race_event_type"></span>
+                    <h3 class="city_name">{{ selectedEvent.aliasName }}</h3>
+                  </div>
+                  <div class="city_race_info">
+                    <div class="city_race">
+                      <h4 *ngIf="!selectedEvent.coming_soon && selectedEvent.type !== 'sunset' && selectedEvent.type !== 'trail_sprint'">
+                        <span>
+                          <i class="iconm-calendar"></i>
+                        </span>
+                        <span class="city_race_text">
+                          {{ selectedEvent.start_date | dateFormat : 'MMMM D' }}
+                          {{
+                            selectedEvent.end_date === selectedEvent.start_date ? '' : '-' + (selectedEvent.end_date | dateFormat : 'D')
+                          }},
+                          {{ selectedEvent.start_date | dateFormat : 'YYYY' }}
+                        </span>
+                      </h4>
+                      <h4 *ngIf="!selectedEvent.coming_soon && (selectedEvent.type === 'sunset' || selectedEvent.type === 'trail_sprint')">
+                        <span>
+                          <i class="iconm-calendar"></i>
+                        </span>
+                        <span class="city_race_text">
+                          {{ selectedEvent.start_date | dateFormat : 'MMMM' }}
+                          {{ selectedEvent.start_date | dateFormat : 'D' }},
+                          {{ selectedEvent.start_date | dateFormat : 'YYYY' }}
+                        </span>
+                      </h4>
+                      <h4 *ngIf="selectedEvent.coming_soon">
+                        <span>
+                          <i class="iconm-calendar"></i>
+                        </span>
+                        <span class="city_race_text">{{ 'map.coming-soon' | translate }}</span>
+                      </h4>
+                    </div>
+                    <div class="city_race">
+                      <h4>
+                        <i class="iconm-map-pin"></i>
+                        <span class="city-race-text" *ngIf="selectedEvent.type === 'relay' || selectedEvent.type === 'sprint'">
+                          {{ selectedEvent.start_city }} {{ 'map.to' | translate }} {{ selectedEvent.end_city }}
+                        </span>
+                        <span
+                          class="city-race-text"
+                          *ngIf="selectedEvent.type === 'trail' || selectedEvent.type === 'sunset' || selectedEvent.type === 'trail_sprint'"
+                        >
+                          {{ selectedEvent.start_city }}
+                        </span>
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="city_desription">
+                    {{ selectedEvent.meta_description }}
+                  </div>
+                  <div class="book_price_up"></div>
+                  <div class="race_register_details hidden-xs">
+                    <span *ngIf="selectedEvent.id !== '103'">
+                      <a
+                        appRegisterButton
+                        [event]="selectedEvent"
+                        class="blue-cta-btn"
+                        *ngIf="selectedEvent.regStatus !== 'NOT_OPEN_YET'"
+                        (click)="eCommerceAddToCartItemEvent(selectedEvent)"
+                      >
+                        {{ selectedEvent.regStatusLabel }}
+                      </a>
+                    </span>
+                    <span *ngIf="selectedEvent.regStatus === 'LOTTERY'">
+                      <a class="blue-cta-btn" appRegisterButton [event]="selectedEvent" target="_blank">{{ 'map.lottery' | translate }}</a>
+                    </span>
+                    <a appLinkEventDetail [selectedEvent]="selectedEvent" class="blue-cta-btn white-cta-btn">{{
+                      'map.more-details' | translate
+                    }}</a>
+                  </div>
+                </div>
+                <div id="tiny-map-slider">
+                  <div *ngFor="let photo of selectedEvent.files.photos">
+                    <a href="{{ photo.path }}">
+                      <img [src]="photo.path" alt="ragnar-course-photo" height="20" class="img-responsive center-block" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- NOTE : SIDE BAR AFTER SELECT [END] -->
+        </div>
+      </div>
+      <div class="race_map_view col-md-8">
+        <div class="side-drawer-opener hidden-xs">
+          <a (click)="toogleSideBar()">
+            <img src="../../../assets/images/map-page/side-opener.png" alt="side-opener" class="img-responsive center-block" />
+          </a>
+        </div>
+        <div class="search-filter-sticky">
+          <div class="search_ragnar_map visible-xs">
+            <input
+              type="text"
+              [(ngModel)]="searchText"
+              name="searchText1"
+              class="search_map_box form-control"
+              placeholder="Search the Ragnar Map"
+              (keyup)="filterRaces()"
+              (focus)="formElementEnter()"
+              (blur)="formElementExit()"
+            />
+          </div>
+          <div class="filter_top">
+            <div ngbDropdown #typeDrop="ngbDropdown" class="d-inline-flex road" [ngClass]="{ 'filter-close': selectedFilter.typeName }">
+              <button
+                class="btn btn-outline-primary"
+                id="dropdownBasic1"
+                [ngClass]="{ 'selected-location': selectedFilter.typeName ? true : false }"
+                ngbDropdownToggle
+              >
+                {{ selectedFilter.typeName ? selectedFilter.typeName : 'Event Type' }}
+              </button>
+              <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <li>
+                  <a class="toggle-list-title">{{ selectedFilter.typeName ? selectedFilter.typeName : 'Event Type' }}</a>
+                  <i class="iconm-X" (click)="typeDrop.close()"></i>
+                </li>
+                <li
+                  ngbDropdownItem
+                  *ngFor="
+                    let type of [
+                      { name: 'Road', value: 'relay', type: 'Road/Trail' },
+                      {
+                        name: 'Trail',
+                        value: 'trail',
+                        type: 'Road/Trail',
+                        subRaceType: [{ name: 'Black Loop', value: 'black loop', type: 'Road/Trail' }]
+                      },
+                      { name: 'Sunset', value: 'sunset', type: 'Road/Trail' },
+                      { name: 'Trail Sprint', value: 'trail_sprint', type: 'Road/Trail' },
+                      { name: 'Sprint', value: 'sprint', type: 'Road/Trail' }
+                    ]
+                  "
+                >
+                  <a class="toggle-list-title" (click)="clickOnFilterManager('type', type)">
+                    <i
+                      class="radio_icon"
+                      [ngClass]="{ selected: selectedFilter.typeName === type.name }"
+                      *ngIf="type.value !== 'trail'"
+                    ></i>
+                    <i class="arrow_icon" [ngClass]="{ selected: selectedFilter.typeName === type.name }" *ngIf="type.value === 'trail'"></i
+                    >{{ type.name }}</a
+                  >
+
+                  <ul [ngClass]="{ 'race-sub-menu': toogleTrailRace }" *ngIf="selectedFilter.typeName === 'Trail'">
+                    <li
+                      *ngFor="let race of type.subRaceType"
+                      (click)="clickOnFilterManager('sub-raceType', race); this.toogleTrailRace = true"
+                    >
+                      <label
+                        ><input class="checkbox-custom" type="checkbox" name="optradio" [checked]="selectedFilter.typeName === race.name" />
+                        <span class="label-text">{{ race.name }}</span>
+                      </label>
+                    </li>
+                  </ul>
+                </li>
+
+                <li class="reset_option" (click)="clickOnFilterManager('removeFilter', { name: '', value: '', type: 'Road/Trail' })">
+                  <span>{{ 'map.reset' | translate }}</span>
+                </li>
+              </ul>
+              <div
+                class="close-selection"
+                *ngIf="selectedFilter.typeName"
+                (click)="clickOnFilterManager('removeFilter', { name: '', value: '', type: 'Road/Trail' })"
+              >
+                <img src="../../../assets/images/map-page/close-white-icon.png" alt="Close" class="img-responsive" />
+              </div>
+            </div>
+            <div
+              ngbDropdown
+              #locationDrop="ngbDropdown"
+              class="d-inline-flex location"
+              [ngClass]="{ 'filter-close': selectedFilter.locationName }"
+              [autoClose]="'outside'"
+            >
+              <button
+                class="btn btn-outline-primary"
+                id="dropdownBasic1"
+                [ngClass]="{ 'selected-location': selectedFilter.locationName ? true : false }"
+                ngbDropdownToggle
+              >
+                {{ selectedFilter.locationName ? selectedFilter.locationName : 'Location' }}
+              </button>
+              <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <li>
+                  <a class="toggle-list-title">{{ selectedFilter.locationName ? selectedFilter.locationName : 'Location' }}</a
+                  ><i class="iconm-X" (click)="locationDrop.close()"></i>
+                </li>
+                <li ngbDropdownItem *ngFor="let country of countries; let i = index" role="menuitem">
+                  <a
+                    class="toggle-list-title"
+                    data-toggle="collapse"
+                    data-target="#view-option-{{ i }}"
+                    (click)="clickOnFilterManager('location', country)"
+                  >
+                    <i class="arrow_icon" [ngClass]="{ selected: selectedFilter.locationName === country.name }"></i>{{ country.name }}</a
+                  >
+                  <!-- <div class="collapse" id="view-option-{{i}}">
+                                    <div class="form-check" *ngFor="let state in country.states"  (click)="clickOnFilterManager('sub-region', state)">
+                                        <label><input class="checkbox-custom" type="checkbox" name="optradio"
+                                                [checked]="selectedFilter.locationName === state.name">
+                                            <span class="label-text">{{state.name}}</span>
+                                        </label>
+                                    </div>
+                                </div> -->
+                  <ul [ngClass]="{ 'location-sub-menu': toogleSubRegion }" *ngIf="selectedFilter.locationName === country.name">
+                    <li
+                      *ngFor="let state of country.states | sortBy : 'asc' : 'name'"
+                      (click)="clickOnFilterManager('sub-region', state); this.toogleSubRegion = true"
+                    >
+                      <label
+                        ><input
+                          id="view-option-{{ i }}"
+                          class="checkbox-custom"
+                          type="checkbox"
+                          name="optradio"
+                          [checked]="selectedFilter.locationName === state.name"
+                        />
+                        <span class="label-text">{{ state.name }}</span>
+                      </label>
+                    </li>
+                  </ul>
+                </li>
+                <li class="reset_option" (click)="clickOnFilterManager('removeFilter', { name: '', value: '', type: 'Location' })">
+                  <span>{{ 'map.reset' | translate }}</span>
+                </li>
+              </ul>
+              <div
+                class="close-selection"
+                *ngIf="selectedFilter.locationName"
+                (click)="clickOnFilterManager('removeFilter', { name: '', value: '', type: 'Location' })"
+              >
+                <img src="../../../assets/images/map-page/close-white-icon.png" alt="Close" class="img-responsive" />
+              </div>
+            </div>
+            <div
+              ngbDropdown
+              #dateDrop="ngbDropdown"
+              class="d-inline-flex dates_drop"
+              [ngClass]="{ 'filter-close': selectedFilter.date.length }"
+            >
+              <button
+                class="btn btn-outline-primary"
+                id="dropdownBasic1"
+                [ngClass]="{ 'selected-location': selectedFilter.date.length ? true : false }"
+                ngbDropdownToggle
+              >
+                {{
+                  selectedFilter.date.length >= 2
+                    ? selectedFilter.date.length + ' months'
+                    : selectedFilter.date.length === 1
+                    ? selectedFilter.date[0]
+                    : 'Dates'
+                }}
+              </button>
+              <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <li>
+                  <a class="toggle-list-title">{{ 'common-data.dates' | translate }}</a
+                  ><i class="iconm-X" (click)="dateDrop.close()"></i>
+                </li>
+                <li class="months_list">
+                  <a
+                    class="month-option"
+                    *ngFor="let month of allMonths"
+                    (click)="clickOnFilterManager('Dates', month)"
+                    [ngClass]="{ 'selected-month': month.isSelected }"
+                    class="toggle-list-title"
+                    role="menuitem"
+                  >
+                    {{ month.name }}</a
+                  >
+                </li>
+                <li class="reset_option">
+                  <span
+                    class="toggle-list-title"
+                    (click)="clickOnFilterManager('removeFilter', { name: '', value: '', type: 'Dates' }, true)"
+                    >{{ 'map.reset' | translate }}</span
+                  >
+                </li>
+              </ul>
+              <div
+                class="close-selection"
+                *ngIf="selectedFilter.date.length"
+                (click)="clickOnFilterManager('removeFilter', { name: '', value: '', type: 'Dates' })"
+              >
+                <img src="../../../assets/images/map-page/close-white-icon.png" alt="Close" class="img-responsive" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="explor_drop hidden-xs">
+          <div ngbDropdown placement="top-right" class="d-inline-block dropdown">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>
+              <span>{{ 'map.ragnar-overseas' | translate }}</span> {{ 'map.explore-international' | translate }}
+            </button>
+            <ul ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <li ngbDropdownItem>{{ 'map.explore-international' | translate }} <i class="iconm-X"></i></li>
+              <li ngbDropdownItem>
+                <label for="ch1">
+                  <input
+                    id="ch1"
+                    class="checkbox-custom"
+                    (change)="clickOnFilterManager('location', { name: 'North America', value: 'North America' })"
+                    type="checkbox"
+                    name="country-for-0"
+                    [checked]="selectedFilter.locationName === 'North America'"
+                  />
+                  {{ 'map.north-america' | translate }}
+                </label>
+              </li>
+              <li ngbDropdownItem>
+                <label for="ch2">
+                  <input
+                    id="ch2"
+                    class="checkbox-custom"
+                    type="checkbox"
+                    name="country-for-1"
+                    (change)="clickOnFilterManager('location', { name: 'Europe', value: 'Europe' })"
+                    [checked]="selectedFilter.locationName === 'Europe'"
+                  />
+                  {{ 'map.europe' | translate }}
+                </label>
+              </li>
+              <li ngbDropdownItem>
+                <label for="ch3">
+                  <input
+                    id="ch3"
+                    class="checkbox-custom"
+                    type="checkbox"
+                    (change)="clickOnFilterManager('location', { name: 'Australia', value: 'Australia' })"
+                    name="country-for-2"
+                    [checked]="selectedFilter.locationName === 'Australia'"
+                  />{{ 'map.australia' | translate }}
+                </label>
+              </li>
+              <li ngbDropdownItem>
+                <label for="ch4">
+                  <input
+                    id="ch4"
+                    class="checkbox-custom"
+                    type="checkbox"
+                    name="country-for-3"
+                    (change)="clickOnFilterManager('location', { name: 'South Africa', value: 'South Africa' })"
+                    [checked]="selectedFilter.locationName === 'South Africa'"
+                  />
+                  {{ 'map.south-africa' | translate }}
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div> -->
+
+        <!-- ================ MAPBOXGL [START] =================== -->
+        <div class="map_list_view_xs" *ngIf="uiHandler.isMobileMapRender" (click)="triggerMobileSwitchMap('map')">
+          <span></span>
+        </div>
+        <div
+          class="right_side_bar"
+          id="map"
+          [ngClass]="{ gmap_hide_list: uiHandler.isMobileMapRender }"
+          style="width: 100%; height: 90vh"
+        ></div>
+
+        <!-- ================ MAPBOXGL [END] =================== -->
+        <div class="map_tab_view" (click)="triggerMobileSwitchMap('map')">
+          <a title="View Map">
+            <img src="/assets/images/map-page/location-icon-tab.png" alt="View Map" class="img-responsive center-block" />
+          </a>
+        </div>
+        <div class="list_tab_view" (click)="triggerMobileSwitchMap('list')" [ngClass]="{ list_tab_view_up: uiHandler.isMobileFooter }">
+          <a title="View Race List">
+            <img src="/assets/images/map-page/list-icon-tab.png" alt="List Map" class="img-responsive center-block" />
+          </a>
+        </div>
+        <!-- ================ BUTTON TRIGER FOR SIDE BAR [END] =================== -->
+
+        <div class="map_race_city_selected" *ngIf="uiHandler.isMobileFooter">
+          <div class="map_race_city">
+            <div class="pull_left map_race_location">
+              <img src="assets/images/map-page/location-icon-tab-orange.png" alt="Location Icon" />
+            </div>
+            <div class="pull_right map_race_text">
+              <h4>{{ eventTypeTitle[selectedEvent.type] }}</h4>
+              <h2>
+                {{ selectedEvent.name }}
+              </h2>
+              <p class="map_race_info">
+                {{ selectedEvent.start_date | dateFormat : 'MMMM' }} {{ selectedEvent.start_date | dateFormat : 'D'
+                }}{{ selectedEvent.end_date ? '-' + (selectedEvent.end_date | dateFormat : 'D') : '' }},
+                {{ selectedEvent.start_date | dateFormat : 'YYYY' }} | {{ selectedEvent.start_city }}
+                {{ selectedEvent.end_city ? 'to ' + selectedEvent.end_city : '' }}
+              </p>
+            </div>
+
+            <img
+              src="/assets/images/map-page/close-black-icon.png"
+              (click)="triggerMobileSwitchMap('footerClose')"
+              class="close_race_info"
+              alt="Close Icon"
+            />
+          </div>
+          <!-- THERE IS ISSUE HERE -->
+          <a class="orange_cta_btn pull_right" (click)="selectEventFromList(selectedEvent, true, true); isMobile = false">Race Details</a>
+        </div>
+
+        <div class="list_tab_sticky" (click)="triggerMobileSwitchMap('footer')" *ngIf="isMobile && !uiHandler.isMobileMapRender">
+          <a>
+            <span class="pull_left result_no">{{ events.length }} Results</span>
+            <span class="pull_right view_list_result">View Races <i class="fa fa-caret-up" aria-hidden="true"></i></span>
+          </a>
+        </div>
+      </div>
+      <!-- ================ LEFT SIDE SCREEN SIDEBAR [END] =================== -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,360 @@
+@import 'vars';
+.medals_main {
+  h2 {
+    @include font-weight(600);
+    color: $black2;
+    font-size: 45px;
+    font-family: $font_family_barlow_Condensed;
+  }
+  h3 {
+    @include font-weight(600);
+    color: $black2;
+    font-size: 40px;
+    line-height: 42px;
+    margin-bottom: 47px;
+    font-family: $font_family_barlow_Condensed;
+
+    @media (max-width: $screen-xs-max) {
+      text-align: center;
+    }
+  }
+  .card-desc,
+  .medals-desc,
+  .immortal-desc {
+    @include font-weight(400);
+    font-size: 26px;
+    line-height: 36px;
+    color: $black3;
+    @media (max-width: $screen-xs-max) {
+      margin-top: 20px;
+      font-size: 20px;
+      line-height: 22px;
+    }
+  }
+  .medals-desc,
+  .immortal-desc {
+    max-width: 389px;
+    margin: 0 auto 70px;
+    @media (max-width: $screen-xs-max) {
+      max-width: 100%;
+      padding: 0px 20px;
+    }
+  }
+  .immortal-desc {
+    max-width: 539px;
+    @include font-weight(400);
+    color: $black3;
+  }
+  .medals-banner {
+    background: url(/assets/images/static-pages/medals/double-medals.png) no-repeat;
+    background-size: cover;
+    background-position: center;
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    @include font-weight(700);
+    color: $white;
+    height: 411px;
+    .main-title {
+      line-height: 80px;
+      font-size: 80px;
+      text-shadow: 0 0 30px rgba(0, 0, 0, 0.69);
+      color: $white;
+      margin-bottom: 25px;
+      font-family: $font_family_barlow_Condensed;
+      @include font-weight(600);
+
+      @media (max-width: $screen-xs-max) {
+        font-size: 52px;
+        padding: 0;
+      }
+      @media (max-width: $screen-xs-max) {
+        font-size: 50px;
+        padding: 0x;
+        line-height: 56px;
+      }
+    }
+    .medals-banner-desc {
+      @include font-weight(600);
+      text-shadow: 0 0 30px rgba(0, 0, 0, 0.69);
+      font-size: 35px;
+      line-height: 45px;
+      @media (max-width: $screen-xs-max) {
+        font-size: 20px;
+        line-height: 30px;
+      }
+    }
+  }
+  .road-trail-sunset-wrapper {
+    padding: 117px 0;
+    background-color: $white2;
+    .card-box {
+      border: 1px solid #707070;
+      padding: 0;
+      margin: 0px 8px;
+      max-width: calc(33.3333333333% - 16px);
+      background-color: $white;
+      @media (max-width: $screen-xs-max) {
+        max-width: 100%;
+        margin: 0 0 30px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+    .card-info {
+      padding: 25px;
+      h2 {
+        margin-bottom: 20px;
+        @media (max-width: $screen-md-max) {
+          font-size: $font_size_xlarge;
+        }
+        @media (max-width: $screen-xs-max) {
+          font-size: 25px;
+          margin-bottom: 10px;
+        }
+      }
+      .card-desc {
+        @media (max-width: $screen-md-max) {
+          font-size: 18px;
+          line-height: 26px;
+        }
+        @media (max-width: $screen-xs-max) {
+          font-size: 20px;
+          line-height: 24px;
+        }
+      }
+    }
+    .card-wrapper {
+      @media (max-width: $screen-xs-max) {
+        padding: 0px 15px;
+      }
+    }
+    @media (max-width: $screen-xs-max) {
+      padding: 30px 0;
+    }
+  }
+  .medals-wrapper {
+    padding: 110px 0 0;
+    @media (max-width: $screen-xs-max) {
+      padding: 55px 0 0;
+      .plusbtn {
+        display: block !important;
+      }
+    }
+    .plusbtn {
+      display: none;
+    }
+    .medals-list-inner {
+      position: relative;
+      display: table;
+      margin: 0 auto;
+      @media (max-width: $screen-xs-max) {
+        width: 60%;
+      }
+    }
+    .double-wammy {
+      right: 100%;
+    }
+    h2 {
+      line-height: 48px;
+      margin-bottom: 20px;
+      @media (max-width: $screen-xs-max) {
+        font-size: 25px;
+      }
+    }
+
+    .double-wammy,
+    .rocky {
+      font-size: 18px;
+      line-height: normal;
+      color: $black3;
+      @include font-weight(400);
+      position: absolute;
+      top: 22%;
+      width: 65%;
+      .d-none {
+        font-size: 26px;
+        line-height: 36px;
+        @media only screen and (max-width: 1400px) {
+          font-size: 18px;
+          line-height: normal;
+        }
+      }
+      @media (min-width: $screen-sm-min) {
+        .popup-box {
+          display: none;
+        }
+      }
+      @media (max-width: $screen-xs-max) {
+        .d-none.d-sm-block {
+          display: none !important;
+        }
+        .popup-box {
+          box-shadow: 0 3px 6px rgb(0 0 0 / 16%);
+          background-color: #fff;
+          .popup-box-inner {
+            padding: 15px;
+          }
+        }
+      }
+    }
+    .double-wammy {
+      @media (max-width: $screen-xs-max) {
+        left: 0 !important;
+        text-align: left;
+        width: 100%;
+      }
+    }
+    .rocky {
+      left: 100%;
+      top: 35%;
+      @media (max-width: $screen-xs-max) {
+        right: 0 !important;
+        width: 100%;
+        left: auto !important;
+        text-align: right;
+        .rocky-popup-box {
+          text-align: center;
+        }
+      }
+    }
+    img {
+      max-width: 430px;
+      @media (max-width: $screen-md-max) {
+        max-width: 300px;
+      }
+      @media (max-width: $screen-xs-max) {
+        max-width: 100%;
+      }
+    }
+  }
+  .immortal-wrapper {
+    background-color: $white2;
+    padding: 115px 0;
+    @media (max-width: $screen-xs-max) {
+      padding: 45px 0;
+    }
+
+    h2 {
+      margin-bottom: 50px;
+    }
+  }
+  .faq {
+    padding: 120px 0;
+    @media (max-width: $screen-xs-max) {
+      padding: 30px 0px;
+    }
+    .faq-inner {
+      padding: 70px 90px 0;
+      background: $white2;
+      @media only screen and (max-width: 991px) {
+        padding: 50px 50px 20px !important;
+      }
+      @media (max-width: $screen-xs-max) {
+        padding: 30px 20px 20px !important;
+      }
+    }
+    .faq-box {
+      margin-bottom: 45px;
+      .faq-question {
+        font-size: 26px;
+        line-height: 28px;
+        color: $black2;
+        margin-bottom: 15px;
+        @include font-weight(500);
+      }
+      .faq-ans {
+        font-size: 16px;
+        line-height: 26px;
+        color: $black3;
+        @include font-weight(500);
+        p {
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+  .insta-shots {
+    background: #e7e7e7;
+    padding: 50px 0 30px;
+    .container {
+      .insta-titles .insta-icon {
+        display: inline-block;
+        img {
+          max-width: 70px;
+          background-color: transparent;
+          padding: 0;
+          @media only screen and (max-width: 991px) {
+            max-width: 36px;
+            border: 0;
+            padding: 0;
+          }
+          @media (max-width: $screen-xs-max) {
+            max-width: 36px;
+            border: 0;
+            padding: 0;
+          }
+        }
+      }
+      .insta-text {
+        padding-left: 20px;
+        display: inline-block;
+        vertical-align: top;
+        @media only screen and (max-width: 991px) {
+          color: $white;
+          font-size: 16px;
+          line-height: 16px;
+          margin-bottom: 5px;
+        }
+        h2 {
+          @include heading-2($margin-bottom: 10px);
+          letter-spacing: normal;
+          line-height: 36px;
+          margin-top: 0;
+          color: #424242;
+          font-family: $font_family_barlow_Condensed;
+          @media (max-width: $screen-xs-max) {
+            color: $white;
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 5px;
+          }
+        }
+        p {
+          font-size: 16px;
+          line-height: 22px;
+          margin-top: 0;
+          margin-bottom: 0;
+          color: #424242;
+          @media only screen and (max-width: 991px) {
+            color: $white;
+            font-size: 12px;
+            line-height: 18px;
+          }
+          @media (max-width: $screen-xs-max) {
+            color: $white;
+            font-size: 12px;
+            line-height: 18px;
+          }
+        }
+      }
+    }
+    @media only screen and (max-width: 991px) {
+      background: $black3;
+      padding-top: 25px;
+    }
+    @media (max-width: $screen-xs-max) {
+      background: $black3;
+      padding-top: 25px;
+    }
+  }
+}
+.container {
+  @media only screen and (min-width: 1200px) {
+    max-width: 1170px;
+  }
+  @media only screen and (min-width: 1600px) {
+    max-width: 1400px !important;
+  }
+}

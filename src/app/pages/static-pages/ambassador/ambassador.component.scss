@@ -1,0 +1,112 @@
+@import 'vars';
+
+.ambassadors_main {
+  .ambassadors-banner {
+    background: url(/assets/images/static-pages/ambassadors/ambassadors.jpg) no-repeat;
+    background-size: cover;
+    @include font-weight(700);
+    color: $white;
+    height: 350px;
+    .main-title {
+      padding: 150px 0 14px 90px;
+      @include font-weight(700);
+      font-size: 72px;
+      color: $white;
+      @media (max-width: $screen-xxs-max) {
+        font-size: $font_size_xlarge;
+        padding: 150px 0 14px 30px;
+      }
+    }
+  }
+  .main-content {
+    padding: 25px 0px;
+    h3 {
+      font-family: $font_family_barlow_Condensed;
+      @include font-weight(600);
+      font-size: $font_size_large;
+      letter-spacing: normal;
+      line-height: 30px;
+      color: $black3;
+    }
+    p {
+      color: $black3;
+      line-height: 20px;
+      @include font-weight(400);
+    }
+    hr {
+      margin: 20px 0px 20px;
+      height: 5px;
+      background: $brand-secondary;
+    }
+    .main-content-col {
+      .ifyou-text {
+        margin: 10px 0px 0px;
+      }
+      .ragnar-ambassdors {
+        margin-top: 20px;
+      }
+    }
+    .next-steps {
+      padding: 0px 5px;
+      h2 {
+        color: $brand-secondary;
+        font-size: 30px;
+        font-family: $font_family_barlow_Condensed;
+        @include font-weight(600);
+        padding-left: 15px;
+      }
+      .separator {
+        background-color: $brand-secondary;
+        padding: 3px;
+        margin: 10px 0px;
+        max-width: 235px;
+        @media (max-width: $screen-xs-max) {
+          margin-left: 0px;
+          margin-right: 0px;
+          max-width: 100%;
+        }
+      }
+      ul {
+        padding-left: 15px;
+        list-style: none;
+        li {
+          a {
+            font-size: 1.2em;
+            color: $brand-secondary !important;
+          }
+        }
+      }
+
+      @media (max-width: $screen-md-max) {
+        padding-right: 20px;
+        padding-left: 0px;
+      }
+      @media (max-width: $screen-xs-max) {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+    }
+    img.thumbnail {
+      padding: 4px;
+      line-height: 1.428571429;
+      background-color: $white;
+      border: 1px solid $white4;
+      border-radius: 4px;
+      margin: 20px 0px 0px;
+      @media (max-width: $screen-xs-max) {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-bottom: 40px;
+      }
+    }
+  }
+}
+.container {
+  @media only screen and (min-width: 1400px) {
+    max-width: 83%;
+  }
+  @media only screen and (max-width: 1400px) {
+    max-width: 1140px;
+  }
+}

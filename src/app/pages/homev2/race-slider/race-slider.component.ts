@@ -93,9 +93,11 @@ export class RaceSliderComponent implements OnInit {
     }
 
     for (const ele of this.slideConfig.responsive) {
-      if (window.innerWidth <= ele.breakpoint) {
-        this.totalSlides = Math.ceil(this.slides.length / ele.settings.slidesToShow);
-        break;
+      if (isPlatformBrowser(this.platformId)) { 
+        if (window.innerWidth <= ele.breakpoint) {
+          this.totalSlides = Math.ceil(this.slides.length / ele.settings.slidesToShow);
+          break;
+        }
       }
     }
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, PLATFORM_ID, Inject } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModelDialogComponent } from '../common-model-dialog/common-model-dialog.component';
 
@@ -10,6 +10,8 @@ import { UserInfo } from 'src/app/@core/interfaces/auth.interface';
 import { VirtualChallengeDetail, VirtualChallengeTeam, VirtualChallengeRunLogs, AddedActivityCopy } from 'src/app/@core/interfaces/virtual-challenge.interface';
 import { VirtualChallengeSharedDataService, XMomentService, DataLayerService } from 'src/app/@core/utils';
 import { ToastService } from '../../toast/toast.service';
+import { isPlatformBrowser } from '@angular/common';
+
 @Component({
   selector: 'app-virtual-challenge-add-run',
   templateUrl: './add-run.component.html',
@@ -56,6 +58,7 @@ export class AddRunComponent implements OnInit {
     private translate: TranslateService,
     private xMomentService: XMomentService,
     public dataLayerService: DataLayerService,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
@@ -84,7 +87,9 @@ export class AddRunComponent implements OnInit {
 
     modalRef.result.then(
       (result) => {
-        window.location.hash = 'dashboard';
+        if (isPlatformBrowser(this.platformId)) {
+          window.location.hash = 'dashboard';
+        }
       },
       (reason) => {},
     );

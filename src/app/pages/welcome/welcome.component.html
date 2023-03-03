@@ -1,0 +1,594 @@
+<div class="lp-wrapper">
+  <section class="lp-banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="banner-text">
+            <img src="assets/images/Ragnar_welcome2.png" height="300" width="300" alt="Phone" />
+            <h1>Make RUnning a team sport</h1>
+            <div class="sub-text">
+              <p>
+                Ragnar is a team, relay-style running event that takes place at incredible scenic locations across the country. All you need
+                to do is assemble your dream team or your odd squad and choose a crazy Ragnar adventure you’ll never forget.
+              </p>
+              <h5>READY TO CHOOSE YOUR ADVENTURE?</h5>
+              <p>We’re here to help! Sign up or call now, and we’ll get you started on the right path.</p>
+            </div>
+          </div>
+          <div class="banner-form">
+            <div class="row">
+              <div class="col-lg-12">
+                <h5>GET CONNECTED</h5>
+              </div>
+            </div>
+            <div class="row banner-row-wrapper">
+              <div class="col-lg-6">
+                <div class="left-col">
+                  <iframe
+                    id="JotFormIFrame-221735136750049"
+                    title="Learn More About Ragnar"
+                    onload="window.parent.scrollTo(0,0)"
+                    allowtransparency="false"
+                    allowfullscreen="true"
+                    allow="geolocation; microphone; camera"
+                    src="https://form.jotform.com/221735136750049"
+                    frameborder="0"
+                    scrolling="no"
+                  >
+                  </iframe>
+                  <script type="text/javascript">
+                    var ifr = document.getElementById('JotFormIFrame-221735136750049');
+                    if (ifr) {
+                      var src = ifr.src;
+                      var iframeParams = [];
+                      if (window.location.href && window.location.href.indexOf('?') > -1) {
+                        iframeParams = iframeParams.concat(window.location.href.substr(window.location.href.indexOf('?') + 1).split('&'));
+                      }
+                      if (src && src.indexOf('?') > -1) {
+                        iframeParams = iframeParams.concat(src.substr(src.indexOf('?') + 1).split('&'));
+                        src = src.substr(0, src.indexOf('?'));
+                      }
+                      iframeParams.push('isIframeEmbed=1');
+                      ifr.src = src + '?' + iframeParams.join('&');
+                    }
+                    window.handleIFrameMessage = function (e) {
+                      if (typeof e.data === 'object') {
+                        return;
+                      }
+                      var args = e.data.split(':');
+                      if (args.length > 2) {
+                        iframe = document.getElementById('JotFormIFrame-' + args[args.length - 1]);
+                      } else {
+                        iframe = document.getElementById('JotFormIFrame');
+                      }
+                      if (!iframe) {
+                        return;
+                      }
+                      switch (args[0]) {
+                        case 'scrollIntoView':
+                          iframe.scrollIntoView();
+                          break;
+                        case 'setHeight':
+                          iframe.style.height = args[1] + 'px';
+                          break;
+                        case 'collapseErrorPage':
+                          if (iframe.clientHeight > window.innerHeight) {
+                            iframe.style.height = window.innerHeight + 'px';
+                          }
+                          break;
+                        case 'reloadPage':
+                          window.location.reload();
+                          break;
+                        case 'loadScript':
+                          if (!window.isPermitted(e.origin, ['jotform.com', 'jotform.pro'])) {
+                            break;
+                          }
+                          var src = args[1];
+                          if (args.length > 3) {
+                            src = args[1] + ':' + args[2];
+                          }
+                          var script = document.createElement('script');
+                          script.src = src;
+                          script.type = 'text/javascript';
+                          document.body.appendChild(script);
+                          break;
+                        case 'exitFullscreen':
+                          if (window.document.exitFullscreen) window.document.exitFullscreen();
+                          else if (window.document.mozCancelFullScreen) window.document.mozCancelFullScreen();
+                          else if (window.document.mozCancelFullscreen) window.document.mozCancelFullScreen();
+                          else if (window.document.webkitExitFullscreen) window.document.webkitExitFullscreen();
+                          else if (window.document.msExitFullscreen) window.document.msExitFullscreen();
+                          break;
+                      }
+                      var isJotForm = e.origin.indexOf('jotform') > -1 ? true : false;
+                      if (isJotForm && 'contentWindow' in iframe && 'postMessage' in iframe.contentWindow) {
+                        var urls = { docurl: encodeURIComponent(document.URL), referrer: encodeURIComponent(document.referrer) };
+                        iframe.contentWindow.postMessage(JSON.stringify({ type: 'urls', value: urls }), '*');
+                      }
+                    };
+                    window.isPermitted = function (originUrl, whitelisted_domains) {
+                      var url = document.createElement('a');
+                      url.href = originUrl;
+                      var hostname = url.hostname;
+                      var result = false;
+                      if (typeof hostname !== 'undefined') {
+                        whitelisted_domains.forEach(function (element) {
+                          if (hostname.slice(-1 * element.length - 1) === '.'.concat(element) || hostname === element) {
+                            result = true;
+                          }
+                        });
+                        return result;
+                      }
+                    };
+                    if (window.addEventListener) {
+                      window.addEventListener('message', handleIFrameMessage, false);
+                    } else if (window.attachEvent) {
+                      window.attachEvent('onmessage', handleIFrameMessage);
+                    }
+                  </script>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="right-col">
+                  <span>
+                    <img class="img-responsive" src="assets/images/landing-page/call-icon.png" />
+                  </span>
+                  <h6>Call Now</h6>
+                  <p>Speak to a Ragnar Specialist.</p>
+                  <a href="tel:385-438-3788" class="phone"> 385-438-3788 </a>
+                  <!-- 1+(385)-438-3788  -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="texture-bg">
+    <div class="text-overlay">
+      <div class="container-fluid p-0">
+        <h2 class="title">Magic Happens outside your comfort zone</h2>
+      </div>
+    </div>
+
+    <div class="how-section text-center">
+      <div class="title">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="section-title orange-text">How To Ragnar</h2>
+              <p>
+                <strong>Do you like road running?</strong> There is a race for that.<strong>Are you more of a trail runner?</strong> You’re
+                covered.<strong>Just looking for a day out with friends</strong> while burning some calories? Yup, there is a race for that
+                too.
+              </p>
+              <p>
+                <strong
+                  >Set your sites on the finish line because Ragnar is all about doing something together you could never do alone!</strong
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="container">
+          <ul class="list">
+            <li>
+              <div class="list-wrap">
+                <span class="count"> 1 </span>
+                <h6>
+                  Choose<br />
+                  a Team<br />
+                  Captain
+                </h6>
+              </div>
+            </li>
+            <li>
+              <div class="list-wrap">
+                <span class="count"> 2 </span>
+                <h6>
+                  choose<br />
+                  location<br />
+                  & race type
+                </h6>
+              </div>
+            </li>
+            <li>
+              <div class="list-wrap">
+                <span class="count"> 3 </span>
+                <h6>
+                  enter Your<br />
+                  team into<br />
+                  the race
+                </h6>
+              </div>
+            </li>
+            <li>
+              <div class="list-wrap">
+                <span class="count"> 4 </span>
+                <h6>
+                  Make<br />
+                  memories<br />
+                  with friends
+                </h6>
+              </div>
+            </li>
+            <li>
+              <div class="list-wrap icon">
+                <span class="count">
+                  <i class="iconm-ragnar_icon"></i>
+                </span>
+                <h6>
+                  Start Your Ragnar<br />
+                  Adventure Now!
+                </h6>
+                <a href="https://www.runragnar.com/map?utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP" class="rg_btn blue-btn"
+                  >Let's Go!</a
+                >
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="race-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2 class="section-title text-center">Race Formats</h2>
+          </div>
+        </div>
+      </div>
+      <div class="race-detial">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-5 col-4 img-col">
+              <span class="img">
+                <!-- <img loading="lazy" src="../../../../assets/images/landing-page/road-race.webp" alt="Road Race" /> -->
+                <picture>
+                  <source srcset="../../../../assets/images/landing-page/road-race.webp" type="image/webp" />
+                  <source srcset="../../../../assets/images/landing-page/road-race.jpg" type="image/jpeg" />
+                  <img loading="lazy" src="../../../../assets/images/landing-page/road-race.jpg" alt="Road Race" />
+                </picture>
+              </span>
+            </div>
+            <div class="col-lg-6 col-md-7 col-8 content-col">
+              <h2 class="section-title orange-text mb-0">Road :</h2>
+              <h5>You’ll run day, night, and day again!</h5>
+              <p>
+                Teams of 12 (Regular) or 6 (Ultra) run a combined 200ish miles from point A to point B through city streets, country roads,
+                sidewalks, and bike paths. You’ll run day, and night, and day again, sleeping (ha ha) in vans, grassy fields, or perhaps a
+                high school gym (with the principal’s permission).
+              </p>
+              <p>
+                Each teammate will run three separate legs of the race, with downtime in between, for a total of 11 to 24 miles per runner
+                (twice that for ultra-teams). After the final pass of the baton—er, slap bracelet—you’ll cross beneath the iconic orange
+                arch together, dripping with … pride.
+              </p>
+              <a
+                href="https://www.runragnar.com/map?type=relay&utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP"
+                class="rg_btn blue-btn"
+                >Find a road race</a
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-5 img-col">
+              <span class="img">
+                <!-- <img loading="lazy" src="../../../../assets/images/landing-page/trail-race.png" alt="Trail Race" /> -->
+                <picture>
+                  <source srcset="../../../../assets/images/landing-page/trail-race.webp" type="image/webp" />
+                  <source srcset="../../../../assets/images/landing-page/trail-race.png" type="image/png" />
+                  <img loading="lazy" src="../../../../assets/images/landing-page/trail-race.png" alt="Trail Race" />
+                </picture>
+              </span>
+            </div>
+            <div class="col-lg-6 col-md-7 content-col">
+              <h2 class="section-title orange-text mb-0">Trail:</h2>
+              <h5>Run, camp, sleep, repeat… for 2 days!</h5>
+              <p>
+                Teams of 8 (Regular) or 4 (Ultra) run 120ish miles—in three repeating loops—on wilderness trails that wind through forests,
+                valleys, and mountainsides. You’ll run day, and night, and day again, sleeping (yeah right) in a temporary tent city known
+                as Ragnar Village.
+              </p>
+              <p>
+                Each teammate completes each race loop once—green, yellow, and red—with breaks in between, for a total of 15ish miles per
+                runner (twice that for ultra-teams). Elevation is inevitable. And so are breathtaking views.
+              </p>
+              <a
+                href="https://www.runragnar.com/map?type=trail&utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP"
+                class="rg_btn blue-btn"
+                >Find a trail race</a
+              >
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-5 img-col">
+              <span class="img">
+                <!-- <img loading="lazy" src="../../../../assets/images/landing-page/sprint-race.png" alt="Sprint Race" /> -->
+                <picture>
+                  <source srcset="../../../../assets/images/landing-page/sprint-race.webp" type="image/webp" />
+                  <source srcset="../../../../assets/images/landing-page/sprint-race.png" type="image/png" />
+                  <img loading="lazy" src="../../../../assets/images/landing-page/sprint-race.png" alt="Sprint Race" />
+                </picture>
+              </span>
+            </div>
+            <div class="col-lg-6 col-md-7 content-col">
+              <h2 class="section-title orange-text mb-0">Sprint:</h2>
+              <h5>All the fun of a road race in one day.</h5>
+              <p>
+                In a single day, teams of 6 run a combined 50(ish) miles from point A to point B through city streets, country roads,
+                sidewalks, and bike paths.
+              </p>
+              <p>
+                Each teammate will run three separate legs of the race, with downtime in between, for a total of 5 to 16 miles per runner.
+                After the final pass of the baton—er, slap bracelet—you’ll cross beneath the iconic orange arch together, dripping with …
+                pride.
+              </p>
+              <a
+                href="https://www.runragnar.com/map?type=sprint&utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP"
+                class="rg_btn blue-btn"
+                >Find a sprint race</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="map-section text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="section-title orange-text">Find Your Ragnar</h2>
+          <span class="img d-block">
+            <!-- <img loading="lazy" src="../../../../assets/images/landing-page/map.jpg" alt="Map" /> -->
+            <picture>
+              <source srcset="../../../../assets/images/landing-page/map.webp" type="image/webp" />
+              <source srcset="../../../../assets/images/landing-page/map.jpg" type="image/jpg" />
+              <img loading="lazy" src="../../../../assets/images/landing-page/map.jpg" alt="Map" />
+            </picture>
+          </span>
+          <a href="https://www.runragnar.com/map?utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP" class="rg_btn blue-btn"
+            >FIND YOUR RAGNAR</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="medal-section text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="section-title orange-text white-text-mobile">What RAGNAR Medals will you Collect this Year?</h2>
+        </div>
+      </div>
+      <div class="medal-list">
+        <div class="row">
+          <div class="col-md-6 col-single">
+            <div class="top-content">
+              <h3 class="title"><span class="d-none d-md-inline-block">FINISHER</span> TRAIL<span class="orange-text">Medals</span></h3>
+              <span class="img">
+                <!-- <img loading="lazy" src="../../../../assets/images/landing-page/trail-medal.png" alt="Trail Medal" /> -->
+                <picture>
+                  <source srcset="../../../../assets/images/landing-page/trail-medal.webp" type="image/webp" />
+                  <source srcset="../../../../assets/images/landing-page/trail-medal.png" type="image/png" />
+                  <img loading="lazy" src="../../../../assets/images/landing-page/trail-medal.png" alt="Trail Medal" />
+                </picture>
+              </span>
+            </div>
+            <a
+              href="https://www.runragnar.com/map?type=trail&utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP"
+              class="rg_btn blue-btn"
+              >Find Trail Races</a
+            >
+          </div>
+          <div class="col-md-6 col-single">
+            <div class="top-content">
+              <h3 class="title">
+                <span class="d-none d-md-inline-block">FINISHER</span> Road/Sprint<span class="orange-text">Medals</span>
+              </h3>
+              <span class="img">
+                <!-- <img loading="lazy" src="../../../../assets/images/landing-page/road-sprint-medal.png" alt="Road-Sprint Medal" /> -->
+                <picture>
+                  <source srcset="../../../../assets/images/landing-page/road-sprint-medal.webp" type="image/webp" />
+                  <source srcset="../../../../assets/images/landing-page/road-sprint-medal.png" type="image/png" />
+                  <img loading="lazy" src="../../../../assets/images/landing-page/road-sprint-medal.png" alt="Road-Sprint Medal" />
+                </picture>
+              </span>
+            </div>
+            <a href="https://www.runragnar.com/map?utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP" class="rg_btn blue-btn"
+              >Find Road/Sprint Races</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="connector-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-7">
+          <span class="img">
+            <!-- <img loading="lazy" src="../../../../assets/images/landing-page/connector-left.png"  alt="connectors" /> -->
+            <picture class="d-none d-md-block">
+              <source srcset="../../../../assets/images/landing-page/connector-left.webp" type="image/webp" />
+              <source srcset="../../../../assets/images/landing-page/connector-left.png" type="image/png" />
+              <img loading="lazy" src="../../../../assets/images/landing-page/connector-left.png" alt="connectors" />
+            </picture>
+          </span>
+        </div>
+        <div class="col-md-5 right-col">
+          <div class="content">
+            <h2 class="section-title orange-text mb-0">CONNECTOR</h2>
+            <h5>With each additional race you run in 2022, you’ll get a sweet bonus medal.</h5>
+            <p>
+              Connect them to form one giant chain of glory. After the final pass of the baton—er, slap bracelet—you’ll cross beneath the
+              iconic orange arch together, dripping with … pride.
+            </p>
+          </div>
+          <span class="img right-img">
+            <!-- <img loading="lazy" src="../../../../assets/images/landing-page/connector-mobile.png" class="d-block d-md-none" alt="connectors" /> -->
+            <picture class="d-block d-md-none">
+              <source srcset="../../../../assets/images/landing-page/connector-mobile.webp" type="image/webp" />
+              <source srcset="../../../../assets/images/landing-page/connector-mobile.png" type="image/png" />
+              <img loading="lazy" src="../../../../assets/images/landing-page/connector-mobile.png" alt="connectors" />
+            </picture>
+            <!-- <img loading="lazy" src="../../../../assets/images/landing-page/connector-right.png" class="d-none d-md-block" alt="connectors" /> -->
+            <picture class="d-none d-md-block">
+              <source srcset="../../../../assets/images/landing-page/connector-right.webp" type="image/webp" />
+              <source srcset="../../../../assets/images/landing-page/connector-right.png" type="image/png" />
+              <img loading="lazy" src="../../../../assets/images/landing-page/connector-right.png" alt="connectors" />
+            </picture>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="find-section text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="section-title orange-text white-text-mobile">FIND YOUR RAGNAR</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4 col-single">
+          <div class="content">
+            <h5 class="title"><span>RAGNAR</span>ROAD</h5>
+            <span class="img">
+              <!-- <img loading="lazy" src="../../../../assets/images/landing-page/ragnar-road.jpg" alt="Ragnar Road" /> -->
+              <picture>
+                <source srcset="../../../../assets/images/landing-page/ragnar-road.webp" type="image/webp" />
+                <source srcset="../../../../assets/images/landing-page/ragnar-road.jpg" type="image/jpg" />
+                <img loading="lazy" src="../../../../assets/images/landing-page/ragnar-road.jpg" alt="Ragnar Road" />
+              </picture>
+            </span>
+            <h6>Relay adventure meets epic road trip.</h6>
+          </div>
+          <a href="https://www.runragnar.com/map?type=relay&utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP" class="rg_btn blue-btn"
+            >Learn More</a
+          >
+        </div>
+        <div class="col-md-4 col-single">
+          <div class="content">
+            <h5 class="title"><span>RAGNAR</span>Trail</h5>
+            <span class="img">
+              <!-- <img loading="lazy" src="../../../../assets/images/landing-page/ragnar-trail.jpg" alt="Ragnar Trail" /> -->
+              <picture>
+                <source srcset="../../../../assets/images/landing-page/ragnar-trail.webp" type="image/webp" />
+                <source srcset="../../../../assets/images/landing-page/ragnar-trail.jpg" type="image/jpg" />
+                <img loading="lazy" src="../../../../assets/images/landing-page/ragnar-trail.jpg" alt="Ragnar Trail" />
+              </picture>
+            </span>
+            <h6>Like summer camp for adults — with trail running and race medals.</h6>
+          </div>
+          <a href="https://www.runragnar.com/map?type=trail&utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP" class="rg_btn blue-btn"
+            >Learn More</a
+          >
+        </div>
+        <div class="col-md-4 col-single">
+          <div class="content">
+            <h5 class="title"><span>RAGNAR</span>Sprint</h5>
+            <span class="img">
+              <!-- <img loading="lazy" src="../../../../assets/images/landing-page/ragnar-sprint.jpg" alt="Ragnar Sprint" /> -->
+              <picture>
+                <source srcset="../../../../assets/images/landing-page/ragnar-sprint.webp" type="image/webp" />
+                <source srcset="../../../../assets/images/landing-page/ragnar-sprint.jpg" type="image/jpg" />
+                <img loading="lazy" src="../../../../assets/images/landing-page/ragnar-sprint.jpg" alt="Ragnar Sprint" />
+              </picture>
+            </span>
+            <h6>Race to the finish before the sun goes down.</h6>
+          </div>
+          <a
+            href="https://www.runragnar.com/map?type=sprint&utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP"
+            class="rg_btn blue-btn"
+            >Learn More</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="insta-section text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <i class="iconm-instagram orange-text"></i>
+          <h2 class="section-title orange-text mb-0">Shots From our Ragnarians</h2>
+          <p class="sub-text">Join us on Instagram by tagging @RagnarRelay</p>
+        </div>
+      </div>
+    </div>
+    <span class="img d-block">
+      <!-- <img loading="lazy" src="../../../../assets/images/landing-page/insta-feed.jpg" class="d-none d-md-block" alt="Instagram" /> -->
+      <picture class="d-none d-md-block">
+        <source srcset="../../../../assets/images/landing-page/insta-feed.webp" type="image/webp" />
+        <source srcset="../../../../assets/images/landing-page/insta-feed.jpg" type="image/jpg" />
+        <img loading="lazy" src="../../../../assets/images/landing-page/insta-feed.jpg" alt="Instagram" />
+      </picture>
+
+      <!-- <img loading="lazy" src="../../../../assets/images/landing-page/insta-feed-mobile.jpg" class="d-block d-md-none" alt="Instagram" /> -->
+      <picture class="d-block d-md-none">
+        <source srcset="../../../../assets/images/landing-page/insta-feed-mobile.webp" type="image/webp" />
+        <source srcset="../../../../assets/images/landing-page/insta-feed-mobile.jpg" type="image/jpg" />
+        <img loading="lazy" src="../../../../assets/images/landing-page/insta-feed-mobile.jpg" alt="Instagram" />
+      </picture>
+    </span>
+  </section>
+  <section class="testimonial-section text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <span class="img d-block">
+            <!-- <img loading="lazy" src="../../../../assets/images/landing-page/quote.png" alt="Quote" /> -->
+            <picture>
+              <source srcset="../../../../assets/images/landing-page/quote.webp" type="image/webp" />
+              <source srcset="../../../../assets/images/landing-page/quote.png" type="image/png" />
+              <img loading="lazy" src="../../../../assets/images/landing-page/quote.png" alt="Quote" />
+            </picture>
+          </span>
+          <h3>A crazy relay run with the best strangers that become friends.</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="text-overlay v2">
+    <div class="container-fluid p-0">
+      <h2 class="title">We found your happy place We found</h2>
+    </div>
+  </section>
+  <section class="sustainability-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <div class="left-content">
+            <h2 class="section-title orange-text mb-0">sustainability is important to US</h2>
+            <p class="sub-text">With your help, we can reduce our carbon footprint at Ragnar Relays.</p>
+            <p>
+              Ragnar is about bringing people together to do something inspiring. This holds true not only for our races, but also in our
+              efforts to be kind to Mother Earth. Join Ragnar by purchasing carbon offsets to reduce your own carbon footprint. Learn more
+              and make your donation.
+            </p>
+            <a
+              href="https://www.runragnar.com/sustainability?utm_source=LP&utm_medium=web&utm_campaign=FA-Welcome-LP"
+              class="rg_btn blue-btn"
+              >Learn More</a
+            >
+          </div>
+        </div>
+        <div class="col-md-4 d-none d-md-block">
+          <span class="img">
+            <!-- <img loading="lazy" src="../../../../assets/images/landing-page/sustainability.jpg" alt="Sustainability" /> -->
+            <picture>
+              <source srcset="../../../../assets/images/landing-page/sustainability.webp" type="image/webp" />
+              <source srcset="../../../../assets/images/landing-page/sustainability.jpg" type="image/jpg" />
+              <img loading="lazy" src="../../../../assets/images/landing-page/sustainability.jpg" alt="Sustainability" />
+            </picture>
+          </span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,170 @@
+<div class="what_is_Raganr_roads_main">
+  <section class="road-banner">
+    <div class="banner-captionbox text-center">
+      <img
+        class="img-fluid d-block d-xl-none d-lg-none d-md-none d-sm-block"
+        src="assets/images/static-pages/whatis-ragnar-road/road-banner-mobile.jpg"
+        alt="road-banner"
+      />
+      <div class="vimeo-banner-video d-none d-xl-block d-lg-block d-md-block d-sm-none">
+        <iframe
+          src="https://player.vimeo.com/video/334039331?autoplay=1&amp;loop=1&amp;background=1&amp;muted=1"
+          class="embed-responsive-item"
+          width=""
+          height=""
+          frameborder="0"
+          allow="autoplay"
+          webkitallowfullscreen=""
+          mozallowfullscreen=""
+          allowfullscreen=""
+          data-vimeo-tracked="true"
+          data-ready="true"
+        >
+        </iframe>
+      </div>
+      <div class="banner-box">
+        <h1 class="banner-title text-uppercase m-0">{{ 'static-pages.what-is-ragnar.ragnar-road.title' | translate }}</h1>
+        <div class="banner-desc">{{ 'static-pages.what-is-ragnar.ragnar-road.adventure' | translate }}</div>
+        <a class="btn banner-btn text-uppercase" (click)="openVideoModal()"
+          >{{ 'static-pages.what-is-ragnar.ragnar-road.video' | translate }}
+          <img src="assets/images/static-pages/whatis-ragnar-road/play-icon.png" />
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="page-content">
+    <div class="pc-left d-none d-xl-block d-lg-block d-md-block d-sm-none">
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/road-1.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/road-2.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/road-3.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/road-4.jpg" alt="road" /></div>
+    </div>
+    <div class="pc-center text-center">
+      <div class="content-box">
+        <div class="content-box-inner">
+          <h2 class="title">{{ 'static-pages.what-is-ragnar.ragnar-road.how-it-works' | translate }}</h2>
+          <div class="desc">
+            {{ 'static-pages.what-is-ragnar.ragnar-road.about-how-it-works' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="image-box">
+        <img
+          class="img-fluid d-none d-xl-block d-lg-block d-md-block d-sm-none"
+          src="assets/images/static-pages/whatis-ragnar-road/road-5.jpg"
+          alt="road"
+        />
+        <img class="img-fluid d-xl-none d-lg-none d-md-none" src="assets/images/static-pages/whatis-ragnar-road/road-7.jpg" alt="road" />
+      </div>
+      <div class="content-box text-center">
+        <div class="content-box-inner">
+          <h2 class="title">{{ 'static-pages.what-is-ragnar.ragnar-road.take-it-on' | translate }}</h2>
+          <div class="desc">
+            {{ 'static-pages.what-is-ragnar.ragnar-road.about-take-it-on' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="image-box">
+        <img
+          class="img-fluid d-none d-xl-block d-lg-block d-md-block d-sm-none"
+          src="assets/images/static-pages/whatis-ragnar-road/road-6.jpg"
+          alt="road"
+        />
+        <img class="img-fluid d-xl-none d-lg-none d-md-none" src="assets/images/static-pages/whatis-ragnar-road/road-9.jpg" alt="road" />
+      </div>
+      <div class="content-box">
+        <div class="content-box-inner">
+          <h2 class="title">{{ 'static-pages.what-is-ragnar.ragnar-road.team-up' | translate }}</h2>
+          <div class="desc">
+            {{ 'static-pages.what-is-ragnar.ragnar-road.about-team-up' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="image-box">
+        <img class="img-fluid d-xl-none d-lg-none d-md-none" src="assets/images/static-pages/whatis-ragnar-road/road-6.jpg" alt="road" />
+      </div>
+    </div>
+    <div class="pc-right d-none d-xl-block d-lg-block d-md-block d-sm-none">
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/road-7.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/road-8.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/road-9.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/road-10.jpg" alt="road" /></div>
+    </div>
+  </section>
+  <section class="explore-road-races">
+    <div class="container text-center">
+      <h2 class="text-uppercase mb-0">{{ 'static-pages.what-is-ragnar.ragnar-road.explore-all' | translate }}</h2>
+      <a routerLink="/{{ headerRoutes.exploreMap }}" [queryParams]="{ type: 'relay' }" class="rg_tmbtn btn_orange">{{
+        'static-pages.what-is-ragnar.ragnar-road.explore-map' | translate
+      }}</a>
+    </div>
+  </section>
+  <section class="what-is-ragnar-banner-road">
+    <div class="title-sec">
+      <div class="wir-title text-center text-uppercase">
+        {{ 'static-pages.what-is-ragnar.ragnar-road.discover-other' | translate }}
+        <span>{{ 'static-pages.what-is-ragnar.ragnar-road.ragnar' | translate }}</span>
+        {{ 'static-pages.what-is-ragnar.ragnar-road.formats' | translate }}
+      </div>
+    </div>
+    <div class="ragnar-category">
+      <div class="category-item" routerLink="/{{ headerRoutes.whatIsRagnar }}">
+        <div class="category road">
+          <div class="category-img">
+            <img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/discover-ragnar.jpg" />
+            <div class="category-detail">
+              <div class="category-title">{{ 'static-pages.what-is-ragnar.ragnar-road.title' | translate }}</div>
+              <div class="category-desc"></div>
+            </div>
+          </div>
+          <div class="category-link">
+            <a
+              >{{ 'static-pages.what-is-ragnar.ragnar-road.discover-ragnar' | translate }}
+              <img class="arrow-right" src="assets/images/static-pages/whatis-ragnar-road/arrow-right.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="category-item" routerLink="/{{ headerRoutes.whatIsRagnarTrail }}">
+        <div class="category road">
+          <div class="category-img">
+            <img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/discover-trail.jpg" />
+            <div class="category-detail">
+              <div class="category-title">{{ 'static-pages.what-is-ragnar.trail' | translate }}</div>
+              <div class="category-desc">
+                {{ 'static-pages.what-is-ragnar.summer-camp' | translate }}
+                <span>{{ 'static-pages.what-is-ragnar.trail-running' | translate }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="category-link">
+            <a
+              >{{ 'static-pages.what-is-ragnar.discover-trail' | translate
+              }}<img class="arrow-right" src="assets/images/static-pages/whatis-ragnar-road/arrow-right.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="category-item" routerLink="/{{ headerRoutes.whatIsRagnarSunset }}">
+        <div class="category road">
+          <div class="category-img">
+            <img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/discover-sunset.jpg" />
+            <div class="category-detail">
+              <div class="category-title">{{ 'static-pages.what-is-ragnar.sunset' | translate }}</div>
+              <div class="category-desc">
+                {{ 'static-pages.what-is-ragnar.finish-before' | translate }}
+                <span>{{ 'static-pages.what-is-ragnar.goes-down' | translate }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="category-link">
+            <a
+              >{{ 'static-pages.what-is-ragnar.discover-sunset' | translate }}
+              <img class="arrow-right" src="assets/images/static-pages/whatis-ragnar-road/arrow-right.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

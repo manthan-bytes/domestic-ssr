@@ -6,7 +6,9 @@ import * as express from 'express';
 import { existsSync } from 'fs';
 import { join } from 'path';
 import 'localstorage-polyfill'
-import * as compress from 'compression';
+import * as compression from 'compression';
+import { environment } from 'src/environments/environment';
+
 
 import { AppServerModule } from './src/main.server';
 
@@ -22,7 +24,7 @@ export function app(): express.Express {
     bootstrap: AppServerModule,
   }));
   
-  server.use(compress());
+  server.use(compression());
   server.set('view engine', 'html');
   server.set('views', distFolder);
 
@@ -42,7 +44,7 @@ export function app(): express.Express {
 }
 
 function run(): void {
-  const port = process.env['PORT'] || 4000;
+  const port = process.env['PORT'] || environment.SSR_PORT;
 
   // Start up the Node server
   const server = app();

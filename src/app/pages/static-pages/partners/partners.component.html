@@ -1,0 +1,29 @@
+<div class="partner-wtapper">
+  <div class="container text-center" *ngIf="show.loading">
+    <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+  </div>
+  <section class="inner-banner" *ngIf="!show.loading">
+    <div class="container">
+      <h1 class="title">Ragnar Partners</h1>
+    </div>
+  </section>
+  <section class="logo-list">
+    <div class="container">
+      <div class="slider-wrapper">
+        <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+          <div ngxSlickItem *ngFor="let chunks of slides" class="slide">
+            <div class="slide-wrapper">
+              <div ngxSlickItem *ngFor="let chunk of chunks" class="chunk">
+                <div class="img" (click)="goToDetails(chunk.slug)">
+                  <img [attr.src]="chunk.logo" alt="Partner" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </ngx-slick-carousel>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-testimonials *ngIf="quotes" [Quotes]="quotes"></app-testimonials>

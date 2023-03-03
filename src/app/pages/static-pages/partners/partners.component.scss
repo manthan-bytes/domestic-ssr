@@ -1,0 +1,217 @@
+@import 'vars';
+
+.inner-banner {
+  background-color: $navy;
+  padding: 104px 0;
+
+  @media (max-width: $screen-xs-max) {
+    padding-top: 57px;
+    padding-bottom: 57px;
+  }
+
+  .title {
+    margin: 0;
+    text-align: center;
+    color: $white;
+    text-transform: uppercase;
+    font-size: 62px;
+    font-weight: 800;
+    line-height: normal;
+
+    @media (max-width: $screen-sm-max) {
+      font-size: 50px;
+    }
+
+    @media (max-width: $screen-xs-max) {
+      font-size: 38px;
+    }
+  }
+}
+
+.partner-wtapper {
+  .slider-wrapper {
+    margin: 70px 0 40px;
+
+    @media (max-width: $screen-xs-max) {
+      margin: 30px 0 20px;
+    }
+
+    .slick-slider {
+      padding-bottom: 150px;
+
+      @media (max-width: 991px) {
+        padding-bottom: 140px;
+      }
+
+      @media (max-width: $screen-xs-max) {
+        padding-bottom: 50px;
+      }
+    }
+
+    .slide {
+      @media (max-width: $screen-xxs-max) {
+        width: 100%;
+      }
+      .slide-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        .chunk {
+          width: 25%;
+          padding: 15px;
+
+          @media (max-width: $screen-xxs-max) {
+            padding: 10px;
+            width: 50%;
+          }
+        }
+      }
+    }
+
+    .carousel {
+      @media (max-width: $screen-xxs-max) {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+
+    .img {
+      border: 1px solid rgba(0, 62, 81, 0.2);
+      width: 100%;
+      padding: 25px;
+      border-radius: 4px;
+      background-color: transparent;
+      transition: 0.3s all ease-in-out;
+      cursor: pointer;
+      min-height: 145px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @media (max-width: $screen-xxs-max) {
+        min-height: 80px;
+        padding: 5px;
+      }
+
+      img {
+        max-height: 92px;
+        width: auto;
+        margin: 0 auto;
+        // filter: brightness(0);
+        max-width: 100%;
+
+        @media (max-width: $screen-xxs-max) {
+          max-height: 30px;
+          // max-width: 160px;
+        }
+      }
+
+      &:hover {
+        // background-color: $navy;
+        border-color: $navy;
+
+        /*img {
+          filter: brightness(0) invert(1);
+        }*/
+      }
+    }
+
+    ::ng-deep {
+      .slick-arrow {
+        height: 56px;
+        width: 56px;
+        border: 2px solid $navy;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 0;
+        top: auto;
+        transition: 0.3s all ease-in-out;
+
+        @media (max-width: $screen-xs-max) {
+          height: 32px;
+          width: 32px;
+        }
+
+        &:before {
+          display: none;
+        }
+
+        &:after {
+          background-image: url(/assets/images/static-pages/partners/arrow-right.png);
+          content: '';
+          width: 84px;
+          height: 24px;
+          position: absolute;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center center;
+          top: 50%;
+          transform: translateY(-50%);
+          right: -40px;
+
+          @media (max-width: $screen-xs-max) {
+            width: 74px;
+            height: 14px;
+          }
+        }
+
+        &.slick-next {
+          right: calc(50% - 70px);
+
+          // @media (max-width: $screen-md-max) {
+          //   right: 43%;
+          // }
+
+          // @media (max-width: 991px) {
+          //   right: 41vw;
+          // }
+          // @media (max-width: 880px) {
+          //   right: calc(50% - 70px);
+          // }
+          @media (max-width: 767px) {
+            right: calc(50% - 40px);
+          }
+        }
+
+        &.slick-prev {
+          left: calc(50% - 70px);
+
+          // @media (max-width: $screen-md-max) {
+          //   left: 43%;
+          // }
+
+          // @media (max-width: 991px) {
+          //   left: 41vw;
+          // }
+
+          // @media (max-width: 880px) {
+          //   left: calc(50% - 70px);
+          // }
+          @media (max-width: 767px) {
+            left: calc(50% - 40px);
+          }
+
+          &::after {
+            transform: rotate(180deg);
+            right: auto;
+            left: -40px;
+            transform-origin: center 6px;
+
+            @media (max-width: $screen-xs-max) {
+              transform-origin: center 3px;
+            }
+          }
+        }
+
+        &.slick-disabled {
+          border-color: transparent;
+          opacity: 1;
+
+          &::after {
+            filter: brightness(0);
+            opacity: 0.3;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,563 @@
+@import 'vars';
+
+@mixin content-info {
+  font-size: 18px;
+  line-height: $font_size_large;
+  text-align: left;
+  letter-spacing: -0.3px;
+  font-weight: normal;
+  @media (max-width: $screen-xs-max) {
+    font-size: 16px;
+  }
+}
+@mixin content-h2 {
+  font-size: 28px;
+  line-height: 36px;
+  text-align: left;
+  letter-spacing: -0.3px;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  margin-top: 0px;
+  @media (max-width: $screen-xs-max) {
+    font-size: $font_size_large;
+    line-height: 32px;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    line-height: 32px;
+  }
+  @media (min-width: 992px) and (max-width: 1199px) {
+    font-size: $font_size_large;
+    line-height: 30px;
+  }
+}
+
+.hero-banner {
+  position: relative;
+  overflow: hidden;
+  .fade.in {
+    opacity: 1;
+  }
+
+  .tab-content {
+    overflow: hidden;
+    > .tab-pane {
+      background: $black3;
+      position: relative;
+      height: calc(100vh - 90px);
+      min-height: 730px;
+      @media (max-width: $screen-md-max) {
+        &.tab-pane {
+          max-height: 768px;
+        }
+      }
+      @media (max-width: $screen-sm-max) {
+        &.tab-pane {
+          height: 490px;
+          min-height: 530px;
+        }
+      }
+      @media (max-width: $screen-xs-max) {
+        &.tab-pane {
+          height: auto;
+          min-height: 496px;
+        }
+        &:after {
+          content: '';
+          background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.19) 85%, rgba(0, 0, 0, 1));
+          height: 100%;
+          width: 100%;
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 1;
+          pointer-events: none;
+        }
+      }
+      img {
+        transform: scale(1.15);
+        transition: 0.2s ease-in-out;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        opacity: 0.2;
+        display: block !important;
+        &[hidden] {
+          visibility: hidden;
+        }
+        &.fader {
+          border-radius: 5px 5px 5px 5px;
+          display: none;
+          height: auto;
+          left: 0px;
+          position: absolute;
+          top: 0px;
+          width: 100%;
+          z-index: 2;
+          @media (max-width: $screen-xs-max) {
+            &.fader {
+              height: 446px;
+              object-fit: cover;
+              transform: none;
+              z-index: 0;
+            }
+          }
+          @media (max-width: 320px) {
+            &.fader {
+              height: 496px;
+            }
+          }
+          &.show {
+            display: block;
+            transition: opacity 0.2s ease-in-out;
+          }
+          &.fadeOut {
+            opacity: 0;
+          }
+        }
+        @media (max-width: $screen-xs-max) {
+          height: 496px;
+          object-fit: cover;
+          transform: none;
+        }
+        @media (max-width: 320px) {
+          // height: 450px;
+          height: 496px;
+        }
+      }
+      &.active {
+        img {
+          img[hidden] {
+            visibility: visible;
+          }
+          &.image-effect {
+            transform: scale(1);
+            transition: 0.2s ease-in-out;
+            opacity: 1;
+            // display: block;
+          }
+        }
+      }
+      .caption-box {
+        position: absolute;
+        top: 17%;
+        color: $white;
+        max-width: 50%;
+
+        @media (max-width: $screen-xl-min) {
+          top: 15%;
+        }
+        @media (max-width: $screen-md-min) {
+          top: 8%;
+          max-width: inherit;
+        }
+        @media (max-width: $screen-xs-max) {
+          max-width: 100%;
+          top: 0;
+          left: 0;
+          right: 0;
+          padding: 20px;
+        }
+        &.caption-effect {
+          .caption-title {
+            transform: translateX(-25vw);
+            opacity: 0;
+            transition: all 0.5s ease;
+            @media (max-width: $screen-xl-min) {
+              transform: translateX(-10vw);
+            }
+            @media (max-width: $screen-sm-max) {
+              transform: translateX(-7vw);
+            }
+            @media (max-width: $screen-xs-max) {
+              transform: none;
+            }
+          }
+          .caption-desc {
+            transform: translateX(-25vw);
+
+            @media (max-width: $screen-xl-min) {
+              transform: translateX(-10vw);
+            }
+            @media (max-width: $screen-sm-max) {
+              transform: translateX(-7vw);
+            }
+            @media (max-width: $screen-xs-max) {
+              transform: none;
+            }
+            opacity: 0;
+            transition: all 0.5s ease;
+          }
+        }
+
+        .caption-title {
+          transform: translateX(0);
+          font-family: $font_family_barlow_Condensed;
+          @include font-weight(500);
+          font-size: 80px;
+          line-height: 80px;
+          margin: 0;
+          opacity: 1;
+          letter-spacing: 0;
+          transition: all 0.5s ease;
+
+          @media (max-width: $screen-xl-min) {
+            font-size: 60px;
+            line-height: 60px;
+          }
+
+          @media (max-width: $screen-md-min) {
+            font-size: 50px;
+            line-height: 1.08;
+          }
+        }
+        .caption-desc {
+          font-size: $font_size_large;
+          line-height: 44px;
+          margin: 20px 0 0px;
+          transition: all 0.5s ease;
+          letter-spacing: 0;
+          @include font-weight(500);
+
+          @media (max-width: $screen-xl-min) {
+            font-size: 22px;
+            line-height: $font_size_large;
+            margin-bottom: 10px;
+          }
+          @media (max-width: $screen-md-min) {
+            font-size: 16px;
+            line-height: 18px;
+            margin-top: 10px;
+            margin-bottom: 0;
+          }
+          @media (max-width: $screen-xs-max) {
+            font-size: 18px;
+            line-height: 28px;
+          }
+          @media (max-width: 320px) {
+            font-size: 16px;
+            line-height: $font_size_large;
+          }
+        }
+
+        .caption-btn-container {
+          .btn {
+            font-size: 16px;
+            padding: $font_size_large 64px;
+            border-radius: 0;
+            float: left;
+            margin-right: 48px;
+            margin-top: 35px;
+            color: $white;
+            box-shadow: none !important;
+            transform: perspective(1px) translateZ(0);
+            transition-property: color;
+            position: relative;
+            &:before {
+              content: '';
+              position: absolute;
+              z-index: -1;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              transform: scaleX(0);
+              transform-origin: 0 50%;
+              transition-property: transform;
+              transition-duration: 0.3s;
+              transition-timing-function: ease-out;
+            }
+
+            &.btn-orange {
+              background: $brand-secondary;
+              border: 1px solid $brand-secondary;
+              @include font-weight(600);
+              &:hover {
+                background: #fb8841 !important;
+                border: 1px solid #fb8841;
+                color: $white;
+                &::before {
+                  background: $brand-secondary;
+                  transform: scaleX(1);
+                }
+              }
+              span {
+                @include font-weight(400);
+              }
+              @media (max-width: $screen-xs-max) {
+                width: 100%;
+                padding: 11px 30px;
+                font-size: 12px;
+              }
+            }
+
+            @media (max-width: $screen-xl-min) {
+              line-height: 24px;
+              font-size: 18px;
+              padding: 20px 50px;
+              margin-right: 20px;
+              margin-top: 30px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .custom-navtab {
+    position: absolute;
+    bottom: 0;
+    border: 0;
+    @include flexbox();
+    @include align-items(flex-end);
+    width: 100%;
+
+    z-index: 1;
+    @media (max-width: $screen-xs-max) {
+      position: static;
+    }
+    .custom-tab-name {
+      color: $white;
+      @include font-weight(700);
+    }
+  }
+
+  .mobile-nav-custom-tab-wrapper {
+    background: $black2;
+    padding-left: 25px;
+    width: 100%;
+    @media (max-width: $screen-xs-max) {
+      background: $black;
+      padding-left: 10px;
+      overflow: hidden;
+    }
+
+    .nav-custom-tab-title {
+      background: $black;
+      color: $white;
+      font-size: 12px;
+      line-height: 24px;
+      @include font-weight(400);
+      z-index: 1;
+      position: relative;
+    }
+
+    .mobile-nav-custom-tab {
+      margin-bottom: 0;
+      max-width: 1300px;
+      margin: 0px auto;
+      display: flex;
+      @media (max-width: $screen-xs-max) {
+        overflow: auto;
+        padding-top: 20px;
+        div:nth-of-type(4) .mobile-nav-custom-tab-item {
+          margin-right: 0 !important;
+          overflow: scroll;
+        }
+      }
+
+      .mobile-nav-custom-tab-item {
+        float: left;
+        margin: 0px 25px 22px 0;
+        @media (max-width: $screen-xs-max) {
+          margin: 0px 12px 22px 0;
+        }
+        &.active {
+          .custom-tab-img {
+            position: relative;
+            margin-top: -40px;
+            @media (max-width: $screen-xs-max) {
+              margin-top: -12px;
+            }
+          }
+        }
+        .custom-tab-img {
+          position: relative;
+          padding-top: 22px;
+          transition: all 0.3s ease;
+          @media (max-width: $screen-xs-max) {
+            padding-top: 17px;
+            img.img-fluid {
+              width: 100px;
+              max-width: none;
+            }
+          }
+          &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 13px;
+            height: 8px;
+            background: url(/assets/images/home/arrow-up.png) no-repeat;
+            top: 9px;
+            margin: 0px auto;
+            @media (max-width: $screen-xs-max) {
+              top: 0px;
+            }
+          }
+          .custom-tab-name {
+            position: absolute;
+            bottom: 0;
+            padding: 15px 15px 10px;
+            font-size: $font_size_large;
+            line-height: $font_size_large;
+            @media (max-width: $screen-lg-max) {
+              font-size: $font_size_medium;
+              line-height: 20px;
+            }
+            @media (max-width: $screen-sm-max) {
+              font-size: 16px;
+              line-height: 16px;
+              padding: 6px 6px 3px;
+            }
+            @media (max-width: $screen-xs-max) {
+              padding: 6px;
+              font-size: 18px;
+              line-height: 20px;
+              color: $white;
+              @include font-weight(700);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.insta-shots {
+  background: #e7e7e7;
+  padding: 50px 0 0;
+  @media (max-width: $screen-xs-max) {
+    background: #323232;
+    padding-top: 25px;
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    background: #323232;
+    padding-top: 25px;
+  }
+  .insta-titles {
+    @include flexbox();
+    @media (max-width: $screen-xs-max) {
+      width: 100%;
+    }
+    @media (min-width: 768px) and (max-width: 991px) {
+      display: inline-block;
+      width: 100%;
+    }
+    .insta-icon {
+      display: inline-block;
+      @media (max-width: $screen-xs-max) {
+        width: 36px;
+      }
+      @media (min-width: 768px) and (max-width: 991px) {
+        width: 36px;
+      }
+      img {
+        max-width: 70px;
+        @media (max-width: $screen-xs-max) {
+          max-width: 36px;
+        }
+        @media (min-width: 768px) and (max-width: 991px) {
+          max-width: 36px;
+        }
+      }
+    }
+    .insta-text {
+      padding-left: 20px;
+      display: inline-block;
+      @media (max-width: $screen-xs-max) {
+        width: calc(100% - 36px);
+        padding-left: 10px;
+      }
+      h2 {
+        font-size: $font_size_xlarge;
+        line-height: 36px;
+        text-align: left;
+        font-family: $font_family_barlow_Condensed;
+        margin-bottom: 10px;
+        margin-top: 0px;
+        color: #424242;
+        @media (max-width: $screen-xs-max) {
+          color: $white;
+          font-size: 16px;
+          line-height: 16px;
+          margin-bottom: 5px;
+        }
+        @media (min-width: 768px) and (max-width: 991px) {
+          color: $white;
+          font-size: 16px;
+          line-height: 16px;
+          margin-bottom: 5px;
+        }
+      }
+      p {
+        font-size: 16px;
+        line-height: 22px;
+        text-align: left;
+        @include font-weight(400);
+        margin-top: 0px;
+        margin-bottom: 0px;
+        color: #424242;
+        @media (min-width: 320px) and (max-width: 479px) {
+          font-size: 10px !important;
+          line-height: 18px !important;
+        }
+        @media (max-width: $screen-xs-max) {
+          color: $white;
+          font-size: 12px;
+          line-height: 18px;
+        }
+        @media (min-width: 768px) and (max-width: 991px) {
+          color: $white;
+          font-size: 12px;
+          line-height: 18px;
+        }
+      }
+    }
+  }
+  .insta-ragnarians {
+    padding: 25px 0 0px;
+  }
+}
+
+.corona-info-cover {
+  background: #bbbbbb;
+  margin: 15px 0;
+  text-align: center;
+  font-family: $font_family_barlow_Condensed;
+  @include font-weight(600);
+  h2 {
+    margin: 40px 0;
+    color: $black3;
+    display: inline-block;
+    font-size: 30px;
+    font-family: $font_family_barlow_Condensed;
+
+    @include font-weight(600);
+    vertical-align: middle;
+    @media (max-width: 380px) {
+      font-size: $font_size_medium;
+      margin: 20px 0;
+    }
+  }
+  .btn-corona {
+    display: inline-block;
+    vertical-align: middle;
+    background: $brand-secondary;
+    font-size: 18px;
+    color: $white;
+    font-family: $font_family_barlow_Condensed;
+    @include font-weight(600);
+    padding: 8px 20px;
+    border-radius: 1px;
+    text-decoration: none;
+    margin-left: 20px;
+    @media (max-width: 380px) {
+      font-size: 15px;
+      padding: 6px 10px;
+      margin-left: 10px;
+    }
+  }
+}

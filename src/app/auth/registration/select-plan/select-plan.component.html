@@ -1,0 +1,41 @@
+<div class="container text-center" *ngIf="show.pageLoading">
+  <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+</div>
+<div class="bg-virtual-challenge-register" *ngIf="!show.pageLoading">
+  <div class="select_plan">
+    <h6 class="mb-2">{{ 'auth.registration.select-plan.what-for-me' | translate }}</h6>
+    <div *ngIf="plan.SWAG && !plan.SWAG.content.isSoldOut">
+      <div class="swag">
+        <img [src]="plan.SWAG.image_url" />
+        <p>{{ plan.SWAG.content.description2 }}</p>
+        <ul>
+          <li *ngFor="let include of plan.SWAG.content.includes">{{ include }}</li>
+        </ul>
+      </div>
+      <button class="rg_btn mb-2" (click)="upgradePlan(plan.SWAG)">
+        {{ 'SWAG Edition $' + plan.SWAG.price }}
+      </button>
+      <button class="rg_btn rg_bbtn mb-2" (click)="upgradePlan(plan.REGISTRATION)">
+        {{ 'Challenge Only $' + plan.REGISTRATION.price }}
+      </button>
+    </div>
+
+    <div *ngIf="plan.REGISTRATION && plan.SWAG.content.isSoldOut">
+      <div class="REGISTRATION">
+        <img [src]="plan.REGISTRATION.image_url" />
+        <p>{{ plan.REGISTRATION.content.description }}</p>
+        <ul>
+          <li *ngFor="let include of plan.REGISTRATION.content.includes">{{ include }}</li>
+        </ul>
+      </div>
+      <button class="rg_btn mb-2" disabled="true">{{ 'auth.registration.select-plan.swag-edition' | translate }}</button>
+      <button
+        class="rg_btn rg_bbtn mb-2"
+        (click)="upgradePlan(plan.REGISTRATION)"
+        [class.rg_bbtn]="plan.REGISTRATION.type !== 'REGISTRATION'"
+      >
+        {{ 'Challenge Only $' + plan.REGISTRATION.price }}
+      </button>
+    </div>
+  </div>
+</div>

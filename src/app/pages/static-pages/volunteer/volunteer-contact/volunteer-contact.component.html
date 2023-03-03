@@ -1,0 +1,175 @@
+<div class="volunteer_contact_main">
+  <section class="volunteer_contact_main_banner">
+    <div class="col-12 p-0">
+      <div class="volunteer_contact_title text-uppercase">{{ 'static-pages.volunteer.volunteer-contact.title' | translate }}</div>
+    </div>
+  </section>
+  <section class="row volunteer_contact_main_contact_form offset-0 col-12 offset-lg-1 col-lg-10">
+    <div class="col-12 col-sm-6 volunteer_contact_main_contact_col">
+      <h3>{{ 'static-pages.volunteer.volunteer-contact.contact-volunteer-coordinator' | translate }}</h3>
+      <br />
+      <form name="contactFormVolunteer" #volunteerContactForm="ngForm" class="form-horizontal">
+        <div class="form-group row">
+          <label class="col-sm-3 control-label" for="Name">{{ 'common-data.name' | translate }}</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              name="name"
+              class="form-control"
+              [(ngModel)]="contact.name"
+              placeholder="Name"
+              (focus)="formElementEnter(volunteerContactForm)"
+              (blur)="formElementExit(volunteerContactForm)"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 control-label" for="Email">{{ 'common-data.email' | translate }}</label>
+          <div class="col-sm-9">
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              placeholder="Email"
+              [(ngModel)]="contact.email"
+              (focus)="formElementEnter(volunteerContactForm)"
+              (blur)="formElementExit(volunteerContactForm)"
+              required
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 control-label" for="Phone">{{ 'static-pages.volunteer.volunteer-contact.phone' | translate }}</label>
+          <div class="col-sm-9">
+            <input
+              type="text"
+              name="phone"
+              class="form-control"
+              placeholder="Phone number"
+              [(ngModel)]="contact.phone"
+              (focus)="formElementEnter(volunteerContactForm)"
+              (blur)="formElementExit(volunteerContactForm)"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 control-label" for="Ragnar Event">{{
+            'static-pages.volunteer.volunteer-contact.ragnar-event' | translate
+          }}</label>
+          <div class="col-sm-9">
+            <select name="race" class="form-control" [(ngModel)]="contact.race" required>
+              <option [ngValue]="null" disabled selected hidden>{{ 'static-pages.volunteer.volunteer-contact.select' | translate }}</option>
+              <option *ngFor="let race of raceName" value="race.name">{{ race.name }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 control-label" for="Team number"
+            >{{ 'static-pages.volunteer.volunteer-contact.team-number' | translate }}
+            <i>{{ 'static-pages.volunteer.volunteer-contact.if-applicable' | translate }}</i></label
+          >
+          <div class="col-sm-9">
+            <input
+              name="team_number"
+              type="text"
+              class="form-control"
+              placeholder="Team #"
+              [(ngModel)]="contact.team_number"
+              (focus)="formElementEnter(volunteerContactForm)"
+              (blur)="formElementExit(volunteerContactForm)"
+            />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 control-label" for="">{{ 'static-pages.volunteer.volunteer-contact.select' | translate }}</label>
+          <div class="col-sm-9">
+            <select name="where_did_you_hear" class="form-control" [(ngModel)]="contact.where_did_you_hear" required>
+              <option [ngValue]="null" disabled selected hidden>
+                {{ 'static-pages.volunteer.volunteer-contact.where-did' | translate }}
+              </option>
+              <option value="Ragnar Website">{{ 'static-pages.volunteer.volunteer-contact.ragnar-website' | translate }}</option>
+              <option value="Web Search">{{ 'static-pages.volunteer.volunteer-contact.web-search' | translate }}</option>
+              <option value="Magazine Ad">{{ 'static-pages.volunteer.volunteer-contact.magazine-ad' | translate }}</option>
+              <option value="Newspaper Article">{{ 'static-pages.volunteer.volunteer-contact.newspaper-article' | translate }}</option>
+              <option value="Other">{{ 'static-pages.volunteer.volunteer-contact.other' | translate }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 control-label" for="Comments">{{ 'static-pages.volunteer.volunteer-contact.comments' | translate }}</label>
+          <div class="col-sm-9">
+            <textarea
+              name="comments"
+              class="form-control"
+              [(ngModel)]="contact.comments"
+              rows="3"
+              (focus)="formElementEnter(volunteerContactForm)"
+              (blur)="formElementExit(volunteerContactForm)"
+              required
+            >
+            </textarea>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-sm-3 col-sm-9">
+            <button class="btn btn-default" (click)="sendForm(volunteerContactForm)">
+              {{ 'static-pages.volunteer.volunteer-contact.submit' | translate }}
+            </button>
+            <p></p>
+            <p class="bg-success d-none" *ngIf="show.success">{{ show.responseMsg }}</p>
+            <p class="bg-danger d-none" *ngIf="show.error">
+              {{ 'static-pages.volunteer.volunteer-contact.something-went-wrong' | translate }}
+            </p>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-12 col-sm-6 volunteer_contact_main_contact_col">
+      <br />
+      <address>
+        <h4 class="text-orange">{{ 'static-pages.volunteer.volunteer-contact.ragnar-events' | translate }}</h4>
+        {{ 'static-pages.volunteer.volunteer-contact.12-south-400-west' | translate }}<br />
+        {{ 'static-pages.volunteer.volunteer-contact.salt-lake-city' | translate }}<br />
+        <br />
+        <label class="text-orange">{{ 'static-pages.volunteer.volunteer-contact.phone' | translate }}</label>
+        {{ 'static-pages.volunteer.volunteer-contact.phone-number' | translate }} <br />
+        <label class="text-orange">{{ 'static-pages.volunteer.volunteer-contact.toll-free' | translate }}</label>
+        {{ 'static-pages.volunteer.volunteer-contact.toll-free-number' | translate }} <br />
+        <label class="text-orange">{{ 'static-pages.volunteer.volunteer-contact.fax' | translate }}</label>
+        {{ 'static-pages.volunteer.volunteer-contact.fax-number' | translate }}
+      </address>
+      <br />
+      <div class="volunteer_partners">
+        <h4>{{ 'static-pages.volunteer.volunteer-contact.partners' | translate }}</h4>
+        <p>
+          <a href="mailto:partnershipinquiry@ragnarrelay.com">{{
+            'static-pages.volunteer.volunteer-contact.partners-email' | translate
+          }}</a>
+        </p>
+        <h4>{{ 'static-pages.volunteer.volunteer-contact.media-contact' | translate }}</h4>
+        <p>{{ 'static-pages.volunteer.volunteer-contact.elise-timothy' | translate }}</p>
+        <p>
+          <a href="mailto:media@ragnarrelay.com">{{ 'static-pages.volunteer.volunteer-contact.media-contact-email' | translate }}</a>
+        </p>
+        <!-- TODO: Need to check and add route -->
+        <p>
+          <a ui-sref="app.staticPages.buzzNews">{{ 'static-pages.volunteer.volunteer-contact.visit-press-page' | translate }}</a>
+        </p>
+        <h4>{{ 'static-pages.volunteer.volunteer-contact.merchandise' | translate }}</h4>
+        <p>{{ 'static-pages.volunteer.volunteer-contact.customer-service' | translate }}</p>
+        <p>
+          <a href="mailto:customerservice@ragnarrelay.com">{{
+            'static-pages.volunteer.volunteer-contact.customer-service-email' | translate
+          }}</a>
+        </p>
+        <h4>{{ 'static-pages.volunteer.volunteer-contact.careers' | translate }}</h4>
+        <p>
+          <a href="https://recruiting.paylocity.com/recruiting/jobs/List/3470/Ragnar-Events-LLC" target="_blank">{{
+            'static-pages.volunteer.volunteer-contact.careers-page' | translate
+          }}</a>
+        </p>
+      </div>
+    </div>
+  </section>
+</div>

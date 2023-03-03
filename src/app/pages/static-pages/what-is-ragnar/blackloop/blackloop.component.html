@@ -1,0 +1,388 @@
+<div class="what_is_Raganr_blackloop_main">
+  <section class="road-banner">
+    <div class="banner-captionbox text-center">
+      <img
+        class="img-fluid d-block d-xl-none d-lg-none d-md-none d-sm-block"
+        src="assets/images/static-pages/whatis-ragnar-road/blackloop-banner-mobile.jpg"
+        alt="road-banner"
+      />
+      <div class="vimeo-banner-video d-none d-xl-block d-lg-block d-md-block d-sm-none">
+        <iframe
+          src="https://player.vimeo.com/video/338901687?autoplay=1&amp;loop=1&amp;background=1&amp;muted=1"
+          class="embed-responsive-item hidden-xs"
+          frameborder="0"
+          allow="autoplay"
+          webkitallowfullscreen=""
+          mozallowfullscreen=""
+          allowfullscreen=""
+          data-vimeo-tracked="true"
+          data-ready="true"
+        >
+        </iframe>
+      </div>
+      <div class="banner-box">
+        <h1 class="banner-title text-uppercase m-0">{{ 'static-pages.what-is-ragnar.ragnar-black-loop.title' | translate }}</h1>
+        <div class="banner-desc">{{ 'static-pages.what-is-ragnar.ragnar-black-loop.about-black-loop' | translate }}</div>
+        <a class="btn banner-btn text-uppercase" (click)="openVideoModal()"
+          >{{ 'static-pages.what-is-ragnar.ragnar-road.video' | translate }}
+          <img src="assets/images/static-pages/whatis-ragnar-road/play-icon.png" />
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="page-content">
+    <div class="pc-left d-none d-xl-block d-lg-block d-md-block d-sm-none">
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/blackloop-1.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/blackloop-2.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/blackloop-3.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/blackloop-4.jpg" alt="road" /></div>
+    </div>
+    <div class="pc-center text-center">
+      <div class="content-box">
+        <div class="content-box-inner">
+          <h2 class="title">{{ 'static-pages.what-is-ragnar.ragnar-road.how-it-works' | translate }}</h2>
+          <div class="desc">
+            <p>
+              {{ 'static-pages.what-is-ragnar.ragnar-black-loop.how-it-work' | translate }}
+            </p>
+            <p>
+              {{ 'static-pages.what-is-ragnar.ragnar-black-loop.about-how-it-work' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="image-box">
+        <img
+          class="img-fluid d-none d-xl-block d-lg-block d-md-block d-sm-none"
+          src="assets/images/static-pages/whatis-ragnar-road/blackloop-5.jpg"
+          alt="road"
+        />
+        <img
+          class="img-fluid d-xl-none d-lg-none d-md-none"
+          src="assets/images/static-pages/whatis-ragnar-road/blackloop-7.jpg"
+          alt="road"
+        />
+      </div>
+      <div class="content-box text-center">
+        <div class="content-box-inner">
+          <h2 class="title">{{ 'static-pages.what-is-ragnar.ragnar-road.take-it-on' | translate }}</h2>
+          <div class="desc">
+            {{ 'static-pages.what-is-ragnar.ragnar-black-loop.about-take-it-on' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="image-box">
+        <img
+          class="img-fluid d-none d-xl-block d-lg-block d-md-block d-sm-none"
+          src="assets/images/static-pages/whatis-ragnar-road/blackloop-6.jpg"
+          alt="road"
+        />
+        <img
+          class="img-fluid d-xl-none d-lg-none d-md-none"
+          src="assets/images/static-pages/whatis-ragnar-road/blackloop-10.jpg"
+          alt="road"
+        />
+      </div>
+      <div class="content-box">
+        <div class="content-box-inner">
+          <h2 class="title">{{ 'static-pages.what-is-ragnar.ragnar-road.team-up' | translate }}</h2>
+          <div class="desc">
+            {{ 'static-pages.what-is-ragnar.ragnar-black-loop.about-team-up' | translate }}
+          </div>
+        </div>
+      </div>
+      <div class="image-box">
+        <img
+          class="img-fluid d-xl-none d-lg-none d-md-none"
+          src="assets/images/static-pages/whatis-ragnar-road/blackloop-9.jpg"
+          alt="road"
+        />
+      </div>
+    </div>
+    <div class="pc-right d-none d-xl-block d-lg-block d-md-block d-sm-none">
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/blackloop-7.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/blackloop-8.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/blackloop-9.jpg" alt="road" /></div>
+      <div class="image-box"><img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/blackloop-10.jpg" alt="road" /></div>
+    </div>
+  </section>
+  <section class="explore-road-races">
+    <div class="container text-center">
+      <h2 class="text-uppercase mb-0">{{ 'static-pages.what-is-ragnar.ragnar-black-loop.explore-black-loop' | translate }}</h2>
+      <a routerLink="/{{ headerRoutes.exploreMap }}" [queryParams]="{ type: 'black loop' }" class="rg_tmbtn btn_orange">{{
+        'static-pages.what-is-ragnar.ragnar-road.explore-map' | translate
+      }}</a>
+    </div>
+  </section>
+  <section class="faq">
+    <div class="container">
+      <div class="faq-inner">
+        <h3 class="text-left text-uppercase">{{ 'static-pages.what-is-ragnar.ragnar-black-loop.questions' | translate }}</h3>
+        <div class="row">
+          <div class="col-sm-6 col-12">
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse01"
+                aria-expanded="false"
+                aria-controls="collapse01"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question1' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse01">
+                <p>
+                  {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question1-line1' | translate }}
+                </p>
+                <p>
+                  {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question1-line2' | translate }}
+                </p>
+                <p>
+                  {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question1-line3' | translate }}
+                </p>
+                <p>
+                  {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question1-line4' | translate }}
+                </p>
+                <p>{{ 'static-pages.what-is-ragnar.ragnar-black-loop.question1-line5' | translate }}</p>
+              </div>
+            </div>
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse02"
+                aria-expanded="false"
+                aria-controls="collapse02"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question2' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse02">
+                <p>
+                  {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question2-line1' | translate }}
+                </p>
+                <p>{{ 'static-pages.what-is-ragnar.ragnar-black-loop.question2-line2' | translate }}</p>
+              </div>
+            </div>
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse03"
+                aria-expanded="false"
+                aria-controls="collapse03"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question3' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse03">
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question3-line1' | translate }}
+              </div>
+            </div>
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse04"
+                aria-expanded="false"
+                aria-controls="collapse04"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question4' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse04">
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question4-line1' | translate }}
+              </div>
+            </div>
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse05"
+                aria-expanded="false"
+                aria-controls="collapse05"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question5' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse05">
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question5-line1' | translate }}
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-12">
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse06"
+                aria-expanded="false"
+                aria-controls="collapse06"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question6' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse06">
+                <p>
+                  {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question6-line1' | translate }}
+                </p>
+                <p>
+                  {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question6-line2' | translate }}
+                </p>
+              </div>
+            </div>
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse07"
+                aria-expanded="false"
+                aria-controls="collapse07"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question7' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse07">
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question7-line1' | translate }}
+              </div>
+            </div>
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse08"
+                aria-expanded="false"
+                aria-controls="collapse08"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question8' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse08">
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question8-line1' | translate }}
+              </div>
+            </div>
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse09"
+                aria-expanded="false"
+                aria-controls="collapse09"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question9' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse09">
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question9-line1' | translate }}
+              </div>
+            </div>
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse10"
+                aria-expanded="false"
+                aria-controls="collapse10"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question10' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse10">
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question10-line1' | translate }}
+              </div>
+            </div>
+            <!--
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse11"
+                aria-expanded="false"
+                aria-controls="collapse11"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question11-line1' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse11">
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question11-line1' | translate }}
+              </div>
+            </div>
+            -->
+            <div class="faq-box">
+              <div
+                class="faq-question collapsed"
+                data-toggle="collapse"
+                data-target="#collapse12"
+                aria-expanded="false"
+                aria-controls="collapse12"
+              >
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question12' | translate }}
+              </div>
+              <div class="faq-ans collapse dont-collapse-sm" id="collapse12">
+                {{ 'static-pages.what-is-ragnar.ragnar-black-loop.question12-line1' | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="what-is-ragnar-banner-road">
+    <div class="title-sec">
+      <div class="wir-title text-center text-uppercase">
+        {{ 'static-pages.what-is-ragnar.ragnar-road.discover-other' | translate }}
+        <span>{{ 'static-pages.what-is-ragnar.ragnar-road.ragnar' | translate }}</span>
+        {{ 'static-pages.what-is-ragnar.ragnar-road.formats' | translate }}
+      </div>
+    </div>
+    <div class="ragnar-category">
+      <div class="category-item" routerLink="/{{ headerRoutes.whatIsRagnarRoad }}">
+        <div class="category road">
+          <div class="category-img">
+            <img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/discover-road.jpg" />
+            <div class="category-detail">
+              <div class="category-title">{{ 'static-pages.what-is-ragnar.ragnar-road.title' | translate }}</div>
+              <div class="category-desc"></div>
+            </div>
+          </div>
+          <div class="category-link">
+            <a
+              >{{ 'static-pages.what-is-ragnar.ragnar-road.discover-ragnar' | translate }}
+              <img class="arrow-right" src="assets/images/static-pages/whatis-ragnar-road/arrow-right.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="category-item" routerLink="/{{ headerRoutes.whatIsRagnarTrail }}">
+        <div class="category road">
+          <div class="category-img">
+            <img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/discover-trail.jpg" />
+            <div class="category-detail">
+              <div class="category-title">{{ 'static-pages.what-is-ragnar.trail' | translate }}</div>
+              <div class="category-desc">
+                {{ 'static-pages.what-is-ragnar.summer-camp' | translate
+                }}<span>{{ 'static-pages.what-is-ragnar.trail-running' | translate }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="category-link">
+            <a
+              >{{ 'static-pages.what-is-ragnar.discover-trail' | translate }}
+              <img class="arrow-right" src="assets/images/static-pages/whatis-ragnar-road/arrow-right.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="category-item" routerLink="/{{ headerRoutes.whatIsRagnarSunset }}">
+        <div class="category road">
+          <div class="category-img">
+            <img class="img-fluid" src="assets/images/static-pages/whatis-ragnar-road/discover-sunset.jpg" />
+            <div class="category-detail">
+              <div class="category-title">{{ 'static-pages.what-is-ragnar.sunset' | translate }}</div>
+              <div class="category-desc">
+                {{ 'static-pages.what-is-ragnar.finish-before' | translate }}
+                <span>{{ 'static-pages.what-is-ragnar.goes-down' | translate }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="category-link">
+            <a
+              >{{ 'static-pages.what-is-ragnar.discover-sunset' | translate
+              }}<img class="arrow-right" src="assets/images/static-pages/whatis-ragnar-road/arrow-right.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

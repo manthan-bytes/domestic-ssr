@@ -19,6 +19,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SelectedLegDetailsComponent } from './dialog/selected-leg-details/selected-leg-details.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { SelectedLegDetailsComponent } from './dialog/selected-leg-details/selec
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, 'http://localhost:4000/assets/i18n/', '.json'),
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, `http://localhost:${environment.SSR_PORT}/assets/i18n/`, '.json'),
         deps: [HttpClient],
       },
     }),

@@ -40,6 +40,8 @@ import { TestimonialsComponent } from './testimonals/testimonials.component';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NewUserPopupComponent } from './new-user-popup/new-user-popup.component';
 import { ThankyouPopUpComponent } from './new-user-popup/thankyou-popup/thankyou-popup.component';
+import { environment } from 'src/environments/environment';
+
 const MODULES = [NgbModule, ImageCropperModule];
 
 const COMPONENTS = [
@@ -88,7 +90,7 @@ const ENTRY_COMPONENTS = [
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, 'http://localhost:4000/assets/i18n/', '.json'),
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, `http://localhost:${environment.SSR_PORT}/assets/i18n/`, '.json'),
         deps: [HttpClient],
       },
     }),

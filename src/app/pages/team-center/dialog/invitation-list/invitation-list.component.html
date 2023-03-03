@@ -1,0 +1,20 @@
+<div class="d-inline-flex">
+  <div class="flexitem" *ngIf="invitationResponse.invitationSent.length">
+    <span class="invite-title">{{ 'team-center.dialog.invitation-list.title' | translate }}</span>
+    <div class="invite-email" *ngFor="let invitation of invitationResponse.invitationSent">
+      <div>{{ invitation }}</div>
+    </div>
+  </div>
+  <div class="flexitem" *ngIf="invitationResponse.invitationExists.length">
+    <span class="invite-title">{{ 'team-center.dialog.invitation-list.invited' | translate }}</span>
+    <div class="invite-email" *ngFor="let alreadyInvited of invitationResponse.invitationExists">
+      <div>{{ alreadyInvited }}</div>
+    </div>
+  </div>
+  <div class="flexitem" *ngIf="invitationResponse.runnerExists.length">
+    <span class="invite-title">{{ 'team-center.dialog.invitation-list.existed' | translate }}</span>
+    <div class="invite-email" *ngFor="let runner of invitationResponse.runnerExists">
+      <div>{{ runner }}</div>
+    </div>
+  </div>
+</div>

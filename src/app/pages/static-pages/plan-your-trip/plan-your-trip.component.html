@@ -1,0 +1,22 @@
+<div class="plan-your-trip_main" *ngIf="event">
+  <section class="main-banner row-fluid" [ngStyle]="{ 'background-image': 'url(' + event.files.banner + ')' }">
+    <div class="col-xs-12 col-no-padding event-detail main-title">
+      <div class="event-name">
+        <div class="ragnar">PLAN YOUR TRIP</div>
+        <div class="clearfix"></div>
+        <div class="ragnar col-sm-7 col-xs-11 col-no-padding">
+          <img class="img-fluid" [src]="event.files.logo_white" alt="" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="main-content offset-xs-0 col-xs-12 offset-lg-1 col-lg-10 col-no-padding">
+    <div class="col-xs-12 col-sm-9">
+      <div *ngFor="let travel of sortBy('sort')">
+        <h1>{{ travel.name }}</h1>
+        <div [innerHtml]="travel.content"></div>
+      </div>
+    </div>
+  </section>
+</div>

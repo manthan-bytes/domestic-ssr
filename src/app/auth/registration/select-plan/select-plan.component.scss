@@ -1,0 +1,78 @@
+@import 'vars';
+
+.bg-virtual-challenge-register {
+  width: 100%;
+  background: url('https://s3-us-west-2.amazonaws.com/ragnar-hub-ui-v2/images/reg-bg-trail.bc4e6617.jpg') no-repeat;
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  align-items: center;
+  padding: 100px 20px;
+  @media (max-width: $screen-xs-max) {
+    padding: 40px 20px;
+  }
+  .select_plan,
+  .payment {
+    max-width: 320px;
+    background-color: rgba(255, 255, 255, 1);
+    margin: 0 auto;
+    padding: 24px;
+    width: 100%;
+    border-radius: 4px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1), 0px 4px 8px rgba(0, 0, 0, 0.1);
+    h6 {
+      padding-bottom: 10px;
+      border-bottom: 2px solid $black2;
+      margin-bottom: 15px !important;
+    }
+    img {
+      margin-bottom: 10px;
+      max-width: 100%;
+    }
+    p {
+      margin-bottom: 10px;
+    }
+    ul {
+      li {
+        font-size: 11px;
+        line-height: 16px;
+        color: $black2;
+        margin-bottom: 5px;
+        position: relative;
+        padding-left: 10px;
+        &:before {
+          position: absolute;
+          content: '•';
+          font-size: 11px;
+          line-height: 16px;
+          color: $black2;
+          left: 0;
+          top: -1px;
+        }
+      }
+      margin-bottom: 20px;
+    }
+    .rg_btn {
+      min-width: auto;
+      &.rg_bbtn {
+        border-color: $orange-brand;
+        &:hover {
+          border-color: $black3;
+        }
+      }
+    }
+
+    .form-group {
+      .form-control {
+        background-color: transparent;
+      }
+    }
+  }
+  hr {
+    margin: 25px 0;
+    @media (max-width: $screen-xs-max) {
+      margin: 10px 0 20px;
+      display: none;
+    }
+  }
+}

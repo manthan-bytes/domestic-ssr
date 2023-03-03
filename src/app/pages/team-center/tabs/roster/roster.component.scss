@@ -1,0 +1,424 @@
+@import 'vars';
+
+::ng-deep {
+  :disabled {
+    background: #cfcfcf !important;
+    box-shadow: none !important;
+    cursor: not-allowed !important;
+    &:hover {
+      background: #cfcfcf !important;
+    }
+  }
+}
+
+.roster-inner {
+  padding-top: 25px;
+  .invite-btn {
+    background: #1899cb;
+    margin-left: 20px;
+    color: $white;
+    height: 45px;
+    font-family: $font_family_gothambook;
+    border: 0;
+    min-width: 135px;
+    cursor: pointer;
+    box-shadow: 0 6px 2px -4px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 6px 2px -4px rgba(0, 0, 0, 0.25);
+    -webkit-box-shadow: 0 6px 2px -4px rgba(0, 0, 0, 0.25);
+    transition: 0.5s ease-in-out all;
+    &:hover {
+      background: #0c83b2;
+      box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.35);
+      -moz-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.35);
+      -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.35);
+    }
+    &:focus {
+      background: #1899cb !important;
+    }
+  }
+  .registerd-member {
+    margin-bottom: 30px;
+    .member-count {
+      font-family: $font_family_gothammedium;
+      font-size: 24px;
+      font-weight: normal;
+      line-height: 32px;
+      text-align: center;
+      color: #4a4a4a;
+      letter-spacing: 0.25px;
+    }
+    h4 {
+      font-family: $font_family_gothambook;
+      font-size: 18px;
+      font-weight: normal;
+      line-height: 24px;
+      text-align: center;
+      color: #9b9b9b;
+      letter-spacing: 0.25px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+  .runner-option {
+    width: 90%;
+    margin: 0 auto 40px;
+    padding: 0 8px;
+    @include flexbox();
+
+    & > :nth-of-type(3) {
+      padding: 0px 65px;
+      @media (max-width: $screen-md-max) {
+        padding: 0px;
+      }
+    }
+    .leftButton {
+      width: 15%;
+      float: none;
+
+      @media only screen and (min-width: $screen-lg-min) {
+        width: auto !important;
+      }
+      @media (max-width: $screen-xs-max) {
+        width: 160px !important;
+      }
+      @media (min-width: $screen-sm-min) {
+        width: 160px !important;
+      }
+    }
+    .rightButton {
+      float: none;
+      order: 3;
+    }
+    .centerInfo {
+      width: 85%;
+      text-align: center;
+      @media (max-width: $screen-xs-max) {
+        width: 100% !important;
+        h3:first-child {
+          margin-bottom: 0px !important;
+        }
+      }
+      @media (min-width: $screen-sm-min) and (max-width: 1024px) {
+        width: 100% !important;
+        display: grid !important;
+        h3:first-child {
+          margin-bottom: 0px !important;
+        }
+      }
+    }
+    @media only screen and (max-width: $screen-sm-max) {
+      width: 100%;
+    }
+    .team-full-msg {
+      text-align: center;
+      display: block;
+      font-family: $font_family_gothambook;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 20px;
+      color: #5d5d5d;
+      letter-spacing: 0.25px;
+      margin-top: 15px;
+      width: 335px;
+      @media only screen and (min-width: $screen-lg-min) {
+        position: relative;
+        left: -80px;
+        white-space: nowrap;
+      }
+      @media (max-width: $screen-xs-max) {
+        width: auto !important;
+        text-align: left !important;
+      }
+      @media (min-width: $screen-sm-min) and (max-width: 1024px) {
+        width: auto !important;
+        text-align: left !important;
+      }
+    }
+
+    .delete-btn {
+      cursor: pointer;
+      margin-right: 20px;
+      background: #4a4a4a;
+      color: $white;
+      font-family: $font_family_gothambook;
+      height: 45px;
+      min-width: 142px;
+      box-shadow: 0 6px 2px -4px rgba(0, 0, 0, 0.25);
+      -moz-box-shadow: 0 6px 2px -4px rgba(0, 0, 0, 0.25);
+      -webkit-box-shadow: 0 6px 2px -4px rgba(0, 0, 0, 0.25);
+      border: 0;
+
+      transition: 0.5s ease-in-out all;
+      &:hover {
+        background: #d0021b;
+        box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.35);
+        -moz-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.35);
+        -webkit-box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.35);
+      }
+      &:focus {
+        background: #4a4a4a !important;
+      }
+      @media (max-width: $screen-xs-max) {
+        &:hover {
+          background: #4a4a4a;
+        }
+      }
+    }
+    h3 {
+      display: inline-block;
+      font-family: $font_family_gothambook;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 45px;
+      text-align: center;
+      color: #4a4a4a;
+      letter-spacing: 0.25px;
+      margin: 0 15px;
+      b {
+        font-family: $font_family_gothambold;
+      }
+      @media (max-width: $screen-md-max) {
+        line-height: 24px;
+      }
+      @media (max-width: $screen-xs-max) {
+        margin-top: 20px;
+      }
+    }
+  }
+  h3.table-title {
+    font-family: $font_family_gothammedium;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 18px;
+    text-align: left;
+    color: #5d5d5d;
+    letter-spacing: 0.25px;
+    margin: 0 auto 15px;
+    padding-left: calc(8% + 8px);
+    padding-right: calc(8% + 8px);
+    .note {
+      font-size: 12px;
+      display: inline;
+      margin-left: 15px;
+      font-family: $font_family_gothambook;
+      line-height: 16px;
+      vertical-align: top;
+    }
+    @media only screen and (max-width: $screen-xs-max) {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+
+  .runner-table {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 50px;
+    .table-row {
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 24px;
+      text-align: left;
+      color: #5d5d5d;
+      font-family: $font_family_gothambook;
+      letter-spacing: 0.25px;
+      padding: 0;
+      @media (max-width: $screen-md-max) {
+        padding-left: 12px;
+      }
+      .runnerNo {
+        .expand-option.icon-change img {
+          transform: rotate(180deg);
+          -moz-transform: rotate(180deg);
+          -webkit-transform: rotate(180deg);
+        }
+      }
+      .view-other-details {
+        opacity: 0;
+        height: 0;
+        transition: opacity 0.5 ease-out;
+        -webkit-transition: opacity 0.5 ease-out;
+        -moz-transition: opacity 0.5 ease-out;
+        &.expand-now {
+          transition: all 0.5s linear;
+          -webkit-transition: all 0.5s linear;
+          height: auto;
+          opacity: 1;
+        }
+      }
+
+      @media only screen and (max-width: $screen-xs-max) {
+        font-size: 14px !important;
+      }
+      &:nth-child(even) {
+        background: #e7e7e7;
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+      &:nth-child(odd) {
+        background: #f2f2f2;
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+      &.table-row-header {
+        background: #fff;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        border-top: 1px solid #cfcfcf !important;
+      }
+      .row-block {
+        width: 90%;
+        margin: 0 0 0 auto;
+        position: relative;
+        .expand-option {
+          position: absolute;
+          right: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+        & > div {
+          @media (max-width: $screen-xs-max) {
+            flex: 1;
+            max-width: 100%;
+            .detail-title {
+              font-size: 13px;
+            }
+          }
+        }
+        .runnerName {
+          @media (max-width: $screen-xs-max) {
+            flex: 0 0 67%;
+            max-width: 67%;
+            padding-right: 15px !important;
+          }
+          @media screen and (max-width: 375px) {
+            .runnerName {
+              padding-right: 8px !important;
+            }
+          }
+        }
+        .runnerEmail {
+          overflow-x: auto;
+          text-overflow: initial !important;
+        }
+        .text-value {
+          font-size: 16px;
+          font-weight: normal;
+          line-height: 28px;
+          text-align: left;
+          color: #5d5d5d;
+          font-family: $font_family_gothambook;
+          font-weight: bold;
+          letter-spacing: 0.25px;
+          word-break: break-all;
+          @media (max-width: $screen-md-max) {
+            font-size: 15px;
+            line-height: 15px;
+          }
+          @media (max-width: $screen-xs-max) {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            flex: none !important;
+            max-width: fit-content !important;
+            white-space: inherit !important;
+            display: inline !important;
+            margin-right: 10px;
+          }
+        }
+        .captain-badge {
+          display: inline-block;
+          width: 30px;
+          @media (max-width: $screen-xs-max) {
+            width: 20px;
+          }
+        }
+        a.delete-runner-icon {
+          display: inline-block;
+          margin-left: -20px;
+          max-width: 15px;
+          @media (min-width: $screen-xs-min) {
+            margin-right: 5px;
+          }
+          @media (max-width: $screen-xs-max) {
+            margin-left: 0;
+            margin-right: 5px;
+          }
+          img.delete-runner {
+            max-width: 100%;
+            display: inline-block;
+          }
+        }
+        .invite-btn {
+          height: 25px;
+          min-width: 68px;
+          font-size: 12px;
+          line-height: 24px;
+        }
+        [class^='col-sm'] {
+          padding-left: 0px;
+          padding-right: 0px;
+          text-overflow: ellipsis;
+          .loading-img {
+            max-width: 25px;
+            margin-left: 10px;
+          }
+          @media (max-width: $screen-xs-max) {
+            padding-left: 0px;
+            padding-right: 0px;
+            flex: 0 0 50%;
+            max-width: 50%;
+          }
+        }
+        @media (max-width: $screen-md-max) {
+          .text-value {
+            font-size: 14px;
+            line-height: 28px;
+            flex: 0 0 50%;
+            max-width: 50%;
+            white-space: nowrap;
+            @media only screen and (max-width: 655px) {
+              flex: 0 0 100%;
+              max-width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .roster-inner h3.table-title {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .roster-inner .runner-table .table-row .row-block {
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .runner-option {
+    display: inline-block !important;
+  }
+  .roster-inner .runner-option .leftButton {
+    float: left;
+  }
+  .roster-inner .runner-option .rightButton {
+    float: right;
+  }
+  .roster-inner .runner-option > :nth-of-type(3) {
+    padding: 0px 0;
+  }
+  .roster-inner .invite-btn {
+    margin-left: 0;
+  }
+  .roster-inner .runner-option .delete-btn {
+    margin-right: 0;
+  }
+  .roster-inner .runner-option .leftButton {
+    width: auto !important;
+  }
+}

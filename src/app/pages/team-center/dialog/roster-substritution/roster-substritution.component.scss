@@ -1,0 +1,67 @@
+@import './vars';
+::ng-deep {
+  .checking_member_volunteer_delete {
+    .modal-dialog-scrollable {
+      max-width: 665px;
+      margin-left: auto;
+      margin-right: auto;
+      @media (max-width: $screen-sm-max) {
+        max-width: 90%;
+      }
+      .modal-dialog {
+        width: 100%;
+        max-width: 100%;
+        background-color: #fff;
+        padding: 40px;
+        margin: 0;
+        pointer-events: inherit;
+        .modal-header {
+          text-align: left;
+          padding: 0;
+          .modal-title {
+            font-size: 30px;
+            margin-bottom: 20px;
+            font-family: $font_family_barlow_Condensed;
+            color: #393939;
+            @media (max-width: $screen-xs-max) {
+              font-size: 24px;
+            }
+          }
+          .close {
+            position: absolute;
+            right: 30px;
+            top: 30px;
+            padding: 0;
+            outline: none;
+            box-shadow: none;
+            color: #393939;
+            &:focus {
+              outline: none;
+              box-shadow: none;
+            }
+          }
+        }
+        .modal-body {
+          padding: 0;
+          h4 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #393939;
+            line-height: 20px;
+            font-family: $font_family_barlow_Condensed;
+            @media (max-width: $screen-xs-max) {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+      &.modal-static {
+        .modal-dialog-scrollable {
+          transform: none;
+          -webkit-transform: none;
+          -moz-transform: none;
+        }
+      }
+    }
+  }
+}

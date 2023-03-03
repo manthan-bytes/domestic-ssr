@@ -1,0 +1,51 @@
+@import 'vars';
+
+.modal-dialog {
+  max-width: 700px;
+  @media (max-width: $screen-xs-max) {
+    padding: 0 10px;
+  }
+  .modal-content {
+    .card_info {
+      margin: 50px auto 0;
+      max-width: 600px;
+      .card_number {
+        position: relative;
+        .card_icon {
+          position: absolute;
+          top: 30px;
+          right: 10px;
+          @media (max-width: $screen-xs-max) {
+            top: 33px;
+          }
+          img {
+            max-width: 30px;
+            max-height: 30px;
+            margin-left: 5px;
+            @media (max-width: $screen-xs-max) {
+              max-width: 20px;
+              margin-left: 3px;
+            }
+          }
+        }
+      }
+      .custom-control {
+        margin: 20px 0;
+        .error_msg {
+          display: block;
+        }
+        label {
+          display: inline-block;
+          vertical-align: middle;
+        }
+        a {
+          display: inline-block;
+          font-weight: bold;
+          vertical-align: middle;
+          margin-left: 4px;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

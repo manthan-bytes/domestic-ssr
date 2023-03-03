@@ -1,0 +1,260 @@
+<div
+  [ngClass]="eventType === 'SUNSET' || eventType === 'TRAIL_SPRINT' ? 'tab-inner' : 'runner-assignment-inner'"
+  *ngIf="teamInformation && teamInformation.type !== 'BLACK_LOOP'"
+>
+  <div class="registerd-member" *ngIf="eventType !== 'SUNSET' && eventType !== 'TRAIL_SPRINT'">
+    <div class="member-count">
+      {{ filterRunner(runnerInformation, true).length + '/' + teamInformation.runnersMax }}
+    </div>
+    <h4>{{ 'team-center.tabs.runner-assignments.title' | translate }}</h4>
+  </div>
+  <div class="ultra-option-tab" *ngIf="teamInformation.type === 'ULTRA' && eventType !== 'SUNSET' && eventType !== 'TRAIL_SPRINT'">
+    <div class="option-tab" *ngIf="isCaptain">
+      <button type="button" class="option-btn" (click)="toggleOption(1)" [ngClass]="{ 'active-option': teamInformation.runOption === 1 }">
+        {{ 'team-center.tabs.runner-assignments.option1' | translate }}
+      </button>
+      <button type="button" class="option-btn" (click)="toggleOption(2)" [ngClass]="{ 'active-option': teamInformation.runOption === 2 }">
+        {{ 'team-center.tabs.runner-assignments.option2' | translate }}
+      </button>
+    </div>
+    <h4 *ngIf="teamInformation.runOption === 1">
+      {{ 'team-center.tabs.runner-assignments.run-every' | translate }}
+      {{ eventType === 'ROAD' || eventType === 'SPRINT' ? (eventType === 'SPRINT' ? '3rd' : '6th') + ' leg' : '4th loop' }}
+    </h4>
+    <h4 *ngIf="teamInformation.runOption === 2">
+      {{ 'team-center.tabs.runner-assignments.combine-two' | translate }}
+      {{ eventType === 'ROAD' || eventType === 'SPRINT' ? 'legs' : 'loops' }}
+      {{ 'team-center.tabs.runner-assignments.at-once' | translate }}
+    </h4>
+  </div>
+
+  <div class="trail-loops" *ngIf="eventType === 'TRAIL'">
+    <div class="col-md-12">
+      <div
+        *ngIf="legs[1]"
+        class="text-center loop-text"
+        [ngClass]="legs[4] && teamInformation.type === 'BLACK_LOOP' ? 'col-md-3' : 'col-md-4'"
+      >
+        {{ 'team-center.tabs.runner-assignments.green-loop' | translate }} - {{ legs[1].distance }} {{ 'common-data.miles' | translate }}
+      </div>
+      <div
+        *ngIf="legs[2]"
+        class="text-center loop-text"
+        [ngClass]="legs[4] && teamInformation.type === 'BLACK_LOOP' ? 'col-md-3' : 'col-md-4'"
+      >
+        {{ 'team-center.tabs.runner-assignments.yellow-loop' | translate }} - {{ legs[2].distance }} {{ 'common-data.miles' | translate }}
+      </div>
+      <div
+        *ngIf="legs[3]"
+        class="text-center loop-text"
+        [ngClass]="legs[4] && teamInformation.type === 'BLACK_LOOP' ? 'col-md-3' : 'col-md-4'"
+      >
+        {{ 'team-center.tabs.runner-assignments.red-loop' | translate }} - {{ legs[3].distance }} {{ 'common-data.miles' | translate }}
+      </div>
+      <div
+        *ngIf="legs[4] && teamInformation.type === 'BLACK_LOOP'"
+        class="text-center loop-text"
+        [ngClass]="legs[4] && teamInformation.type === 'BLACK_LOOP' ? 'col-md-3' : 'col-md-4'"
+      >
+        {{ 'team-center.tabs.runner-assignments.black-loop' | translate }} - {{ legs[4].distance }} {{ 'common-data.miles' | translate }}
+      </div>
+    </div>
+  </div>
+  <div class="row runnerAssignRow" *ngIf="eventType !== 'SUNSET' && eventType !== 'TRAIL_SPRINT'">
+    <div class="runner-list col-md-12">
+      <h3 *ngIf="eventType === 'SPRINT' && teamInformation.type !== 'ULTRA'" class="van-no">
+        {{ 'team-center.tabs.runner-assignments.van1' | translate }}
+      </h3>
+    </div>
+    <div
+      class="col-xs-12 col-md-6 runner-list mt-0"
+      [ngClass]="{ 'list-left': index === 0, 'list-right': index === 1 }"
+      *ngFor="let van of vanArr[eventType][teamInformation.type]; let index = index"
+    >
+      <h3 *ngIf="eventType === 'ROAD' && teamInformation.type !== 'ULTRA'" class="van-no">
+        {{ 'team-center.tabs.runner-assignments.van' | translate }} {{ index + 1 }}
+      </h3>
+      <div
+        [ngClass]="{
+          'runner-list-disabled':
+            teamInformation.type === 'SIX_PACK' &&
+            !(index + 1 === teamInformation.vanNumber || (index + 1 === 1 && !teamInformation.vanNumber))
+        }"
+      >
+        <div
+          class="disable-block-message"
+          *ngIf="
+            teamInformation.team2name &&
+            teamInformation.type === 'SIX_PACK' &&
+            !(index + 1 === teamInformation.vanNumber || (index + 1 === 1 && !teamInformation.vanNumber))
+          "
+        >
+          <h4>{{ 'team-center.tabs.runner-assignments.paired-team' | translate }} {{ teamInformation.team2name }}</h4>
+          <h4>
+            {{ 'team-center.tabs.runner-assignments.team-captain' | translate }}
+            {{ teamInformation.team2firstName + ' ' + teamInformation.team2lastName }}
+          </h4>
+          <h4>{{ 'common-data.email1' | translate }} {{ teamInformation.team2email }}</h4>
+        </div>
+        <div
+          class="disable-block-message"
+          *ngIf="
+            !teamInformation.team2name &&
+            teamInformation.type === 'SIX_PACK' &&
+            !(index + 1 === teamInformation.vanNumber || (index + 1 === 1 && !teamInformation.vanNumber))
+          "
+        >
+          <h4>{{ 'team-center.tabs.runner-assignments.paired-display' | translate }}</h4>
+          <h4>{{ 'team-center.tabs.runner-assignments.assigned-race-director' | translate }}</h4>
+          <h4>{{ 'team-center.tabs.runner-assignments.shortly-registration-close' | translate }}</h4>
+        </div>
+        <div class="runner-list-inner">
+          <div
+            *ngIf="
+              teamInformation.type !== 'SIX_PACK' ||
+              index + 1 === teamInformation.vanNumber ||
+              (index + 1 === 1 && !teamInformation.vanNumber)
+            "
+          >
+            <div class="runner-block" *ngFor="let i of van">
+              <div class="block-left">
+                <img
+                  class="img-responsive center-block runner-pic"
+                  src="{{
+                    getRunner(i) && getRunner(i).profilesId ? profileImages[getRunner(i).profilesId] : 'assets/images/user-profile-pic.png'
+                  }}"
+                  alt="User Profile Icon"
+                />
+                <div *ngIf="isCaptain" class="btn-group runner-list-dropdown" ngbDropdown>
+                  <button id="single-button{{ i }}" type="button" class="btn btn-primary" ngbDropdownToggle>
+                    <span *ngIf="getRunner(i)">
+                      {{ getRunner(i).firstName + ' ' + getRunner(i).lastName }}
+                    </span>
+                    <span *ngIf="!getRunner(i)" class="unassigned-runner">{{ 'common-data.unassigned' | translate }}</span>
+                    <span class="caret" style="margin-left: 10px"></span>
+                  </button>
+
+                  <ul class="dropdown-menu" ngbDropdownMenu role="menu" attr.aria-labelledby="single-button{{ i }}">
+                    <li (click)="$event.stopPropagation()" role="menuitem" *ngIf="getRunner('!0')" class="runner-status">
+                      <a>{{ 'team-center.tabs.runner-assignments.currently-assigned' | translate }}</a>
+                    </li>
+
+                    <li *ngFor="let runner_info of filterRunner(runnerInformation, true)" role="menuitem" class="runner-li">
+                      <a *ngIf="runner_info.order !== i" (click)="assignOrder(runner_info, i)">
+                        {{ runner_info.firstName + ' ' + runner_info.lastName }}
+                      </a>
+                      <a *ngIf="runner_info.order === i">
+                        {{ runner_info.firstName + ' ' + runner_info.lastName }}
+                        <span class="current">{{ 'team-center.tabs.runner-assignments.current' | translate }}</span>
+                      </a>
+                    </li>
+
+                    <li (click)="$event.stopPropagation()" role="menuitem" *ngIf="getRunner(0)" class="runner-status">
+                      <a>{{ 'team-center.tabs.runner-assignments.need-assignment' | translate }}</a>
+                    </li>
+
+                    <li *ngFor="let runner_info of filterRunner(runnerInformation, false)" role="menuitem" class="runner-li">
+                      <a (click)="assignOrder(runner_info, i)" ngbDropdownItem>
+                        {{ runner_info.firstName + ' ' + runner_info.lastName }}
+                      </a>
+                    </li>
+
+                    <li [hidden]="!getRunner(i)" role="menuitem" class="last-li">
+                      <a (click)="assignOrder(getRunner(i), 0)" class="team-dropdown-assign-btn" ngbDropdownItem>{{
+                        'team-center.tabs.runner-assignments.unassign' | translate
+                      }}</a>
+                    </li>
+                  </ul>
+                </div>
+                <div *ngIf="!isCaptain" class="btn-group runner-list-dropdown">
+                  <button type="button" class="btn btn-primary" disabled>
+                    <span *ngIf="getRunner(i)">
+                      {{ getRunner(i).firstName + ' ' + getRunner(i).lastName }}
+                    </span>
+                    <span *ngIf="!getRunner(i)">{{ 'common-data.unassigned' | translate }}</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="block-right" *ngIf="legs.length > 0">
+                <h3>{{ 'common-data.runner-no' | translate }} {{ i }}</h3>
+                <ul [innerHTML]="getLegs(i)"></ul>
+              </div>
+            </div>
+          </div>
+
+          <div
+            *ngIf="
+              teamInformation.type === 'SIX_PACK' &&
+              !(index + 1 === teamInformation.vanNumber || (index + 1 === 1 && !teamInformation.vanNumber))
+            "
+          >
+            <div class="runner-block disabled" *ngFor="let i of van">
+              <div class="block-left">
+                <img
+                  class="img-responsive center-block runner-pic"
+                  src="{{ 'images/team-center/dummy-user-' + (index + 1) + '.png' }}"
+                  alt="User Profile Icon"
+                />
+                <div class="btn-group runner-list-dropdown">
+                  <button type="button" class="btn btn-primary" disabled>
+                    <span>{{ dummyName[index] || 'Unassigned' }}</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="block-right" *ngIf="legs.length > 0">
+                <h3>{{ 'common-data.runner-no' | translate }} {{ i }}</h3>
+                <ul [innerHTML]="getLegs(i)"></ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row trail-loops" *ngIf="eventType === 'SUNSET' || eventType === 'TRAIL_SPRINT'">
+    <!-- <div class="col-md-10 col-md-offset-1"> -->
+    <div class="text-center loop-text col-md-12">
+      <div class="event-city-logo">
+        <img
+          src="{{ eventData.cmsEvent.files.logo | parseImageUrl }}"
+          alt="{{ selectedEvent.name || 'Race Logo' }}"
+          class="img-responsive center-block"
+        />
+      </div>
+    </div>
+    <div class="text-center loop-text col-md-12" style="padding-top: 50px">
+      {{ 'team-center.tabs.runner-assignments.each-runner' | translate }}
+    </div>
+    <!-- </div> -->
+  </div>
+</div>
+
+<div class="runner-assignment-inner" *ngIf="teamInformation && teamInformation.type === 'BLACK_LOOP'">
+  <div class="row trail-loops">
+    <!-- <div class="col-md-10 col-md-offset-1"> -->
+    <div class="text-center loop-text col-md-12">
+      <div class="blackloop-logo">
+        <img src="assets/images/team-center/diamond-ragnar.png" alt="Blackloop Logo" class="img-responsive center-block" />
+      </div>
+    </div>
+    <div class="text-center loop-text col-md-12">{{ 'team-center.tabs.runner-assignments.both-runners' | translate }}</div>
+    <div class="loop-text col-md-12">
+      <div class="blackloop col-md-4 col-md-offset-3">
+        <span>{{ 'common-data.friday' | translate }} - {{ totalDistance(false) }} Miles</span>
+        <p>
+          {{ 'team-center.tabs.runner-assignments.green-loop' | translate }}<br />
+          {{ 'team-center.tabs.runner-assignments.yellow-loop' | translate }}<br />
+          {{ 'team-center.tabs.runner-assignments.red-loop' | translate }}
+        </p>
+      </div>
+      <div class="blackloop col-md-3">
+        <span>{{ 'common-data.saturday' | translate }} - {{ totalDistance(true) }} Miles</span>
+        <p>{{ 'team-center.tabs.runner-assignments.black-loop' | translate }}</p>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+</div>

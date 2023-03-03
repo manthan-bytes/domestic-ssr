@@ -1,0 +1,12 @@
+@import 'vars';
+
+.digital-check-in {
+  .modal-dialog {
+    max-width: 700px;
+    @media (max-width: $screen-xs-max) {
+      padding: 0 10px;
+    }
+    .modal-content {
+    }
+  }
+}

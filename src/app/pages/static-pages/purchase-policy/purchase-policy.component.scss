@@ -1,0 +1,72 @@
+@import 'vars';
+
+.purchae_policy_main {
+  h4 {
+    font-size: 18px;
+    font-family: $font_family_barlow_Condensed;
+    @include font-weight(600);
+    margin: 10px 0px;
+    line-height: 19px;
+    color: $black3;
+  }
+  a {
+    color: #f4792f;
+  }
+  .purchae_policy_banner {
+    background: url(/assets/images/static-pages/term-of-use/privacy.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    @include font-weight(700);
+    color: $white;
+    height: 350px;
+    .main-title {
+      font-size: 72px;
+      text-shadow: 0 0 30px rgba(0, 0, 0, 0.69);
+      color: $white;
+      margin-bottom: 25px;
+      @include font-weight(700);
+
+      @media (max-width: $screen-xs-max) {
+        font-size: 72px;
+        padding: 0;
+        text-align: center;
+      }
+      @media (max-width: $screen-xxs-max) {
+        font-size: 42px;
+      }
+    }
+  }
+  .purchae_policy_main-content_section {
+    .purchae_policy_main-content {
+      margin: 20px 0px;
+      h3 {
+        font-family: $font_family_barlow_Condensed;
+        color: $black3;
+        margin-bottom: 8px;
+      }
+      p {
+        color: $black3;
+        @include font-weight(400);
+        line-height: 20px;
+        margin: 10px 0px;
+      }
+
+      @media (max-width: $screen-xs-max) {
+      }
+      .mb-10 {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+.container {
+  @media only screen and (min-width: 1200px) {
+    max-width: 1170px;
+  }
+  @media only screen and (min-width: 1600px) {
+    max-width: 83%;
+  }
+}

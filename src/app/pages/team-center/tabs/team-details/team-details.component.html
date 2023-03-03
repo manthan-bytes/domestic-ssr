@@ -1,0 +1,484 @@
+<div class="tab-inner" *ngIf="teamInformation" ngClass="{'glamping-shown':showGlampingAd}">
+  <!-- <a
+    href="javascript:;"
+    *ngIf="selectedEvent.showCheckin && isCaptain"
+    type="button"
+    class="orange-custom-btn check-in-btn"
+    (click)="switchTab.next('Covid_Check_In')"
+  >
+    {{ 'team-center.tabs.team-details.check-in' | translate }} <i class="fa fa-arrow-right"></i>
+  </a> -->
+  <div class="event-city-logo">
+    <img src="{{ eventData?.cmsEvent?.files.logo }}" alt="{{ selectedEvent.name || 'Race Logo' }}" class="img-responsive center-block" />
+  </div>
+  <div *ngIf="myRunnerData && selectedEvent.timeToCheckin && selectedEvent.showCheckin" class="btn_group team-checkin-btn-wrap">
+    <button
+      href="javascript:;"
+      type="button"
+      [ngClass]="myRunnerData.onlineWebCheckInId ? 'checked-in-btn indiv_btn' : 'check-in-btn'"
+      [disabled]="myRunnerData.onlineWebCheckInId"
+      (click)="switchTab.next('Covid_Check_In')"
+    >
+      {{
+        isCaptain
+          ? myRunnerData.onlineWebCheckInId
+            ? 'INDIVIDUAL CHECKED-IN'
+            : 'INDIVIDUAL CHECK-IN'
+          : myRunnerData.onlineWebCheckInId
+          ? 'CHECKED-IN'
+          : 'CHECK-IN'
+      }}
+      <i class="iconm-check" *ngIf="myRunnerData.onlineWebCheckInId"></i>
+    </button>
+    <!-- || (!teamInformation.checkedInConfirmationNumber && (totalVolunteerRegistered !== teamInformation.volunteerRequired))   -->
+    <button
+      href="javascript:;"
+      [disabled]="
+        !captainInformation.onlineWebCheckInId ||
+        teamInformation.isCheckedIn ||
+        (!teamInformation.checkedInConfirmationNumber && totalVolunteerRegistered !== teamInformation.volunteerRequired)
+      "
+      [ngClass]="teamInformation.isCheckedIn ? 'sucess-override' : ''"
+      *ngIf="isCaptain"
+      type="button"
+      class="check-in-btn"
+      (click)="switchTab.next('Covid_Check_In')"
+    >
+      {{ teamInformation.checkedInConfirmationNumber ? 'TEAM CHECKED-IN' : 'TEAM CHECK-IN' }}
+      <i class="iconm-check" *ngIf="teamInformation.checkedInConfirmationNumber"></i>
+    </button>
+  </div>
+  <div class="form-content">
+    <p
+      class="error"
+      *ngIf="
+        isCaptain &&
+        myRunnerData &&
+        selectedEvent.timeToCheckin &&
+        selectedEvent.showCheckin &&
+        !teamInformation.checkedInConfirmationNumber &&
+        totalVolunteerRegistered !== teamInformation.volunteerRequired
+      "
+    >
+      Unable to complete Check In online. Volunteer requirements outstanding. Visit HQ onsite to complete Check In.
+    </p>
+    <form class="row teamDetailRow">
+      <div class="col-md-6 col-xs-12">
+        <div class="form-group" *ngIf="isCaptain && teamInformation.checkedInConfirmationNumber && selectedEvent.showCheckin">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{
+            'team-center.tabs.team-details.confirmation-number' | translate
+          }}</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label>{{ teamInformation.checkedInConfirmationNumber }}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'team-center.tabs.team-details.race' | translate }}</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label>{{ selectedEvent.name }}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'team-center.tabs.team-details.team-name' | translate }}</label>
+          <div *ngIf="!selectedEvent.disableTeamNameEdit && isCaptain" class="col-md-8 col-xs-7 user-values edit-option">
+            <label [hidden]="teamDetailConfig.editOption">{{ teamInformation.name }}</label>
+            <a [hidden]="teamDetailConfig.editOption" (click)="toggleEditOption()">
+              <img src="assets/images/team-center/edit-icon.png" alt="Edit icon" class="img-responsive" />
+            </a>
+            <label [hidden]="!teamDetailConfig.editOption">
+              <form #teamNameForm="ngForm">
+                <input
+                  aria-label=" "
+                  name="teamName"
+                  #teamName="ngModel"
+                  required
+                  [(ngModel)]="teamInformation.name"
+                  pattern="\S.*"
+                  name="teamName"
+                  (focus)="formElementEnter(teamNameForm)"
+                  (blur)="formElementExit(teamNameForm)"
+                />
+                <button
+                  [disabled]="teamName.errors?.required || teamName.errors?.pattern"
+                  type="button"
+                  (click)="editTeamName(teamInformation.name, teamNameForm)"
+                  class="orange-custom-btn"
+                >
+                  {{ 'team-center.tabs.team-details.save' | translate }}
+                </button>
+                <img
+                  class="img-responsive center-block loading-img"
+                  src="assets/images/spinner.gif"
+                  [ngStyle]="{ 'margin-left': '0px' }"
+                  *ngIf="teamDetailConfig.onSaveLoadingBar"
+                />
+              </form>
+            </label>
+            <span class="note"
+              >{{ 'team-center.tabs.team-details.change-name' | translate }}
+              {{ selectedEvent.teamNameChange | dateFormat : 'MMMM DD, YYYY' }}
+            </span>
+          </div>
+          <div *ngIf="selectedEvent.disableTeamNameEdit || !isCaptain" class="col-md-8 col-xs-7 user-values">
+            <label>{{ teamInformation.name }}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'team-center.tabs.team-details.team-number' | translate }}</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label>{{ teamInformation.teamNumber }}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'team-center.tabs.team-details.type' | translate }}</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label>{{ teamTypes[teamInformation.type] || '-' | uppercase }}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'common-data.classification' | translate }}</label>
+          <div *ngIf="!selectedEvent.disableClassificationDivision && isCaptain" class="col-md-8 col-xs-7 user-values">
+            <div class="btn-group">
+              <div ngbDropdown class="d-inline-block">
+                <button type="button" class="custom-selectbox" id="classification" ngbDropdownToggle>
+                  {{ teamInformation.classification || 'Select Classification' }}
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu custom-option" aria-labelledby="classification">
+                  <a
+                    ngbDropdownItem
+                    (click)="updateClassification(teamInformation, classification.name)"
+                    *ngFor="let classification of eventData.classifications"
+                  >
+                    {{ classification.name }}
+                  </a>
+                </div>
+              </div>
+              <a [routerLink]="['/divisions-and-classifications']" target="_blank">
+                <i class="info-circle">i</i>
+              </a>
+            </div>
+            <span class="note"
+              >{{ 'team-center.tabs.team-details.change-classification' | translate }}
+              {{ selectedEvent.teamFreezeDate | dateFormat : 'MMMM DD, YYYY' }}</span
+            >
+          </div>
+          <div *ngIf="selectedEvent.disableClassificationDivision || !isCaptain" class="col-md-8 col-xs-7 user-values">
+            <label>{{ teamInformation.classification || ' - ' }}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'common-data.division' | translate }}</label>
+          <div *ngIf="!selectedEvent.disableClassificationDivision && isCaptain" class="col-md-8 col-xs-7 user-values">
+            <div class="btn-group">
+              <div ngbDropdown class="d-inline-block">
+                <button
+                  type="button"
+                  class="custom-selectbox"
+                  id="division"
+                  (click)="updateDivisionDropDown(teamInformation.classification)"
+                  ngbDropdownToggle
+                >
+                  {{ teamInformation.division || 'Select Division' }}
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu custom-option" aria-labelledby="division">
+                  <a ngbDropdownItem (click)="updateDivision(teamInformation, division.name)" *ngFor="let division of eventData.divsions">
+                    {{ division.name }}
+                  </a>
+                </div>
+              </div>
+
+              <a [routerLink]="['/divisions-and-classifications']" target="_blank">
+                <i class="info-circle">i</i>
+              </a>
+            </div>
+            <span class="note"
+              >{{ 'team-center.tabs.team-details.change-division' | translate }}
+              {{ selectedEvent.teamFreezeDate | dateFormat : 'MMMM DD, YYYY' }}</span
+            >
+          </div>
+          <div *ngIf="selectedEvent.disableClassificationDivision || !isCaptain" class="col-md-8 col-xs-7 user-values">
+            <label>{{ teamInformation.division || ' - ' }}</label>
+          </div>
+        </div>
+        <div
+          class="form-group"
+          *ngIf="
+            (glampingCount | json) !== ({} | json) &&
+            selectedEvent.type === 'TRAIL' &&
+            isCaptain &&
+            glampingCount.glampingCap > 0 &&
+            (teamTypes[teamInformation.type] === 'Standard' || teamTypes[teamInformation.type] === 'Ultra')
+          "
+        >
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'common-data.glamping' | translate }} :</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label *ngIf="teamInformation.isGlampingPurchased === false"
+              >{{ glampingCount.glampingCap - glampingCount.glampingCount }} / {{ glampingCount.glampingCap }}
+              {{ 'team-center.tabs.team-details.glamping-sites-available' | translate }}
+
+              <br />{{ this.selectedEvent.glampingPrice | currency }} {{ 'team-center.tabs.team-details.glamping-price' | translate }}
+            </label>
+            <label *ngIf="teamInformation.isGlampingPurchased === true">Purchased ({{ teamInformation.glampingPurchasedDate }})</label>
+            <div
+              class=""
+              [hidden]="
+                glampingCount.glampingCap <= 0 ||
+                teamInformation.isGlampingPurchased === true ||
+                glampingCount.glampingCap <= glampingCount.glampingCount ||
+                registrationOpen > curruntDate ||
+                glampingRegistrationClose < curruntDate
+              "
+            >
+              <button type="button" *ngIf="isCaptain" (click)="openGlampingFeesModel()" class="orange-custom-btn custom-glamp-btn">
+                {{ 'team-center.tabs.team-details.glammpinCap' | translate }}
+              </button>
+              <span class="note" *ngIf="isCaptain"
+                >{{ 'team-center.tabs.team-details.last-day-pay-glamping' | translate }}
+                {{ glampingRegistrationClose.toISOString() | dateFormat : 'MMMM DD, YYYY' }}</span
+              >
+            </div>
+
+            <div
+              class=""
+              [hidden]="
+                glampingCount.glampingCap > 0 &&
+                teamInformation.isGlampingPurchased !== true &&
+                glampingCount.glampingCap > glampingCount.glampingCount &&
+                registrationOpen < curruntDate &&
+                glampingRegistrationClose > curruntDate
+              "
+            >
+              <label class="d-block" *ngIf="teamInformation.isGlampingPurchased === false"> &nbsp; </label>
+              <button
+                type="button"
+                *ngIf="isCaptain && teamInformation.isGlampingPurchased === false"
+                disabled
+                class="orange-custom-btn custom-glamp-btn"
+              >
+                {{ 'team-center.tabs.team-details.glammpinCap' | translate }}
+              </button>
+              <span class="note" *ngIf="isCaptain && teamInformation.isGlampingPurchased === false"
+                >{{ 'team-center.tabs.team-details.last-day-pay-glamping' | translate }}
+                {{ glampingRegistrationClose.toISOString() | dateFormat : 'MMMM DD, YYYY' }}</span
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="form-group"
+          *ngIf="
+            (glampingCount | json) === ({} | json) &&
+            selectedEvent.type === 'TRAIL' &&
+            isCaptain &&
+            (teamTypes[teamInformation.type] === 'Standard' || teamTypes[teamInformation.type] === 'Ultra')
+          "
+        >
+          <label class="col-md-4 col-xs-5 control-label" for="" [hidden]="teamInformation.isGlampingPurchased === false && checkGlamping()"
+            >{{ 'common-data.glamping' | translate }} :</label
+          >
+          <div class="col-md-8 col-xs-7 user-values" *ngIf="teamInformation.isGlampingPurchased === false" [hidden]="checkGlamping()">
+            <label>0 / 0 {{ 'team-center.tabs.team-details.glamping-sites-available' | translate }}</label>
+
+            <div class="">
+              <button type="button" disabled class="orange-custom-btn custom-glamp-btn">
+                {{ 'team-center.tabs.team-details.glammpinCap' | translate }}
+              </button>
+              <span class="note"
+                >{{ 'team-center.tabs.team-details.last-day-pay-glamping' | translate }}
+                {{ glampingRegistrationClose.toISOString() | dateFormat : 'MMMM DD, YYYY' }}</span
+              >
+            </div>
+          </div>
+          <div *ngIf="teamInformation.isGlampingPurchased === true" class="col-md-8 col-xs-7 user-values">
+            <label>Purchased ({{ teamInformation.glampingPurchasedDate }})</label>
+          </div>
+        </div>
+        <div
+          class="form-group"
+          *ngIf="
+            teamInformation.isGlampingPurchased === true &&
+            selectedEvent.type === 'TRAIL' &&
+            !isCaptain &&
+            (teamTypes[teamInformation.type] === 'Standard' || teamTypes[teamInformation.type] === 'Ultra')
+          "
+        >
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'common-data.glamping' | translate }} :</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label *ngIf="teamInformation.isGlampingPurchased === true">Purchased ({{ teamInformation.glampingPurchasedDate }})</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-xs-12">
+        <div class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'team-center.tabs.team-details.team-pace' | translate }}</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label *ngIf="teamInformation.teamPace > 0"
+              >{{ teamInformation.teamPace | paceFilter }}/{{ 'common-data.mi' | translate }}</label
+            >
+            <label *ngIf="!teamInformation.teamPace"> {{ 'team-center.tabs.team-details.no-team-pace' | translate }}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'team-center.tabs.team-details.team-start-time' | translate }}</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label>{{ teamInformation.startTime !== null ? (teamInformation.startTime | timeFormat) : 'Awaiting StartTime' }}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'team-center.tabs.team-details.race-dates' | translate }}</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label> {{ [selectedEvent.startDate, selectedEvent.endDate] | dateRange }} </label>
+            <!-- August 21 - 22, 2018 -->
+          </div>
+        </div>
+        <div *ngIf="teamInformation.van1Phone" class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'team-center.tabs.check-in.van1-phone' | translate }}:</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label> {{ teamInformation.van1Phone }} </label>
+          </div>
+        </div>
+        <div *ngIf="teamInformation.van2Phone && selectedEvent.type === 'ROAD'" class="form-group">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'team-center.tabs.check-in.van2-phone' | translate }}:</label>
+          <div class="col-md-8 col-xs-7 user-values">
+            <label> {{ teamInformation.van2Phone }} </label>
+          </div>
+        </div>
+        <div class="form-group" [hidden]="!show.fees" *ngIf="!selectedEvent.name.toLowerCase().includes('porsche')">
+          <label class="col-md-4 col-xs-5 control-label" for="">{{ 'team-center.tabs.team-details.outstanding-fee' | translate }}</label>
+          <div class="col-md-8 col-xs-7 user-values" [hidden]="isAbleToPay()">
+            <label>{{ getLateFee() | currency }} {{ 'team-center.tabs.team-details.late-runner-fee' | translate }}</label>
+            <label class="d-block"> {{ volunteerFees | currency }} {{ 'team-center.tabs.team-details.volunteer-fee' | translate }}</label>
+            <!-- <label class="d-block" *ngIf="volunteerFees > 0" > {{ volunteerFees | currency}} volunteer opt out fee</label>
+                        <label class="d-block" *ngIf="volunteerFees === 0" > &nbsp; </label> -->
+            <button type="button" *ngIf="isCaptain" class="orange-custom-btn" disabled>
+              {{ 'team-center.tabs.team-details.pay-fees' | translate }}
+            </button>
+            <span class="note" *ngIf="isCaptain"
+              >{{ 'team-center.tabs.team-details.last-day-pay' | translate }}
+              {{ selectedEvent.teamFreezeDate | dateFormat : 'MMMM DD, YYYY' }}</span
+            >
+          </div>
+          <div class="col-md-8 col-xs-7 user-values" [hidden]="!isAbleToPay()">
+            <label>{{ getLateFee() | currency }} {{ 'team-center.tabs.team-details.late-runner-fee' | translate }}</label>
+            <label class="d-block"> {{ volunteerFees | currency }} {{ 'team-center.tabs.team-details.volunteer-fee' | translate }}</label>
+            <button type="button" *ngIf="isCaptain" (click)="openPayFeesModel('payment')" class="orange-custom-btn">
+              {{ 'team-center.tabs.team-details.pay-fees' | translate }}
+            </button>
+            <span class="note" *ngIf="isCaptain"
+              >{{ 'team-center.tabs.team-details.last-day-pay' | translate }}
+              {{ selectedEvent.teamFreezeDate | dateFormat : 'MMMM DD, YYYY' }}</span
+            >
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="team-center-ads-wrapper" *ngIf="isActive">
+  <h2 class="title">{{ 'team-center.tabs.team-details.experience' | translate }}</h2>
+  <h3 class="sub-title">{{ 'team-center.tabs.team-details.running-tough' | translate }}</h3>
+  <div class="team-center-ads">
+    <div class="ads">
+      <div class="ads-inner">
+        <img class="img-responsive" src="assets/images/team-center/ads/running-essentials-new.jpg" />
+        <div class="ads-desc">
+          <div class="ads-main-title">{{ 'team-center.tabs.team-details.essential' | translate }}</div>
+          <p class="ads-text">
+            {{ 'team-center.tabs.team-details.safety-gear' | translate }}
+          </p>
+          <div class="text-center">
+            <a href="https://www.ragnargear.com/race-essentials/" target="_blank" class="btn btn-sherpa-blue">{{
+              'team-center.tabs.team-details.shop' | translate
+            }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="get-glamp"
+      *ngIf="
+        teamInformation.isGlampingPurchased === false &&
+        ((glampingCount | json) !== ({} | json) || glampingRegistrationClose < curruntDate) &&
+        selectedEvent.type === 'TRAIL' &&
+        (teamTypes[teamInformation.type] === 'Standard' || teamTypes[teamInformation.type] === 'Ultra')
+      "
+    >
+      <div class="get-glamp-inner">
+        <!-- <img class="img-responsive" src="images/team-center/ads/glamping.jpg"/> -->
+        <div class="glamp-graphic-wrapper">
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe
+              width="1275"
+              height="619"
+              src="https://player.vimeo.com/video/317083939?autoplay=0&muted=1"
+              class="embed-responsive-item"
+              frameborder="0"
+              webkitallowfullscreen
+              mozallowfullscreen
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="glamp-content-wrapper">
+          <div class="glamp-content">
+            <div class="top-head">{{ 'team-center.tabs.team-details.included' | translate }}</div>
+            <div class="glamp-list">
+              <div class="glamp-list-left">
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line1' | translate }}</div>
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line2' | translate }}</div>
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line3' | translate }}</div>
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line4' | translate }}</div>
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line5' | translate }}</div>
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line6' | translate }}</div>
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line7' | translate }}</div>
+              </div>
+              <div class="glamp-list-right">
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line8' | translate }}</div>
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line9' | translate }}</div>
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line10' | translate }}</div>
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line11' | translate }}</div>
+                <div class="glamp-list-item">{{ 'common-data.whats-included-line12' | translate }}</div>
+              </div>
+            </div>
+            <div class="text-center">
+              <a routerLink="/{{ headerRoutes.ragnarTrailGlamping }}" class="btn btn-sherpa-blue">{{
+                'team-center.tabs.team-details.details' | translate
+              }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="ads">
+      <div class="ads-inner">
+        <img class="img-responsive" src="assets/images/team-center/ads/custom-gears-new.jpg" />
+        <div class="ads-desc">
+          <div class="ads-main-title">{{ 'team-center.tabs.team-details.custom-gear' | translate }}</div>
+          <p class="ads-text">{{ 'team-center.tabs.team-details.cover-more-miles' | translate }}</p>
+          <div class="text-center">
+            <a href="https://www.customink.com/ink/partners/ragnar-relay" target="_blank" class="btn btn-sherpa-blue">{{
+              'team-center.tabs.team-details.customize' | translate
+            }}</a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <!-- <div class="ads">
+      <div class="ads-inner">
+        <img class="img-responsive" src="assets/images/team-center/ads/covid-19_thumb.png" />
+        <div class="ads-desc">
+          <div class="ads-main-title">{{ 'team-center.tabs.team-details.covid-19-protocols' | translate }}</div>
+          <p class="ads-text">{{ 'team-center.tabs.team-details.how-we-will-race-2021' | translate }}</p>
+          <div class="text-center">
+            <a href="https://run.ragnarrelay.com/covid_general/" target="_blank" class="btn btn-sherpa-blue">{{
+              'team-center.tabs.team-details.learn-more' | translate
+            }}</a>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>

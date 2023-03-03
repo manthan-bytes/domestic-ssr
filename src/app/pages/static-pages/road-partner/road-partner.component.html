@@ -1,0 +1,285 @@
+<div class="road_partner_main">
+  <section class="road_partner_main_inner">
+    <div class="container">
+      <div class="road_partner text-center">
+        <h1 class="text-uppercase">{{ 'static-pages.road-partners.title' | translate }}</h1>
+        <img class="img-fluid" src="assets/images/static-pages/road-partner/road.png" alt="" />
+      </div>
+
+      <div class="sponsorship_partnership text-center">
+        <h2 class="mb-0">{{ 'common-data.sponsorship' | translate }}</h2>
+        <span>{{ 'common-data.opportunities' | translate }}</span>
+        <p class="text-left">
+          {{ 'static-pages.road-partners.about-ragnar-relay' | translate }}
+        </p>
+
+        <div class="row sponsorship_partnership-row text-left">
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <p>
+              {{ 'static-pages.road-partners.ragnar-road-partnerships' | translate }}
+            </p>
+            <ul>
+              <li>{{ 'common-data.engagement-points' | translate }}</li>
+              <li>{{ 'static-pages.road-partners.on-route-branding' | translate }}</li>
+              <li>{{ 'common-data.product-usage' | translate }}</li>
+              <li>{{ 'common-data.entitlement-elements' | translate }}</li>
+              <li>{{ 'common-data.marketing-efforts' | translate }}</li>
+              <li>{{ 'common-data.custom-retail' | translate }}</li>
+            </ul>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+            <p>{{ 'common-data.hitch-your-brand' | translate }}</p>
+            <ul>
+              <li>
+                {{ 'common-data.meticulous-event' | translate }}
+              </li>
+              <li>
+                {{ 'static-pages.road-partners.ragnar-note' | translate }}
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- <div class="contactform_row">
+          <p>{{ 'common-data.sign-up' | translate }}</p>
+          <form #contatcForm="ngForm" class="" (ngSubmit)="contatcForm.form.valid && supportPartnerFormData()">
+            <div class="form-group row" [ngClass]="{ error_input: contatcForm.submitted && firstName.errors?.required }">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 form-group-col">
+                <label for="fname">{{ 'common-data.first-name' | translate }}</label>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 form-group-col">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="fname"
+                  [(ngModel)]="roadPartnersData.first_name"
+                  name="first_name"
+                  #firstName="ngModel"
+                  required
+                />
+                <ng-container *ngIf="contatcForm.submitted">
+                  <span class="error_msg" *ngIf="firstName.errors?.required">
+                    {{ 'common-data.first-name-valid' | translate }}
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+            <div class="form-group row" [ngClass]="{ error_input: contatcForm.submitted && lastName.errors?.required }">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 form-group-col">
+                <label for="lname">{{ 'common-data.last-name' | translate }}</label>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 form-group-col">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lname"
+                  [(ngModel)]="roadPartnersData.last_name"
+                  name="last_name"
+                  #lastName="ngModel"
+                  maxlength="80"
+                  size="20"
+                  required
+                />
+                <ng-container *ngIf="contatcForm.submitted">
+                  <span class="error_msg" *ngIf="lastName.errors?.required">
+                    {{ 'common-data.last-name-valid' | translate }}
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+            <div class="form-group row" [ngClass]="{ error_input: contatcForm.submitted && companyName.errors?.required }">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 form-group-col">
+                <label for="Cname">{{ 'common-data.company-name' | translate }}</label>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 form-group-col">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="Cname"
+                  [(ngModel)]="roadPartnersData.company_name"
+                  name="company_name"
+                  #companyName="ngModel"
+                  maxlength="80"
+                  size="20"
+                  required
+                />
+                <ng-container *ngIf="contatcForm.submitted">
+                  <span class="error_msg" *ngIf="companyName.errors?.required">
+                    {{ 'common-data.company-name-valid' | translate }}
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+            <div class="form-group row" [ngClass]="{ error_input: contatcForm.submitted && email.errors?.required }">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 form-group-col">
+                <label for="Email">{{ 'common-data.email-road' | translate }}</label>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 form-group-col">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="Email"
+                  [(ngModel)]="roadPartnersData.email"
+                  name="email"
+                  #email="ngModel"
+                  maxlength="80"
+                  size="20"
+                  required
+                />
+                <ng-container *ngIf="contatcForm.submitted">
+                  <span class="error_msg" *ngIf="email.errors?.required">
+                    {{ 'common-data.valid-email' | translate }}
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+            <div class="form-group row" [ngClass]="{ error_input: contatcForm.submitted && phone.errors?.required }">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 form-group-col">
+                <label for="Tel">{{ 'common-data.phone-ragnar' | translate }}</label>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 form-group-col">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="Tel"
+                  [(ngModel)]="roadPartnersData.phone"
+                  name="phone"
+                  #phone="ngModel"
+                  maxlength="12"
+                  size="20"
+                  required
+                />
+                <ng-container *ngIf="contatcForm.submitted">
+                  <span class="error_msg" *ngIf="phone.errors?.required">
+                    {{ 'common-data.phone-valid' | translate }}
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="form-group row" [ngClass]="{ error_input: contatcForm.submitted && opportunity.errors?.required }">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 form-group-col">
+                <label for="opp">{{ 'common-data.partnership-opportunities' | translate }}</label>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 form-group-col">
+                <select
+                  class="form-control"
+                  [(ngModel)]="roadPartnersData.opportunity"
+                  id="opportunity"
+                  name="opportunity"
+                  #opportunity="ngModel"
+                  required
+                >
+                  <option value="null" selected disabled hidden>{{ 'common-data.none' | translate }}</option>
+                  <option value="Local">{{ 'common-data.local' | translate }}</option>
+                  <option value="National">{{ 'common-data.national' | translate }}</option>
+                </select>
+                <ng-container *ngIf="contatcForm.submitted">
+                  <span class="error_msg" *ngIf="opportunity.errors?.required">
+                    {{ 'common-data.opportunity-valid' | translate }}
+                  </span>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 form-group-col">
+                <label></label>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 form-group-col">
+                <div #recaptcha></div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 form-group-col"></div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 form-group-col">
+                <button type="submit" class="btn btn-primary">{{ 'common-data.contact-me' | translate }}</button>
+              </div>
+            </div>
+          </form>
+        </div> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="reebok_logo_inner text-center">
+    <div class="container">
+      <div class="reebok_logo">
+        <a href="">
+          <img src="assets/images/static-pages/road-partner/reebok-logo-big.png" alt="" />
+        </a>
+      </div>
+      <p class="text-left">
+        {{ 'static-pages.road-partners.about-reebok1' | translate }}
+      </p>
+      <p class="text-left">
+        {{ 'static-pages.road-partners.about-reebok2' | translate }}
+      </p>
+      <p class="text-left">
+        {{ 'static-pages.road-partners.about-reebok3' | translate }}
+      </p>
+    </div>
+  </section> -->
+
+  <section class="road_partner_main_inner">
+    <div class="official_partners text-center">
+      <h3>{{ 'common-data.official-partners' | translate }}</h3>
+      <div class="official_partners-inner">
+        <div class="container official_partners-inner">
+          <div class="partner-logo" *ngFor="let partner of roadPartners | roadPartner : true : true">
+            <div class="partner-info" *ngIf="partner.showOfficialPopup">
+              <div class="partner-info-content">
+                <button type="button" class="close" (click)="partner.showOfficialPopup = !partner.showOfficialPopup" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <a href="{{ partner.url }}" target="_blank">
+                  <img class="center-block img-responsive" src="{{ partner.logo }}" alt="" />
+                </a>
+                <h3 class="text-orange font-light">{{ partner.name }}</h3>
+                <br />
+                <div class="font-light tiny-text" [innerHTML]="partner.description"></div>
+                <br />
+              </div>
+            </div>
+            <div class="partner-logo-img">
+              <a role="button" (click)="hidePopups(); partner.showOfficialPopup = !partner.showOfficialPopup">
+                <img class="img-responsive center-block" src="{{ partner.logo_black }}" alt="" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- <section class="partners_supporting">
+    <div class="col-12 text-center">
+      <h3>{{ 'common-data.supporting-partners' | translate }}</h3>
+      <div class="supporting_partners-inner">
+        <div class="container supporting_partners-inner">
+          <div class="partner-logo" *ngFor="let partner of roadPartners | roadPartner: true:false">
+            <div class="partner-logo-img">
+              <a role="button" (click)="hidePopups(); partner.showSupportingPopup = !partner.showSupportingPopup">
+                <img class="img-responsive center-block" src="{{ partner.logo_black }}" alt="" />
+              </a>
+            </div>
+            <div class="partner-info" *ngIf="partner.showSupportingPopup">
+              <div class="partner-info-content">
+                <button type="button" class="close" (click)="partner.showSupportingPopup = !partner.showSupportingPopup" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <a href="{{ partner.url }}" style="padding: 30px" target="_blank">
+                  <img class="center-block img-responsive" src="{{ partner.logo }}" alt="" />
+                  <h3 class="text-orange font-light">{{ partner.name }}</h3>
+                </a>
+                <br />
+                <div class="font-light tiny-text" [innerHTML]="partner.description"></div>
+                <br />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> -->
+</div>

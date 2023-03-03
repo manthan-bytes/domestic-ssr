@@ -1,0 +1,121 @@
+<section class="hero-banner">
+  <div class="tab-content">
+    <div id="slide1" class="tab-pane fade in active">
+      <img
+        [hidden]="activeImage !== index"
+        *ngFor="let image of imagesThumb; let index = index"
+        src="{{ image.imageBanner }}"
+        class="img-fluid"
+        [ngClass]="activeImage === index ? 'image-effect ' : ''"
+        alt="reason-to-ragnar"
+      />
+      <div class="container">
+        <div class="caption-box" [ngClass]="captionEffect ? 'caption-effect' : ''">
+          <h3 class="caption-title" [innerHTML]="title"></h3>
+          <div class="caption-desc" [innerHTML]="description"></div>
+          <div class="caption-btn-container">
+            <a class="btn btn-orange" *ngIf="buttonOneTitle" href="{{ buttonOneLink }}" target="{{ isSelfTarget ? isSelfTarget : '' }}">{{
+              buttonOneTitle
+            }}</a>
+            <span *ngIf="title === 'Commit Now. Pay Later.'"><img src="assets/images/affirm/affirm-white-logo-2.png" /></span>
+            <a class="btn btn-black" *ngIf="buttonTwoTitle" href="{{ buttonTwoLink }}" target="{{ isSelfTarget ? isSelfTarget : '' }}">{{
+              buttonTwoTitle
+            }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nav custom-navtab">
+    <div class="desktop-nav-tab mobile-nav-custom-tab-wrapper d-sm-none d-md-block d-lg-block d-none">
+      <div class="mobile-nav-custom-tab clearfix slick-variable">
+        <div *ngFor="let image of imagesThumb; let $index = index">
+          <div class="mobile-nav-custom-tab-item" [ngClass]="isThumbSelected === image.id ? 'active' : ''">
+            <a data-toggle="tab">
+              <div class="custom-tab-img" (click)="imageChange($index, image.thumbTitle)">
+                <img class="img-fluid" src="{{ image.imageThumb }}" />
+                <div class="custom-tab-name">
+                  {{ image.thumbTitle }}
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-block d-sm-block d-lg-none d-md-none">
+    <div class="mobile-nav-custom-tab-wrapper">
+      <div class="nav-custom-tab-title">{{ 'static-pages.home.news' | translate }} &amp; {{ 'static-pages.home.updates' | translate }}</div>
+      <div class="mobile-nav-custom-tab clearfix slick-variable slick-variable-mobile">
+        <div *ngFor="let image of imagesThumb; let index = index">
+          <div class="mobile-nav-custom-tab-item" [ngClass]="isThumbSelected === image.id ? 'active' : ''">
+            <a data-toggle="tab" (click)="imageChange(index, image.thumbTitle)">
+              <div class="custom-tab-img">
+                <img class="img-fluid" src="{{ image.imageThumbMobile }}" />
+                <div class="custom-tab-name">
+                  {{ image.thumbTitle }}
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- <section class="corona-info-cover">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-xs-12 col-md-12">
+        <div class="corona-btn-wrap">
+          <h2>{{ 'static-pages.home.latest-info' | translate }}</h2>
+          <a
+            class="btn-corona"
+            href="https://ragnarrelay.zendesk.com/hc/en-us/articles/360040441612-COVID-19-Coronavirus-Will-it-impact-my-event-"
+            target="_blank"
+            >{{ 'static-pages.home.more-info' | translate }}</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+<!-- <section class="insta-shots">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-xs-12 col-md-12">
+        <div class="insta-titles">
+          <div class="insta-icon">
+            <img
+              src="assets/images/home/insta-shots-icon.png"
+              class="img-fluid d-xl-block d-lg-block d-md-none d-sm-none d-none"
+              alt="insta-shots-icon"
+            />
+            <img
+              src="assets/images/home/insta-shots-icon-xs.png"
+              class="img-fluid d-xl-none d-lg-none d-md-block d-sm-block d-block"
+              alt="insta-shots-icon"
+            />
+          </div>
+          <div class="insta-text">
+            <h2>{{ 'static-pages.home.ragnarians-shots' | translate }}</h2>
+            <p>{{ 'static-pages.home.join-tribe' | translate }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+<!-- <div class="insta-ragnarians">
+    <ul class="juicer-feed" data-feed-id="ragnar-home-page"></ul> -->
+<!-- <iframe
+      src="https://www.juicer.io/api/feeds/ragnar-home-page/iframe"
+      frameborder="0"
+      width="100%"
+      height="1000"
+      style="display: block; margin: 0 auto"
+    ></iframe> -->
+<!-- </div> -->
+<!-- </section> -->

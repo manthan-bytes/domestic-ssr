@@ -11,11 +11,11 @@ export class MapBoxService {
   // private filteredData = [];
   // private cachedFilteredData = [];
   // private isDateProcessedOnce = false;
-  constructor() {}
+  constructor(private MobileDetectionService: MobileDetectionService) {}
 
   getMapBoxConfig(maps: Map, event?: EventData, key?: string, center?: { latitude: number; longitude: number }) {
     const config = { center: { latitude: 38, longitude: -98 }, zoom: 3 };
-    let zoom = MobileDetectionService.isAnyMobile() ? 8 : 9;
+    let zoom = this.MobileDetectionService.isAnyMobile() ? 8 : 9;
     let configs = {};
     if (key) {
       zoom = event.type === 'trail' || event.type === 'sunset' || event.type === 'trail_sprint' ? 14 : zoom;

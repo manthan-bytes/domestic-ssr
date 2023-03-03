@@ -1,0 +1,224 @@
+<div class="glamping_main">
+  <section class="glamping-banner">
+    <div class="banner-captionbox text-center mx-auto">
+      <img class="img-fluid d-block" src="assets/images/static-pages/glamping/glamping-logo.png" alt="" />
+      <button class="rg_tmbtn btn_orange scroll-1">{{ 'static-pages.glamping.title' | translate }}</button>
+    </div>
+  </section>
+  <section class="content-section treat-self">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <h2>{{ 'static-pages.glamping.treat-self' | translate }}</h2>
+          <p>
+            {{ 'static-pages.glamping.about-treat-self' | translate }}
+          </p>
+          <h3>
+            {{ 'static-pages.glamping.why' | translate }} <i>{{ 'static-pages.glamping.camp' | translate }}</i>
+            {{ 'static-pages.glamping.when-you-can' | translate }} <i>{{ 'static-pages.glamping.glamp' | translate }}</i
+            >?
+          </h3>
+          <p>
+            {{ 'static-pages.glamping.about-glamp' | translate }}
+          </p>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+          <div class="video-wrapper">
+            <iframe width="674px" height="383px" src="https://player.vimeo.com/video/317083939?"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="whats-included">
+    <div class="whats-included-box d-block text-center mx-auto">
+      <div class="whats-included-inner d-inline-flex w-100">
+        <div class="whats-box whats-first-box justify-content-between">
+          <div class="whats-icon"><img class="img-fluid" src="assets/images/static-pages/glamping/tent.png" /></div>
+          <div class="whats-icon"><img class="img-fluid" src="assets/images/static-pages/glamping/charge.png" /></div>
+          <div class="whats-icon"><img class="img-fluid" src="assets/images/static-pages/glamping/man.png" /></div>
+        </div>
+        <div class="whats-box whats-second-box d-flex justify-content-around">
+          <h3 class="text-center text-uppercase">{{ 'static-pages.glamping.whats-included' | translate }}</h3>
+          <p>{{ 'common-data.whats-included-line1' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line2' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line3' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line4' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line5' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line6' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line7' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line8' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line9' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line10' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line11' | translate }}</p>
+          <p>{{ 'common-data.whats-included-line12' | translate }}</p>
+        </div>
+        <div class="whats-box whats-third-box d-flex justify-content-around">
+          <div class="whats-icon"><img class="img-fluid" src="assets/images/static-pages/glamping/burner.png" /></div>
+          <div class="whats-icon"><img class="img-fluid" src="assets/images/static-pages/glamping/tub.png" /></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="review text-center">
+    <div class="review-box mx-auto">
+      <p class="review-text">{{ 'static-pages.glamping.glamping-site' | translate }}</p>
+      <div class="review-by">{{ 'static-pages.glamping.about-glamping-site-author' | translate }}</div>
+    </div>
+  </section>
+  <section class="reserve-glamping text-center">
+    <div class="reserve-glamping-box">
+      <h2 class="reserve-glamping-title">{{ 'static-pages.glamping.reserve-glamping-site' | translate }}</h2>
+      <!-- div class="subhead">{{ 'static-pages.glamping.about-reserve-glamping-site' | translate }}</div -->
+      <div class="reserve-glamping-text">{{ 'static-pages.glamping.registered-team' | translate }}</div>
+      <div class="reserve-glamping-inner">
+        <div>
+          <div class="card glamping-card">
+            <div class="glamping-card-content">
+              <div class="card-title glamping-card-title">Choose your Ragnar Trail event...*</div>
+              <div class="card-body glamping-card-body">
+                <p *ngIf="isNotSelected" class="error-selected">{{ 'static-pages.glamping.error-select-event' | translate }}</p>
+                <ul class="checklist">
+                  <li
+                    *ngFor="let item of glampings"
+                    [ngClass]="{ 'list-item': true, is_sold: item.glampingCap - item.glampingCount === 0 }"
+                  >
+                    <label for="{{ item.id }}" class="checkbox" tabindex="0">
+                      <input
+                        type="checkbox"
+                        id="{{ item.id }}"
+                        [checked]="glampingId === item.id"
+                        [value]="item.id"
+                        (change)="toggleEditable($event)"
+                        [attr.id]="item.id"
+                        value="{{ item.id }}"
+                        data-edit="false"
+                        class="item"
+                      />
+                      <span>{{ item.name }}</span>
+                    </label>
+                    <div class="d-set-flex">
+                      <span class="items-left" *ngIf="item.glampingCap - item.glampingCount !== 0"
+                        >{{ item.glampingCap - item.glampingCount }}&nbsp;sites</span
+                      >
+
+                      <a
+                        class="items-left margin-right"
+                        *ngIf="item.glampingCap - item.glampingCount === 0"
+                        href="https://form.jotform.com/193455006235151"
+                        target="_blank"
+                        >Join Wishlist</a
+                      >
+                      <span class="items-left" *ngIf="item.glampingCap - item.glampingCount === 0">Sold Out</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="card-footer glamping-card-footer">
+              <button type="button" class="btn btn-orange glamping-card-btn" (click)="saveGlampingCap()">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="glamping-not-available">
+        <strong
+          >{{ 'static-pages.glamping.glamping-not-available' | translate }}
+          <a href="https://form.jotform.com/193455006235151" target="_blank">{{ 'static-pages.glamping.join-the-waitlist' | translate }}</a>
+        </strong>
+      </div>
+    </div>
+  </section>
+  <section class="review text-center">
+    <div class="review-box mx-auto">
+      <p class="review-text">
+        {{ 'static-pages.glamping.glamping-was-amazing' | translate }}
+      </p>
+      <div class="review-by">{{ 'static-pages.glamping.northwoods-glamper' | translate }}</div>
+    </div>
+  </section>
+  <section class="faq">
+    <div class="container">
+      <div class="faq-inner">
+        <h3 class="text-uppercase">{{ 'static-pages.glamping.questions' | translate }}</h3>
+        <div class="row">
+          <div class="faq-box col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="faq-question">{{ 'static-pages.glamping.questions1' | translate }}</div>
+            <div class="faq-ans">
+              {{ 'static-pages.glamping.answer1' | translate }}
+            </div>
+          </div>
+          <div class="faq-box col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="faq-question">{{ 'static-pages.glamping.question2' | translate }}</div>
+            <div class="faq-ans">
+              {{ 'static-pages.glamping.answer2' | translate }}
+            </div>
+          </div>
+          <div class="faq-box col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="faq-question">{{ 'static-pages.glamping.question3' | translate }}</div>
+            <div class="faq-ans">
+              {{ 'static-pages.glamping.answer3' | translate }}
+            </div>
+          </div>
+          <div class="faq-box col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="faq-question">{{ 'static-pages.glamping.question4' | translate }}</div>
+            <div class="faq-ans">
+              {{ 'static-pages.glamping.answer4' | translate }}
+            </div>
+          </div>
+          <div class="faq-box col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="faq-question">{{ 'static-pages.glamping.question5' | translate }}</div>
+            <div class="faq-ans">
+              {{ 'static-pages.glamping.answer5' | translate }}
+            </div>
+          </div>
+          <div class="faq-box col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="faq-question">{{ 'static-pages.glamping.question6' | translate }}</div>
+            <div class="faq-ans">{{ 'static-pages.glamping.answer6' | translate }}</div>
+          </div>
+          <div class="faq-box col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="faq-question">{{ 'static-pages.glamping.question7' | translate }}</div>
+            <div class="faq-ans">
+              {{ 'static-pages.glamping.answer7' | translate }}
+            </div>
+          </div>
+          <div class="faq-box col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <div class="faq-question">{{ 'static-pages.glamping.question8' | translate }}</div>
+            <div class="faq-ans">
+              {{ 'static-pages.glamping.answer8' | translate }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- <section class="insta-shots">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12 col-md-12">
+          <div class="insta-titles">
+            <div class="insta-icon">
+              <img
+                src="assets/images/static-pages/glamping/insta-shots-icon.png"
+                class="img-thumbnail d-block d-sm-none d-lg-block d-md-none"
+                alt="insta-shots-icon"
+              />
+              <img
+                src="assets/images/static-pages/glamping/insta-shots-icon-xs.png"
+                class="img-thumbnail d-none d-sm-block d-lg-none d-md-block"
+                alt="insta-shots-icon"
+              />
+            </div>
+            <div class="insta-text">
+              <h2 class="text-left">{{ 'static-pages.glamping.shots-from-our-ragnarians' | translate }}</h2>
+              <p class="text-left">{{ 'static-pages.glamping.join-the-tribe' | translate }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="insta-ragnarians">
+    <ul class="juicer-feed" data-feed-id="ragnar-home-page"></ul>
+  </div> -->
+</div>

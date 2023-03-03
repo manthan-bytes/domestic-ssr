@@ -1,0 +1,70 @@
+<div class="login_page">
+  <div class="login_cover">
+    <h2>{{ 'common-data.login' | translate }}</h2>
+    <p>
+      {{ 'auth.login.doesnt-existing-account' | translate }}
+      <a routerLink="/{{ authRoutes.main }}/{{ authRoutes.createAccount }}" routerLinkActive="router-link-active">{{
+        'common-data.create-account' | translate
+      }}</a>
+      {{ 'common-data.now' | translate }}
+    </p>
+    <form #loginForm="ngForm" name="loginForm" aria-labelledby="title">
+      <div class="form-group" [ngClass]="{ error_input: loginForm.submitted && (email.errors?.required || email.errors?.pattern) }">
+        <label for="email">{{ 'common-data.email' | translate }}</label>
+        <input
+          class="form-control"
+          type="email"
+          name="email"
+          #email="ngModel"
+          id="email"
+          placeholder="email@domain.com"
+          pattern="[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"
+          [(ngModel)]="loginData.email"
+          required
+          (focus)="formElementEnter(loginForm)"
+          (blur)="formElementExit(loginForm)"
+          ngbAutofocus
+        />
+        <ng-container *ngIf="loginForm.submitted">
+          <span class="error_msg" *ngIf="email.errors?.required"> {{ 'common-data.email-required' | translate }} </span>
+          <span class="error_msg" *ngIf="email.errors?.pattern"> {{ 'common-data.valid-email' | translate }} </span>
+        </ng-container>
+      </div>
+
+      <div class="form-group" [ngClass]="{ error_input: loginForm.submitted && password.errors?.required }">
+        <label for="password">{{ 'common-data.password' | translate }}</label>
+        <input
+          class="form-control"
+          type="password"
+          id="input-password"
+          name="password"
+          placeholder="Password"
+          [(ngModel)]="loginData.password"
+          required
+          #password="ngModel"
+          (focus)="formElementEnter(loginForm)"
+          (blur)="formElementExit(loginForm)"
+        />
+        <ng-container *ngIf="loginForm.submitted">
+          <span class="error_msg" *ngIf="password.errors?.required"> {{ 'common-data.password-required' | translate }} </span>
+        </ng-container>
+      </div>
+
+      <div class="form-group" *ngIf="show.error">
+        <span class="error_msg">{{ show.error }}</span>
+      </div>
+      <a routerLink="/{{ authRoutes.main }}/{{ authRoutes.forgotPassword }}" routerLinkActive="router-link-active"
+        ><i>{{ 'auth.login.forgot-password' | translate }}</i></a
+      >
+      <button class="rg_btn" (click)="login(loginForm)" [disabled]="show.loginBtnText !== 'Login'">
+        <span
+          class="spinner-grow spinner-grow-sm text-dark"
+          role="status"
+          aria-hidden="true"
+          [hidden]="show.loginBtnText === 'Login'"
+        ></span>
+        {{ show.loginBtnText }}
+      </button>
+    </form>
+  </div>
+</div>

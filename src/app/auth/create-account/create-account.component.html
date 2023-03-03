@@ -1,0 +1,139 @@
+<div class="create-account">
+  <div class="account_cover">
+    <h2>{{ 'common-data.create-account' | translate }}</h2>
+    <p>
+      {{ 'auth.create-account.existing-account' | translate }}
+      <a routerLink="/{{ authRoutes.main }}/{{ authRoutes.login }}">{{ 'auth.create-account.sign-in' | translate }}</a>
+      {{ 'common-data.now' | translate }}
+    </p>
+    <form #createAccountForm="ngForm" aria-labelledby="title">
+      <div class="row">
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          <div
+            class="form-group"
+            [ngClass]="{ error_input: firstName.touched && (firstName.errors?.required || firstName.errors?.pattern) }"
+          >
+            <label for="firstName">{{ 'auth.create-account.first-name' | translate }}</label>
+            <input
+              class="form-control"
+              type="text"
+              name="firstName"
+              #firstName="ngModel"
+              id="firstName"
+              placeholder="First Name"
+              [(ngModel)]="createAccountData.firstName"
+              (focus)="formElementEnter(createAccountForm)"
+              (blur)="formElementExit(createAccountForm)"
+              pattern="^[-@.\/#&+\w]*$"
+              required
+              ngbAutofocus
+            />
+            <ng-container *ngIf="firstName.touched">
+              <span class="error_msg" *ngIf="firstName.errors?.required"> {{ 'common-data.first-name-valid' | translate }} </span>
+              <span class="error_msg" *ngIf="firstName.errors?.pattern">{{ 'auth.create-account.valid-firstname' | translate }}</span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12 col-xs-12">
+          <div class="form-group" [ngClass]="{ error_input: lastName.touched && (lastName.errors?.required || lastName.errors?.pattern) }">
+            <label for="lastName">{{ 'auth.create-account.last-name' | translate }}</label>
+            <input
+              class="form-control"
+              type="text"
+              name="lastName"
+              #lastName="ngModel"
+              id="lastName"
+              placeholder="Last Name"
+              [(ngModel)]="createAccountData.lastName"
+              (focus)="formElementEnter(createAccountForm)"
+              (blur)="formElementExit(createAccountForm)"
+              pattern="[a-zA-Z]+(?:(?:\. |[' ])[a-zA-Z]+)*"
+              required
+            />
+            <ng-container *ngIf="lastName.touched">
+              <span class="error_msg" *ngIf="lastName.errors?.required"> {{ 'common-data.last-name-valid' | translate }} </span>
+              <span class="error_msg" *ngIf="lastName.errors?.pattern">{{ 'auth.create-account.valid-lastname' | translate }}</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div
+        class="form-group"
+        [ngClass]="{ error_input: (birthDate.touched && birthDate.errors?.required) || show.dobError || show.dobFutureYearErr }"
+      >
+        <label for="birthDate">{{ 'common-data.birthdate' | translate }}</label>
+        <input
+          class="form-control"
+          type="text"
+          name="birthDate"
+          #birthDate="ngModel"
+          id="birthDate"
+          maxlength="10"
+          placeholder="MM/DD/YYYY"
+          [(ngModel)]="createAccountData.dateOfBirth"
+          (focus)="formElementEnter(createAccountForm)"
+          (blur)="formElementExit(createAccountForm)"
+          (ngModelChange)="validationCheck('dob', createAccountData.dateOfBirth)"
+          appBirthdate
+          required
+        />
+        <ng-container *ngIf="birthDate.touched || show.dobError || show.dobFutureYearErr">
+          <span class="error_msg" *ngIf="birthDate.errors?.required"> {{ 'common-data.birthDate-required' | translate }} </span>
+          <span class="error_msg" *ngIf="!birthDate.errors?.required && show.dobError">
+            {{ 'common-data.birthdate-format' | translate }}
+          </span>
+          <span class="error_msg" *ngIf="!birthDate.errors?.required && show.dobFutureYearErr">
+            {{ 'common-data.birthdate-future-date' | translate }}
+          </span>
+        </ng-container>
+      </div>
+      <div class="form-group" [ngClass]="{ error_input: email.touched && (email.errors?.required || email.errors?.pattern) }">
+        <label for="email">{{ 'common-data.email' | translate }}</label>
+        <input
+          class="form-control"
+          type="email"
+          name="email"
+          #email="ngModel"
+          id="email"
+          placeholder="email@domain.com"
+          pattern="[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?"
+          [(ngModel)]="createAccountData.email"
+          (focus)="formElementEnter(createAccountForm)"
+          (blur)="formElementExit(createAccountForm)"
+          required
+          ngbAutofocus
+        />
+        <ng-container *ngIf="email.touched">
+          <span class="error_msg" *ngIf="email.errors?.required"> {{ 'common-data.email-required' | translate }} </span>
+          <span class="error_msg" *ngIf="email.errors?.pattern"> {{ 'common-data.valid-email' | translate }} </span>
+        </ng-container>
+      </div>
+      <div class="form-group" [ngClass]="{ error_input: password.touched && password.errors?.required }">
+        <label for="password">{{ 'common-data.password' | translate }}</label>
+        <input
+          class="form-control"
+          type="password"
+          id="input-password"
+          name="password"
+          placeholder="Password"
+          [(ngModel)]="createAccountData.password"
+          (focus)="formElementEnter(createAccountForm)"
+          (blur)="formElementExit(createAccountForm)"
+          required
+          #password="ngModel"
+        />
+        <ng-container *ngIf="password.touched">
+          <span class="error_msg" *ngIf="password.errors?.required"> {{ 'common-data.password-required' | translate }} </span>
+        </ng-container>
+      </div>
+
+      <div class="form-group" *ngIf="show.error">
+        <span>{{ show.error }}</span>
+      </div>
+      <button class="rg_btn" (click)="createAccount(createAccountForm)" [disabled]="show.createAccountLoading">
+        <span class="spinner-grow spinner-grow-sm text-light" role="status" aria-hidden="true" [hidden]="!show.createAccountLoading"></span>
+        {{ show.createAccountLoading ? 'Creating...' : 'Create an Account' }}
+      </button>
+    </form>
+  </div>
+</div>

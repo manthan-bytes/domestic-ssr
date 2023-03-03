@@ -1,0 +1,301 @@
+@import 'vars';
+
+.trainig_road_main {
+  overflow-x: hidden;
+  #tr-banner {
+    background: url(/assets/images/static-pages/training-road/tr-banner-bg.jpg) 80% no-repeat;
+    background-size: cover;
+    height: 350px;
+    @include flexbox();
+    @include align-items(center);
+    img {
+      width: 500px;
+      max-width: 100%;
+    }
+  }
+  h1 {
+    font-family: $font_family_barlow_Condensed;
+    @include font-weight(600);
+    font-size: 36px;
+  }
+  h2 {
+    font-family: $font_family_barlow_Condensed;
+    @include font-weight(600);
+    font-size: 30px;
+    color: $black3;
+    margin-bottom: 0;
+  }
+  h3 {
+    font-family: $font_family_barlow_Condensed;
+    @include font-weight(600);
+    font-size: $font_size_large;
+    color: $black3;
+  }
+  h4 {
+    font-size: 18px;
+    @include font-weight(400);
+    color: $black3;
+    font-family: $font_family_barlow_Condensed;
+    @include font-weight(600);
+    line-height: 19px;
+    @media (max-width: $screen-xs-min) {
+      font-size: 14px;
+    }
+  }
+  p {
+    @include font-weight(400);
+    color: $black3;
+    line-height: 20px;
+  }
+  .btn-custom-nobg {
+    border: 2px solid #f4792f;
+    padding: 7px 14px;
+    color: #f4792f;
+    font-size: 12px;
+    @include font-weight(700);
+    &:hover {
+      background: #f4792f;
+      color: #fff;
+      text-decoration: none;
+    }
+  }
+  #corporate-content {
+    .container {
+      max-width: 1170px;
+      @media only screen and (min-width: 1600px) {
+        max-width: 1400px;
+      }
+    }
+    .row.tip-row {
+      @media (max-width: $screen-xs-max) {
+        margin-left: 15px;
+        margin-right: 15px;
+      }
+    }
+    .tip-col {
+      border-right: 2px solid #f4792f;
+      border-bottom: none;
+      text-align: right;
+      height: 245px;
+      margin-bottom: 0;
+      @media (max-width: $screen-xs-max) {
+        height: auto;
+      }
+      h1 {
+        @media (max-width: $screen-xs-max) {
+          text-align: left;
+          margin-bottom: 25px;
+        }
+        @media (max-width: $screen-xs-min) {
+          font-size: 30px;
+          line-height: 31px;
+        }
+      }
+      @media (max-width: $screen-xs-max) {
+        flex: 0 0 100%;
+        max-width: 100%;
+        border-bottom: 2px solid #f4792f;
+        border-right: none;
+      }
+      .text-white {
+        color: $white;
+        margin-top: 20px;
+        span.text-orange {
+          color: #f4792f;
+        }
+      }
+      h2 {
+        padding-top: 30px;
+        @media (max-width: $screen-xs-max) {
+          text-align: left;
+          margin-bottom: 18px;
+        }
+        @media (max-width: $screen-xs-min) {
+          font-size: $font_size_large;
+          line-height: 26px;
+        }
+
+        span {
+          color: #f4792f;
+        }
+      }
+    }
+    .tip-content {
+      padding: 45px 15px 0 30px;
+      @media (max-width: $screen-xs-max) {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+      }
+      img {
+        margin-top: -15px;
+        width: 500px;
+        max-width: 100%;
+      }
+      h4 {
+        color: $white;
+        margin: 10px 0px;
+        line-height: 19px;
+        @include font-weight(400);
+        font-family: $font_family_barlow;
+        @media (max-width: $screen-xs-min) {
+          font-size: 14px;
+          line-height: 18px;
+        }
+      }
+      p {
+        margin-bottom: 10px;
+        color: #727272;
+        line-height: 20px;
+      }
+    }
+    .corporate-bg-gray {
+      background-color: #edeff4;
+      color: #727272;
+    }
+    .corporate-bg-gray-mnu {
+      background-color: #5d5d5d;
+      .tip-row.first {
+        padding-top: 15px;
+        @media (max-width: $screen-xs-max) {
+          padding-bottom: 0px;
+          margin-left: 15px;
+          padding-top: 30px;
+          margin-right: 15px;
+        }
+      }
+    }
+    .train_for_your_next {
+      padding-bottom: 10px;
+      .row {
+        @media (max-width: $screen-xs-max) {
+          padding-left: 30px;
+          padding-right: 30px;
+        }
+      }
+      &.so_how_works {
+        padding-bottom: 0;
+      }
+      p {
+        &:nth-of-type(1) {
+          margin-bottom: 10px;
+        }
+      }
+      @media (max-width: $screen-xs-min) {
+        h2 {
+          font-size: $font_size_large;
+        }
+      }
+    }
+    .choose_ur_traing_plan {
+      padding: 50px 0px;
+      text-align: center;
+      margin-top: 20px;
+      h1 {
+        font-size: 60px;
+        color: $white;
+        @media (max-width: $screen-xs-max) {
+          font-size: 42px;
+        }
+      }
+    }
+    .programm_section {
+      overflow-x: hidden;
+      padding: 30px 0px;
+      .plan-row {
+        @media (max-width: $screen-xs-max) {
+          margin-left: 25px;
+          margin-right: 25px;
+        }
+      }
+      @media (max-width: $screen-xs-max) {
+        .col-sm-4 {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+      }
+      .plan-col {
+        border-right: 2px solid #f4792f;
+        border-bottom: none;
+        text-align: right;
+        margin-bottom: 0;
+        padding-right: 35px;
+        @media (max-width: $screen-xs-max) {
+          text-align: left;
+          border-bottom: 2px solid #f4792f;
+          border-right: 0;
+        }
+        h2 {
+          color: #f4792f;
+          @media (max-width: $screen-xs-min) {
+            font-size: $font_size_large;
+            line-height: 27px;
+          }
+        }
+      }
+      .plan-content {
+        padding-left: 30px;
+        padding-top: 10px;
+        @media (max-width: $screen-xs-max) {
+          padding-left: 15px;
+          padding-top: 40px;
+        }
+        p {
+          margin-bottom: 10px;
+        }
+      }
+    }
+    #tr-couch {
+      .tr-couch-col-1 {
+        padding: 30px 15px;
+      }
+      .row {
+        @media (max-width: $screen-md-max) {
+          margin-left: 0;
+          margin-right: 0;
+        }
+      }
+      .tr-couch-col-2 {
+        padding: 60px 15px 30px;
+        @media (max-width: $screen-xs-max) {
+          padding-top: 0;
+        }
+        h2 {
+          color: #f4792f;
+          @media (max-width: $screen-xs-min) {
+            font-size: $font_size_large;
+            line-height: 22px;
+          }
+        }
+      }
+      @media (max-width: $screen-xs-max) {
+        .col-sm-6 {
+          max-width: 100%;
+          flex: 0 0 100%;
+          padding-left: 30px;
+          padding-right: 30px;
+        }
+      }
+      img {
+        width: 400px;
+        max-width: 100%;
+        margin: 0 auto;
+        display: block;
+      }
+    }
+    .raganar_trainings {
+      padding: 20px 0px;
+      .container {
+        @media (max-width: $screen-md-max) {
+          max-width: 720px;
+        }
+      }
+      h3 {
+        color: #f4792f;
+      }
+    }
+  }
+}

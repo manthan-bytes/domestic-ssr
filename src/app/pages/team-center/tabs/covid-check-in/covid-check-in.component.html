@@ -1,0 +1,1163 @@
+<div class="tab-inner">
+  <div class="event-city-logo" id="event-logo">
+    <img src="{{ eventData.cmsEvent.files.logo }}" alt="{{ selectedEvent.name || 'Race Logo' }}" class="img-responsive center-block" />
+    <a (click)="redirectToTeamDetails()" class="modal-close-btn" *ngIf="activeCaptainTab === 5 || activeRunnerTab === 4">
+      <img class="img-responsive center-block" src="assets/images/team-center/modal-close-icon.png" alt="Close Icon" />
+    </a>
+  </div>
+  <div class="form-content">
+    <!-- Runner Section -->
+    <div class="team-detail-checkin-flow-wrap" *ngIf="runnerSection">
+      <div class="flow-point-desc">
+        <ul>
+          <li class="multi-step">
+            <span>safety</span>
+            <ul>
+              <li class="step-circle step1" [ngClass]="{ active: activeRunnerTab >= 1 }"></li>
+              <!-- <li class="step-circle step1-1" [ngClass]="{ active: activeRunnerTab >= 2 }"></li> -->
+            </ul>
+          </li>
+          <li class="step-circle step2" [ngClass]="{ active: activeRunnerTab >= 2 }"><span>Waiver</span></li>
+          <li class="step-circle step3" [ngClass]="{ active: activeRunnerTab >= 3 }">
+            <span>Complete</span>
+          </li>
+        </ul>
+        <div id="Progress-flow">
+          <div
+            id="progressbar-holder"
+            [ngClass]="
+              activeRunnerTab === 1 ? 'step1-dot' : activeRunnerTab === 2 ? 'step2-dot' : activeRunnerTab === 3 ? 'step3-dot' : 'step4-dot'
+            "
+          ></div>
+        </div>
+      </div>
+      <div class="flow-content-wrap">
+        <div class="step1" id="step1" *ngIf="activeRunnerTab === 1">
+          <div class="flow-holder">
+            <p class="error" *ngIf="!runnerConditions.safetyVideoCheck && runnerConditions.safetyFormSubmitted">
+              Safety First! You need to watch the safety video before continuing.
+            </p>
+            <p
+              class="error"
+              *ngIf="
+                (!runnerConditions.safetyVideoCheck1 && runnerConditions.safetyFormSubmitted1) ||
+                (!runnerConditions.safetyVideoCheck2 && runnerConditions.safetyFormSubmitted2) ||
+                (!runnerConditions.safetyVideoCheck3 && runnerConditions.safetyFormSubmitted3) ||
+                (!runnerConditions.safetyVideoCheck4 && runnerConditions.safetyFormSubmitted4)
+              "
+            >
+              Please accept all the terms to continue.
+            </p>
+            <p class="error" *ngIf="!selectedEvent.files.race_checkin_safety_video">Race checkin safety video not found</p>
+            <div class="iframe_cover" *ngIf="selectedEvent.files.race_checkin_safety_video">
+              <iframe
+                [src]="selectedEvent.files.race_checkin_safety_video | sanitizeUrl"
+                width="280"
+                height="240"
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="form-check" style="text-align: left">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                [(ngModel)]="runnerConditions.safetyVideoCheck"
+                required
+                id="safetyVideo"
+                (click)="runnerConditions.safetyFormSubmitted = true"
+              />
+              <label class="form-check-label" for="safetyVideo" (click)="runnerConditions.safetyFormSubmitted = true">
+                I have watched the Ragnar Safety Video.
+              </label>
+            </div>
+            <div class="form-check" *ngIf="this.selectedEvent.type !== 'SUNSET' && this.selectedEvent.type !== 'TRAIL_SPRINT'">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                [(ngModel)]="runnerConditions.safetyVideoCheck1"
+                required
+                id="safetyVideo1"
+                (click)="runnerConditions.safetyFormSubmitted1 = true"
+              />
+              <label class="form-check-label" for="safetyVideo1" (click)="runnerConditions.safetyFormSubmitted1 = true">
+                I understand that our team will receive a violation if we break any of the rules. 3 strikes and we will be disqualified and
+                asked to leave the course.
+              </label>
+            </div>
+            <div class="form-check" *ngIf="this.selectedEvent.type === 'ROAD' || this.selectedEvent.type === 'SPRINT'">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                [(ngModel)]="runnerConditions.safetyVideoCheck2"
+                required
+                id="safetyVideo2"
+                (click)="runnerConditions.safetyFormSubmitted2 = true"
+              />
+              <label class="form-check-label" for="safetyVideo2" (click)="runnerConditions.safetyFormSubmitted2 = true">
+                Our team will ensure to only support our runners on Designated Full Van Support Legs. This information is found in the leg
+                maps.
+              </label>
+            </div>
+            <div class="form-check" *ngIf="this.selectedEvent.type === 'ROAD' || this.selectedEvent.type === 'SPRINT'">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                [(ngModel)]="runnerConditions.safetyVideoCheck3"
+                required
+                id="safetyVideo3"
+                (click)="runnerConditions.safetyFormSubmitted3 = true"
+              />
+              <label class="form-check-label" for="safetyVideo3" (click)="runnerConditions.safetyFormSubmitted3 = true">
+                Our team will utilize the orange safety flags when crossing the road to support our runner. (Please make sure to only
+                support on Full Van Support Legs, remember?!) We will turn these flags back in at the finish line.
+              </label>
+            </div>
+            <div class="form-check" *ngIf="this.selectedEvent.type === 'ROAD'">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                [(ngModel)]="runnerConditions.safetyVideoCheck4"
+                required
+                id="safetyVideo4"
+                (click)="runnerConditions.safetyFormSubmitted4 = true"
+              />
+              <label class="form-check-label" for="safetyVideo4" (click)="runnerConditions.safetyFormSubmitted4 = true">
+                During Ragnar designated nighttime hours: I understand that I need to wear my reflective safety vest any time I leave the
+                van. As the active runner I will wear my vest, head lamp, and taillight.
+              </label>
+            </div>
+            <div class="form-check" *ngIf="this.selectedEvent.type === 'TRAIL'">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                [(ngModel)]="runnerConditions.safetyVideoCheck2"
+                required
+                id="safetyVideo2"
+                (click)="runnerConditions.safetyFormSubmitted2 = true"
+              />
+              <label class="form-check-label" for="safetyVideo2" (click)="runnerConditions.safetyFormSubmitted4 = true">
+                I understand that in order to use the water stations on course, I will need my own drinking vessel. I acknowledge that I’ll
+                need to stay well hydrated throughout the event.
+              </label>
+            </div>
+            <div class="form-check" *ngIf="this.selectedEvent.type === 'TRAIL'">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                [(ngModel)]="runnerConditions.safetyVideoCheck3"
+                required
+                id="safetyVideo3"
+                (click)="runnerConditions.safetyFormSubmitted3 = true"
+              />
+              <label class="form-check-label" for="safetyVideo3" (click)="runnerConditions.safetyFormSubmitted4 = true">
+                Starting 2 hours before sunset and through the night, I understand that I will need to wear a headlamp when on the course.
+              </label>
+            </div>
+            <div class="form-check" *ngIf="this.selectedEvent.type === 'TRAIL'">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                [(ngModel)]="runnerConditions.safetyVideoCheck4"
+                required
+                id="safetyVideo4"
+                (click)="runnerConditions.safetyFormSubmitted4 = true"
+              />
+              <label class="form-check-label" for="safetyVideo4" (click)="runnerConditions.safetyFormSubmitted4 = true">
+                I understand that if I become hurt while on the course, I will stay on the trail, and contact the nearest Staff member,
+                volunteer, or fellow runner to communicate my needs.
+              </label>
+            </div>
+            <div class="btn-check-in-wrap">
+              <a class="btn btn-sherpa-blue" (click)="switchTab.next('Team_Details')">Previous</a>
+              <span *ngIf="this.selectedEvent.type === 'TRAIL' || this.selectedEvent.type === 'ROAD'">
+                <a
+                  class="btn btn-sherpa-blue"
+                  [class.disabled]="
+                    !runnerConditions.safetyVideoCheck ||
+                    !runnerConditions.safetyVideoCheck1 ||
+                    !runnerConditions.safetyVideoCheck2 ||
+                    !runnerConditions.safetyVideoCheck3 ||
+                    !runnerConditions.safetyVideoCheck4
+                  "
+                  (click)="setActiveTab(3); populateFormChecks()"
+                  >Next</a
+                >
+              </span>
+              <span *ngIf="this.selectedEvent.type === 'TRAIL_SPRINT' || this.selectedEvent.type === 'SUNSET'">
+                <a
+                  class="btn btn-sherpa-blue"
+                  [class.disabled]="!runnerConditions.safetyVideoCheck"
+                  (click)="setActiveTab(3); populateFormChecks()"
+                  >Next</a
+                >
+              </span>
+              <span *ngIf="this.selectedEvent.type === 'SPRINT'">
+                <a
+                  class="btn btn-sherpa-blue"
+                  [class.disabled]="
+                    !runnerConditions.safetyVideoCheck ||
+                    !runnerConditions.safetyVideoCheck1 ||
+                    !runnerConditions.safetyVideoCheck2 ||
+                    !runnerConditions.safetyVideoCheck3
+                  "
+                  (click)="setActiveTab(3); populateFormChecks()"
+                  >Next</a
+                >
+              </span>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="step1-1" id="step1-1" *ngIf="activeRunnerTab === 2">
+          <div class="flow-holder">
+            <p class="error" *ngIf="(covid19VideoReCheck1 || covid19VideoReCheck2) && runnerConditions.covid19FormSubmitted">
+              Safety First! You need to agree to the questions below before continuing.
+            </p>
+            <p class="error" *ngIf="!selectedEvent.files.race_covid_safety_video">Race covid safety video not found</p>
+            <div class="iframe_cover" *ngIf="selectedEvent.files.race_covid_safety_video">
+              <iframe
+                [src]="selectedEvent.files.race_covid_safety_video | sanitizeUrl"
+                width="280"
+                height="240"
+                frameborder="0"
+                allow="autoplay; fullscreen; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="modal-wrap">
+              <a href="https://run.ragnarrelay.com/covid_general/" target="_blank">Ragnar's COVID-19 Mitigation Policy.</a>
+            </div>
+            <div class="form-check" (click)="runnerConditions.covid19FormSubmitted = true">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                [(ngModel)]="runnerConditions.covid19VideoCheck1"
+                required
+                id="covidPolicy1"
+                (change)="covid19safetyChecked1()"
+              />
+              <label class="form-check-label" for="covidPolicy1" (click)="covid19safetyChecked1()">
+                I agree to Ragnar's COVID-19 Mitigation Policy.
+              </label>
+            </div>
+            <div class="form-check" (click)="runnerConditions.covid19FormSubmitted = true">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                [(ngModel)]="runnerConditions.covid19VideoCheck2"
+                required
+                id="covidPolicy2"
+                (change)="covid19safetyChecked2()"
+              />
+              <label class="form-check-label" for="covidPolicy2" (click)="covid19safetyChecked2()">
+                I declare that i have had no known exposure to COVID-19 in the last 14 days and have not experienced any symptoms associated
+                with COVID-19 in the last 14 days.
+              </label>
+            </div>
+            <div class="btn-check-in-wrap">
+              <a class="btn btn-sherpa-blue" (click)="setActiveTab(1)">Previous</a>
+              <a
+                class="btn btn-sherpa-blue"
+                (click)="setActiveTab(3); populateFormChecks()"
+                [class.disabled]="!runnerConditions.covid19VideoCheck1 || !runnerConditions.covid19VideoCheck2"
+                >Next</a
+              >
+            </div>
+          </div>
+        </div> -->
+        <div class="step2" id="step2" *ngIf="activeRunnerTab === 3">
+          <div class="flow-holder">
+            <p class="error" *ngIf="(raceWaiverRechecked || venueWaiverRechecked) && runnerConditions.waiverFormSubmitted">
+              Safety First! You need to agree to the waivers below before continuing.
+            </p>
+
+            <div class="modal-wrap">
+              <a (click)="showWaiver(selectedEvent.check_in_waiver)"
+                >Ragnar's {{ selectedEvent.start_date | date : 'yyyy' }} {{ selectedEvent.type }} Race Waiver.</a
+              >
+            </div>
+
+            <div class="form-check" (click)="runnerConditions.waiverFormSubmitted = true">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="waiver1"
+                [(ngModel)]="runnerConditions.raceWaiverCheck"
+                (change)="raceCheckInWaiverChecked()"
+              />
+
+              <label class="form-check-label" for="waiver1" (click)="raceCheckInWaiverChecked()">
+                I agree to Ragnar's {{ selectedEvent.start_date | date : 'yyyy' }} {{ selectedEvent.type }} Race Waiver
+              </label>
+            </div>
+            <div class="modal-wrap" *ngIf="selectedEvent.venue_check_in_waiver">
+              <a (click)="showWaiver(selectedEvent.venue_check_in_waiver)"
+                >Additional {{ selectedEvent.start_date | date : 'yyyy' }} Venue Waiver</a
+              >
+            </div>
+            <div class="form-check" *ngIf="selectedEvent.venue_check_in_waiver" (click)="runnerConditions.waiverFormSubmitted = true">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="waiver2"
+                [(ngModel)]="runnerConditions.additionalWaiverCheck"
+                (change)="venueCheckInWaiverChecked()"
+              />
+
+              <label class="form-check-label" for="waiver2" (click)="venueCheckInWaiverChecked()">
+                I agree to Additional {{ selectedEvent.start_date | date : 'yyyy' }} Venue Waiver
+              </label>
+            </div>
+            <div class="btn-check-in-wrap">
+              <a class="btn btn-sherpa-blue" (click)="setActiveTab(1)">Previous</a>
+              <a
+                class="btn btn-sherpa-blue"
+                (click)="submitRunner(); setActiveTab(4)"
+                [class.disabled]="!runnerConditions.raceWaiverCheck || !runnerConditions.additionalWaiverCheck"
+                >Next</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="step3" id="step3" *ngIf="activeRunnerTab === 4">
+          <div class="flow-holder">
+            <p><em>Hecho. Gjort. Eriedigt. Done & dusted.</em></p>
+            <p>No matter how you say it:</p>
+            <img class="img-responsive center-block confirm-checked-img" src="assets/images/covid-checkin/IndividualCheckIn-01.png" />
+            <p *ngIf="!isCaptain">Your captain has been notified.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Captain Section -->
+    <div class="team-detail-checkin-flow-wrap" *ngIf="captainSection">
+      <div class="flow-point-desc captain-flow-point">
+        <ul>
+          <li class="step-circle step1" [ngClass]="{ active: activeCaptainTab >= 1 }"><span>Roster</span></li>
+          <li class="step-circle step1" *ngIf="isRoadOrSprintEvent()" [ngClass]="{ active: activeCaptainTab >= 1.5 }">
+            <span>Van Info</span>
+          </li>
+          <li class="step-circle step2" [ngClass]="{ active: activeCaptainTab >= 2 }"><span>Div.& Class</span></li>
+          <li class="step-circle step2" [ngClass]="{ active: activeCaptainTab >= 3 }"><span>Volunteer Shift</span></li>
+          <li class="step-circle step3" [ngClass]="{ active: activeCaptainTab >= 4 }"><span>Review</span></li>
+          <li class="step-circle step3" [ngClass]="{ active: activeCaptainTab >= 5 }">
+            <span>Complete</span>
+          </li>
+        </ul>
+        <div id="Progress-flow">
+          <div
+            id="progressbar-holder"
+            [ngStyle]="{
+              width: activeTabProgressBar()
+            }"
+          ></div>
+        </div>
+      </div>
+      <div class="flow-content-wrap">
+        <div class="step1" id="step1" *ngIf="activeCaptainTab === 1">
+          <div class="flow-holder">
+            <div class="runner-checked-in-table">
+              <div class="table-row">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-6">
+                    <h3>Runner</h3>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-6">
+                    <h3>Checked In</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-row runner-block" id="runner-block" *ngFor="let member of runnerInformation">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-6 left-col">
+                    <div
+                      class="delete-runner-btn"
+                      *ngIf="showRemoveIcon && member.role !== 'CAPTAIN'"
+                      (click)="openDeleteRunnerModel(member)"
+                    >
+                      <img src="assets/images/team-center/delete-runner.png" />
+                    </div>
+                    <h3>
+                      <span class="ellipse_text"> {{ member.firstName }} {{ member.lastName }} </span>
+                      <img src="assets/images/team-center/captain-icon.png" *ngIf="member.role === 'CAPTAIN'" />
+                    </h3>
+                  </div>
+
+                  <div class="col-md-6 col-sm-6 col-6 right-col">
+                    <div class="checked-in-image" *ngIf="member.onlineWebCheckInId">
+                      <img src="assets/images/team-center/right-icon.jpg" />
+                    </div>
+
+                    <!-- IOS -->
+                    <a
+                      class="btn btn-sherpa-blue"
+                      *ngIf="!member.onlineWebCheckInId && isIOS"
+                      [attr.href]="generateIosLink(member.phone) | sanitizeExternalUrl"
+                      >Send Reminder</a
+                    >
+                    <!-- Android -->
+                    <a
+                      class="btn btn-sherpa-blue"
+                      *ngIf="!member.onlineWebCheckInId && isAndroid"
+                      [attr.href]="generateAndroidLink(member.phone) | sanitizeExternalUrl"
+                      >Send Reminder</a
+                    >
+                    <!-- Desktop -->
+                    <a
+                      class="btn btn-sherpa-blue"
+                      *ngIf="!member.onlineWebCheckInId && !isAny"
+                      href="mailto:{{ member.email }}?subject={{ mailReminderSubject }}&body={{ mailReminderMessage }}"
+                      >Send Reminder</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="table-row" *ngFor="let n of [].constructor(teamInformation.runnersMax - runnerInformation.length)">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-6 left-col">
+                    <h3 class="disabled">Vacant</h3>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-6 right-col"></div>
+                </div>
+              </div>
+            </div>
+            <div class="runner-btn-wrap">
+              <a class="btn btn-sherpa-blue" (click)="substitutePopup()">Substitute Runners</a>
+              <a
+                href="javascript:void(0);"
+                class="btn btn-sherpa-blue remove-runner"
+                [class.disabled]="runnerInformation.length === 1"
+                (click)="removeRunner()"
+                >Remove Runners</a
+              >
+            </div>
+            <div class="note-wrap">
+              <p>Check in with current team roster? You will be unable to make changes after this.</p>
+              <br />
+              <p class="error" *ngIf="!isAllRunnerCheckin">
+                You will only be able to check in your team, once <strong>ALL</strong> members <strong>Currently</strong> on the roster have
+                completed their individual check in.
+              </p>
+            </div>
+            <div *ngIf="isRoadOrSprintEvent()" class="roster-wrap">
+              <a class="btn btn-sherpa-blue" [class.disabled]="!isAllRunnerCheckin" (click)="setCaptainActiveTab(1.5)">Confirm Roster</a>
+            </div>
+            <div *ngIf="!isRoadOrSprintEvent()" class="roster-wrap">
+              <a class="btn btn-sherpa-blue" [class.disabled]="!isAllRunnerCheckin" (click)="setCaptainActiveTab(2)">Confirm Roster</a>
+            </div>
+          </div>
+        </div>
+        <div class="step1" id="step1" *ngIf="activeCaptainTab === 1.5">
+          <div class="flow-holder">
+            <div class="form-group van_contact row">
+              <label class="col-sm-4 col-xs-4 mb-10 text-right" for="vanNumber">{{
+                'team-center.tabs.check-in.van1-phone' | translate
+              }}</label>
+              <div class="col-sm-8 col-xs-8">
+                <input
+                  maxlength="14"
+                  placeholder="(000) 000-0000"
+                  appPhone
+                  type="tel"
+                  name="vanNumber"
+                  [(ngModel)]="teamInformation.van1Phone"
+                  class="form-control form-check-text"
+                  placeholder="Van 1 Number"
+                  required
+                />
+                <div class="set-error">
+                  <p class="error text-left" *ngIf="checkPhoneValidation(teamInformation.van1Phone)">contact number for Van 1 required</p>
+                </div>
+              </div>
+            </div>
+            <div class="form-group van_contact row" *ngIf="selectedEvent.type === 'ROAD' && teamInformation.type !== 'ULTRA'">
+              <label class="col-sm-4 col-xs-4 mb-10 text-right" for="vanNumber2">{{
+                'team-center.tabs.check-in.van2-phone' | translate
+              }}</label>
+              <div class="col-sm-8 col-xs-8">
+                <input
+                  maxlength="14"
+                  placeholder="(000) 000-0000"
+                  appPhone
+                  type="tel"
+                  name="vanNumber2"
+                  [(ngModel)]="teamInformation.van2Phone"
+                  class="form-control form-check-text"
+                  placeholder="Van 2 Number"
+                  required
+                  (keyup)="validateVan2Number(teamInformation.van2Phone)"
+                />
+                <div class="set-error">
+                  <p class="error text-left" *ngIf="isVan2Error">contact number for Van 2 required</p>
+                  <p class="error text-left" *ngIf="isVanCompareError">please enter different number for van</p>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <label class="col-sm-12" *ngIf="selectedEvent.type === 'ROAD' && teamInformation.type !== 'ULTRA'; else textShow"
+                >Each Van needs to have a contact number for Race Command to send texts during the event.</label
+              >
+              <ng-template #textShow>
+                <label class="col-sm-12">The Van needs to have a contact number for Race Command to send texts during the event.</label>
+              </ng-template>
+            </div>
+            <div class="roster-wrap">
+              <a
+                class="btn btn-sherpa-blue"
+                [class.disabled]="
+                  selectedEvent.type === 'ROAD' && teamInformation.type !== 'ULTRA'
+                    ? checkPhoneValidation(teamInformation.van1Phone) ||
+                      checkPhoneValidation(teamInformation.van2Phone) ||
+                      vanCompare(teamInformation.van1Phone, teamInformation.van2Phone)
+                    : checkPhoneValidation(teamInformation.van1Phone)
+                "
+                (click)="setCaptainActiveTab(2)"
+                >Confirm</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="step2" id="step2" *ngIf="activeCaptainTab === 2">
+          <div class="flow-holder">
+            <div class="row slct-row">
+              <div class="col-md-6 col-sm-6 col-6 text-right">
+                <h3>Classification:</h3>
+              </div>
+              <div class="col-md-6 col-sm-6 col-6 text-left">
+                <div class="select-holder">
+                  <div class="select">
+                    <!-- <select [(ngModal)]="teamInformation.classification" name="slct" id="slct"
+                                  (change)="updateClassification()">
+                                  <option value="" disabled>Select Classification</option>
+                                  <option value="{{class.name}}"
+                                      *ngFor="let class of eventClassifications">{{class.name}}</option>
+
+                              </select> -->
+                    <div ngbDropdown class="d-inline-block">
+                      <button type="button" class="custom-selectbox" id="classification" ngbDropdownToggle>
+                        {{ teamInformation.classification || 'Select Classification' }}
+                      </button>
+                      <div ngbDropdownMenu class="dropdown-menu custom-option" aria-labelledby="classification">
+                        <a
+                          ngbDropdownItem
+                          (click)="updateClassification(teamInformation, classification.name)"
+                          *ngFor="let classification of eventData.classifications"
+                        >
+                          {{ classification.name }}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- href="https://www.runragnar.com/divisions-and-classifications" -->
+                  <a target="_blank" [routerLink]="['/divisions-and-classifications']">
+                    <i class="info-circle">i</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="row slct-row">
+              <div class="col-md-6 col-sm-6 col-6 text-right">
+                <h3>Division:</h3>
+              </div>
+              <div class="col-md-6 col-sm-6 col-6 text-left">
+                <div class="select-holder">
+                  <div class="select">
+                    <!-- <select [(ngModel)]="teamInformation.division" name="slct" id="slct"
+                                  (change)="updateDivision()">
+                                  <option value="" disabled>Select Division</option>
+                                  <option value="{{division.name}}"
+                                      *ngFor="let division of eventDivsions">{{division.name}}</option>
+                              </select> -->
+                    <div ngbDropdown class="d-inline-block">
+                      <button type="button" class="custom-selectbox" id="division" ngbDropdownToggle>
+                        {{ teamInformation.division || 'Select Division' }}
+                      </button>
+                      <div ngbDropdownMenu class="dropdown-menu custom-option" aria-labelledby="division">
+                        <a
+                          ngbDropdownItem
+                          (click)="updateDivision(teamInformation, division.name)"
+                          *ngFor="let division of eventData.divsions"
+                        >
+                          {{ division.name }}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a target="_blank" [routerLink]="['/divisions-and-classifications']">
+                    <i class="info-circle">i</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <p
+              class="error text-center"
+              *ngIf="
+                checkTheRequiredParameterExist(teamInformation.classification) || checkTheRequiredParameterExist(teamInformation.division)
+              "
+            >
+              Classification and Division are required.
+            </p>
+            <div class="note-wrap">
+              <p>Check in with current Division & Classification? You will be unable to make changes after this.</p>
+            </div>
+            <div class="roster-wrap">
+              <a
+                class="btn btn-sherpa-blue"
+                (click)="setCaptainActiveTab(3)"
+                [class.disabled]="!teamInformation.division || !teamInformation.classification"
+                >Confirm</a
+              >
+            </div>
+          </div>
+        </div>
+        <div class="step3" id="step3" *ngIf="activeCaptainTab === 3">
+          <!-- volunteer shift -->
+          <div class="flow-holder">
+            <div class="roster-inner">
+              <div class="registerd-member">
+                <div class="member-count">
+                  {{
+                    volunteerInformation.length +
+                      teamInformation.exemptions +
+                      teamInformation.paidExemptions +
+                      '/' +
+                      teamInformation.volunteerRequired
+                  }}
+                </div>
+                <h4>{{ 'team-center.tabs.volunteers.volunteer-fulfilled' | translate }}</h4>
+              </div>
+            </div>
+            <div [hidden]="!isShowVolunteerInfo()">{{ 'team-center.tabs.volunteers.no-registered' | translate }}</div>
+            <div class="runner-table text-left" [hidden]="isShowVolunteerInfo()">
+              <h3 class="table-title text-center">{{ 'common-data.registered' | translate }}</h3>
+              <div class="col-xs-12 table-row table-row-header">
+                <div class="row row-block">
+                  <div class="col-lg-2 col-4">
+                    <span class="text-value">{{ 'common-data.name' | translate }}</span>
+                  </div>
+                  <div class="col-lg-4 col-8">
+                    <span class="text-value">{{ 'common-data.email1' | translate }}</span>
+                  </div>
+                  <div class="col-lg-4 d-none d-xl-block d-lg-block">
+                    <span class="text-value">{{ 'common-data.shift' | translate }}</span>
+                  </div>
+                  <div class="col-lg-2 d-none d-xl-block d-lg-block">
+                    <span class="text-value">{{ 'common-data.location' | translate }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 table-row" *ngFor="let volunteer of volunteerInformation | sortBy : 'asc' : 'firstName'">
+                <div class="row row-block">
+                  <div class="col-lg-2 col-4">
+                    <span class="text-value">
+                      {{ volunteer.firstName + ' ' + volunteer.lastName }}
+                    </span>
+                  </div>
+                  <div class="col-lg-4 col-8">
+                    <span class="text-value email-field ellipse_text">
+                      {{ volunteer.email }}
+                      <a
+                        class="expand-option visible-xs visible-sm d-md-none"
+                        [ngClass]="{ 'icon-change': show.expand_detail === volunteer.id }"
+                        (click)="
+                          show.expand_detail === volunteer.id
+                            ? (show.expand_detail = show.expand_detail + 'random')
+                            : (show.expand_detail = volunteer.id)
+                        "
+                      >
+                        <img src="assets/images/team-center/arrow-down-icon.png" class="img-responsive" alt="arrow-down-icon" />
+                      </a>
+                      <div
+                        class="d-block d-lg-none view-other-details text-left"
+                        *ngIf="show.expand_detail === volunteer.id"
+                        [ngClass]="{ 'expand-now': show.expand_detail === volunteer.id }"
+                      >
+                        <ul>
+                          <li>
+                            <label class="detail-title"
+                              >{{ 'common-data.shift' | translate }}
+                              {{
+                                [volunteer.shiftStartDate, volunteer.shiftEndDate, volunteer.shiftStartTime, volunteer.shiftEndTime]
+                                  | dateRange
+                              }}</label
+                            >
+                          </li>
+                          <li>
+                            <label class="detail-title">{{ 'common-data.location1' | translate }} {{ volunteer.jobLocation }}</label>
+                          </li>
+                        </ul>
+                      </div>
+                    </span>
+                  </div>
+                  <div class="col-lg-3 hidden-xs d-sm-none d-none d-lg-block d-xl-block">
+                    <span class="text-value">{{
+                      [volunteer.shiftStartDate, volunteer.shiftEndDate, volunteer.shiftStartTime, volunteer.shiftEndTime] | dateRange
+                    }}</span>
+                  </div>
+                  <div class="col-lg-2 hidden-xs d-sm-none d-none d-lg-block d-xl-block">
+                    <span class="text-value">{{ volunteer.jobLocation }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 table-row" *ngFor="let n of _.range(teamInformation.exemptions)">
+                <div class="row row-block">
+                  <div class="col-12">
+                    <span class="text-value"> {{ 'team-center.tabs.volunteers.exemption' | translate }} </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 table-row" *ngFor="let n of _.range(teamInformation.paidExemptions)">
+                <div class="row row-block">
+                  <div class="col-12">
+                    <span class="text-value"> {{ 'team-center.tabs.volunteers.paid-volunteer' | translate }} </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="note-wrap">
+              <p class="text-center">Check in with current volunteer details.</p>
+            </div>
+            <div class="roster-wrap">
+              <a class="btn btn-sherpa-blue" (click)="setCaptainActiveTab(4)">Confirm</a>
+            </div>
+          </div>
+        </div>
+        <div class="step3" id="step3" *ngIf="activeCaptainTab === 4">
+          <div class="flow-holder">
+            <div class="runner-checked-in-table">
+              <div class="table-row">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-6">
+                    <h3>Runner</h3>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-6">
+                    <h3>Checked In</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="table-row" *ngFor="let member of runnerInformation">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-6 left-col">
+                    <h3>
+                      {{ member.firstName }} {{ member.lastName }}
+                      <img src="assets/images/team-center/captain-icon.png" *ngIf="member.role === 'CAPTAIN'" />
+                    </h3>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-6 right-col">
+                    <div class="checked-in-image" *ngIf="member.onlineWebCheckInId">
+                      <img src="assets/images/team-center/right-icon.jpg" />
+                    </div>
+                    <!-- IOS -->
+                    <a
+                      class="btn btn-sherpa-blue"
+                      disabled
+                      *ngIf="!member.onlineWebCheckInId && isIOS"
+                      href="sms:+1{{ member.phone }}&body={{ phoneReminderMessage }}"
+                      >Send Reminder</a
+                    >
+                    <!-- Android -->
+                    <a
+                      class="btn btn-sherpa-blue"
+                      disabled
+                      *ngIf="!member.onlineWebCheckInId && isAndroid"
+                      href="sms:+1{{ member.phone }}?body={{ phoneReminderMessage }}"
+                      >Send Reminder</a
+                    >
+                    <!-- Desktop -->
+                    <a
+                      class="btn btn-sherpa-blue"
+                      disabled
+                      *ngIf="!member.onlineWebCheckInId && !isAny"
+                      href="mailto:{{ member.email }}?subject={{ mailReminderSubject }}&body={{ mailReminderMessage }}"
+                      >Send Reminder</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-row" *ngFor="let n of [].constructor(teamInformation.runnersMax - runnerInformation.length)">
+                <div class="row">
+                  <div class="col-md-6 col-sm-6 col-6 left-col">
+                    <h3 class="disabled">Vacant</h3>
+                  </div>
+                  <div class="col-md-6 col-sm-6 col-6 right-col"></div>
+                </div>
+              </div>
+            </div>
+            <div class="edit-wrap">
+              <a (click)="setCaptainActiveTab(1)" class="btn btn-sherpa-blue">Edit</a>
+            </div>
+            <div *ngIf="isRoadOrSprintEvent()">
+              <div class="form-group row van_contact">
+                <label class="col-sm-4 text-right" for="vanNumber">{{ 'team-center.tabs.check-in.van1-phone' | translate }}</label>
+                <div class="col-sm-8">
+                  <input
+                    disabled
+                    maxlength="14"
+                    placeholder="(000) 000-0000"
+                    appPhone
+                    type="text"
+                    name="vanNumber"
+                    [(ngModel)]="teamInformation.van1Phone"
+                    class="form-control form-check-text"
+                    placeholder="vanNumber"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="form-group row van_contact" *ngIf="selectedEvent.type === 'ROAD' && teamInformation.type !== 'ULTRA'">
+                <label class="col-sm-4 text-right" for="vanNumbe2">{{ 'team-center.tabs.check-in.van2-phone' | translate }}</label>
+                <div class="col-sm-8">
+                  <input
+                    disabled
+                    maxlength="14"
+                    placeholder="(000) 000-0000"
+                    appPhone
+                    type="text"
+                    name="vanNumbe2"
+                    [(ngModel)]="teamInformation.van2Phone"
+                    class="form-control form-check-text"
+                    placeholder="vanNumbe2"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="edit-wrap">
+                <a (click)="setCaptainActiveTab(1.5)" class="btn btn-sherpa-blue">Edit</a>
+              </div>
+            </div>
+            <div class="row slct-row">
+              <div class="col-md-6 col-sm-6 col-6 text-right">
+                <h3>Classification:</h3>
+              </div>
+              <div class="col-md-6 col-sm-6 col-6 text-left">
+                <div class="select-holder">
+                  <div class="select">
+                    <select [(ngModel)]="teamInformation.classification" name="slct" id="slct" disabled>
+                      <option value="" disabled>Select Classification</option>
+                      <option
+                        value="{{ class.name }}"
+                        *ngFor="let class of eventData.classifications"
+                        (click)="updateClassification(teamInformation, class.name)"
+                      >
+                        {{ class.name }}
+                      </option>
+                    </select>
+                  </div>
+                  <a target="_blank" [routerLink]="['/divisions-and-classifications']">
+                    <i class="info-circle">i</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="row slct-row">
+              <div class="col-md-6 col-sm-6 col-6 text-right">
+                <h3>Division:</h3>
+              </div>
+              <div class="col-md-6 col-sm-6 col-6 text-left">
+                <div class="select-holder">
+                  <div class="select">
+                    <select disabled [(ngModel)]="teamInformation.division" name="slct" id="slct">
+                      <option value="" disabled>Select Division</option>
+                      <option
+                        value="{{ division.name }}"
+                        *ngFor="let division of eventData.divsions"
+                        (click)="updateDivision(teamInformation, division.name)"
+                      >
+                        {{ division.name }}
+                      </option>
+                    </select>
+                  </div>
+                  <a target="_blank" [routerLink]="['/divisions-and-classifications']">
+                    <i class="info-circle">i</i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="edit-wrap">
+              <a (click)="setCaptainActiveTab(2)" class="btn btn-sherpa-blue">Edit</a>
+            </div>
+            <!-- VOLUNTEER START -->
+            <div class="roster-inner">
+              <div class="registerd-member">
+                <div class="member-count">
+                  {{
+                    volunteerInformation.length +
+                      teamInformation.exemptions +
+                      teamInformation.paidExemptions +
+                      '/' +
+                      teamInformation.volunteerRequired
+                  }}
+                </div>
+                <h4>{{ 'team-center.tabs.volunteers.volunteer-fulfilled' | translate }}</h4>
+              </div>
+            </div>
+            <div [hidden]="!isShowVolunteerInfo()">{{ 'team-center.tabs.volunteers.no-registered' | translate }}</div>
+            <div class="runner-table text-left" [hidden]="isShowVolunteerInfo()">
+              <h3 class="table-title text-center">{{ 'common-data.registered' | translate }}</h3>
+              <div class="col-xs-12 table-row table-row-header">
+                <div class="row row-block">
+                  <div class="col-lg-2 col-4">
+                    <span class="text-value">{{ 'common-data.name' | translate }}</span>
+                  </div>
+                  <div class="col-lg-4 col-6">
+                    <span class="text-value">{{ 'common-data.email1' | translate }}</span>
+                  </div>
+                  <div class="col-lg-4 d-none d-xl-block d-lg-block">
+                    <span class="text-value">{{ 'common-data.shift' | translate }}</span>
+                  </div>
+                  <div class="col-lg-2 d-none d-xl-block d-lg-block">
+                    <span class="text-value">{{ 'common-data.location' | translate }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 table-row" *ngFor="let volunteer of volunteerInformation | sortBy : 'asc' : 'firstName'">
+                <div class="row row-block">
+                  <div class="col-lg-2 col-4">
+                    <span class="text-value">
+                      <!-- <a class="delete-runner-icon"
+                        *ngIf="volunteerConfig.deleteVolunteer && !selectedEvent.disableVolunteer && isCaptain"
+                        (click)="openDeleteVolunteerModel(volunteer)">
+                        <img src="assets/images/team-center/delete-runner.png" class="delete-runner"
+                          alt="Delete Runner" />
+                      </a> -->
+                      {{ volunteer.firstName + ' ' + volunteer.lastName }}
+                    </span>
+                  </div>
+                  <div class="col-lg-4 col-8">
+                    <span class="text-value email-field ellipse_text">
+                      {{ volunteer.email }}
+                      <a
+                        class="expand-option visible-xs d-sm-block d-md-none"
+                        [ngClass]="{ 'icon-change': show.expand_detail === volunteer.id }"
+                        (click)="
+                          show.expand_detail === volunteer.id
+                            ? (show.expand_detail = show.expand_detail + 'random')
+                            : (show.expand_detail = volunteer.id)
+                        "
+                      >
+                        <img src="assets/images/team-center/arrow-down-icon.png" class="img-responsive" alt="arrow-down-icon" />
+                      </a>
+                      <div
+                        class="d-block d-lg-none view-other-details text-left"
+                        *ngIf="show.expand_detail === volunteer.id"
+                        [ngClass]="{ 'expand-now': show.expand_detail === volunteer.id }"
+                      >
+                        <ul>
+                          <li>
+                            <label class="detail-title"
+                              >{{ 'common-data.shift' | translate }}
+                              {{
+                                [volunteer.shiftStartDate, volunteer.shiftEndDate, volunteer.shiftStartTime, volunteer.shiftEndTime]
+                                  | dateRange
+                              }}</label
+                            >
+                          </li>
+                          <li>
+                            <label class="detail-title">{{ 'common-data.location1' | translate }} {{ volunteer.jobLocation }}</label>
+                          </li>
+                        </ul>
+                      </div>
+                    </span>
+                  </div>
+                  <div class="col-lg-3 hidden-xs d-sm-none d-none d-lg-block d-xl-block">
+                    <span class="text-value">{{
+                      [volunteer.shiftStartDate, volunteer.shiftEndDate, volunteer.shiftStartTime, volunteer.shiftEndTime] | dateRange
+                    }}</span>
+                  </div>
+                  <div class="col-lg-2 hidden-xs d-sm-none d-none d-lg-block d-xl-block">
+                    <span class="text-value">{{ volunteer.jobLocation }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 table-row" *ngFor="let n of _.range(teamInformation.exemptions)">
+                <div class="row row-block">
+                  <div class="col-12">
+                    <span class="text-value"> {{ 'team-center.tabs.volunteers.exemption' | translate }} </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-12 table-row" *ngFor="let n of _.range(teamInformation.paidExemptions)">
+                <div class="row row-block">
+                  <div class="col-12">
+                    <span class="text-value"> {{ 'team-center.tabs.volunteers.paid-volunteer' | translate }} </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="edit-wrap">
+              <a (click)="setCaptainActiveTab(3)" class="btn btn-sherpa-blue">Edit</a>
+            </div>
+            <!-- VOLUNTEER END -->
+            <div class="note-wrap">
+              <p>Check in with current information? You will be unable to make changes after this.</p>
+            </div>
+            <div class="roster-wrap">
+              <a class="btn btn-sherpa-blue" (click)="submitTeam(); setCaptainActiveTab(5)">Confirm</a>
+            </div>
+          </div>
+        </div>
+        <div class="step4" id="step4" *ngIf="activeCaptainTab === 5">
+          <div class="flow-holder">
+            <div class="confirm-checked-in-holder">
+              <img class="img-responsive center-block" src="assets/images/covid-checkin/TeamCheckIn-01.png" />
+              <h3>
+                <label>Confirmation Number:</label>
+                <label class="error">{{ checkedInConfirmationNumber }}</label>
+              </h3>
+              <!-- <p ng-bind-html="$ctrl.selectedEvent.race_check_in_confirmation"></p> -->
+              <h3 class="row">
+                <label class="col-3 col-md-4 text-right"> Next Steps: </label>
+                <div class="col-md-8 col-9">
+                  <strong class="error" style="margin-bottom: 10px" *ngIf="substituteRequested"
+                    >Any runners not currently on the roster just submitted that will participate need to go to HQ to sign a waiver and
+                    watch the safety video. This needs to happen before your team can receive their bib.</strong
+                  >
+
+                  <strong [innerHTML]="selectedEvent.race_check_in_confirmation"></strong>
+                </div>
+              </h3>
+            </div>
+            <div class="note-wrap">
+              <p>This confirmation message was sent to your whole team.</p>
+            </div>
+            <div class="team-table">
+              <div class="row">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>Team Name:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>{{ teamInformation.name }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>Team Number:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>{{ teamInformation.teamNumber }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>Team Type:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>{{ teamTypes[teamInformation.type] || '-' | uppercase }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>Start Time:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>{{
+                    teamInformation.startTime !== null
+                      ? (teamInformation.startTime | timeFormat)
+                      : 'Awaiting
+                    Start Time'
+                  }}</label>
+                </div>
+              </div>
+              <div *ngIf="isRoadOrSprintEvent()" class="row">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>{{ 'team-center.tabs.check-in.van1-phone' | translate }}:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>{{ teamInformation.van1Phone }}</label>
+                </div>
+              </div>
+              <div *ngIf="selectedEvent.type === 'ROAD' && teamInformation.type !== 'ULTRA'" class="row">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>{{ 'team-center.tabs.check-in.van2-phone' | translate }}:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>{{ teamInformation.van2Phone }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>Classification:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>{{ teamInformation.classification || ' - ' }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>Division:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>{{ teamInformation.division || ' - ' }}</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>Volunteer:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label
+                    >{{
+                      volunteerInformation.length +
+                        teamInformation.exemptions +
+                        teamInformation.paidExemptions +
+                        '/' +
+                        teamInformation.volunteerRequired
+                    }}
+                    Filled</label
+                  >
+                </div>
+              </div>
+              <div class="row" *ngFor="let volunteer of volunteerInformation; let i = index">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>Volunteer Shift {{ i + 1 }}:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>
+                    {{ [volunteer.shiftStartDate, volunteer.shiftEndDate, volunteer.shiftStartTime, volunteer.shiftEndTime] | dateRange }}
+                    {{ volunteer.jobLocation }}
+                  </label>
+                </div>
+              </div>
+              <!-- exemptions volunteer shift  -->
+              <div class="row" *ngFor="let exemption of [].constructor(teamInformation.exemptions); let exmptIdx = index">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>Volunteer Shift {{ volunteerInformation.length + (exmptIdx + 1) }}:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>Exempt</label>
+                </div>
+              </div>
+
+              <!-- paid exemptions volunteer shift  -->
+              <div class="row" *ngFor="let paidExemption of [].constructor(teamInformation.paidExemptions); let painIdx = index">
+                <div class="col-md-6 col-6 text-right">
+                  <h3>Volunteer Shift {{ volunteerInformation.length + teamInformation.exemptions + (painIdx + 1) }}:</h3>
+                </div>
+                <div class="col-md-6 col-6 text-left">
+                  <label>Paid</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

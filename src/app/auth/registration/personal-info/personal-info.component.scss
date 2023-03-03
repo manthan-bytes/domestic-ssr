@@ -1,0 +1,56 @@
+@import 'vars';
+
+.bg-virtual-challenge-register {
+  width: 100%;
+  background: url('https://s3-us-west-2.amazonaws.com/ragnar-hub-ui-v2/images/reg-bg-trail.bc4e6617.jpg') no-repeat;
+  background-size: cover;
+  background-position: center center;
+  display: flex;
+  align-items: center;
+  padding: 100px 20px;
+  @media (max-width: $screen-xs-max) {
+    padding: 40px 20px;
+  }
+  #gender {
+    padding-right: 25px;
+  }
+  .user_info,
+  .payment {
+    max-width: 1250px;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 24px;
+    width: 100%;
+    border-radius: 4px;
+    .form-group {
+      .form-control {
+        background-color: transparent;
+      }
+    }
+    .custom-control {
+      margin: 20px 0;
+      .error_msg {
+        display: block;
+      }
+      label {
+        display: inline-block;
+        vertical-align: middle;
+      }
+      a {
+        display: inline-block;
+        font-weight: bold;
+        vertical-align: middle;
+        margin-left: 4px;
+        text-decoration: underline;
+      }
+    }
+  }
+  hr {
+    margin: 25px 0;
+    @media (max-width: $screen-xs-max) {
+      margin: 10px 0 20px;
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,576 @@
+@import 'vars';
+
+/* Heading */
+@mixin heading-title-h2 {
+  font-family: $font_family_barlow_Condensed;
+  font-size: 50px;
+  line-height: 54px;
+  margin: 0 0 14px;
+  color: $black2;
+}
+@mixin heading-title-p {
+  font-size: $font_size_medium;
+  line-height: 30px;
+  color: $black3;
+  margin-bottom: 20px;
+}
+@mixin heading-title-h3 {
+  font-family: $font_family_barlow_Condensed;
+  font-size: 30px;
+  line-height: 30px;
+  color: $black2;
+  margin: 20px 0 15px;
+}
+.glamping-card {
+  width: 80%;
+  margin: auto;
+  box-shadow: -1px 15px 33px 4px rgb(0 0 0 / 15%);
+  border-radius: 6px;
+  margin-top: 30px;
+  @media (max-width: $screen-sm-max) {
+    width: 100%;
+  }
+}
+.glamping-card-footer {
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 0 0 6px 6px;
+  background-color: #f17a21;
+  color: #fff;
+}
+.glamping-card-btn {
+  background: transparent;
+  color: #fff;
+  padding: 0;
+  box-shadow: none !important;
+}
+.glamping-card-content {
+  padding: 1.5em 2.4em 0.7em;
+  max-height: 642.906px;
+  overflow-y: auto;
+
+  @media (max-width: $screen-sm-max) {
+    padding: 1.5em 1em 0.7em;
+  }
+}
+
+.glamping-card-body {
+  @media (max-width: $screen-sm-max) {
+    padding: 10px;
+  }
+}
+
+.glamping-card-content::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+.glamping-card-content::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.glamping-card-content::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.glamping-card-title {
+  text-align: left;
+  color: #000;
+  font-size: 1.4em;
+}
+.glamping-card-btn:hover {
+  font-weight: 600;
+}
+
+ul.checklist li.list-item.hover {
+  border: 1px solid #5badfe;
+}
+
+ul.checklist li.list-item {
+  border: 1px solid #aaa;
+  margin-bottom: 12px;
+  border-radius: 3px !important;
+  position: relative;
+  cursor: pointer;
+  text-align: left;
+  padding-right: 64px;
+}
+
+li.list-item label {
+  display: block;
+  padding: 9px;
+  padding-left: 10px;
+  color: #000;
+  cursor: pointer;
+  word-break: break-all;
+}
+ul.checklist li.list-item:hover {
+  border: 1px solid #5badfe;
+  background: #d7ebff;
+}
+
+li.list-item input {
+  margin-right: 12px;
+  margin-top: 5px;
+}
+
+li.list-item .items-left {
+  color: #fff;
+  background-color: #5badfe;
+  border-radius: 3px;
+  top: 6px;
+  right: 6px;
+  font-style: normal;
+  position: absolute;
+  font-size: 13px;
+  font-weight: inherit;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+li.list-item .items-left.margin-right {
+  margin-right: 70px;
+  pointer-events: auto;
+  background-color: #0e84f9;
+}
+li.list-item.is_sold {
+  pointer-events: none;
+  cursor: default;
+  text-decoration: none;
+  opacity: 0.7;
+}
+
+li.list-item.is_sold label {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.glamping_main {
+  @media only screen and (min-width: 1400px) {
+    .container {
+      max-width: 68%;
+    }
+  }
+  @media only screen and (max-width: 1400px) {
+    .container {
+      max-width: 1140px;
+    }
+  }
+  .glamping-banner {
+    background: url(/assets/images/static-pages/glamping/glamping-banner.jpg) no-repeat;
+    background-size: cover;
+    position: relative;
+    @media (max-width: $screen-xs-max) {
+      background-position: 80%;
+    }
+    .banner-captionbox {
+      display: table;
+      position: relative;
+      z-index: 0;
+      padding: 78px 20px 66px;
+      .rg_tmbtn {
+        @include theme_btn2($padding: 20px 60px, $fsize: 16px);
+        margin-top: 30px;
+      }
+      @media (max-width: $screen-sm-max) {
+        .rg_tmbtn {
+          width: 100%;
+          margin-top: 65px;
+          font-size: 12px;
+          line-height: 16px;
+          padding: 15px 30px;
+        }
+      }
+      @media (max-width: $screen-xs-max) {
+        img {
+          max-width: 85%;
+          margin: 0 auto;
+        }
+      }
+    }
+    &:before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      background: rgba(0, 0, 0, 0.4);
+      @media (max-width: $screen-xs-max) {
+        background: linear-gradient(to bottom, rgba(84, 84, 84, 0) 0, rgba(0, 0, 0, 0.8) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00545454', endColorstr='#cc000000', GradientType=0 );
+      }
+    }
+  }
+  .treat-self {
+    padding: 45px 0 35px;
+    background: $white;
+
+    h2 {
+      @include heading-title-h2;
+    }
+    p {
+      @include heading-title-p;
+    }
+    h3 {
+      @include heading-title-h3;
+    }
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      height: 0;
+      padding-bottom: 56.27198%;
+      float: right;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    @include font-weight(500);
+
+    .content-section h2,
+    .content-section h3,
+    .whats-included .whats-included-box .whats-included-inner .whats-box h3 {
+      font-family: $font_family_barlow_Condensed;
+      @include font-weight(600);
+    }
+  }
+  .whats-included {
+    background: $white;
+    padding-bottom: 35px;
+    @media (max-width: $screen-xs-max) {
+      padding-bottom: 22px;
+      margin: 0px 15px;
+    }
+    .whats-included-box {
+      max-width: 940px;
+      background: $white2;
+      padding: 56px 20px 25px;
+      @media (max-width: $screen-xs-max) {
+        margin: 0 15px;
+        padding: 35px 10px 22px;
+      }
+      .whats-included-inner {
+        @include flex-wrap(flex-wrap);
+        display: inline-flex !important;
+        flex-wrap: wrap;
+        width: 100%;
+        @media (max-width: $screen-xs-max) {
+          .whats-first-box {
+            width: 60%;
+            display: inline-flex !important;
+            justify-content: space-around !important;
+            flex-direction: row;
+          }
+        }
+        .whats-box {
+          width: 33.33%;
+          @include flexbox();
+          @include align-items(center);
+          @include align-items(center);
+          @include flex-direction(column);
+          @media (max-width: $screen-xs-max) {
+            width: 100%;
+            img {
+              max-width: 50px;
+              max-height: 50px;
+            }
+          }
+          h3 {
+            @include heading-title-h3;
+            line-height: 32px;
+            color: $black3;
+          }
+          .content-section h2,
+          .content-section h3,
+          .whats-included .whats-included-box .whats-included-inner .whats-box h3 {
+            font-family: $font_family_barlow_Condensed;
+            @include font-weight(500);
+          }
+          p {
+            font-size: 18px;
+            line-height: 20px;
+            margin: 10px 0;
+            color: $black3;
+            @include font-weight(500);
+          }
+        }
+        @media (max-width: $screen-xs-max) {
+          .whats-first-box {
+            width: 60%;
+            display: inline-flex !important;
+            justify-content: space-around !important;
+            flex-direction: row;
+          }
+          .whats-second-box {
+            order: -1;
+            margin-bottom: 27px;
+          }
+          .whats-third-box {
+            width: 40%;
+            justify-content: space-around !important;
+            flex-direction: row;
+          }
+        }
+      }
+    }
+  }
+  .review {
+    background: #ccc;
+    padding: 65px 30px 60px;
+    @media (max-width: $screen-xs-max) {
+      padding: 55px 30px 35px;
+    }
+    .review-box {
+      max-width: 763px;
+
+      .review-text {
+        @include font-weight(500);
+        @include heading-title-p;
+        margin-bottom: 15px;
+      }
+      .review-by {
+        font-size: 16px;
+        @include font-weight(500);
+        color: $black3;
+      }
+    }
+  }
+  .reserve-glamping {
+    background: $white2;
+    padding: 35px 0 0;
+    .reserve-glamping-box {
+      max-width: 1100px;
+      margin: 0 auto;
+      .reserve-glamping-title {
+        @include heading-title-h2;
+      }
+      .subhead {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 18px;
+        margin: 28px 0 15px;
+        color: #333;
+      }
+      .reserve-glamping-text {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        font-style: italic;
+        color: #333;
+      }
+      .reserve-glamping-inner iframe {
+        width: 100%;
+        height: 839px;
+        border: 0;
+      }
+      .glamping-not-available {
+        padding-bottom: 90px;
+        color: $black3;
+        @media (max-width: $screen-xs-max) {
+          margin-top: 8px;
+        }
+        a {
+          color: rgba(255, 136, 0, 0.938);
+        }
+      }
+      .reserve-glamping-inner {
+        font-size: 16px;
+        padding: 15px 30px;
+        border-radius: 0;
+        color: $white;
+        box-shadow: none !important;
+        transform: perspective(1px) translateZ(0);
+        transition-property: color;
+        position: relative;
+        margin: 0px auto 0;
+        z-index: 1;
+        padding-top: 0;
+        @media (max-width: $screen-xs-max) {
+          margin-top: 40px;
+          .byg-btn {
+            @include theme_btn2;
+            background-color: $brand-secondary !important;
+            color: $white !important;
+            padding: 15px 50px;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .faq {
+    margin: 50px 0;
+    @media (max-width: $screen-xs-max) {
+      margin: 20px 0;
+    }
+    .container {
+      .faq-inner {
+        padding: 70px 90px 0;
+        background: $white2;
+        font-size: 0;
+        @media (max-width: $screen-xs-max) {
+          padding: 30px 20px 20px;
+        }
+        h3 {
+          @include heading-1($margin-bottom: 47px);
+          font-family: $font_family_barlow_Condensed;
+          line-height: 42px;
+          letter-spacing: normal;
+          color: $black2;
+          @media (max-width: $screen-xs-max) {
+            text-align: center;
+          }
+        }
+        .faq-box {
+          margin-bottom: 50px;
+          float: none !important;
+          display: inline-block;
+          width: 49% !important;
+          vertical-align: top;
+          &:nth-of-type(even) {
+            margin-right: 0 !important;
+          }
+          .faq-ans {
+            @include font-weight($font-weight: 500);
+            font-size: 16px;
+            line-height: 26px;
+            color: $black3;
+          }
+          .faq-question {
+            @include font-weight($font-weight: 500);
+            font-size: 26px;
+            line-height: 28px;
+            color: $black2;
+            margin-bottom: 15px;
+          }
+          @media (max-width: $screen-xs-max) {
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+  .insta-shots {
+    background: #e7e7e7;
+    padding: 50px 0 30px;
+    @media only screen and (max-width: 991px) {
+      background: #323232;
+      padding-top: 25px;
+    }
+    .container {
+      .insta-titles {
+        @include flexbox();
+      }
+      .insta-titles .insta-icon {
+        display: inline-block;
+        img {
+          max-width: 70px;
+          background-color: transparent;
+          padding: 0;
+          @media only screen and (max-width: 991px) {
+            max-width: 36px;
+            border: 0;
+            padding: 0;
+          }
+          @media (max-width: $screen-xs-max) {
+            max-width: 36px;
+            border: 0;
+            padding: 0;
+          }
+        }
+      }
+      .insta-text {
+        padding-left: 20px;
+        display: inline-block;
+        @media (max-width: $screen-xs-max) {
+          padding-left: 15px;
+        }
+        h2 {
+          @include heading-2($margin-bottom: 10px);
+          letter-spacing: normal;
+          line-height: 36px;
+          margin-top: 0;
+          color: #424242;
+          font-family: $font_family_barlow_Condensed;
+          @media only screen and (max-width: 991px) {
+            color: $white;
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 5px;
+          }
+          @media (max-width: $screen-xs-max) {
+            color: $white;
+            font-size: 16px;
+            line-height: 16px;
+            margin-bottom: 5px;
+          }
+        }
+        p {
+          font-size: 16px;
+          line-height: 22px;
+          margin-top: 0;
+          margin-bottom: 0;
+          color: #424242;
+          @media only screen and (max-width: 991px) {
+            color: $white;
+            font-size: 12px;
+            line-height: 18px;
+          }
+          @media (max-width: $screen-xs-max) {
+            color: $white;
+            font-size: 12px;
+            line-height: 18px;
+          }
+        }
+      }
+    }
+    @media (max-width: $screen-xs-max) {
+      background: #323232;
+      padding-top: 25px;
+    }
+  }
+}
+
+.error-selected {
+  color: red;
+  text-align: left;
+  padding-bottom: 10px;
+}
+
+.d-set-flex {
+  display: flex;
+  display: -webkit-flex;
+  justify-content: flex-end;
+  -webkit-justify-content: flex-end;
+  width: 100%;
+}
+
+@media (max-width: $screen-xs-max) {
+  .items-left {
+    position: relative !important;
+    top: 0px !important;
+    right: 0px !important;
+    margin-bottom: 6px;
+    margin-left: 8px;
+    margin-right: 8px !important;
+  }
+
+  .list-item {
+    padding-right: 0px !important;
+  }
+
+  .margin-right {
+    margin-left: 8px;
+    margin-right: 0px !important;
+  }
+}

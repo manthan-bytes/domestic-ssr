@@ -1,0 +1,29 @@
+@import 'vars';
+
+.ambassadors_form_main {
+  .ambassadors_form_main_banner {
+    background: url(/assets/images/static-pages/ambassadorsform/ambassadors.jpg) no-repeat;
+    background-size: cover;
+    height: 350px;
+    padding: 150px 0 14px 90px;
+    @media (max-width: $screen-xs-min) {
+      padding: 150px 0 14px 30px;
+    }
+    .ambassadors_form_title {
+      @include font-weight(700);
+      font-size: 72px;
+      color: $white;
+      @media (max-width: $screen-xs-min) {
+        font-size: $font_size_xlarge;
+      }
+    }
+  }
+  .ambassadors_form_iframe {
+    padding: 25px 0px;
+    iframe {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+  }
+}

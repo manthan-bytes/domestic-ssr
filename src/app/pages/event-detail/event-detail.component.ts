@@ -37,13 +37,13 @@ export class EventDetailComponent implements OnInit, OnDestroy {
     private metaTagsService: MetaTagsService,
     private renderer2: Renderer2,
     @Inject(DOCUMENT) private document: Document,
-    private newVisitorService: NewVisitorService,
+    // private newVisitorService: NewVisitorService,
     @Inject(PLATFORM_ID) private platformId: Object,
     private elRef: ElementRef,
   ) {}
 
   ngOnInit(): void {
-    this.newVisitorService.popUp();
+    // this.newVisitorService.popUp();
       this.script = this.renderer2.createElement('script');
       this.script.text = `
       (function(h,o,t,j,a,r){h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};h._hjSettings={hjid:2618093,hjsv:6};a=o.getElementsByTagName('head')[0];r=o.createElement('script');r.async=1;r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;a.appendChild(r);})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=')

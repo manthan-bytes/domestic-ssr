@@ -1,0 +1,457 @@
+@import 'vars';
+
+.runner_volunteer_invite {
+  .modal-dialog {
+    max-width: 700px;
+    @media (max-width: $screen-xs-max) {
+      padding: 0 10px;
+    }
+    .modal-content {
+      .team-center-roster {
+        z-index: 99999;
+        margin: 0 !important;
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+        background: #fff;
+        //padding-bottom: 97px;
+        border: 0px solid #cfcfcf;
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+        border-radius: 0px;
+        position: relative;
+        padding: 0;
+        //max-height: 95% !important;
+        // @media (min-width: $screen-sm-min) {
+        //     max-width: 666px !important;
+        //     min-width: 666px !important;
+        //     min-height: auto !important;
+        //     max-height: 98% !important;
+        // }
+        // @media (min-width: 320px) and (max-width: $screen-sm-max){
+        //     width: 100% !important;
+        //     max-width: 90% !important;
+        //     min-width: 90% !important;
+        //     min-height: auto;
+        //     max-height: 95% !important;
+        // }
+        &.team-center-vol-payment {
+          // max-width: 600px !important;
+          // min-width: 600px !important;
+          // padding-bottom: 0px !important;
+          .roster-invite-inner {
+            width: 65% !important;
+          }
+        }
+        .modal-header {
+          padding: 0;
+          border: 0;
+          height: 45px;
+
+          .modal-close-btn {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+
+            img {
+              width: 12px;
+              height: 12px;
+            }
+          }
+        }
+
+        .roster-invite-inner {
+          width: 80%;
+          margin: 0 auto;
+          text-align: center;
+          padding: 0 20px;
+          @media (max-width: $screen-xs-max) {
+            width: 100%;
+          }
+          &.volunteer-invite-popup-inner {
+            width: 90%;
+            .d-inline-flex {
+              // @include d-inline-flex;
+              @media (max-width: $screen-xs-max) {
+                display: block !important;
+                .flexitem {
+                  width: 100% !important;
+                }
+              }
+              .flexitem {
+                float: left;
+                // width: 31%;
+                margin: 1%;
+                padding: 10px;
+                border: 1px solid #d8d8d8;
+                // font-family: "GothamMedium", Arial, Helvetica;
+                .invite-title {
+                  display: inline-block;
+                  line-height: 18px;
+                }
+                .invite-email {
+                  font-size: 12px;
+                  font-weight: normal;
+                  color: #f47920;
+                }
+              }
+            }
+          }
+
+          h4 {
+            // font-family: $font-family-gotham-book;
+            font-size: 18px;
+            font-weight: normal;
+            line-height: 32px;
+            text-align: left;
+            color: #5d5d5d;
+            letter-spacing: 0.25px;
+            margin-bottom: 25px;
+            margin-top: 0;
+            @media (max-width: $screen-xs-max) {
+              text-align: center;
+            }
+          }
+          button.orange-custom-btn {
+            // @include orange-custom-btn;
+            max-width: 278px;
+            width: 100%;
+            box-shadow: none !important;
+            line-height: 48px;
+            height: 48px;
+            display: block;
+            text-align: center;
+            font-size: 18px;
+            background: #1899cb !important;
+            border: 0 !important;
+            margin: 0 auto;
+            // @include transition(0.5s, ease-in-out);
+            &:hover {
+              background: #0c83b2 !important;
+            }
+            &:focus {
+              background: #1899cb !important;
+            }
+          }
+          .invite-send {
+            border: 1px solid #cfcfcf;
+            input {
+              border-radius: 0;
+              height: 48px;
+              border: none;
+              box-shadow: none;
+              // font-family: $font-family-gotham-book;
+              font-size: 14px;
+              font-weight: normal;
+              line-height: 48px;
+              text-align: left;
+              color: #666;
+              letter-spacing: 0.25px;
+              background: #fafafa;
+              &::placeholder {
+                color: #5d5d5d;
+                font-size: 12px;
+              }
+              &::-webkit-input-placeholder {
+                color: #5d5d5d;
+                font-size: 12px;
+              }
+              &::-moz-placeholder {
+                color: #5d5d5d;
+                font-size: 12px;
+              }
+              &:-ms-input-placeholder {
+                color: #5d5d5d;
+                font-size: 12px;
+              }
+              &:-moz-placeholder {
+                color: #5d5d5d;
+                font-size: 12px;
+              }
+            }
+          }
+          .notes {
+            // font-family: $font-family-gotham-book;
+            font-size: 11px;
+            font-weight: normal;
+            line-height: 18px;
+            text-align: left;
+            color: #9b9b9b;
+            letter-spacing: 0.25px;
+            margin-top: 5px;
+            margin-bottom: 0;
+          }
+          .error-message {
+            // font-family: $font-family-gotham-book;
+            font-size: 11px;
+            font-weight: normal;
+            line-height: 18px;
+            text-align: left;
+            color: #d0021b !important;
+            letter-spacing: 0.25px;
+            margin-top: 5px;
+            margin-bottom: 0;
+            span {
+              display: block;
+            }
+          }
+          .invitation-msg {
+            height: 80px;
+            padding: 10px;
+            vertical-align: top;
+            box-shadow: none;
+            border-radius: 0px !important;
+            // font-family: $font-family-gotham-book;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 16px;
+            text-align: left;
+            color: #5d5d5d;
+            letter-spacing: 0.25px;
+            background: #fafafa;
+            margin-top: 30px;
+            margin-bottom: 0px;
+            border: 1px solid #cfcfcf;
+            &::-webkit-input-placeholder {
+              color: #cacaca;
+              // font-family: $font-family-gotham-book;
+            }
+            &::-moz-placeholder {
+              color: #cacaca;
+              // font-family: $font-family-gotham-book;
+            }
+            &:-ms-input-placeholder {
+              color: #cacaca;
+              // font-family: $font-family-gotham-book;
+            }
+            &:-moz-placeholder {
+              color: #cacaca;
+              // font-family: $font-family-gotham-book;
+            }
+          }
+          .or-block {
+            margin: 40px auto;
+            position: relative;
+            text-align: center;
+            &::after {
+              content: '';
+              display: inline-block;
+              width: 70%;
+              height: 1px;
+              background-color: #cfcfcf;
+            }
+            .or-text {
+              text-align: center;
+              padding: 0 30px;
+              background: #fff;
+              position: absolute;
+              top: 5px;
+              left: 50%;
+              transform: translateX(-50%);
+              -moz-transform: translateX(-50%);
+              -webkit-transform: translateX(-50%);
+              // font-family: $font-family-gotham-book;
+              font-size: 18px;
+              font-weight: normal;
+              line-height: 18px;
+              text-align: center;
+              color: #4a4a4a !important;
+              letter-spacing: 0.25px;
+            }
+          }
+
+          &.link-sent {
+            min-height: 300px;
+            .invite-link {
+              margin-top: 175px;
+              .text-info {
+                // font-family: $font-family-gotham-medium;
+                font-size: 20px;
+                font-weight: normal;
+                line-height: 32px;
+                text-align: center;
+                color: #5d5d5d;
+                letter-spacing: 0.25px;
+                margin-bottom: 50px;
+              }
+            }
+            .invite-full {
+              margin-top: 85px;
+              .text-info {
+                // font-family: $font-family-gotham-medium;
+                font-size: 14px;
+                font-weight: normal;
+                line-height: 32px;
+                text-align: center;
+                color: #5d5d5d;
+                letter-spacing: 0.25px;
+              }
+            }
+            button.done-btn {
+              // @include transition(0.5s, ease-in-out);
+              background: #4a4a4a;
+              color: #ffffff;
+              width: 50%;
+              box-shadow: none !important;
+              line-height: 45px;
+              height: 45px;
+              display: block;
+              text-align: center;
+              font-size: 15px;
+              border: 0 !important;
+              margin: 50px auto 0;
+              outline: none;
+            }
+            img {
+              margin-bottom: 75px;
+            }
+          }
+          button.volunteer-yourself {
+            // @include orange-custom-btn;
+            // @include transition(0.5s, ease-in-out);
+            box-shadow: none !important;
+            line-height: 45px;
+            height: 45px;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+            border: 0 !important;
+            &:hover,
+            &:focus {
+              background: #1899cb;
+            }
+          }
+        }
+
+        .vol-deadline {
+          .roster-invite-inner {
+            width: 65%;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0 20px;
+            &.link-sent {
+              min-height: 300px;
+              .invite-link {
+                margin-top: 85px;
+                .text-info {
+                  // font-family: $font-family-gotham-medium;
+                  font-size: 14px;
+                  font-weight: normal;
+                  line-height: 32px;
+                  text-align: center;
+                  color: #5d5d5d !important;
+                  letter-spacing: 0.25px;
+                  font-weight: 600;
+                }
+              }
+              button.done-btn {
+                // @include transition(0.5s, ease-in-out);
+                background: #4a4a4a;
+                color: #ffffff;
+                width: 50%;
+                box-shadow: none !important;
+                line-height: 45px;
+                height: 45px;
+                display: block;
+                text-align: center;
+                font-size: 15px;
+                border: 0 !important;
+                margin: 50px auto 0;
+                outline: none;
+              }
+              img {
+                margin-bottom: 75px;
+              }
+            }
+          }
+        }
+        .copy-link {
+          margin: 0 15px 30px;
+          text-align: center;
+          position: relative;
+          h4 {
+            margin-top: 0;
+            margin-bottom: 25px;
+            // font-family: $font-family-gotham-book;
+            font-size: 18px;
+            font-weight: normal;
+            line-height: 18px;
+            text-align: center;
+            color: #4a4a4a;
+            letter-spacing: 0.25px;
+          }
+          .link-ready {
+            cursor: pointer;
+            // font-family: $font-family-gotham-book;
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 36px;
+            text-align: center;
+            color: #1899cb;
+            letter-spacing: 0.25px;
+            display: inline-block;
+            z-index: 1;
+            word-break: break-all;
+            padding: 0 30px;
+            @media (max-width: $screen-xs-max) {
+              padding: 0;
+            }
+          }
+          .copy-icon {
+            cursor: pointer;
+            position: absolute;
+            right: 5px;
+            bottom: 3px;
+            z-index: 10;
+            @media (max-width: $screen-xs-max) {
+              position: static !important;
+              display: block;
+              margin-top: 5px;
+            }
+          }
+        }
+        button.lastday-btn {
+          // @include orange-custom-btn;
+          // @include transition(0.5s, ease-in-out);
+          width: 100%;
+          box-shadow: none !important;
+          line-height: 23px;
+          min-height: 47px;
+          display: block;
+          text-align: center;
+          font-size: 16px;
+          border: 0 !important;
+          margin: 50px auto 0;
+          color: $white;
+          background: $orange-brand;
+          background: #353535 !important;
+          pointer-events: none;
+          &:hover,
+          &:focus {
+            background: #1899cb;
+          }
+          /*position: absolute;*/
+          left: 0;
+        }
+        button.volunteer-lastday-btn {
+          // @include transition(0.5s, ease-in-out);
+          background: $orange-brand;
+          color: #ffffff;
+          width: 100%;
+          box-shadow: none !important;
+          line-height: 23px;
+          height: auto;
+          display: block;
+          text-align: center;
+          font-size: 15px;
+          border: 0 !important;
+          margin: 50px auto 0;
+          position: absolute;
+          left: 0;
+          min-height: 46px;
+        }
+      }
+    }
+  }
+}

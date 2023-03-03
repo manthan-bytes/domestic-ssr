@@ -1,0 +1,78 @@
+@import 'vars';
+::ng-deep {
+  .member_volunteer_delete {
+    .modal-dialog {
+      max-width: 700px;
+      @media (max-width: $screen-xs-max) {
+        padding: 0 10px;
+      }
+      .modal-content {
+        .team-center-roster {
+          .modal-roster-delete {
+            .confirm-delete {
+              font-size: 18px;
+              font-weight: normal;
+              text-align: left;
+              color: #5d5d5d;
+              letter-spacing: 0.25px;
+              margin-bottom: 35px;
+              margin-top: 0;
+              h4 {
+                display: inline-block;
+                margin-bottom: 0;
+                @media (max-width: $screen-xxs-max) {
+                  display: block;
+                }
+              }
+              @media (max-width: $screen-xxs-max) {
+                text-align: center;
+              }
+            }
+            .yes-delete {
+              background: #bf2828;
+            }
+            .no-delete {
+              background: #003e51;
+            }
+          }
+          .orange-custom-btn {
+            box-shadow: none;
+            text-align: center;
+            font-size: 18px;
+            background: $orange-brand;
+            border: none;
+            margin: 0 auto;
+            color: #fff;
+            padding: 10px 20px;
+            outline: none;
+            border-radius: 0;
+            transition: 0.5s ease-in-out all;
+            &:hover {
+              background: $brand-secondary;
+            }
+            &:not(:last-child) {
+              margin-right: 5px;
+            }
+            @media (max-width: $screen-xxs-max) {
+              width: 230px;
+              margin-left: auto;
+              margin-right: auto;
+              display: block;
+              &:not(:last-child) {
+                margin-right: auto;
+                margin-bottom: 10px;
+              }
+            }
+          }
+        }
+      }
+    }
+    &.modal-static {
+      .modal-dialog {
+        transform: none;
+        -webkit-transform: none;
+        -moz-transform: none;
+      }
+    }
+  }
+}

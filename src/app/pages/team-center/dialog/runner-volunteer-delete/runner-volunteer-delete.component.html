@@ -1,0 +1,49 @@
+<div class="modal-body team-center-roster">
+  <form *ngIf="!show.runnerVolunteerDeleted">
+    <div class="modal-roster-delete">
+      <div class="confirm-delete">
+        {{ 'team-center.dialog.runner-volunteer-delete.confirm-massage' | translate }}
+        <h4 *ngIf="show.isRunnerVolunteer">{{ componentData.deleteInfo.firstName + ' ' + componentData.deleteInfo.lastName }}</h4>
+        <h4 *ngIf="!show.isRunnerVolunteer">{{ componentData.deleteInfo.email }}</h4>
+        {{ 'team-center.dialog.runner-volunteer-delete.from-your' | translate }} {{ show.isRunnerVolunteer ? 'team' : 'invitation' }}?
+        {{ 'team-center.dialog.runner-volunteer-delete.undone' | translate }}
+        <img
+          class="img-responsive center-block loading-img"
+          src="assets/images/spinner.gif"
+          ng-style="{ 'margin-left': '0px' }"
+          *ngIf="show.loading"
+        />
+      </div>
+      <button
+        *ngIf="show.isRunnerVolunteer"
+        type="button"
+        (click)="deleteMemberVolunteer(componentData.deleteInfo)"
+        class="yes-delete orange-custom-btn"
+      >
+        {{ 'team-center.dialog.runner-volunteer-delete.get-rid' | translate }}
+      </button>
+      <button
+        *ngIf="!show.isRunnerVolunteer"
+        type="button"
+        (click)="deleteInvitation(componentData.deleteInfo)"
+        class="yes-delete orange-custom-btn"
+      >
+        {{ 'team-center.dialog.runner-volunteer-delete.get-rid' | translate }}
+      </button>
+      <button type="button" (click)="close()" class="no-delete orange-custom-btn">
+        {{ 'team-center.dialog.runner-volunteer-delete.for-now' | translate }}
+      </button>
+    </div>
+  </form>
+
+  <form *ngIf="show.runnerVolunteerDeleted">
+    <div class="modal-roster-delete">
+      <div class="confirm-delete">
+        <h4 *ngIf="show.isRunnerVolunteer">{{ componentData.deleteInfo.firstName + ' ' + componentData.deleteInfo.lastName }}</h4>
+        <h4 *ngIf="!show.isRunnerVolunteer">{{ componentData.deleteInfo.email }}</h4>
+        {{ 'team-center.dialog.runner-volunteer-delete.goodbye' | translate }}
+      </div>
+      <button type="button" (click)="close()" class="done-delete orange-custom-btn">{{ 'common-data.done' | translate }}</button>
+    </div>
+  </form>
+</div>

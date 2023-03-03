@@ -1,0 +1,120 @@
+<div class="meetup_calendar_main">
+  <div class="meetup_calendar_ragana_localized text-center">
+    <img class="img-fluid" src="assets/images/static-pages/meetup-calendar/web_calendar_titleImage.png" alt="" />
+  </div>
+  <section class="meetup_calendar_banner"></section>
+  <section class="meetup_calendar_filter">
+    <div id="mc-location-filter">
+      <input
+        type="text"
+        id="location"
+        placeholder="Location"
+        [(ngModel)]="filterData.location"
+        [ngbTypeahead]="locationList"
+        (focus)="focusOfLocation.next($any($event).target.value)"
+        (click)="clickOfLocation.next($any($event).target.value)"
+        #instOfLocation="ngbTypeahead"
+        class=""
+      />
+    </div>
+    <div id="mc-race-filter">
+      <input
+        type="text"
+        id="race"
+        placeholder="Race"
+        [(ngModel)]="filterData.race"
+        [ngbTypeahead]="raceList"
+        (focus)="focusOfRace.next($any($event).target.value)"
+        (click)="clickOfRace.next($any($event).target.value)"
+        #instOfRaceName="ngbTypeahead"
+        class=""
+      />
+    </div>
+    <div id="mc-date-filter">
+      <input type="text" class="" id="date" placeholder="Date" [(ngModel)]="filterData.date" (click)="showCalendar()" />
+
+      <ngb-datepicker
+        *ngIf="showCalendarFlag"
+        #dp
+        (dateSelect)="onDateSelection($event)"
+        [displayMonths]="2"
+        [dayTemplate]="t"
+        outsideDays="hidden"
+      >
+      </ngb-datepicker>
+      <ng-template #t let-date let-focused="focused">
+        <span
+          class="custom-day"
+          [class.focused]="focused"
+          [class.range]="isRange(date)"
+          [class.faded]="isHovered(date) || isInside(date)"
+          (mouseenter)="hoveredDate = date"
+          (mouseleave)="hoveredDate = null"
+        >
+          {{ date.day }}
+        </span>
+      </ng-template>
+    </div>
+  </section>
+  <section class="meetup_calendar_results">
+    <div class="container">
+      <div
+        class="row meetup_calendar_results-first-row border-bootom-common"
+        *ngFor="let race of calendarList.listData | filterMeetupCalendar : filterData.race : filterData.location : filterData.date"
+      >
+        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12 mc-result-date text-center">
+          <h2>{{ getRaceDate(race.date) }}</h2>
+          <h4>{{ getRaceDay(race.date) }}</h4>
+        </div>
+        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-12 col-12 mc-result-content">
+          <h3>{{ race.title }}</h3>
+          <div class="mc-result-content-data">
+            <div>
+              <span class="iconm-calendar text-orange"></span>
+              <span>{{ race.date }}</span>
+            </div>
+            <div>
+              <span class="iconm-time text-orange"></span>
+              <span>{{ race.start_time }} {{ race.end_time ? '- ' + race.end_time : '' }}</span>
+            </div>
+            <div>
+              <span class="iconm-map-pin text-orange"></span>
+              <span>{{ race.location }}</span>
+            </div>
+          </div>
+          <div class="mc-result-content-text">
+            <p>{{ race.description }}</p>
+            <p>Associated Ragnar: {{ race.name }}</p>
+            <div class="mc-result-content-address-row mr-0 ml-0">
+              <div class="row mc-result-content-address-text">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-12 d-flex">
+                  <span>Address:</span>
+                  <span
+                    >{{ race.location }}<br />
+                    {{ race.address_1 }} <br />
+                    {{ race.city }}, {{ race.state }} {{ race.zip }}</span
+                  >
+                </div>
+                <div ngbDropdown display="dynamic" class="col-xl-6 col-lg-6 col-md-6 col-12">
+                  <button class="btn btn-outline-primary" id="sortMenu" ngbDropdownToggle>
+                    {{ 'static-pages.meetup.add-to-calendar' | translate }}
+                  </button>
+                  <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="sortMenu">
+                    <a
+                      ngbDropdownItem
+                      class="dropdown-item"
+                      href="javascript:void(0);"
+                      *ngFor="let data of addCalendarList"
+                      (click)="addEventToCalendar(data.value, race)"
+                      >{{ data.label }}</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

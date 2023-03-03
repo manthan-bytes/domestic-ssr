@@ -1,0 +1,136 @@
+@import 'vars';
+
+.our-story_main {
+  .container {
+    max-width: 1140px;
+  }
+  .our-story-banner {
+    .container {
+      max-width: 92% !important;
+    }
+    background: url(/assets/images/static-pages/our-story/history.jpg) no-repeat;
+    background-size: cover;
+    background-position: top;
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    @include font-weight(700);
+    color: $white;
+    height: 350px;
+    .main-title {
+      font-size: 72px;
+      text-shadow: 0 0 30px rgba(0, 0, 0, 0.69);
+      color: $white;
+      margin-bottom: 25px;
+      @include font-weight(700);
+
+      @media (max-width: $screen-xs-max) {
+        font-size: 52px;
+        padding: 0;
+      }
+      @media (max-width: $screen-xxs-max) {
+        font-size: 42px;
+      }
+    }
+  }
+
+  .main-content {
+    padding: 25px 0px;
+
+    h3 {
+      font-family: $font_family_barlow_Condensed;
+      @include font-weight(600);
+      font-size: $font_size_large;
+      letter-spacing: normal;
+      line-height: 30px;
+      color: $black3;
+    }
+    p {
+      color: $black3;
+      font-size: 14px;
+      line-height: 20px;
+      @include font-weight(400);
+    }
+
+    .next-steps {
+      padding-left: 0px;
+      margin-left: -25px;
+      @media (max-width: $screen-md-max) {
+        margin-left: 0;
+      }
+      h2 {
+        color: $brand-secondary;
+        font-size: 30px;
+        font-family: $font_family_barlow_Condensed;
+        @include font-weight(600);
+        padding-left: 15px;
+      }
+      .separator {
+        background-color: $brand-secondary;
+        padding: 3px;
+        margin: 10px 0px;
+        max-width: 235px;
+        @media (max-width: $screen-xs-max) {
+          margin-left: 0px;
+          margin-right: 0px;
+          max-width: 100%;
+        }
+      }
+      ul {
+        padding-left: 15px;
+        list-style: none;
+        li {
+          a {
+            font-size: 1.2em;
+            color: $brand-secondary !important;
+          }
+        }
+      }
+
+      @media (max-width: $screen-md-max) {
+        padding-right: 20px;
+        padding-left: 0px;
+      }
+      @media (max-width: $screen-xs-max) {
+        padding-right: 10px;
+        padding-left: 10px;
+      }
+    }
+    img.thumbnail {
+      padding: 4px;
+      line-height: 1.4;
+      background-color: $white;
+      border: 1px solid $white4;
+      border-radius: 4px;
+      margin: 20px 0px 0px;
+
+      @media (max-width: $screen-xs-max) {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-bottom: 25px;
+      }
+    }
+    .our-story-whatsin-text {
+      margin-top: 22px;
+      @media (max-width: $screen-md-max) {
+        margin-bottom: 35px;
+      }
+      p {
+        margin: 10px 0px;
+      }
+    }
+    .main-content-col {
+      padding-right: 44px;
+      @media (max-width: $screen-md-max) {
+        padding-right: 15px;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .container {
+    max-width: 83% !important;
+  }
+}

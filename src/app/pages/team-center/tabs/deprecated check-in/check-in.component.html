@@ -1,0 +1,299 @@
+<div class="tab-inner display-content-center" *ngIf="teamInformation">
+  <div class="form-content">
+    <form class="row teamDetailRow qualifier-main" *ngIf="!teamInformation.qrCode">
+      <h2 *ngIf="!checkInConfig.showCheckingStatus" class="title"></h2>
+      <div *ngIf="!checkInConfig.showSorryMsg && !checkInConfig.showCheckingStatus">
+        <div [hidden]="!isAbleToPay()">
+          <p class="qualifier-info"><i class="fa fa-warning"></i> {{ 'team-center.tabs.check-in.pay-before-contine' | translate }}</p>
+          <button type="button" (click)="openVolunteerFeesModel()" class="orange-custom-btn invite-btn">
+            {{ 'team-center.tabs.check-in.pay-now' | translate }}
+          </button>
+        </div>
+        <div [hidden]="isAbleToPay() && excludeType === selectedEvent.type">
+          <strong>{{ 'team-center.tabs.check-in.pickup-race' | translate }}</strong>
+          <button (click)="checkInConfig.showCheckingStatus = true; curStep = 1" class="sm-btn yes-delete">
+            {{ 'team-center.tabs.check-in.packet-pickup' | translate }}
+          </button>
+          <button (click)="checkInConfig.showSorryMsg = true" class="sm-btn no-delete">
+            {{ 'team-center.tabs.check-in.no-packet-pickup' | translate }}
+          </button>
+        </div>
+      </div>
+      <div [hidden]="!checkInConfig.showSorryMsg">
+        <p class="msg-no">{{ 'team-center.tabs.check-in.sorry-massage' | translate }}</p>
+      </div>
+    </form>
+    <div *ngIf="checkInConfig.showCheckingStatus || teamInformation.qrCode || (excludeType === selectedEvent.type && !isAbleToPay())">
+      <div class="checking-status">
+        <ul class="step-nav">
+          <li>
+            <a [ngClass]="{ 'active-step': curStep >= 1 || teamInformation.qrCode }" href="javascript:;">{{
+              'team-center.tabs.check-in.info' | translate
+            }}</a>
+          </li>
+          <li [hidden]="excludeType === selectedEvent.type">
+            <a [ngClass]="{ 'active-step': curStep >= 2 || teamInformation.qrCode }" href="javascript:;">{{
+              'team-center.tabs.check-in.safety' | translate
+            }}</a>
+          </li>
+          <li>
+            <a [ngClass]="{ 'active-step': curStep >= 3 || teamInformation.qrCode }" href="javascript:;">{{
+              'team-center.tabs.check-in.complete' | translate
+            }}</a>
+          </li>
+        </ul>
+        <a href="javascript:;" (click)="switchTab.next('Team_Details')" class="close_tab"
+          ><img class="img-responsive center-block" src="assets/images/team-center/modal-close-icon.png" alt="Close Icon"
+        /></a>
+      </div>
+
+      <form class="row teamDetailRow info-main" *ngIf="curStep === 1 && !teamInformation.qrCode" #chkFrm="ngForm">
+        <div class="col-md-12">
+          <h1 class="title">{{ selectedEvent.name }} {{ 'team-center.tabs.check-in.online-check' | translate }}</h1>
+          <div class="title-box">
+            <ul>
+              <li>
+                <b>{{ 'common-data.team' | translate }} </b> {{ teamInformation.name }} ({{ teamInformation.teamNumber }})
+              </li>
+              <li>
+                <b>{{ 'common-data.classification' | translate }} </b> {{ teamInformation.classification }}
+              </li>
+              <li>
+                <b>{{ 'common-data.division' | translate }} </b> {{ teamInformation.division }}
+              </li>
+              <li>
+                <b>{{ 'team-center.tabs.check-in.start-time' | translate }} </b> {{ teamInformation.startTime | timeFormat }}
+              </li>
+            </ul>
+          </div>
+          <h2 class="title" *ngIf="selectedEvent.type === 'ROAD' || selectedEvent.type === 'SPRINT'">
+            {{ 'team-center.tabs.check-in.van-info' | translate }}
+          </h2>
+          <div class="row" *ngIf="selectedEvent.type === 'ROAD' || selectedEvent.type === 'SPRINT'">
+            <div class="col-md-12 van-fields">
+              <label>{{ 'team-center.tabs.check-in.van1-phone' | translate }}</label>
+              <input
+                type="text"
+                phone
+                name="van1"
+                [(ngModel)]="checkInConfig.van1"
+                required
+                ng-class="chkFrm.van1.$touched && chkFrm.van1.$invalid ? 'has-error' : ''"
+              />
+            </div>
+            <div *ngIf="teamInformation.type !== 'ULTRA' && selectedEvent.type === 'ROAD'" class="col-md-12 van-fields">
+              <label>{{ 'team-center.tabs.check-in.van2-phone' | translate }}</label>
+              <input
+                type="text"
+                phone
+                name="van2"
+                [(ngModel)]="checkInConfig.van2"
+                required
+                ng-class="chkFrm.van2.$touched && chkFrm.van2.$invalid ? 'has-error' : ''"
+              />
+            </div>
+          </div>
+          <h2 class="title">{{ 'team-center.tabs.check-in.team-info' | translate }}</h2>
+          <h3 class="title">{{ 'team-center.tabs.check-in.runners' | translate }}</h3>
+          <div class="runner-table rosterTbl">
+            <div class="col-xs-12 table-row table-row-header">
+              <div class="row row-block">
+                <div class="col-sm-3 col-xs-8 runnerName">
+                  <span class="text-value">{{ 'common-data.name' | translate }}</span>
+                </div>
+                <div class="col-sm-2 col-xs-4 runnerNo">
+                  <span class="text-value">{{ 'common-data.runner-no' | translate }}</span>
+                </div>
+                <div class="col-sm-1 hidden-xs runnerPace">
+                  <span class="text-value">{{ 'common-data.pace' | translate }}</span>
+                </div>
+                <div class="col-sm-2 hidden-xs runnerPhone">
+                  <span class="text-value">{{ 'common-data.phone' | translate }}</span>
+                </div>
+                <div class="col-sm-4 hidden-xs runnerEmail">
+                  <span class="text-value">{{ 'common-data.email' | translate }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 table-row" *ngFor="let runner of runnerInformation | sortBy : 'asc' : 'firstName'">
+              <div class="row row-block">
+                <div class="col-sm-3 col-xs-8 runnerName">
+                  <span class="text-value">{{ runner.firstName + ' ' + runner.lastName }}</span>
+                </div>
+                <div class="col-sm-2 col-xs-4 runnerNo">
+                  <span class="text-value">
+                    {{ runner.order || 'Unassigned' }}
+                    <a class="expand-option visible-xs" [ngClass]="{ 'icon-change': expandDetail }" (click)="expandDetail = !expandDetail">
+                      <img src="assets/images/team-center/arrow-down-icon.png" class="img-responsive" alt="arrow-down-icon" />
+                    </a>
+                  </span>
+                </div>
+                <div class="col-sm-1 hidden-xs runnerPace">
+                  <span class="text-value">{{ runner.pace | paceFilter }}</span>
+                </div>
+                <div class="col-sm-2 hidden-xs runnerPhone">
+                  <span class="text-value">{{ runner.phone ? (runner.phone | phoneFilter) : '-' }}</span>
+                </div>
+                <div class="col-sm-4 hidden-xs runnerEmail">
+                  <span class="text-value">{{ runner.email }}</span>
+                </div>
+                <div class="visible-xs view-other-details" [ngClass]="expandDetail ? 'expand-now' : ''">
+                  <ul>
+                    <li>
+                      <label class="detail-title">{{ 'common-data.pace1' | translate }} {{ runner.pace | paceFilter }}</label>
+                    </li>
+                    <li>
+                      <label class="detail-title"
+                        >{{ 'common-data.phone1' | translate }} {{ runner.phone ? (runner.phone | phoneFilter) : '-' }}</label
+                      >
+                    </li>
+                    <li>
+                      <label class="detail-title">{{ 'common-data.email' | translate }} {{ runner.email }}</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="title">{{ 'team-center.tabs.check-in.volunteer' | translate }}</h3>
+          <div class="runner-table rosterTbl">
+            <div class="col-xs-12 table-row table-row-header">
+              <div class="row row-block">
+                <div class="col-sm-2 col-xs-4">
+                  <span class="text-value">{{ 'common-data.name' | translate }}</span>
+                </div>
+                <div class="col-sm-4 col-xs-8">
+                  <span class="text-value">{{ 'common-data.email' | translate }}</span>
+                </div>
+                <div class="col-sm-4 hidden-xs">
+                  <span class="text-value">{{ 'team-center.tabs.check-in.shift1' | translate }}</span>
+                </div>
+                <div class="col-sm-2 hidden-xs">
+                  <span class="text-value">{{ 'common-data.location' | translate }}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 table-row" *ngFor="let volunteer of volunteerInformation | sortBy : 'asc' : 'firstName'">
+              <div class="row row-block">
+                <div class="col-sm-2 col-xs-4">
+                  <span class="text-value">
+                    {{ volunteer.firstName + ' ' + volunteer.lastName }}
+                  </span>
+                </div>
+                <div class="col-sm-4 col-xs-8">
+                  <span class="text-value">
+                    {{ volunteer.email }}
+                    <a class="expand-option visible-xs" [ngClass]="{ 'icon-change': expandDetail }" (click)="expandDetail = !expandDetail">
+                      <img src="images/team-center/arrow-down-icon.png" class="img-responsive" alt="arrow-down-icon" />
+                    </a>
+                  </span>
+                </div>
+                <div class="col-sm-4 hidden-xs">
+                  <span class="text-value">{{
+                    [volunteer.shiftStartDate, volunteer.shiftEndDate, volunteer.shiftStartTime, volunteer.shiftEndTime] | dateRange
+                  }}</span>
+                </div>
+                <div class="col-sm-2 hidden-xs">
+                  <span class="text-value">{{ volunteer.jobLocation }}</span>
+                </div>
+                <div class="visible-xs view-other-details" [ngClass]="expandDetail ? 'expand-now' : ''">
+                  <ul>
+                    <li>
+                      <label class="detail-title"
+                        >{{ 'common-data.shift' | translate }}
+                        {{
+                          [volunteer.shiftStartDate, volunteer.shiftEndDate, volunteer.shiftStartTime, volunteer.shiftEndTime] | dateRange
+                        }}</label
+                      >
+                    </li>
+                    <li>
+                      <label class="detail-title">{{ 'common-data.location1' | translate }} {{ volunteer.jobLocation }}</label>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button
+            class="btn btn-sherpa-blue next-btn"
+            [hidden]="excludeType === selectedEvent.type"
+            [disabled]="!chkFrm.valid"
+            (click)="curStep = 2"
+          >
+            {{ 'common-data.next' | translate }}
+          </button>
+          <button
+            class="btn btn-sherpa-blue next-btn"
+            [hidden]="excludeType !== selectedEvent.type"
+            [disabled]="!chkFrm.valid || show.loading"
+            (click)="submitData()"
+          >
+            <span class="spinner-grow spinner-grow-sm text-dark" role="status" aria-hidden="true" *ngIf="show.loading"></span>
+            {{ 'common-data.next' | translate }}
+          </button>
+        </div>
+      </form>
+
+      <form class="row teamDetailRow safety-main" *ngIf="curStep === 2 && !teamInformation.qrCode">
+        <div>
+          <h1 class="title">{{ selectedEvent.name }} {{ 'team-center.tabs.check-in.online-check' | translate }}</h1>
+          <iframe
+            height="315"
+            width="560"
+            src="https://www.youtube.com/embed/L32cnqFV8dU"
+            frameborder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          <button
+            type="button"
+            class="btn btn-default"
+            (click)="copyToClipboardService.copyText('https://www.youtube.com/watch?v=L32cnqFV8dU', 'URL copied to clipboard')"
+          >
+            {{ 'team-center.tabs.check-in.copy-url' | translate }}
+          </button>
+          <input type="checkbox" name="safety-note" [(ngModel)]="checkInConfig.isCheckedSafety" id="safety-note" />
+          <label for="safety-note">{{ 'team-center.tabs.check-in.safety-note' | translate }}</label>
+          <button class="btn btn-sherpa-blue next-btn" [disabled]="!checkInConfig.isCheckedSafety || show.loading" (click)="submitData()">
+            <span class="spinner-grow spinner-grow-sm text-dark" role="status" aria-hidden="true" *ngIf="show.loading"></span>
+            {{ 'common-data.next' | translate }}
+          </button>
+        </div>
+      </form>
+
+      <form class="row teamDetailRow safety-main" *ngIf="curStep === 3 || teamInformation.qrCode">
+        <div>
+          <h1 class="title">{{ selectedEvent.name }} {{ 'team-center.tabs.check-in.online-check' | translate }}</h1>
+          <h3 class="success-info">
+            <i class="fa fa-check-circle"></i> {{ 'team-center.tabs.check-in.success-info' | translate }} {{ selectedEvent.name }} -
+            {{ selectedEvent.raceYear }}.
+          </h3>
+          <div class="qr_band">
+            <img src="{{ teamInformation.qrCode }}" />
+          </div>
+
+          <label class="email-sent"><i class="fa fa-check-square"></i>{{ 'team-center.tabs.check-in.email-sent' | translate }}</label>
+          <button type="button" class="btn btn-sherpa-blue" (click)="printDiv()">
+            <i class="fa fa-print"></i> {{ 'common-data.print' | translate }}
+          </button>
+          <h3 class="left-text">{{ 'common-data.next-steps' | translate }}</h3>
+          <ol [hidden]="excludeType === selectedEvent.type">
+            <li>
+              {{ 'team-center.tabs.check-in.team-watches' | translate }}
+              <a href="https://www.youtube.com/watch?v=L32cnqFV8dU" target="_blank" style="color: #2a6496 !important">{{
+                'team-center.tabs.check-in.safety-video' | translate
+              }}</a>
+              {{ 'team-center.tabs.check-in.prior-pickup' | translate }}
+            </li>
+            <li>{{ 'team-center.tabs.check-in.qr-code1' | translate }}</li>
+          </ol>
+          <ol [hidden]="excludeType !== selectedEvent.type">
+            <li>{{ 'team-center.tabs.check-in.qr-code2' | translate }}</li>
+          </ol>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

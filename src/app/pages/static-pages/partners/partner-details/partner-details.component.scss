@@ -1,0 +1,68 @@
+@import 'vars';
+
+.partner-detail-wtapper {
+  padding: 60px 0;
+  @media (max-width: $screen-xs-max) {
+    padding-top: 30px;
+    padding-bottom: 40px;
+  }
+  .logo {
+    display: inline-block;
+    width: 100%;
+    max-width: 300px;
+    padding: 25px;
+    border-radius: 4px;
+    background-color: $navy;
+    border-color: $navy;
+    margin-bottom: 40px;
+    @media (max-width: $screen-xs-max) {
+      max-width: 160px;
+      margin-bottom: 30px;
+    }
+
+    img {
+      max-height: 92px;
+      width: auto;
+      margin: 0 auto;
+      filter: brightness(1);
+      max-width: 100%;
+      @media (max-width: $screen-xs-max) {
+        max-height: 68px;
+      }
+    }
+  }
+  .content {
+    margin-bottom: 30px;
+    h6 {
+      font-size: 22px;
+      color: #0f0e0c;
+      font-family: $font_family_lato;
+      line-height: normal;
+    }
+    p {
+      font-size: 24px;
+      font-weight: 500;
+      color: #4a4a4a;
+      line-height: 36px;
+      letter-spacing: 0.5px;
+      @media (max-width: $screen-xs-max) {
+        font-size: 20px;
+        line-height: 32px;
+      }
+      ::ng-deep {
+        p {
+          line-height: 36px;
+        }
+      }
+    }
+  }
+
+  .rg_btn {
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    margin: 0 auto;
+    background-color: #f17a21;
+    border: none;
+  }
+}

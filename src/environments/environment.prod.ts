@@ -81,4 +81,5 @@ export const environment = {
     messagingSenderId: '407987862029',
     appId: '1:407987862029:web:55918273d219ee88',
   },
+  SSR_PORT: 4200
 };

@@ -1,0 +1,30 @@
+<div class="container text-center" *ngIf="!partnerDetails">
+  <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+</div>
+<div class="partner-detail-wtapper text-center" *ngIf="partnerDetails">
+  <div class="container">
+    <div class="logo">
+      <img [src]="partnerDetails?.logo_white" alt="Partner" />
+    </div>
+    <div class="content">
+      <h6>{{ partnerDetails?.name }}</h6>
+      <span *ngIf="partnerDetails.description">
+        <p [innerHTML]="partnerDetails?.description | sanitizeHtml"></p>
+      </span>
+    </div>
+    <div class="content">
+      <h6 *ngIf="partnerDetails?.dealText">Partner Deal</h6>
+      <!-- <p>{{ partnerDetails?.dealText }}</p> -->
+      <span *ngIf="partnerDetails.dealText">
+        <p [innerHTML]="partnerDetails?.dealText | sanitizeHtml"></p>
+      </span>
+    </div>
+    <div class="learn-btn">
+      <a href="{{ partnerDetails?.url }}" class="rg_btn">
+        {{ partnerDetails?.buttonTitle !== null ? partnerDetails?.buttonTitle : 'Learn More' }}
+      </a>
+    </div>
+  </div>
+</div>
+
+<app-testimonials *ngIf="quotes" [Quotes]="quotes"></app-testimonials>

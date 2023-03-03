@@ -1,0 +1,108 @@
+@import 'vars';
+
+.race-updates-inner {
+  width: 80%;
+  margin: 25px auto 50px;
+  .captain-log-block {
+    margin-top: 50px;
+    & > h2 {
+      font-size: 30px;
+      line-height: 36px;
+      text-align: left;
+      color: #5d5d5d;
+      font-weight: 400;
+      font-family: $font_family_gothambold;
+      margin-bottom: 25px;
+      margin-top: 0px;
+      @media (max-width: $screen-xs-max) {
+        font-size: $font_size_medium;
+        line-height: 28px;
+      }
+    }
+    .race-updates {
+      margin-bottom: 40px;
+      & > h4 {
+        font-size: 18px;
+        line-height: 24px;
+        text-align: left;
+        color: #5d5d5d;
+        font-weight: 400;
+        font-family: $font_family_gothammedium;
+        margin-bottom: 25px;
+        margin-top: 0px;
+      }
+
+      & > ul {
+        & > li {
+          @include flexbox();
+          @include justify-content(center);
+          @include align-items(center);
+          @media (max-width: $screen-xs-max) {
+            flex-direction: column;
+          }
+          margin-bottom: 25px;
+          .race-dates {
+            width: 10%;
+            display: inline-block;
+            font-size: 16px;
+            line-height: 22px;
+            letter-spacing: 0.25px;
+            text-align: left;
+            color: #5d5d5d;
+            font-weight: 400;
+
+            font-family: $font_family_gothambook;
+            @media (max-width: $screen-xs-max) {
+              width: 100%;
+              font-family: $font_family_gothammedium;
+              margin-bottom: 10px;
+            }
+          }
+          .race-date-info {
+            width: 90%;
+            display: inline-block;
+            padding-left: 25px;
+            border-left: 2px solid #f4792f;
+
+            line-height: 20px;
+            letter-spacing: 0.25px;
+            text-align: left;
+            color: #5d5d5d;
+            font-weight: 400;
+            font-family: $font_family_gothambook;
+            @media (max-width: $screen-xs-max) {
+              width: 100%;
+              border-left: 0px;
+              padding-left: 0px;
+            }
+            * {
+              font-size: 16px;
+              line-height: 22px;
+              text-align: left;
+              color: #5d5d5d;
+              font-weight: 400;
+              font-family: $font_family_gothambook;
+              @media (max-width: $screen-xs-max) {
+                font-size: 14px;
+                line-height: 20px;
+              }
+            }
+
+            a {
+              color: #f4792f !important;
+            }
+            .race-dates-video {
+              display: inline-block;
+              width: 100%;
+              margin: 10px 0;
+              img {
+                width: 48px !important;
+                height: 48px !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

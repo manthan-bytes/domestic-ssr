@@ -1,0 +1,59 @@
+@import 'vars';
+
+@mixin container-common() {
+  max-width: 1170px;
+}
+.plan-your-trip_main {
+  .main-banner {
+    background-color: $grey;
+    font-family: $font_family_barlow;
+    font-weight: 700;
+    color: $white;
+    height: 350px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left;
+    .event-detail {
+      padding: 70px 0 14px 90px;
+      @media (max-width: $screen-sm-min) {
+        padding: 70px 15px 15px 15px;
+      }
+      z-index: 1;
+      text-shadow: -1px 0 $gray3, 0 1px $gray3, 1px 0 $gray3, 0 -1px $gray3;
+      .event-name {
+        line-height: 1;
+        font-size: 42px;
+        .ragnar {
+          float: left;
+          font-family: $font_family_barlow;
+          font-weight: 700;
+          font-size: 63px;
+          text-transform: uppercase;
+          padding: 0;
+          @media (max-width: $screen-sm-min) {
+            font-size: 18px;
+          }
+          img {
+            max-height: 200px;
+          }
+        }
+      }
+    }
+  }
+  .main-content {
+    h1 {
+      margin-top: 20px;
+      font-family: $font_family_barlow_Condensed;
+      font-weight: 600;
+      font-size: 36px;
+      letter-spacing: 0.3px;
+      color: $black3;
+      display: inline-block;
+      width: 100%;
+    }
+    p {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+}

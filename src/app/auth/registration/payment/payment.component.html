@@ -1,0 +1,247 @@
+<div class="container text-center" *ngIf="show.pageLoading">
+  <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+</div>
+<div class="bg-virtual-challenge-register" *ngIf="!show.pageLoading">
+  <div class="payment">
+    <h3 class="mb-2">{{ 'auth.registration.payment.payment-info' | translate }}</h3>
+    <div class="event_info">
+      <div class="event_list">
+        <div class="row mb-2 d-none d-md-flex">
+          <div class="col-md-3">
+            <strong>{{ 'common-data.date' | translate }}</strong>
+          </div>
+          <div class="col-md-6">
+            <strong>{{ 'auth.registration.payment.virtual-challenge' | translate }}</strong>
+          </div>
+          <div class="col-md-1 text-right">
+            <strong>{{ 'common-data.price' | translate }}</strong>
+          </div>
+        </div>
+        <hr />
+        <div class="row mb-2" *ngFor="let eCommerce of selectedPlan">
+          <div class="col-md-3 col_value">
+            <strong>{{ 'common-data.date' | translate }}</strong
+            >{{ today | dateFormat : 'MMM D, YYYY' }}
+          </div>
+          <div class="col-md-6 col_value">
+            <strong>{{ 'auth.registration.payment.virtual-challenge' | translate }}</strong
+            >{{ eCommerce.description }}
+          </div>
+          <div class="col-md-1 text-md-right text-sm-left col_value">
+            <strong>{{ 'common-data.price' | translate }}</strong
+            >{{ eCommerce.price | currency }}
+          </div>
+        </div>
+      </div>
+      <hr />
+      <div class="row mt-2 mb-1">
+        <div class="col-md-9 col-6 text-md-right">{{ 'common-data.sub-total' | translate }}</div>
+        <div class="col-md-1 col-6 text-md-right">{{ orderDetail.subTotal | currency }}</div>
+      </div>
+      <div class="row mb-1">
+        <div class="col-md-9 col-6 text-md-right">{{ 'auth.registration.payment.shipping' | translate }}</div>
+        <div class="col-md-1 col-6 text-md-right">{{ orderDetail.shippingCharges | currency }}</div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-9 col-6 text-md-right">{{ 'auth.registration.payment.discounts' | translate }}</div>
+        <div class="col-md-1 col-6 text-md-right">- {{ orderDetail.discounts | currency }}</div>
+      </div>
+      <hr />
+      <div class="row mt-2">
+        <div class="col-md-9 col-6 text-md-right">
+          <strong>{{ 'common-data.total-amount' | translate }}</strong>
+        </div>
+        <div class="col-md-1 col-6 text-md-right">{{ orderDetail.total | currency }}</div>
+      </div>
+    </div>
+    <div class="card_info">
+      <h3>{{ 'common-data.card-information' | translate }}</h3>
+      <form #cardForm="ngForm">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group" [ngClass]="{ error_input: cardForm.submitted && cardName.errors?.required }">
+              <label for="cardName">{{ 'common-data.card-name' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                name="cardName"
+                #cardName="ngModel"
+                id="cardName"
+                placeholder="Name on Card"
+                [(ngModel)]="cardData.cardName"
+                required
+              />
+              <ng-container *ngIf="cardForm.submitted">
+                <span class="error_msg" *ngIf="cardName.errors?.required">
+                  {{ 'common-data.name-required' | translate }}
+                </span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group card_number" [ngClass]="{ error_input: cardForm.submitted && cardNumber.errors?.required }">
+              <label for="cardNumber">{{ 'common-data.card-number' | translate }}</label>
+              <input
+                type="tel"
+                maxlength="23"
+                class="form-control"
+                name="cardNumber"
+                #cardNumber="ngModel"
+                id="cardNumber"
+                placeholder="Card Number"
+                [(ngModel)]="cardData.cardNumber"
+                (keyup)="validateCC(cardData.cardNumber)"
+                required
+              />
+              <div class="card_icon">
+                <img *ngIf="cardType === 'visa' || cardType === null" src="{{ svgVisa }}" />
+                <img *ngIf="cardType === 'master' || cardType === null" src="{{ svgMastercard }}" />
+                <img *ngIf="cardType === 'discover' || cardType === null" src="{{ svgDiscover }}" />
+              </div>
+              <ng-container *ngIf="cardForm.submitted">
+                <span class="error_msg" *ngIf="cardNumber.errors?.required">
+                  {{ 'common-data.card-number-required' | translate }}
+                </span>
+                <span class="error_msg" *ngIf="!show.cardCheck">
+                  {{ 'common-data.not-accepted' | translate }} <br />{{ 'common-data.try-other' | translate }}
+                </span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group" [ngClass]="{ error_input: cardForm.submitted && expire.errors?.required }">
+              <label for="expire">{{ 'common-data.expiration' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                name="expire"
+                #expire="ngModel"
+                id="expire"
+                placeholder="MM/YY"
+                [(ngModel)]="cardData.expiration"
+                (input)="validateCardExpiry(cardData.expiration)"
+                required
+              />
+              <ng-container *ngIf="cardForm.submitted">
+                <span class="error_msg" *ngIf="expire.errors?.required">
+                  {{ 'common-data.expiration-required' | translate }}
+                </span>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group" [ngClass]="{ error_input: cardForm.submitted && (cvv.errors?.required || cvv.errors?.pattern) }">
+              <label for="cvv">{{ 'common-data.cvv' | translate }}</label>
+              <input
+                type="password"
+                class="form-control"
+                name="cvv"
+                #cvv="ngModel"
+                id="cvv"
+                pattern="^[0-9]{3,4}$"
+                placeholder="CVV"
+                [(ngModel)]="cardData.cardCode"
+                required
+              />
+              <ng-container *ngIf="cardForm.submitted">
+                <span class="error_msg" *ngIf="cvv.errors?.required"> {{ 'common-data.cvv-required' | translate }} </span>
+                <span class="error_msg" *ngIf="cvv.errors?.pattern"> {{ 'common-data.valid-cvv' | translate }} </span>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="form-group"
+              [ngClass]="{ error_input: cardForm.submitted && (zipCode.errors?.required || zipCode.errors?.pattern) }"
+            >
+              <label for="zipCode">{{ 'common-data.zipcode' | translate }}</label>
+              <input
+                type="text"
+                class="form-control"
+                name="zipCode"
+                #zipCode="ngModel"
+                id="zipCode"
+                pattern="^(?=.{5,8}$)[A-Za-z0-9]+(?:\s[A-Za-z0-9]+)*$"
+                placeholder="Zipcode"
+                [(ngModel)]="cardData.zip"
+                required
+              />
+              <ng-container *ngIf="cardForm.submitted">
+                <span class="error_msg" *ngIf="zipCode.errors?.required">
+                  {{ 'common-data.zipcode-required' | translate }}
+                </span>
+                <span class="error_msg" *ngIf="zipCode.errors?.pattern"> {{ 'common-data.valid-zipcode' | translate }} </span>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              name="futureEventUpdate"
+              #futureEventUpdate="ngModel"
+              id="futureEventUpdate"
+              [(ngModel)]="optIn.futureEventUpdate"
+            />
+            <label for="futureEventUpdate" class="custom-control-label"> {{ 'auth.registration.payment.future-event' | translate }} </label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              name="AfterShokz"
+              #AfterShokz="ngModel"
+              id="AfterShokz"
+              [(ngModel)]="optIn.AfterShokz"
+            />
+            <label for="AfterShokz" class="custom-control-label">
+              {{ 'auth.registration.payment.after-shokz-text' | translate }}
+            </label>
+          </div>
+          <div class="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              name="OBFTextUpdateJune"
+              #OBFTextUpdateJune="ngModel"
+              id="OBFTextUpdateJune"
+              [(ngModel)]="optIn.OBFTextUpdateJune"
+            />
+            <label for="OBFTextUpdateJune" class="custom-control-label">
+              {{ 'auth.registration.payment.receive-text' | translate }}
+            </label>
+          </div>
+          <div class="custom-control custom-checkbox" [ngClass]="{ error_input: cardForm.submitted && waiver.errors?.required }">
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              name="waiver"
+              #waiver="ngModel"
+              id="waiver"
+              [(ngModel)]="cardData.waiver"
+              required
+            />
+            <label for="waiver" class="custom-control-label">
+              {{ 'auth.registration.payment.condition' | translate }} {{ challengeDetail.name }} </label
+            ><a (click)="showWaiver()">{{ 'common-data.waiver-label' | translate }}</a
+            >*
+            <ng-container *ngIf="cardForm.submitted">
+              <span class="error_msg" *ngIf="waiver.errors?.required"> {{ 'auth.registration.payment.waiver-required' | translate }} </span>
+            </ng-container>
+          </div>
+          <button (click)="complete(cardForm)" class="rg_btn mb-2" [disabled]="show.loading">
+            <span class="spinner-grow spinner-grow-sm text-dark" role="status" aria-hidden="true" [hidden]="!show.loading"></span>
+            {{ show.loading ? 'Completing' : 'Complete' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

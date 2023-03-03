@@ -1,0 +1,370 @@
+<div class="container text-center" *ngIf="show.pageLoading">
+  <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+</div>
+<div class="bg-virtual-challenge-register" *ngIf="!show.pageLoading">
+  <div class="user_info">
+    <h3 class="mb-2">{{ 'auth.registration.personal-info.title' | translate }}</h3>
+    <form #userInfoForm="ngForm" aria-labelledby="waiver">
+      <div class="row">
+        <div class="col-md-6">
+          <div
+            class="form-group"
+            [ngClass]="{ error_input: userInfoForm.submitted && (firstName.errors?.required || firstName.errors?.pattern) }"
+          >
+            <label for="firstName">{{ 'auth.registration.personal-info.first-name' | translate }}</label>
+            <input
+              class="form-control"
+              type="text"
+              name="firstName"
+              #firstName="ngModel"
+              id="firstName"
+              pattern=".*\S+.*"
+              placeholder="First Name"
+              [(ngModel)]="userData.firstName"
+              (focus)="formElementEnter(userInfoForm)"
+              (blur)="formElementExit(userInfoForm)"
+              required
+              ngbAutofocus
+            />
+            <ng-container *ngIf="userInfoForm.submitted">
+              <span class="error_msg" *ngIf="firstName.errors?.required">
+                {{ 'auth.registration.personal-info.firstName-required' | translate }}
+              </span>
+              <span class="error_msg" *ngIf="firstName.errors?.pattern">
+                {{ 'auth.registration.personal-info.firstName-required' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div
+            class="form-group"
+            [ngClass]="{ error_input: userInfoForm.submitted && (lastName.errors?.required || lastName.errors?.pattern) }"
+          >
+            <label for="lastName">{{ 'auth.registration.personal-info.last-name' | translate }}</label>
+            <input
+              class="form-control"
+              type="text"
+              name="lastName"
+              #lastName="ngModel"
+              pattern=".*\S+.*"
+              id="lastName"
+              placeholder="Last Name"
+              [(ngModel)]="userData.lastName"
+              (focus)="formElementEnter(userInfoForm)"
+              (blur)="formElementExit(userInfoForm)"
+              required
+            />
+            <ng-container *ngIf="userInfoForm.submitted">
+              <span class="error_msg" *ngIf="lastName.errors?.required">
+                {{ 'auth.registration.personal-info.lastName-required' | translate }}
+              </span>
+              <span class="error_msg" *ngIf="lastName.errors?.pattern">
+                {{ 'auth.registration.personal-info.lastName-required' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group" [ngClass]="{ error_input: userInfoForm.submitted && gender.errors?.required }">
+            <label for="gender">{{ 'auth.registration.personal-info.gender' | translate }}</label>
+            <select class="form-control select_arrow" name="gender" #gender="ngModel" id="gender" [(ngModel)]="userData.gender" required>
+              <option value="">{{ 'auth.registration.personal-info.select-gender' | translate }}</option>
+              <option value="MALE">{{ 'auth.registration.personal-info.male' | translate }}</option>
+              <option value="FEMALE">{{ 'auth.registration.personal-info.female' | translate }}</option>
+              <option value="NON_BINARY">{{ 'auth.registration.personal-info.non-Binary' | translate }}</option>
+              <option value="PREFER_NOT_TO_SELF_IDENTIFY">
+                {{ 'auth.registration.personal-info.prefer-Not-to-Self-Identify' | translate }}
+              </option>
+            </select>
+            <ng-container *ngIf="userInfoForm.submitted">
+              <span class="error_msg" *ngIf="gender.errors?.required">
+                {{ 'auth.registration.personal-info.gender-required' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group" [ngClass]="{ error_input: (userInfoForm.submitted && phone.errors?.required) || show.phoneError }">
+            <label for="phone">{{ 'common-data.phone' | translate }}</label>
+            <input
+              class="form-control"
+              type="text"
+              maxlength="14"
+              name="phone"
+              #phone="ngModel"
+              id="phone"
+              placeholder="(000) 000-0000"
+              [(ngModel)]="userData.phone"
+              appPhone
+              (ngModelChange)="validationCheck('phone', userData.phone)"
+              (focus)="formElementEnter(userInfoForm)"
+              (blur)="formElementExit(userInfoForm)"
+              required
+            />
+            <ng-container *ngIf="userInfoForm.submitted || show.phoneError">
+              <span class="error_msg" *ngIf="phone.errors?.required">
+                {{ 'common-data.phone-valid' | translate }}
+              </span>
+              <span class="error_msg" *ngIf="!phone.errors?.required && show.phoneError">
+                {{ 'common-data.valid-phone1' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group" [ngClass]="{ error_input: (userInfoForm.submitted && birthdate.errors?.required) || show.dobError }">
+            <label for="birthdate">{{ 'common-data.birthdate' | translate }}</label>
+            <input
+              class="form-control"
+              type="text"
+              name="birthdate"
+              #birthdate="ngModel"
+              id="birthdate"
+              placeholder="MM/DD/YYYY"
+              value="{{ userData.dateOfBirth }}"
+              appBirthdate
+              [(ngModel)]="userData.dateOfBirth"
+              (ngModelChange)="validationCheck('dob', userData.dateOfBirth)"
+              (focus)="formElementEnter(userInfoForm)"
+              (blur)="formElementExit(userInfoForm)"
+              required
+            />
+            <ng-container *ngIf="userInfoForm.submitted || show.dobError">
+              <span class="error_msg" *ngIf="birthdate.errors?.required">
+                {{ 'common-data.birthDate-required' | translate }}
+              </span>
+              <span class="error_msg" *ngIf="!birthdate.errors?.required && show.dobError">
+                {{ 'common-data.birthdate-format' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <!-- <div class="col-md-6">
+          <div class="form-group" [ngClass]="{ error_input: userInfoForm.submitted && shirtSize.errors?.required }">
+            <label for="shirtSize">{{ 'auth.registration.personal-info.shirt-size' | translate }}</label>
+            <select
+              class="form-control select_arrow"
+              name="shirtSize"
+              #shirtSize="ngModel"
+              id="shirtSize"
+              [(ngModel)]="userData.shirtSize"
+              required
+            >
+              <option value="">{{ 'auth.registration.personal-info.t-shirt-size' | translate }}</option>
+              <option *ngFor="let shirtSize of Object.keys(shirtSizes)" value="{{ shirtSize }}">
+                {{ shirtSizes[shirtSize] }}
+              </option>
+            </select>
+            <ng-container *ngIf="userInfoForm.submitted">
+              <span class="error_msg" *ngIf="shirtSize.errors?.required">
+                {{ 'auth.registration.personal-info.shirt-size-required' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div> -->
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-6">
+          <div
+            class="form-group"
+            [ngClass]="{ error_input: userInfoForm.submitted && (address1.errors?.required || address1.errors?.pattern) }"
+          >
+            <label for="address1">{{ 'auth.registration.personal-info.address-1' | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              name="address1"
+              #address1="ngModel"
+              id="address1"
+              pattern=".*\S+.*"
+              placeholder="Address 1"
+              [(ngModel)]="userData.address"
+              (focus)="formElementEnter(userInfoForm)"
+              (blur)="formElementExit(userInfoForm)"
+              required
+            />
+            <ng-container *ngIf="userInfoForm.submitted">
+              <span class="error_msg" *ngIf="address1.errors?.required">
+                {{ 'auth.registration.personal-info.address-required' | translate }}
+              </span>
+              <span class="error_msg" *ngIf="address1.errors?.pattern">
+                {{ 'auth.registration.personal-info.valid-address' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group" [ngClass]="{ error_input: userInfoForm.submitted && address2.errors?.pattern }">
+            <label for="address2">{{ 'auth.registration.personal-info.address-2' | translate }}</label>
+            <input
+              type="text"
+              class="form-control"
+              name="address2"
+              #address2="ngModel"
+              id="address2"
+              pattern=".*\S+.*"
+              placeholder="Address 2"
+              [(ngModel)]="userData.address2"
+              (focus)="formElementEnter(userInfoForm)"
+              (blur)="formElementExit(userInfoForm)"
+            />
+            <ng-container *ngIf="userInfoForm.submitted">
+              <span class="error_msg" *ngIf="address2.errors?.pattern">
+                {{ 'auth.registration.personal-info.valid-address2' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group" [ngClass]="{ error_input: userInfoForm.submitted && country.errors?.required }">
+            <label for="country">{{ 'auth.registration.personal-info.country' | translate }}</label>
+            <select
+              class="form-control select_arrow"
+              name="country"
+              #country="ngModel"
+              id="country"
+              [(ngModel)]="userData.country"
+              (change)="onCountryChange()"
+              required
+            >
+              <option value="">{{ 'auth.registration.personal-info.select-country' | translate }}</option>
+              <option *ngFor="let country of countries" value="{{ country.value }}">{{ country.name }}</option>
+            </select>
+            <ng-container *ngIf="userInfoForm.submitted">
+              <span class="error_msg" *ngIf="country.errors?.required">
+                {{ 'auth.registration.personal-info.country-required' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div
+            class="form-group"
+            [ngClass]="{ error_input: (userInfoForm.submitted && state.errors?.required) || this.show.stateNotInList }"
+          >
+            <label for="state">{{ 'auth.registration.personal-info.state' | translate }}</label>
+            <select
+              class="form-control select_arrow"
+              name="state"
+              #state="ngModel"
+              id="state"
+              [(ngModel)]="userData.state"
+              (change)="this.show.stateNotInList = false"
+              required
+            >
+              <option value="">{{ 'auth.registration.personal-info.select-state' | translate }}</option>
+              <option *ngFor="let state of states" value="{{ state.value }}">{{ state.name }}</option>
+            </select>
+            <ng-container *ngIf="userInfoForm.submitted || show.stateNotInList">
+              <span class="error_msg" *ngIf="state.errors?.required || show.stateNotInList">
+                {{ 'auth.registration.personal-info.state-required' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group" [ngClass]="{ error_input: userInfoForm.submitted && (city.errors?.required || city.errors?.pattern) }">
+            <label for="city">{{ 'auth.registration.personal-info.city' | translate }}</label>
+            <input
+              class="form-control"
+              type="text"
+              name="city"
+              #city="ngModel"
+              id="city"
+              placeholder="City"
+              pattern=".*\S+.*"
+              [(ngModel)]="userData.city"
+              (focus)="formElementEnter(userInfoForm)"
+              (blur)="formElementExit(userInfoForm)"
+              required
+            />
+            <ng-container *ngIf="userInfoForm.submitted">
+              <span class="error_msg" *ngIf="city.errors?.required">
+                {{ 'auth.registration.personal-info.city-required' | translate }}
+              </span>
+              <span class="error_msg" *ngIf="city.errors?.pattern"> {{ 'auth.registration.personal-info.valid-city' | translate }} </span>
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div
+            class="form-group"
+            [ngClass]="{ error_input: userInfoForm.submitted && (zipcode.errors?.required || zipcode.errors?.pattern) }"
+          >
+            <label for="zipcode">{{ 'common-data.zipcode' | translate }}</label>
+            <input
+              class="form-control"
+              type="text"
+              name="zipcode"
+              #zipcode="ngModel"
+              id="zipcode"
+              placeholder="Zipcode"
+              [(ngModel)]="userData.zipCode"
+              (focus)="formElementEnter(userInfoForm)"
+              (blur)="formElementExit(userInfoForm)"
+              pattern="^(?=.{5,8}$)[A-Za-z0-9]+(?:\s[A-Za-z0-9]+)*$"
+              required
+            />
+            <ng-container *ngIf="userInfoForm.submitted">
+              <span class="error_msg" *ngIf="zipcode.errors?.required">
+                {{ 'common-data.zipcode-required' | translate }}
+              </span>
+              <span class="error_msg" *ngIf="zipcode.errors?.pattern">
+                {{ 'common-data.valid-us-zipcode' | translate }}
+              </span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <hr />
+      <!-- <button (click)="next(userInfoForm)" *ngIf="selectedPlan.length" class="rg_btn mb-2 float-right">
+        {{ 'auth.registration.personal-info.next' | translate }}
+      </button> -->
+      <!-- *ngIf="!selectedPlan.length" -->
+      <div
+        *ngIf="challengeDetail.challengeType === 'TEAM' || challengeDetail.challengeType === 'COMMUNITY'"
+        class="custom-control custom-checkbox"
+        [ngClass]="{ error_input: userInfoForm.submitted && waiver.errors?.required }"
+      >
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          name="waiver"
+          #waiver="ngModel"
+          id="waiver"
+          [(ngModel)]="userData.waiver"
+          (focus)="formElementEnter(userInfoForm)"
+          (blur)="formElementExit(userInfoForm)"
+          required
+        />
+        <label for="waiver" class="custom-control-label">
+          {{ 'auth.registration.payment.condition' | translate }} {{ challengeDetail.name }} </label
+        ><a (click)="showWaiver()">{{ 'common-data.waiver-label' | translate }}</a
+        >*
+        <ng-container *ngIf="userInfoForm.submitted">
+          <span class="error_msg" *ngIf="waiver.errors?.required"> {{ 'auth.registration.payment.waiver-required' | translate }} </span>
+        </ng-container>
+      </div>
+      <button
+        *ngIf="challengeDetail.challengeType === 'TEAM'"
+        (click)="redirectToChooseTeam(userInfoForm)"
+        class="rg_btn mb-2"
+        [disabled]="show.loading"
+      >
+        <span class="spinner-grow spinner-grow-sm text-dark" role="status" aria-hidden="true" [hidden]="!show.loading"></span>
+        {{ show.loading ? 'Completing' : 'Complete' }}
+      </button>
+      <button
+        *ngIf="challengeDetail.challengeType === 'BRAND' || challengeDetail.challengeType === 'COMMUNITY'"
+        (click)="next(userInfoForm)"
+        class="rg_btn mb-2"
+        [disabled]="show.loading"
+      >
+        <span class="spinner-grow spinner-grow-sm text-dark" role="status" aria-hidden="true" [hidden]="!show.loading"></span>
+        {{ show.loading ? 'Completing' : 'Complete' }}
+      </button>
+    </form>
+  </div>
+</div>

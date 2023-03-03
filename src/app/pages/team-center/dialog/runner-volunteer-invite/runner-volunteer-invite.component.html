@@ -1,0 +1,134 @@
+<div
+  class="modal-header"
+  *ngIf="componentData.type === 'runner' || (componentData.type === 'volunteer' && maxVolunteer > 0 && !shiftClosed)"
+>
+  <button type="button" (click)="close()" data-dismiss="modal" class="close"><i class="iconm-X" aria-hidden="true"></i></button>
+</div>
+<div
+  class="modal-body team-center-roster"
+  id="waiver_body"
+  [ngClass]="{ 'team-center-vol-payment': componentData.type === 'volunteer' && (!(maxVolunteer > 0) || shiftClosed) }"
+>
+  <form #volunteerInviteForm="ngForm" *ngIf="!show.isEmailSend">
+    <div *ngIf="componentData.type === 'runner' || (componentData.type === 'volunteer' && maxVolunteer > 0 && !shiftClosed)">
+      <div class="roster-invite-inner">
+        <h4>
+          {{ 'team-center.dialog.volunteer-invite.enter-email-h1' | translate }}
+          {{ componentData.type === 'volunteer' ? 'volunteer' : 'runner' }}
+          {{ 'team-center.dialog.volunteer-invite.enter-email-h2' | translate }}
+        </h4>
+
+        <div class="input-group invite-send">
+          <input
+            type="text"
+            [(ngModel)]="emailList"
+            class="form-control"
+            name="email"
+            placeholder="email address, email address, email address"
+            (focus)="formElementEnter(volunteerInviteForm)"
+            (blur)="formElementExit(volunteerInviteForm)"
+            ngbAutofocus
+          />
+          <span class="input-group-btn">
+            <button class="btn orange-custom-btn" (click)="sendInviteRequest(emailList, emailMessage, volunteerInviteForm)" type="button">
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true" *ngIf="show.loading"></span>
+              {{ show.loading ? 'Sending' : 'Send' }}
+            </button>
+          </span>
+        </div>
+        <div class="error-message">
+          <span *ngIf="isCaptainEmail">
+            {{ 'team-center.dialog.volunteer-invite.already-registered' | translate }} <b>{{ data.captainEmail }}</b>
+          </span>
+          <span *ngIf="isRunnerVolunteerEmail">
+            {{ 'team-center.dialog.volunteer-invite.already-registered-as' | translate }}
+            {{ componentData.type === 'volunteer' ? 'Volunteer' : 'Runner' }}:
+            <b *ngFor="let email of runnerVolunteerArray; let last = last">{{ email + (last ? ', ' : '') }}</b>
+          </span>
+          <span *ngIf="isInvitedEmail">
+            {{ 'team-center.dialog.volunteer-invite.already-invited' | translate }}
+            {{ componentData.type === 'volunteer' ? 'Volunteers' : 'Runners' }}:
+            <b *ngFor="let email of invitedEmailArray; let last = last">{{ email + (last ? ', ' : '') }}</b>
+          </span>
+          <span *ngIf="invalidEmailArray.length > 0">
+            {{ 'team-center.dialog.volunteer-invite.invalid-email' | translate }}
+            <b *ngFor="let email of invalidEmailArray; let last = last">{{ email + (last ? ', ' : '') }}</b>
+          </span>
+        </div>
+        <p class="notes">
+          {{ 'team-center.dialog.volunteer-invite.enter-email-h1' | translate }}
+          {{ componentData.type === 'volunteer' ? 'volunteer' : 'runner' }}
+          {{ 'team-center.dialog.volunteer-invite.enter-email-h2' | translate }}
+        </p>
+        <textarea
+          [(ngModel)]="emailMessage"
+          name="message"
+          placeholder="Type your invitation message here"
+          type="text"
+          class="form-control invitation-msg"
+          (focus)="formElementEnter(volunteerInviteForm)"
+          (blur)="formElementExit(volunteerInviteForm)"
+          *ngIf="componentData.type === 'runner'"
+        ></textarea>
+        <div class="or-block">
+          <span class="or-text">{{ 'team-center.dialog.volunteer-invite.or' | translate }}</span>
+        </div>
+
+        <div class="copy-link">
+          <h4>{{ 'team-center.dialog.volunteer-invite.copy-link' | translate }}</h4>
+          <a class="link-ready">{{ inviteURL }}</a>
+          <a (click)="copyToClipboard()" class="copy-icon">
+            <img src="assets/images/team-center/copy-link-icon.png" alt="copy-link-icon" />
+          </a>
+        </div>
+
+        <div *ngIf="!isCaptainVolunteer && componentData.type === 'volunteer'" class="or-block">
+          <span class="or-text">{{ 'team-center.dialog.volunteer-invite.or' | translate }}</span>
+        </div>
+
+        <a *ngIf="!isCaptainVolunteer && componentData.type === 'volunteer'" (click)="setVolunteerReload()"
+          ><button type="button" class="volunteer-yourself">
+            {{ 'team-center.dialog.volunteer-invite.volunteer-yourself' | translate }}
+          </button></a
+        >
+      </div>
+      <button type="submit" class="volunteer-lastday-btn" *ngIf="componentData.type === 'volunteer'">
+        {{ 'team-center.dialog.volunteer-invite.add-volunteer' | translate }} {{ data.volunteerShiftClose | dateFormat : 'MMMM DD, YYYY' }}
+      </button>
+      <button type="submit" class="lastday-btn" *ngIf="componentData.type === 'runner'">
+        {{ 'team-center.dialog.volunteer-invite.add-runner' | translate }} {{ data.teamFreezeDate | dateFormat : 'MMMM DD, YYYY' }}
+      </button>
+    </div>
+  </form>
+  <form *ngIf="componentData.type === 'volunteer' && shiftClosed" class="vol-deadline">
+    <div class="roster-invite-inner link-sent">
+      <div class="invite-link">
+        <div class="text-center text-info">
+          {{ 'team-center.dialog.volunteer-invite.volunteer-deadline' | translate }}
+        </div>
+        <button type="button" (click)="close()" class="done-btn">{{ 'common-data.done' | translate }}</button>
+      </div>
+    </div>
+  </form>
+  <form *ngIf="componentData.type === 'volunteer' && !(maxVolunteer > 0) && !shiftClosed">
+    <div class="roster-invite-inner link-sent">
+      <div class="invite-full">
+        <div class="text-center text-info">
+          <b>{{ 'team-center.dialog.volunteer-invite.fulfilled-requirement' | translate }}</b
+          ><br /><br />
+          {{ 'team-center.dialog.volunteer-invite.email-us' | translate }} {{ volunteerContactEmail }}
+        </div>
+        <button type="button" (click)="close()" class="done-btn">{{ 'common-data.done' | translate }}</button>
+      </div>
+    </div>
+  </form>
+  <form *ngIf="show.isEmailSend">
+    <div class="roster-invite-inner link-sent volunteer-invite-popup-inner">
+      <div class="invite-link">
+        <div class="text-center text-info">{{ 'team-center.dialog.volunteer-invite.invite-sent' | translate }}</div>
+        <img class="img-responsive center-block" src="assets/images/team-center/link-sent-check.png" alt="link-sent check" />
+      </div>
+      <app-team-center-invitation-list [invitationResponse]="invitationResponse"> </app-team-center-invitation-list>
+    </div>
+  </form>
+</div>

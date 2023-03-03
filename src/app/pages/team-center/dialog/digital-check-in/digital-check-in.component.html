@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <button type="button" (click)="closeModal()" data-dismiss="modal" class="close"><i class="iconm-X" aria-hidden="true"></i></button>
+</div>
+<div class="modal-body" id="waiver_body">
+  <div class="digital-check-in-desc">
+    <h2>{{ 'team-center.dialog.digital-check-in.title' | translate }}</h2>
+    <span>{{ 'team-center.dialog.digital-check-in.help-test' | translate }} </span>
+    <div class="col-md-7 col-sm-12">
+      <div class="img-wrapper">
+        <img src="assets/images/team-center/digital-check-in/digital-check-in.png" />
+        <div class="content-desc">
+          <h3>
+            {{ 'team-center.dialog.digital-check-in.vip-sunset' | translate }}
+            <sup>{{ 'team-center.dialog.digital-check-in.beta' | translate }}</sup>
+          </h3>
+          <span>{{ 'team-center.dialog.digital-check-in.shade' | translate }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 col-sm-12">
+      <div class="digital-check-wrapper">
+        <h4>{{ 'team-center.dialog.digital-check-in.perks' | translate }}</h4>
+        <strong>{{ 'team-center.dialog.digital-check-in.limited-teams' | translate }}</strong>
+        <div class="digital-content-wrapper">
+          <div class="digital-content">
+            <div class="digital-list">
+              <div class="digital-list-item" *ngFor="let point of checkInPoints">{{ point.text }}</div>
+            </div>
+          </div>
+        </div>
+        <div class="price-area">
+          <strong>{{ 'team-center.dialog.digital-check-in.price' | translate }}</strong>
+          <span>{{ 'team-center.dialog.digital-check-in.ammount' | translate }}</span>
+        </div>
+        <a class="btn btn-sherpa-blue" href="https://form.jotform.com/200286687193160" target="_blank" ng-click="close()">{{
+          'team-center.dialog.digital-check-in.opt-in' | translate
+        }}</a>
+        <p (click)="closeModal()">{{ 'common-data.no-thanks' | translate }}</p>
+      </div>
+    </div>
+  </div>
+</div>

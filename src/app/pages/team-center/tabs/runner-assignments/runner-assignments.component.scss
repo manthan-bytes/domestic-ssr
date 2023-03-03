@@ -1,0 +1,422 @@
+@import 'vars';
+.trail-loops {
+  padding: 40px 0;
+  .loop-text {
+    float: left;
+    font-family: $font_family_gothammedium;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    color: #4a4a4a;
+    letter-spacing: 0.25px;
+  }
+}
+
+.event-city-logo {
+  img {
+    max-width: 300px;
+  }
+}
+.runner-assignment-inner {
+  width: 80%;
+  margin: 25px auto 100px;
+  /*overflow: hidden;*/
+
+  @media (max-width: $screen-md-max) {
+    width: 100%;
+    margin-bottom: 0;
+  }
+  .registerd-member {
+    text-align: center;
+    .member-count {
+      font-family: $font_family_gothammedium;
+      font-size: $font_size_large;
+      font-weight: normal;
+      line-height: 32px;
+      text-align: center;
+      color: #4a4a4a;
+      letter-spacing: 0.25px;
+    }
+    h4 {
+      font-family: $font_family_gothambook;
+      font-size: 18px;
+      font-weight: normal;
+      line-height: 24px;
+      text-align: center;
+      color: #9b9b9b;
+      letter-spacing: 0.25px;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+  .ultra-option-tab {
+    .option-tab {
+      margin: 20px 0;
+      .option-btn {
+        border: none;
+        background: $orange-brand;
+        color: #fff;
+        padding: 10px 20px;
+        margin: 0 5px;
+        border-radius: 0;
+        outline: none;
+        &.active-option {
+          background-color: $black;
+        }
+      }
+    }
+  }
+  .runnerAssignRow {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  .runner-list {
+    padding: 0;
+    margin-top: 50px;
+    @media (max-width: $screen-xs-max) {
+      margin-top: 10px;
+    }
+    .runner-list-inner {
+      :nth-of-type(2) {
+        .runner-block {
+          @media (max-width: $screen-md-max) {
+            &:nth-of-type(1),
+            &:nth-of-type(2),
+            &:nth-of-type(3),
+            &:nth-of-type(4),
+            &:nth-of-type(5),
+            &:nth-of-type(6) {
+              border-right: 0;
+            }
+          }
+        }
+      }
+    }
+    &.mt-0 {
+      margin-top: 0;
+    }
+
+    .van-no {
+      font-family: $font_family_gothammedium;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 24px;
+      text-align: center;
+      color: #4a4a4a;
+      letter-spacing: 0.25px;
+      margin-bottom: 40px;
+      margin-top: 30px;
+      + .runner-block {
+        border-top: 1px solid #cfcfcf !important;
+      }
+    }
+    .runner-block {
+      border: 1px solid #cfcfcf;
+      border-top: none;
+      padding: 20px 30px 20px 20px;
+      width: 100%;
+      @include flexbox();
+      @include justify-content(center);
+      @include align-items(center);
+      @media (max-width: $screen-md-max) {
+        &:nth-of-type(1),
+        &:nth-of-type(2),
+        &:nth-of-type(3),
+        &:nth-of-type(4),
+        &:nth-of-type(5),
+        &:nth-of-type(6) {
+          border-left: 0;
+        }
+      }
+      &:first-child {
+        border-top: 1px solid #cfcfcf !important;
+      }
+      &.disabled {
+        border-color: transparent !important;
+        .pair-team-msg {
+          font-family: $font_family_gothammedium;
+          font-size: 18px;
+          font-weight: normal;
+          line-height: 24px;
+          text-align: center;
+          color: #5d5d5d;
+          letter-spacing: 0.25px;
+        }
+      }
+      .block-left {
+        width: 45%;
+        float: left;
+        .runner-pic {
+          width: 100px;
+          height: 100px;
+          text-align: center;
+          margin-bottom: 15px;
+          border-radius: 50%;
+        }
+        .runner-list-dropdown {
+          width: 95%;
+          max-width: 230px;
+          .dropdown-toggle::after {
+            position: relative;
+            top: 3px;
+            right: 10px;
+          }
+          .btn-primary {
+            &:disabled {
+              background: transparent !important;
+              color: #5d5d5d;
+              opacity: 1;
+            }
+          }
+          &.show {
+            background: #5d5d5d;
+            width: 100%;
+            border: 1px solid #979797;
+            font-family: $font_family_gothammedium;
+            font-size: 18px;
+            .dropdown-toggle:after {
+              color: $white;
+              position: relative;
+              // right: 10px;
+            }
+            span {
+              color: $white !important;
+            }
+            ul {
+              border: 1px solid #979797;
+              padding: 0;
+              width: 200%;
+              max-width: 250px;
+              border-radius: 0;
+              z-index: 2;
+              margin-top: 2px;
+              margin-left: -2px;
+              border-top-color: #979797;
+              li {
+                padding: 8px 10px;
+                &.runner-status {
+                  background: $white;
+                }
+                &.runner-li {
+                  background: #f8f8f8;
+                  font-family: $font_family_gothambook;
+                  border-bottom: 1px solid #cfcfcf;
+                }
+                a {
+                  cursor: pointer;
+                  font-size: 16px;
+                  line-height: 22px;
+                  color: #5d5d5d;
+                  letter-spacing: 0.25px;
+                  position: relative;
+                  padding: 0;
+                  @media (max-width: $screen-xs-max) {
+                    font-size: 14px;
+                  }
+                }
+              }
+            }
+          }
+          button.btn {
+            background: transparent;
+            border: none;
+            font-family: $font_family_gothammedium;
+            font-size: 18px;
+            font-weight: normal;
+            line-height: 18px;
+            text-align: center;
+            color: #5d5d5d;
+            letter-spacing: 0.25px;
+            box-shadow: none;
+            border-radius: 0px;
+            width: 100%;
+            padding: 10px 15px 6px;
+
+            span {
+              &:first-of-type {
+                display: inline-block;
+                width: 100%;
+                white-space: normal;
+                word-wrap: break-word;
+                line-height: 20px;
+              }
+              &.caret {
+                position: absolute;
+                right: 8px;
+                top: 50%;
+                transform: translateY(-50%);
+              }
+            }
+            .unassigned-runner {
+              color: #f4792f;
+            }
+            @media (max-width: $screen-xs-max) {
+              font-size: 14px !important;
+              line-height: 12px;
+              padding: 10px 20px 10px 10px;
+            }
+          }
+          &.open {
+            button.btn {
+              background: #5d5d5d;
+              color: #fff;
+              width: 100%;
+              border: 1px solid #979797;
+            }
+            ul.dropdown-menu {
+              border: 1px solid #979797;
+              padding: 0;
+              width: 200%;
+              max-width: 250px;
+              border-radius: 0px;
+              z-index: 2;
+              margin-top: -1px;
+              border-top-color: #979797;
+
+              @media only screen and (max-width: $screen-xs-max) {
+              }
+              li {
+                a {
+                  cursor: pointer;
+                  padding: 6px 55px 6px 10px;
+                  font-size: 16px;
+                  font-weight: normal;
+                  line-height: 22px;
+                  text-align: left;
+                  color: #5d5d5d;
+                  letter-spacing: 0.25px;
+                  position: relative;
+                  text-overflow: ellipsis;
+                  overflow: hidden;
+                  &.team-dropdown-assign-btn {
+                    padding-right: 10px;
+                  }
+                }
+                &.runner-status {
+                  background: #fff;
+                  a {
+                    font-family: $font_family_gothammedium;
+                    padding-top: 20px;
+                    padding-bottom: 8px;
+                    border-bottom: 1px solid #cfcfcf;
+                  }
+                }
+                &.runner-li {
+                  background: #f8f8f8;
+                  font-family: $font_family_gothambook;
+                  border-bottom: 1px solid #cfcfcf;
+                  &:hover,
+                  &:focus {
+                    background: #f8f8f8;
+                  }
+                  .current {
+                    font-size: 12px;
+                    text-align: right;
+                    vertical-align: top;
+                    position: absolute;
+                    right: 10px;
+                    top: 6px;
+                  }
+                  a {
+                    cursor: pointer;
+                  }
+                }
+                &:last-child {
+                  background: #909090;
+                  margin-top: 30px;
+                  a {
+                    cursor: pointer;
+                    text-align: center;
+                    color: #fff;
+                    font-family: $font_family_gothambook;
+                    &:hover,
+                    &:focus {
+                      background: #909090 !important;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .block-right {
+        width: 55%;
+        float: left;
+        padding-left: 10px;
+        @media (max-width: $screen-xs-max) {
+          padding-left: 10px;
+        }
+        h3 {
+          font-family: $font_family_gothammedium;
+          font-size: 18px;
+          font-weight: normal;
+          line-height: 24px;
+          text-align: left;
+          color: #5d5d5d;
+          letter-spacing: 0.25px;
+          margin: 0;
+
+          @media (max-width: $screen-xs-max) {
+            font-size: 16px;
+          }
+        }
+        ::ng-deep {
+          ul {
+            padding: 0;
+            list-style: none;
+            display: inline-block;
+            width: 100%;
+            li {
+              display: inline-block;
+              width: 100%;
+              text-align: left;
+              span {
+                font-family: $font_family_gothambook;
+                font-size: 16px;
+                font-weight: normal;
+                line-height: 22px;
+                text-align: left;
+                color: #9b9b9b;
+                letter-spacing: 0.25px;
+                @media (max-width: $screen-xs-max) {
+                  font-size: 14px;
+                  line-height: 20px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    &.list-right {
+      .runner-block {
+        border-left: none !important;
+        @media (max-width: $screen-md-max) {
+          border-right: 0;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: $screen-xs-max) {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .runner-list .runner-block {
+    min-height: 280px !important;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .runner-list {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .block-left {
+    width: auto !important;
+  }
+}

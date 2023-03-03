@@ -1,0 +1,179 @@
+@import 'vars';
+
+.safety-road_main {
+  .safety-road-banner {
+    background: url(/assets/images/static-pages/safety-road/safety.jpg) no-repeat;
+    background-size: cover;
+    background-position: top;
+    @include flexbox();
+    @include justify-content(center);
+    @include align-items(center);
+    @include font-weight(700);
+    color: $white;
+    height: 350px;
+    .main-title {
+      font-size: 72px;
+      text-shadow: 0 0 30px rgba(0, 0, 0, 0.69);
+      color: $white;
+      margin-bottom: 25px;
+      @include font-weight(700);
+
+      @media (max-width: $screen-xs-max) {
+        font-size: 52px;
+        padding: 0;
+      }
+      @media (max-width: $screen-xxs-max) {
+        font-size: 42px;
+      }
+    }
+  }
+  .main-content {
+    padding: 25px 0px;
+    @media (max-width: $screen-xxs-max) {
+      padding-top: 15px;
+    }
+    a {
+      color: $brand-secondary;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    iframe {
+      height: 220px;
+      @media (max-width: $screen-xs-max) {
+        height: 414px;
+      }
+      @media (max-width: $screen-xxs-max) {
+        height: 220px;
+      }
+    }
+    h3 {
+      font-family: $font_family_barlow_Condensed;
+      @include font-weight(600);
+      font-size: $font_size_large;
+      letter-spacing: normal;
+      line-height: 30px;
+      color: $black3;
+    }
+    p,
+    ol,
+    ul {
+      color: $black3;
+      font-size: 14px;
+      line-height: 20px;
+      @include font-weight(300);
+      margin: 10px 0px;
+
+      li {
+        list-style: decimal;
+      }
+    }
+    ul li {
+      list-style: disc;
+    }
+    ul,
+    ol {
+      padding-left: 40px;
+    }
+    .next-steps {
+      padding-left: 0px;
+      margin-left: -25px;
+      ul li {
+        list-style: none;
+        margin: 2px 0px;
+      }
+      @media (max-width: $screen-md-max) {
+        margin-left: 0;
+      }
+      h2 {
+        color: $brand-secondary;
+        font-size: 30px;
+        font-family: $font_family_barlow_Condensed;
+        @include font-weight(600);
+        padding-left: 15px;
+      }
+      .separator {
+        background-color: $brand-secondary;
+        padding: 3px;
+        margin: 10px 0px;
+        max-width: 235px;
+        @media (max-width: $screen-xs-max) {
+          margin-left: 0px;
+          margin-right: 0px;
+          max-width: 100%;
+        }
+      }
+      .nathanad {
+        margin-top: 25px;
+        img {
+          display: inline-block;
+          max-width: 235px;
+          width: 100%;
+          @media (max-width: $screen-xs-max) {
+            display: block;
+          }
+        }
+      }
+      ul {
+        padding-left: 15px;
+        list-style: none;
+        li {
+          a {
+            font-size: 1.2em;
+            color: $brand-secondary !important;
+            @include font-weight(400);
+          }
+        }
+      }
+      @media (max-width: $screen-md-max) {
+        padding-right: 20px;
+        padding-left: 0px;
+      }
+      @media (max-width: $screen-xs-max) {
+        padding-right: 10px;
+        padding-left: 10px;
+        margin-top: 30px;
+      }
+    }
+    .main-content-col {
+      padding-right: 44px;
+      @media (max-width: $screen-md-max) {
+        padding-right: 15px;
+      }
+      .safety-rules-text,
+      .safety-briefing-text,
+      .night-time-gear,
+      .crossing-flags,
+      .no-van-support-leg,
+      .partial-no-van-support-leg,
+      .communication,
+      .safety-officer,
+      .medic-station,
+      .running-in-hit {
+        margin-top: 20px;
+        p {
+          margin-top: 0;
+        }
+      }
+      .running-in-hit {
+        img {
+          max-width: 180px;
+          @media (max-width: $screen-md-max) {
+            max-width: 100%;
+          }
+        }
+      }
+      .safe-use-text {
+        @include font-weight(700);
+      }
+    }
+  }
+}
+.container {
+  @media only screen and (min-width: 1400px) {
+    max-width: 83%;
+  }
+  @media only screen and (max-width: 1400px) {
+    max-width: 1140px;
+  }
+}

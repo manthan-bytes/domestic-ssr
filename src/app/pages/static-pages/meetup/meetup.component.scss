@@ -1,0 +1,314 @@
+@import 'vars';
+::ng-deep {
+  .ngb-dp-header {
+    background-color: transparent !important;
+  }
+  .custom-day {
+    text-align: center;
+    padding: 0.185rem 0.25rem;
+    display: inline-block;
+    height: 2rem;
+    width: 2rem;
+  }
+  span.custom-day:hover {
+    background-color: #eee;
+  }
+  .ngb-dp-today span {
+    background: #f4792f;
+    &:hover {
+      background: #f4792f;
+    }
+  }
+  .custom-day.focused {
+    background-color: #f4792f;
+  }
+  .ngb-dp-content {
+    .ngb-dp-month-name {
+      @include font-weight(700);
+      font-style: normal;
+      font-size: 14px;
+    }
+    .ngb-dp-weekday {
+      @include font-weight(700);
+      color: $black3 !important;
+      font-style: normal;
+      font-size: 14px;
+    }
+    .ngb-dp-weekdays,
+    .ngb-dp-month-name {
+      background-color: transparent;
+    }
+    .ngb-dp-weekdays {
+      border-bottom: 0;
+    }
+    .ngb-dp-day {
+      text-align: center;
+      padding-top: 5px;
+    }
+    span.custom-day {
+      font-size: $font_size_small;
+      @include font-weight(300);
+      width: 32px;
+      height: 26px;
+      line-height: 20px;
+    }
+  }
+  .ngb-dp-months {
+    @media (max-width: $screen-md-max) {
+      @include flex-direction(column);
+    }
+  }
+}
+@mixin container-common() {
+  max-width: 1170px;
+}
+
+.meetup_calendar_main {
+  ::-webkit-input-placeholder {
+    /* Edge */
+    color: #b3b3b3;
+  }
+  :-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #b3b3b3;
+  }
+  ::placeholder {
+    color: #b3b3b3;
+  }
+  .container {
+    @include container-common();
+  }
+  .meetup_calendar_ragana_localized.text-center {
+    padding: 30px 0px;
+  }
+  .meetup_calendar_banner {
+    background: url(/assets/images/static-pages/meetup-calendar/web_calendar_bannerImage.png) no-repeat;
+    background-size: cover;
+    background-position: top;
+    height: 350px;
+  }
+  .meetup_calendar_filter {
+    background-color: #f5f5f5;
+    border-bottom: 2px solid #cfcfcf;
+    padding: 30px 0 40px;
+    @include flexbox();
+    @include justify-content(center);
+    @include flex-wrap(wrap);
+    #mc-date-filter {
+      position: relative;
+      input[type='text'] {
+        background-image: url(/assets/images/static-pages/meetup-calendar/web_calendar_calendarIconOrange.png);
+        background-position: 7px 8px;
+        background-size: 14px auto;
+      }
+      ngb-datepicker {
+        position: absolute;
+        top: 39px;
+        left: -1px;
+        background-color: #fff;
+        z-index: 9;
+      }
+    }
+    input {
+      width: 250px;
+      padding: 7px 30px;
+      background-color: $white;
+      border: 1px solid #cfcfcf;
+      cursor: pointer;
+      box-shadow: 0 1px 1px 0 #cfcfcf;
+      color: #5b5b5b;
+      background-repeat: no-repeat;
+
+      &#location {
+        background-image: url(/assets/images/static-pages/meetup-calendar/web_calendar_locationIcon.png);
+        background-position: 7px 10px;
+        background-size: 11px auto;
+      }
+      &#race {
+        background-image: url(/assets/images/static-pages/meetup-calendar/relay-logo.png);
+        background-position: 7px 9px;
+        background-size: 15px auto;
+      }
+      &#date {
+        background-image: url(/assets/images/static-pages/meetup-calendar/web_calendar_calendarIconOrange.png);
+        background-position: 7px 8px;
+        background-size: 14px auto;
+      }
+    }
+  }
+  .meetup_calendar_results {
+    h2 {
+      color: #f4792f;
+      font-size: 30px;
+      font-family: $font_family_barlow_Condensed;
+      @include font-weight(600);
+    }
+    h4 {
+      font-size: 18px;
+      font-family: $font_family_barlow_Condensed;
+      @include font-weight(600);
+      color: #f4792f;
+    }
+    .mc-result-content {
+      border-left: 2px solid #cfcfcf;
+      padding-left: 50px;
+
+      @media (max-width: $screen-xs-max) {
+        border-left: 0;
+        padding-left: 0;
+      }
+      h3 {
+        color: $black3;
+        font-family: $font_family_barlow_Condensed;
+        @include font-weight(600);
+        margin: 0 0 20px;
+      }
+      .mc-result-content-data {
+        @include flexbox();
+        @include flex-wrap(wrap);
+
+        div {
+          flex-grow: 1;
+          .fa {
+            color: #f4792f;
+          }
+          span {
+            @include font-weight(300);
+            color: $black3;
+          }
+        }
+        .iconm-calendar,
+        .iconm-time,
+        .iconm-map-pin {
+          &:before {
+            color: #f4792f;
+            padding-right: 7px;
+          }
+        }
+      }
+      .mc-result-content-text {
+        margin: 20px 0px;
+        p,
+        span {
+          @include font-weight(300);
+          color: $black3;
+        }
+
+        p {
+          margin: 15px 0px;
+        }
+      }
+      .mc-result-content-address-row {
+        .mc-result-content-address-text {
+          span {
+            &:nth-of-type(1) {
+              padding-right: 15px;
+            }
+          }
+          .dropdown,
+          .dropup {
+            button {
+              background-image: url(/assets/images/static-pages/meetup-calendar/icon-calendar.png);
+              background-position: 13px center;
+              background-repeat: no-repeat;
+              border-color: silver;
+              font-size: 14px;
+              font-family: Helvetica, Arial, sans-serif;
+              color: $black;
+              @include font-weight(700);
+              padding: 6px 15px 6px 45px;
+              line-height: 20px;
+              border: 1px solid silver;
+              background-color: transparent;
+              &:after {
+                display: none;
+              }
+              &:hover,
+              &:focus,
+              &:active {
+                background-color: #e8e8e8;
+                outline: 0;
+                box-shadow: none;
+              }
+
+              @media (max-width: $screen-xs-max) {
+                margin-top: 25px;
+              }
+            }
+            .dropdown-menu {
+              padding-top: 0px;
+              padding-bottom: 0;
+              position: relative;
+              z-index: 99;
+              .dropdown-item {
+                font-size: 14px;
+                font-family: Helvetica, Arial, sans-serif;
+                color: $black;
+                @include font-weight(700);
+                padding-left: 15px;
+                padding-bottom: 0px;
+                line-height: 32px;
+                padding-top: 0;
+                padding-right: 30px;
+              }
+              :hover {
+                background-color: #e8e8e8;
+              }
+            }
+          }
+          @media (max-width: $screen-xxs-max) {
+            flex-direction: column;
+          }
+          .atc-btn,
+          select {
+            position: relative;
+            background-color: $white;
+            border: 1px solid silver !important;
+            border-radius: 3px;
+            padding: 3px 0px 3px 42px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url(/assets/images/static-pages/meetup-calendar/icon-calendar.png);
+            background-repeat: no-repeat;
+            background-position: 10px center;
+            color: $black;
+            font-family: Helvetica, Arial, sans-serif;
+            @include font-weight(700);
+            line-height: 26px;
+            option {
+              background-color: #ffff;
+            }
+
+            &:hover {
+              background-color: #e8e8e8;
+            }
+
+            @media (max-width: $screen-xs-max) {
+              margin-top: 20px;
+            }
+          }
+        }
+      }
+    }
+    .border-bootom-common {
+      border-bottom: 2px solid #cfcfcf;
+      padding: 38px 0px;
+
+      @media (max-width: $screen-md-max) {
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+  }
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: #f4792f;
+  color: white;
+}
+.custom-day.faded {
+  background-color: rgba(244, 121, 47, 0.5);
+}

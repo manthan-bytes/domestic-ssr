@@ -1,0 +1,93 @@
+<div class="race-updates-inner">
+  <div class="row" [hidden]="eventData.cmsEvent.updates.length <= 0">
+    <div class="col-sm-12 col-xs-12 captain-log-block">
+      <h2>{{ 'common-data.race-updates' | translate }}</h2>
+      <div class="race-updates">
+        <h4>{{ 'common-data.featured' | translate }}</h4>
+        <ul>
+          <li *ngFor="let race_updates_featured of eventData.cmsEvent.updates" [hidden]="!race_updates_featured.favourite">
+            <div class="race-dates" *ngIf="race_updates_featured.update_date">
+              {{ race_updates_featured.update_date | date | dateFormat : 'M' }}/{{
+                race_updates_featured.update_date | date | dateFormat : 'D'
+              }}
+            </div>
+            <div class="race-date-info">
+              <span [innerHTML]="getUpdate(race_updates_featured.content)" [hidden]="!race_updates_featured.content"></span>
+
+              <div class="race-dates-video race-updates-img" [hidden]="!race_updates_featured.video_url">
+                <!-- TODO: Add lity -->
+                <a href="{{ race_updates_featured.video_url }}" title="Play Video">
+                  <!-- <img src="assets/images/team-center/video-play-icon.png" alt="Play Video Thumb" /> -->
+                </a>
+              </div>
+              <div class="race-updates-img" [hidden]="!race_updates_featured.image">
+                <a
+                  *ngIf="(race_updates_featured.image | fileNameAndType) === null"
+                  href="{{ race_updates_featured.image | parseImageUrl }}"
+                  title="View Image"
+                >
+                  <img
+                    src="{{ race_updates_featured.image | parseImageUrl }}"
+                    alt="Race-updates Featured Img"
+                    class="img-responsive center-block"
+                    style="max-height: 100px"
+                  />
+                </a>
+                <a
+                  *ngIf="race_updates_featured.image | fileNameAndType"
+                  [href]="race_updates_featured.image"
+                  target="_blank"
+                  style="overflow-wrap: break-word"
+                >
+                  {{ race_updates_featured.image | fileNameAndType }}
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="race-updates" [hidden]="eventData.cmsEvent.updates.length <= 0">
+        <h4>{{ 'common-data.all-updates' | translate }}</h4>
+        <ul>
+          <li *ngFor="let race_updates of eventData.cmsEvent.updates">
+            <div class="race-dates" *ngIf="race_updates.update_date">
+              {{ race_updates.update_date | date | dateFormat : 'M' }}/{{ race_updates.update_date | date | dateFormat : 'D' }}
+            </div>
+            <div class="race-date-info">
+              <span [innerHTML]="getUpdate(race_updates.content)" [hidden]="!race_updates.content"></span>
+              <div class="race-dates-video race-updates-img" [hidden]="!race_updates.video_url">
+                <!-- TODO: Add lity -->
+                <a href="{{ race_updates.video_url }}" title="Play Video">
+                  <img src="assets/images/team-center/video-play-icon.png" alt="Play Video Thumb" />
+                </a>
+              </div>
+              <div class="race-updates-img" [hidden]="!race_updates.image">
+                <a
+                  *ngIf="(race_updates.image | fileNameAndType) === null"
+                  href="{{ race_updates.image | parseImageUrl }}"
+                  title="View Image"
+                >
+                  <img
+                    src="{{ race_updates.image | parseImageUrl }}"
+                    alt="Race-updates Img"
+                    class="img-responsive center-block"
+                    style="max-height: 100px"
+                  />
+                </a>
+
+                <a
+                  *ngIf="race_updates.image | fileNameAndType"
+                  [href]="race_updates.image"
+                  target="_blank"
+                  style="overflow-wrap: break-word"
+                >
+                  {{ race_updates.image | fileNameAndType }}
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

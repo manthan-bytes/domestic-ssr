@@ -1,0 +1,305 @@
+@import 'vars';
+
+@mixin container-common() {
+  max-width: 1170px;
+}
+.what_is_Raganr_main {
+  .what-is-ragnar-banner {
+    background: url(/assets/images/static-pages/whatis-ragnar/what-is-ragnar-banner.jpg) no-repeat;
+    background-size: cover;
+    padding: 148px 0 50px;
+    position: relative;
+    z-index: 1;
+    @media (max-width: $screen-xs-max) {
+      padding: 20px;
+      background-size: 200%;
+    }
+    .wir-title {
+      color: $white;
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+      font-size: 80px;
+      line-height: 82px;
+      font-family: $font_family_barlow_Condensed;
+      @include font-weight(600);
+      @media (max-width: $screen-xs-max) {
+        font-size: 70px;
+        line-height: 72px;
+      }
+    }
+    .ragnar-category {
+      padding-top: 110px;
+      @include flexbox();
+      @include flex-wrap(wrap);
+      @include justify-content(space-between);
+      max-width: 1360px;
+      padding-left: 25px;
+      padding-right: 25px;
+      @media (max-width: $screen-xs-max) {
+        padding-top: 40px;
+        @include justify-content(center);
+      }
+      .category-item {
+        cursor: pointer;
+        float: left;
+        width: calc(33.33% - 50px);
+        text-decoration: none;
+        margin: 0px 25px;
+        @media (max-width: $screen-md-max) {
+          width: calc(33.33% - 20px);
+        }
+        @media (max-width: $screen-xs-max) {
+          margin-bottom: 20px;
+          width: auto;
+        }
+        &:nth-of-type(1) {
+          margin-left: 0;
+          margin-right: 0;
+        }
+        &:nth-of-type(2) {
+          margin-left: 0;
+          margin-right: 0;
+        }
+        &:nth-of-type(3) {
+          margin-left: 0;
+          margin-right: 0;
+        }
+        .category {
+          margin: 0 0px;
+          overflow: hidden;
+          &:hover {
+            .category-detail {
+              bottom: 0;
+              transform: translateY(0) !important;
+              -webkit-transform: translateY(0) !important;
+              -moz-transform: translateY(0) !important;
+              -ms-transform: translateY(0) !important;
+            }
+            .category-link img {
+              right: -5px !important;
+            }
+          }
+          .category-img {
+            position: relative;
+            line-height: 0;
+            overflow: hidden;
+            .category-detail {
+              position: absolute;
+              left: 0;
+              line-height: 20px;
+              padding: 0 20px 15px;
+              transition: all 0.5s ease;
+              z-index: 1;
+              bottom: 0;
+              transform: translateX(calc(100% - 50px));
+              transform: translateY(calc(100% - 45px));
+              -webkit-transform: translateY(calc(100% - 45px));
+              -moz-transform: translateY(calc(100% - 45px));
+              -ms-transform: translateY(100%) translateY(-50px);
+              .category-title {
+                color: $white;
+                font-family: $font_family_barlow_Condensed;
+                @include font-weight(600);
+                font-size: $font_size_mega;
+                line-height: 30px;
+                padding-bottom: 15px;
+                text-transform: uppercase;
+                @media (max-width: $screen-md-max) {
+                  font-size: 30px;
+                  line-height: 32px;
+                  padding-bottom: 10px;
+                }
+                @media (max-width: $screen-xs-max) {
+                  font-size: $font_size_mega;
+                }
+              }
+              .category-desc {
+                color: $white;
+                @include font-weight(600);
+                font-size: 18px;
+                line-height: 24px;
+                @media (max-width: $screen-md-max) {
+                  font-size: 13px;
+                  line-height: 18px;
+                }
+                @media (max-width: $screen-xs-max) {
+                  font-size: 18px;
+                }
+              }
+              @media (max-width: $screen-md-max) {
+                bottom: 0;
+                transform: translateY(0) !important;
+                padding: 10px;
+              }
+            }
+            &:after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              background-color: rgba(0, 0, 0, 0.5);
+            }
+          }
+          .category-link {
+            background-color: $black2;
+            color: $white;
+            width: 100%;
+            font-size: 16px;
+            line-height: 24px;
+            @include font-weight(600);
+            padding: 5px 20px;
+            text-align: right;
+            position: relative;
+            z-index: 1;
+            a {
+              text-decoration: none;
+              color: $white;
+              img {
+                margin-left: 5px;
+                position: relative;
+                right: 0;
+                transition: all 0.5s ease;
+              }
+            }
+          }
+        }
+      }
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0, 62, 81, 0.3) 0, rgba(0, 62, 81, 0.9) 79%, #003e51 100%);
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4d003e51', endColorstr='#003e51', GradientType=0 );
+      z-index: -1;
+      @media (max-width: $screen-xs-max) {
+        background: linear-gradient(to bottom, rgba(0, 62, 81, 0.1) 0, #003e51 27%, #003e51 100%);
+      }
+    }
+  }
+  .ragnar-formula-wrapper {
+    margin: 30px 40px;
+    padding: 65px 20px 75px;
+    background-color: $white2;
+    @media (max-width: $screen-xs-max) {
+      margin: 15px;
+      padding: 35px 10px 15px;
+    }
+    h2 {
+      margin: 0 0 30px;
+      color: $black2;
+      font-size: 46px;
+      font-family: $font_family_barlow_Condensed;
+      @include font-weight(600);
+      line-height: 40px;
+      @media (max-width: $screen-xs-max) {
+        margin: 0 0 25px;
+      }
+    }
+    p {
+      max-width: 536px;
+      color: $black3;
+      @include font-weight(500);
+      font-size: 18px;
+      line-height: 30px;
+    }
+  }
+  .ragnar-challanges-wrapper {
+    .ragnar-challanges-inner {
+      @include flexbox();
+      @include flex-wrap(wrap);
+      .four-item {
+        @include flexbox();
+        width: 50%;
+        &:nth-of-type(1) {
+          order: 2;
+          @media (max-width: $screen-xs-max) {
+            order: 0;
+          }
+        }
+        @media (max-width: $screen-xs-max) {
+          width: 100%;
+        }
+      }
+      .ragnar-challanges-content {
+        background-color: $navy;
+        padding: 70px 30px 45px;
+        width: 100%;
+        order: 3;
+
+        @media (max-width: $screen-xs-max) {
+          order: 0;
+          padding: 40px 20px 25px;
+        }
+        h2 {
+          color: $white;
+          font-size: 50px;
+          font-family: $font_family_barlow_Condensed;
+          @include font-weight(600);
+          line-height: 40px;
+          margin-bottom: 20px;
+          @media (max-width: $screen-xs-max) {
+            line-height: 50px;
+            margin-bottom: 25px;
+          }
+        }
+        .rcc-desc {
+          color: $white;
+          font-size: 16px;
+          @include font-weight(500);
+          line-height: 30px;
+          max-width: 536px;
+          @media (max-width: $screen-xs-max) {
+            font-size: 18px;
+            line-height: 34px;
+          }
+        }
+        .rcc-link {
+          color: $white;
+          @include font-weight(600);
+          font-size: 16px;
+          line-height: 30px;
+          margin-top: 25px;
+          text-decoration: none;
+          img {
+            position: relative;
+            right: 0;
+            transition: all 0.5s ease;
+            @media (max-width: $screen-xs-max) {
+              display: none;
+            }
+            @media (max-width: $screen-md-max) {
+              top: 50%;
+              transform: translateY(-29%);
+            }
+          }
+          &:hover img {
+            right: -5px;
+          }
+          @media (max-width: $screen-xs-max) {
+            line-height: 34px;
+            background-color: $brand-secondary;
+            width: 100%;
+            padding: 7px 10px;
+          }
+        }
+        .ragnar-challanges-logo {
+          @include flexbox();
+          @include justify-content(center);
+          max-width: 700px;
+          margin: 60px auto 0;
+          .rclogo-item {
+            margin: 0 17px;
+          }
+          @media (max-width: $screen-xs-max) {
+            margin: 50px -7px 0;
+          }
+        }
+      }
+    }
+  }
+}

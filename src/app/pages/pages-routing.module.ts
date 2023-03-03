@@ -1,8 +1,9 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
-import { HomeV2Route, StaticPageRoutes, staticRoutes, eventDetailRoutes } from '../@core/utils/routes-path.constant.service';
+import { HomeV2Route, StaticPageRoutes, staticRoutes, TeamCenterRoutes,eventDetailRoutes, MapRoute } from '../@core/utils/routes-path.constant.service';
 import { PageNotFoundComponent } from '../@components/page-not-found/page-not-found.component';
+import { AuthenticationGuard } from '@core/guards/authentication.guard';
 
 
 const routes: Routes = [
@@ -17,6 +18,23 @@ const routes: Routes = [
       {
         path: eventDetailRoutes.main,
         loadChildren: () => import('./event-detail/event-detail.module').then((m) => m.EventDetailModule),
+      },
+      {
+        path: MapRoute.map,
+        loadChildren: () => import('./map/map.module').then((m) => m.MapModule),
+      },
+      {
+        path: StaticPageRoutes.main,
+        loadChildren: () => import('./static-pages/static-pages.module').then((m) => m.StaticPagesModule),
+      },
+      {
+        path: TeamCenterRoutes.main,
+        canActivate: [AuthenticationGuard],
+        loadChildren: () => import('./team-center/team-center.module').then((m) => m.TeamCenterModule),
+      },
+      {
+        path: StaticPageRoutes.welcome,
+        loadChildren: () => import('./welcome/welcome.module').then((m) => m.WelcomeModule),
       },
       {
         path: staticRoutes.pageNotFound,
@@ -45,4 +63,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class PagesRoutingModule {}
+export class PagesRoutingModule { }
