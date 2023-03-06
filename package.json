@@ -43,6 +43,7 @@
     "jquery": "^3.6.3",
     "lity": "^2.4.1",
     "localstorage-polyfill": "^1.0.1",
+    "lodash-es": "^4.17.21",
     "mapbox-gl": "^2.13.0",
     "moment-timezone": "^0.5.40",
     "ng-dygraphs": "^0.4.0",
