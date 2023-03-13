@@ -82,5 +82,6 @@ export const environment = {
     appId: '1:407987862029:web:55918273d219ee88',
   },
 
-  SSR_PORT: 4200
+  SSR_PORT: 4000,
+  SERVER_URL: '15.207.54.71'
 };

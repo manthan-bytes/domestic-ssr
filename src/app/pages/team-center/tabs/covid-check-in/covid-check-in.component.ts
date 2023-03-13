@@ -97,11 +97,11 @@ export class CovidCheckInComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataLayerService.pageInitEvent({
-      screen_name: 'team-center-covid-check-in',
-      pagePostType: 'teamCenterCovidCheckIn',
-      pagePostType2: 'single-page',
-    });
+    // this.dataLayerService.pageInitEvent({
+    //   screen_name: 'team-center-covid-check-in',
+    //   pagePostType: 'teamCenterCovidCheckIn',
+    //   pagePostType2: 'single-page',
+    // });
     this.selectedEvent.files.race_checkin_safety_video = this.selectedEvent.files.race_checkin_safety_video;
     this.eventDataClassificationBackup = this.classificationBackup;
     this.eventDataDivisionBackup = this.divisionBackup;

@@ -84,7 +84,7 @@ import { environment } from 'src/environments/environment';
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, `http://localhost:${environment.SSR_PORT}/assets/i18n/`, '.json'),
+        useFactory: (http: HttpClient) => new TranslateHttpLoader(http, `http://${environment.SERVER_URL}:${environment.SSR_PORT}/assets/i18n/`, '.json'),
         deps: [HttpClient],
       },
     }),

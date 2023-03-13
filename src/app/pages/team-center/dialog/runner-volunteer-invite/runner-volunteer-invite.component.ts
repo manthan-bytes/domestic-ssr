@@ -198,11 +198,11 @@ export class RunnerVolunteerInviteComponent implements OnInit {
       this.show.loading = true;
       this.rcmsEventDataService.inviteUserByEmails(this.componentData.registrationConfigId, this.componentData.teamId, data).subscribe(
         (inviteResponse) => {
-          this.dataLayerService.formSubmitEvent({
-            formName: this.componentData.type === 'volunteer' ? 'volunteerInviteForm' : 'runnerInviteForm',
-            formStatus: this.dataLayerService.formStatus.SUCCESS,
-            ...this.getDataLayerFormObj(form),
-          });
+          // this.dataLayerService.formSubmitEvent({
+          //   formName: this.componentData.type === 'volunteer' ? 'volunteerInviteForm' : 'runnerInviteForm',
+          //   formStatus: this.dataLayerService.formStatus.SUCCESS,
+          //   ...this.getDataLayerFormObj(form),
+          // });
 
           // tslint:disable-next-line: no-string-literal
           this.invitationResponse = inviteResponse['response'];
@@ -225,11 +225,11 @@ export class RunnerVolunteerInviteComponent implements OnInit {
             );
         },
         (err) => {
-          this.dataLayerService.formSubmitEvent({
-            formName: this.componentData.type === 'volunteer' ? 'volunteerInviteForm' : 'runnerInviteForm',
-            formStatus: this.dataLayerService.formStatus.FAILED,
-            ...this.getDataLayerFormObj(form),
-          });
+          // this.dataLayerService.formSubmitEvent({
+          //   formName: this.componentData.type === 'volunteer' ? 'volunteerInviteForm' : 'runnerInviteForm',
+          //   formStatus: this.dataLayerService.formStatus.FAILED,
+          //   ...this.getDataLayerFormObj(form),
+          // });
           // TODO: Toastr to show the Error
           console.error('SHOW THE TOASTR');
           this.show.loading = false;
@@ -260,18 +260,18 @@ export class RunnerVolunteerInviteComponent implements OnInit {
   formElementEnter(form) {
     this.inputFocusCount++;
     if (this.inputFocusCount === 1) {
-      this.dataLayerService.inputFocusEvent({
-        formName: this.componentData.type === 'volunteer' ? 'volunteerInviteForm' : 'runnerInviteForm',
-        ...this.getDataLayerFormObj(form),
-      });
+      // this.dataLayerService.inputFocusEvent({
+      //   formName: this.componentData.type === 'volunteer' ? 'volunteerInviteForm' : 'runnerInviteForm',
+      //   ...this.getDataLayerFormObj(form),
+      // });
     }
   }
   formElementExit(form) {
     this.inputFocusCount = 0;
-    this.dataLayerService.inputBlurEvent({
-      formName: this.componentData.type === 'volunteer' ? 'volunteerInviteForm' : 'runnerInviteForm',
-      ...this.getDataLayerFormObj(form),
-    });
+    // this.dataLayerService.inputBlurEvent({
+    //   formName: this.componentData.type === 'volunteer' ? 'volunteerInviteForm' : 'runnerInviteForm',
+    //   ...this.getDataLayerFormObj(form),
+    // });
   }
   getDataLayerFormObj(form) {
     const formFields = {};
