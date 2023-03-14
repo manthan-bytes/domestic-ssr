@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
-import { HomeV2Route, StaticPageRoutes, staticRoutes, TeamCenterRoutes,eventDetailRoutes, MapRoute } from '../@core/utils/routes-path.constant.service';
+import { HomeV2Route, StaticPageRoutes, staticRoutes, TeamCenterRoutes,eventDetailRoutes, MapRoute, virtualChallengeRoutes } from '../@core/utils/routes-path.constant.service';
 import { PageNotFoundComponent } from '../@components/page-not-found/page-not-found.component';
 import { AuthenticationGuard } from '@core/guards/authentication.guard';
 
@@ -14,6 +14,10 @@ const routes: Routes = [
       {
         path: HomeV2Route.main,
         loadChildren: () => import('./homev2/homev2.module').then((m) => m.Homev2Module),
+      },
+      {
+        path: virtualChallengeRoutes.main,
+        loadChildren: () => import('./virtual-challenge/virtual-challenge.module').then((m) => m.VirtualChallengeModule),
       },
       {
         path: eventDetailRoutes.main,

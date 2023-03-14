@@ -1,0 +1,300 @@
+<div class="dashboard_wrapper">
+  <!-- ------------------------------------------------------------------------------------- -->
+  <div class="container text-center" *ngIf="show.loading">
+    <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+  </div>
+
+  <!-- ------------------------------------------------------------------------------------- -->
+  <div class="container" *ngIf="!show.loading">
+    <div
+      class="col_wrapper row"
+      [class.hidesidbarmob]="
+        show.dashboardScreen.addRun || show.dashboardScreen.invite || show.dashboardScreen.leaderBoard || show.dashboardScreen.activityFeed
+      "
+    >
+      <div class="col-md-4">
+        <ngb-toast *ngIf="show.toast" [delay]="5000" [autohide]="false" (hide)="(!show.toast)" class="toast_dashboard">
+          <div class="toast_style">
+            <i class="iconm-X" (click)="show.toast = !show.toast"></i>
+            <img src="assets/images/virtual-challenge/tost.png" alt="Toast" />
+            <p>
+              <strong>{{ 'virtual-challenge.dashboard.massage1' | translate }}</strong>
+              {{ 'virtual-challenge.dashboard.massage2' | translate }}
+            </p>
+          </div>
+        </ngb-toast>
+
+        <div class="side_bar">
+          <div class="profile_img" [ngClass]="{ hide_logo: show.result }">
+            <img [src]="challengeDetail?.contents?.INFO_PAGE?.logo" class="fix-completed" alt="Profile Picture" />
+            <h5
+              class="indicator fix-completed"
+              [ngClass]="leaderBoardDetail.safeState !== 'NOT' ? 'complate' : 'fail'"
+              *ngIf="show.result && challengeDetail.challengeType !== 'TEAM'"
+            >
+              {{ leaderBoardDetail.safeState !== 'NOT' ? 'Completed' : 'Epic Fail' }}
+            </h5>
+            <h5
+              class="indicator fix-completed set-position"
+              [ngClass]="teamDetail.isGoalAchieved ? 'complate' : 'fail'"
+              *ngIf="show.result && challengeDetail.challengeType === 'TEAM'"
+            >
+              {{ teamDetail.isGoalAchieved ? 'Completed' : 'Epic Fail' }}
+            </h5>
+          </div>
+          <div class="sidebar_wrpeer">
+            <h1>{{ challengeDetail.name }}</h1>
+            <h5 *ngIf="!show.result && challengeDetail.challengeType !== 'TEAM'">{{ 'common-data.run-more-miles' | translate }}</h5>
+            <h5 *ngIf="!show.result && challengeDetail.challengeType === 'TEAM'">
+              Achieve {{ teamDetail.total_run }} {{ challengeDetail.unitType === 'ELEVATION' ? 'FT' : 'MILES' }} As A Group
+              {{ teamDetail.startDate | dateFormat : 'MMM' }} {{ teamDetail.startDate | dateFormat : 'DD' }} –
+              {{ teamDetail.endDate | dateFormat : 'MMM' }} {{ teamDetail.endDate | dateFormat : 'DD' }}
+            </h5>
+            <div class="digital_check" *ngIf="!show.result && challengeDetail.challengeType === 'TEAM'">
+              <h4 *ngIf="!editTeamName">{{ teamDetail.name }} Virtual Challenge</h4>
+              <button class="edite_btn" (click)="changeTeamName(teamDetail.name, teamDetail.id)"></button>
+            </div>
+
+            <h5
+              *ngIf="show.result && leaderBoardDetail && leaderBoardDetail.safeState === 'NOT' && challengeDetail.challengeType !== 'TEAM'"
+            >
+              {{ 'virtual-challenge.dashboard.not-safe-massage1' | translate }}
+              <strong>{{ 'virtual-challenge.dashboard.not-safe-massage2' | translate }}</strong>
+              {{ 'virtual-challenge.dashboard.not-safe-massage3' | translate }}
+            </h5>
+            <h5
+              *ngIf="
+                show.result && leaderBoardDetail && leaderBoardDetail.safeState === 'MAYBE' && challengeDetail.challengeType !== 'TEAM'
+              "
+            >
+              {{ 'virtual-challenge.dashboard.maybe-safe-massage1' | translate }}
+              <strong>{{ 'virtual-challenge.dashboard.maybe-safe-massage2' | translate }}</strong>
+              {{ 'virtual-challenge.dashboard.maybe-safe-massage3' | translate }}
+            </h5>
+            <h5
+              *ngIf="
+                show.result && leaderBoardDetail && leaderBoardDetail.safeState === 'LIKELY' && challengeDetail.challengeType !== 'TEAM'
+              "
+            >
+              {{ 'virtual-challenge.dashboard.maybe-safe-massage1' | translate }}
+              <strong>{{ 'virtual-challenge.dashboard.probably-safe-massage1' | translate }}</strong>
+              {{ 'virtual-challenge.dashboard.probably-safe-massage1' | translate }}
+            </h5>
+            <!-- <div *ngIf="!show.isChallengeStarted && !show.dashboardScreen.invite" class="d-md-none">
+              <div class="d-flex align-items-center flex-column">
+                <p>
+                  <app-countdown [challengeStartDate]="challengeDetail.startDate">
+                  </app-countdown>
+                </p>
+                <p>
+                  <img [src]="challengeDetail.contents.INFO_PAGE.logo" alt="Profile Picture" />
+                </p>
+              </div>
+            </div> -->
+            <div class="list">
+              <div class="d-flex buttuns">
+                <a
+                  *ngFor="let menu of dashboardScreenMenu"
+                  [routerLink]="'.'"
+                  fragment="{{ menu.value }}"
+                  [ngClass]="{ active: show.dashboardScreen[menu.value] }"
+                  (click)="onDashboardScreenSelect(menu.value)"
+                  ><i class="{{ menu.icon }}"><span></span></i>{{ menu.label }}</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="col_container">
+          <div *ngIf="!show.isChallengeStarted && !show.dashboardScreen.invite">
+            <div class="text-left mt-5">
+              <div class="d-flex align-items-center flex-column">
+                <p>
+                  <app-countdown [challengeStartDate]="challengeDetail.startDate"> </app-countdown>
+                </p>
+                <p>
+                  <img [src]="challengeDetail.contents.INFO_PAGE.logo" alt="Profile Picture" />
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="round_loader" *ngIf="show.dashboardScreen.dashboard && show.isChallengeStarted && !show.result">
+            <h3 class="text-center mb-0">
+              {{ 'common-data.day' | translate }} {{ show.remaining.days }} {{ 'common-data.of' | translate }}
+              {{ show.remaining.totalDays }}
+            </h3>
+            <app-virtual-challenge-round-progress-bar
+              *ngIf="challengeDetail.challengeType !== 'TEAM'"
+              [challengeType]="challengeDetail.challengeType"
+              [memberDetail]="leaderBoardDetail"
+              [existingMember]="existingMember"
+            >
+            </app-virtual-challenge-round-progress-bar>
+            <app-virtual-challenge-round-progress-bar
+              *ngIf="challengeDetail.challengeType === 'TEAM'"
+              [challengeType]="challengeDetail.challengeType"
+              [teamDetail]="teamDetail"
+              [existingMember]="existingMember"
+            >
+            </app-virtual-challenge-round-progress-bar>
+
+            <div *ngIf="challengeDetail.challengeType !== 'TEAM'" class="miles">
+              <h5>
+                {{ leaderBoardDetail.myRun }} {{ 'common-data.miles-added' | translate }}
+                <span>{{ show.remaining.hours }} {{ 'common-data.hours-left' | translate }}</span>
+              </h5>
+            </div>
+
+            <div *ngIf="challengeDetail.challengeType === 'TEAM' && existingMember" class="miles">
+              <h5>
+                <!-- TODO::: -->
+                <span style="margin-bottom: 0px"
+                  >{{ existingMember.achieved_run }} {{ challengeDetail.unitType === 'ELEVATION' ? 'FEET' : 'MILES' }} ADDED</span
+                >
+                <span>{{ show.remaining.hours }} {{ 'common-data.hours-left' | translate }}</span>
+              </h5>
+            </div>
+
+            <div class="safe_info">
+              <div *ngIf="challengeDetail.challengeType === 'BRAND'" class="safe-text">
+                <p [innerHTML]="show.safeText"></p>
+                <span class="faq" (click)="showFaqs()">?</span>
+              </div>
+              <button class="rg_btn rg_bbtn mt-4 d-md-block d-none" (click)="copyLink()">
+                {{ 'virtual-challenge.dashboard.share-your-progress' | translate }}
+              </button>
+            </div>
+
+            <div class="d-md-none mt-5 mobile_btn">
+              <a [routerLink]="'.'" fragment="addRun" class="mb-3 rg_btn" (click)="onDashboardScreenSelect('addRun')"
+                >{{ 'virtual-challenge.dashboard.add-run' | translate }}
+              </a>
+              <a (click)="copyLink()" class="rg_btn rg_bbtn">{{ 'virtual-challenge.dashboard.share-your-progress' | translate }}</a>
+            </div>
+
+            <!-- ----------------------------------------- ONLY FOR TEAM [START]---------------------------------------------------- -->
+
+            <div class="miles_dynamic_cover">
+              <div class="dynamic_row" *ngFor="let member of teamMemberDetail">
+                <img
+                  (click)="deleteMember(member)"
+                  *ngIf="existingMember.role === 'CAPTAIN' || member.profileId === userData.id"
+                  src="/assets/images/team-center/delete-runner.png"
+                  alt="delete"
+                  class="delete_icon"
+                />
+                <div class="progress_bar">
+                  <div
+                    class="scalable_progress"
+                    [ngStyle]="{
+                      width:
+                        (member.achieved_run * 100) / (teamDetail.total_run / teamMemberDetail.length) > 100
+                          ? '100%'
+                          : (member.achieved_run * 100) / (teamDetail.total_run / teamMemberDetail.length) + '%'
+                    }"
+                  >
+                    <div class="profile_img">
+                      <img *ngIf="member.profilePhoto" src="{{ member.profilePhoto }}" />
+                      <span *ngIf="!member.profilePhoto"> {{ member.firstName.charAt(0) }}{{ member.lastName.charAt(0) }}</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="content_row">
+                  <span>
+                    {{ member.firstName }}
+                  </span>
+                  <div class="miles_number">
+                    {{ member.achieved_run }} {{ challengeDetail.unitType === 'ELEVATION' ? 'FT' : 'MI' }} /
+                    {{ teamDetail.total_run / teamMemberDetail.length }} {{ challengeDetail.unitType === 'ELEVATION' ? 'FT' : 'MI' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ----------------------------------------- ONLY FOR TEAM [END]---------------------------------------------------- -->
+          </div>
+          <div *ngIf="show.dashboardScreen.dashboard && show.result">
+            <div
+              class="result_complete"
+              *ngIf="(leaderBoardDetail && leaderBoardDetail.safeState !== 'NOT') || (teamDetail && teamDetail.isGoalAchieved)"
+            >
+              <img [src]="challengeDetail?.contents?.INFO_PAGE?.logo" alt="Profile Picture" />
+            </div>
+            <div
+              class="worry_msg"
+              *ngIf="(leaderBoardDetail && leaderBoardDetail.safeState === 'NOT') || (teamDetail && !teamDetail.isGoalAchieved)"
+            >
+              <p>
+                {{ 'virtual-challenge.dashboard.worry-massage1' | translate }}
+                <span> {{ 'virtual-challenge.dashboard.worry-massage2' | translate }}</span>
+              </p>
+            </div>
+            <div class="result_buttons">
+              <a
+                routerLink="/{{ virtualChallengeRoutes.main }}/{{ virtualChallengeRoutes.home }}"
+                [queryParams]="{ isNewChallengeStart: 'true' }"
+                class="rg_btn"
+                >{{ 'virtual-challenge.dashboard.find-another' | translate }}</a
+              >
+              <button class="rg_btn rg_bbtn" (click)="copyLink()">{{ 'virtual-challenge.dashboard.share-result' | translate }}</button>
+            </div>
+            <!-- <div class="social_feed juicer-feed-c mt-5">
+              <h6 class="peach_color head_style">
+                {{ 'virtual-challenge.dashboard.from-community' | translate }}
+                <span>{{ 'virtual-challenge.dashboard.ragnar-virtual' | translate }}</span>
+              </h6> -->
+            <!-- <ul class="juicer-feed" data-feed-id="ragnar-home-page"></ul> -->
+            <!-- <iframe
+                src="https://www.juicer.io/api/feeds/ragnar-home-page/iframe"
+                frameborder="0"
+                width="100%"
+                height="1000"
+                style="display: block; margin: 0 auto"
+              ></iframe> -->
+            <!-- </div> -->
+          </div>
+          <!-- Add Run -->
+          <app-virtual-challenge-add-run
+            [challengeDetails]="challengeDetail"
+            [teamDetail]="teamDetail"
+            (getLeaderBoardData)="getLeaderBoardData($event)"
+            (getLogsAndLeaderBoard)="getLogsAndLeaderBoard()"
+            [runLogs]="runLogs"
+            [editActivityCopy]="editActivityCopy"
+            *ngIf="show.dashboardScreen.addRun && show.isChallengeStarted"
+          ></app-virtual-challenge-add-run>
+
+          <!-- LeaderBoard -->
+          <app-virtual-challenge-leader-board
+            [leaderBoardDetail]="leaderBoardDetail"
+            [challengeMemberId]="challengeDetail.challengeMemberId"
+            *ngIf="show.dashboardScreen.leaderBoard && show.isChallengeStarted"
+          ></app-virtual-challenge-leader-board>
+          <!-- Invite and Edit Team -->
+          <app-virtual-challenge-team-info
+            [challengeDetails]="challengeDetail"
+            [invitedByEmail]="invitedByName"
+            [teamMemberDetail]="teamMemberDetail"
+            *ngIf="show.dashboardScreen.invite"
+          ></app-virtual-challenge-team-info>
+
+          <!-- Team Feed -->
+          <app-virtual-challenge-activity-feed
+            [teamDetail]="teamDetail"
+            [teamMemberDetail]="teamMemberDetail"
+            *ngIf="show.dashboardScreen.activityFeed"
+          ></app-virtual-challenge-activity-feed>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------------------------------------------------------------------------- -->
+  <app-virtual-challenge-footer
+    [showInviteButton]="show.dashboardScreen.invite"
+    [currentScreen]="selectedScreen"
+  ></app-virtual-challenge-footer>
+</div>

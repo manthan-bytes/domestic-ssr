@@ -207,10 +207,10 @@ export class GlummpingFeesComponent implements OnInit {
     orderObject.couponCode = this.promocode;
     this.rcmsEventDataService.createGlampingOrder(this.componentData.teamInformation.registrationConfigId, orderObject).subscribe(
       (respones) => {
-        // this.dataLayerService.formSubmitEvent({
-        //   formName: 'glampingPaymentForm',
-        //   formStatus: this.dataLayerService.formStatus.SUCCESS,
-        // });
+        this.dataLayerService.formSubmitEvent({
+          formName: 'glampingPaymentForm',
+          formStatus: this.dataLayerService.formStatus.SUCCESS,
+        });
         this.isPaymentDone = true;
         setTimeout(() => {
           this.close();
@@ -220,10 +220,10 @@ export class GlummpingFeesComponent implements OnInit {
         this.emitSuccess.emit();
       },
       (err) => {
-        // this.dataLayerService.formSubmitEvent({
-        //   formName: 'glampingPaymentForm',
-        //   formStatus: this.dataLayerService.formStatus.FAILED,
-        // });
+        this.dataLayerService.formSubmitEvent({
+          formName: 'glampingPaymentForm',
+          formStatus: this.dataLayerService.formStatus.FAILED,
+        });
         this.show.loading = false;
         if ((err || {}).error.errorMessage === 'Promocode is not valid') {
           this.hidePayment = false;
@@ -388,17 +388,17 @@ export class GlummpingFeesComponent implements OnInit {
   formElementEnter() {
     this.inputFocusCount++;
     if (this.inputFocusCount === 1) {
-      // this.dataLayerService.inputFocusEvent({
-      //   formName: 'glamping_payment',
-      //   promocode: this.promocode,
-      // });
+      this.dataLayerService.inputFocusEvent({
+        formName: 'glamping_payment',
+        promocode: this.promocode,
+      });
     }
   }
   formElementExit() {
     this.inputFocusCount = 0;
-    // this.dataLayerService.inputBlurEvent({
-    //   formName: 'glamping_payment',
-    //   promocode: this.promocode,
-    // });
+    this.dataLayerService.inputBlurEvent({
+      formName: 'glamping_payment',
+      promocode: this.promocode,
+    });
   }
 }

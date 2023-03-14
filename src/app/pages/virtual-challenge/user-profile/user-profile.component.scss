@@ -1,0 +1,672 @@
+@import 'vars';
+
+.profile_wrapper {
+  background-color: $white3;
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: $black3;
+  }
+  h4 {
+    margin-bottom: 18px;
+  }
+  .col_wrapper {
+    padding: 70px 0 160px;
+    @media (max-width: $screen-xs-max) {
+      padding: 40px 0 20px;
+    }
+    .col-md-4 {
+      border-right: 1px solid #979797;
+      @media (max-width: $screen-xs-max) {
+        border-right: 0;
+      }
+    }
+    .right-bar-wrap {
+      h4 {
+        margin-bottom: 15px !important;
+        @media (max-width: $screen-xs-max) {
+          margin-bottom: 0 !important;
+          margin-bottom: 10px !important;
+        }
+      }
+      .status-wrap {
+        margin-top: 30px;
+        ul {
+          li {
+            margin-bottom: 30px;
+            h5 {
+              margin-bottom: 15px;
+            }
+          }
+        }
+      }
+    }
+    .side_bar {
+      padding-right: 60px;
+      @media (max-width: $screen-md-max) {
+        padding-right: 10px;
+      }
+      @media (max-width: $screen-sm-max) {
+        padding-right: 0;
+        padding-left: 20px;
+      }
+      @media (max-width: $screen-xs-max) {
+        max-width: 340px;
+        margin: 0 auto;
+        text-align: center;
+        padding-right: 0;
+        @include flex-flow(row-reverse);
+        padding-left: 0;
+      }
+      .profile_img {
+        margin-bottom: 30px;
+        text-align: center;
+        @media (max-width: $screen-xs-max) {
+          margin-bottom: 50px;
+        }
+        .upload_profile {
+          label {
+            height: 120px;
+            width: 120px;
+            background: $white2;
+            border-radius: 100%;
+            position: relative;
+            &:before {
+              content: '';
+              position: absolute;
+              width: 136px;
+              height: 136px;
+              border: 1px solid $peach;
+              border-radius: 100%;
+              top: -8px;
+              left: -8px;
+              pointer-events: none;
+            }
+            span {
+              position: absolute;
+              top: 0;
+              left: 0;
+              font-weight: 600;
+              font-size: 14px;
+              text-align: center;
+              bottom: 0;
+              margin: auto;
+              right: 0;
+              height: 47px;
+              width: 45px;
+              i {
+                display: block;
+                font-size: 23px;
+                margin-bottom: 5px;
+              }
+            }
+          }
+          input {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+          }
+        }
+        .profile_img_wrap {
+          height: 120px;
+          width: 120px;
+          margin-left: auto;
+          margin-right: auto;
+          border-radius: 50%;
+          overflow: hidden;
+          img {
+            // border: 1px solid $peach;
+            height: 100%;
+            margin-bottom: 25px;
+            min-width: 120px;
+            @media (max-width: $screen-xs-max) {
+              margin-bottom: 18px;
+            }
+          }
+        }
+        a.change-pic {
+          display: inline-block;
+          margin: 0 auto 10px;
+          font-size: 13px;
+          color: #333333;
+          font-weight: 600;
+          cursor: pointer;
+        }
+        .edit-name-wrap {
+          // display: flex;
+          // flex-wrap: nowrap;
+          // align-items: center;
+          // justify-content: center;
+          // width: 100%;
+          display: flex;
+
+          input {
+            border: none;
+            border-bottom: 1px solid #97979770;
+            border-radius: 0;
+            background: transparent;
+            text-align: center;
+            padding: 0 !important;
+            font-size: 40px;
+            line-height: 22px;
+          }
+          .form-group {
+            // margin: 0 5px;
+            align-items: center;
+            margin: 0 5px;
+            &:before {
+              display: none !important;
+            }
+            .form-control::-webkit-input-placeholder {
+              color: #dfdfdf;
+              font-weight: normal;
+            }
+          }
+        }
+
+        h1 {
+          font-size: 48px;
+          word-break: break-word;
+          @media (max-width: $screen-sm-max) {
+            font-size: 40px;
+          }
+          @media (max-width: $screen-xs-max) {
+            margin-bottom: 5px;
+            font-size: 40px;
+          }
+        }
+        h5 {
+          @media (max-width: $screen-xs-max) {
+            color: $lime;
+          }
+        }
+      }
+      .profile-title-block {
+        padding: 18px 0;
+        font-size: 20px;
+        margin-bottom: 30px;
+        display: block;
+        border-top: 1px solid #97979770;
+        border-bottom: 1px solid #97979770;
+      }
+      .user-detail.profileFrm {
+        form {
+          .form-group {
+            @media (max-width: $screen-xs-max) {
+              flex-wrap: nowrap;
+            }
+            label.col-xs-3 {
+              // font-weight: bold;
+              text-align: right;
+              text-transform: capitalize;
+              // padding-left: 0;
+              line-height: 18px;
+              @media (max-width: $screen-sm-max) {
+                text-align: left;
+                max-width: 37%;
+                flex: 0 0 37%;
+              }
+              @media (max-width: $screen-xs-max) {
+                max-width: 85px;
+                flex: auto;
+              }
+              span {
+                font-size: 20px;
+              }
+            }
+            .col-xs-9 {
+              padding-left: 2px;
+              @media (max-width: $screen-sm-max) {
+                max-width: 63%;
+                flex: 0 0 63%;
+              }
+              @media (max-width: $screen-xs-max) {
+                text-align: left;
+                padding-left: 0;
+                max-width: 100%;
+                flex: auto;
+              }
+              span {
+                word-break: break-word;
+              }
+              input,
+              select {
+                border: none;
+                border-bottom: 1px solid #97979770;
+                border-radius: 0;
+                background: transparent;
+                text-align: left;
+                padding: 0 !important;
+                height: auto;
+                vertical-align: middle;
+                font-weight: normal;
+              }
+              select {
+                background: transparent
+                  url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23343a40' d='M2 5L0 3h4z'/></svg>")
+                  no-repeat right 0.75rem center/8px 40px;
+              }
+            }
+            .rg_btn {
+              max-width: 150px;
+              width: 100%;
+              display: table;
+              min-width: 170px;
+              margin: auto;
+              margin-top: 0px;
+              margin-bottom: 20px;
+              border-radius: 0;
+              text-transform: uppercase;
+              color: $black2;
+              background: $brand-secondary;
+            }
+            .form-control::-webkit-input-placeholder {
+              color: #dfdfdf;
+              font-weight: normal;
+            }
+            &.new-pass {
+              &::before {
+                top: 23px;
+                bottom: auto;
+              }
+            }
+          }
+          .address-code-wrap {
+            display: flex;
+            .form-group {
+              margin-right: 10px;
+              :last-child {
+                margin-right: 0 !important;
+              }
+            }
+            :last-child {
+              margin-right: 0 !important;
+            }
+          }
+          button.rg_btn.save-btn-wrap {
+            background: #003e51;
+            color: #fff;
+            max-width: 170px;
+            width: 100%;
+            display: table;
+            min-width: auto;
+            margin: 0 auto 20px !important;
+            border-radius: 0;
+          }
+          button.rg_btn.save-btn-wrap {
+            &:disabled,
+            &:hover {
+              background-color: #b3b3b3 !important;
+            }
+          }
+        }
+      }
+      .publish_profil {
+        color: $white;
+        border-bottom: 1px solid $peach;
+        display: inline-block;
+        margin-bottom: 60px;
+        @media (max-width: $screen-xs-max) {
+          display: block;
+          max-width: 320px;
+          margin: 0 auto;
+          border: 1px solid #333333;
+          text-align: center;
+          padding: 13px 20px 14px;
+          position: relative;
+          &:before {
+            content: '\e907';
+            position: absolute;
+            font-family: 'icomoon' !important;
+            left: 14px;
+            top: 13px;
+          }
+        }
+      }
+      ul {
+        @media (max-width: $screen-xs-max) {
+          display: none;
+        }
+        li {
+          margin-bottom: 25px;
+          h5 {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+    .col_container {
+      max-width: 590px;
+      padding: 0 15px;
+      margin: 0 auto;
+      @media (max-width: $screen-xs-max) {
+        padding: 0;
+        max-width: 340px;
+      }
+      .profile_status {
+        display: none;
+        /* @media (max-width: $screen-xs-max) {
+          display: block;
+          margin-top: 70px;
+          li {
+            margin-bottom: 25px;
+            h5 {
+              margin-bottom: 0;
+              @media (max-width: $screen-xs-max) {
+                margin-bottom: 5px;
+              }
+            }
+          }
+        }*/
+      }
+      .current_challenge {
+        background-color: $white;
+        height: 265px;
+        width: 100%;
+        margin-bottom: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-flow: column;
+        position: relative;
+        border: 1px solid $grey;
+        @media (max-width: $screen-xs-max) {
+          height: 205px;
+          padding-bottom: 10px;
+        }
+        p.profile {
+          position: absolute;
+          top: 40px;
+          text-align: center;
+          left: 0;
+          right: 0;
+          color: $black2;
+          @media (max-width: $screen-xs-max) {
+            top: 15px;
+          }
+        }
+        img {
+          max-width: 270px;
+          @media (max-width: $screen-xs-max) {
+            max-width: 200px;
+            width: 100%;
+          }
+        }
+        .progress_cover {
+          margin-bottom: 35px;
+          position: absolute;
+          width: 95%;
+          bottom: 0;
+          @media (max-width: $screen-xs-max) {
+            margin-bottom: 20px;
+          }
+          .sticky_value {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: inline-block;
+            margin-bottom: 8px;
+            font-size: 11px;
+            font-weight: 500;
+            bottom: 100%;
+            width: 25px;
+          }
+          ngb-progressbar {
+            bottom: 20px;
+            left: 0;
+            width: calc(100% - 16px);
+            margin: 0 auto;
+            right: 0;
+            ::ng-deep .progress {
+              height: 4px;
+              background-color: $grey-light;
+              position: relative;
+              overflow: visible;
+              .progress-bar {
+                background: $brand-secondary !important;
+                border-radius: 4px;
+                position: relative;
+                overflow: visible;
+                span {
+                  position: absolute;
+                  top: -10px;
+                  right: -8px;
+                  color: $lime;
+                  font-size: 10px;
+                  letter-spacing: 0.05em;
+                  color: $black2;
+                }
+              }
+            }
+          }
+        }
+      }
+      .earne_cover {
+        margin-bottom: 30px;
+        .earned_badges {
+          display: inline-block;
+          width: 160px;
+          height: 160px;
+          margin: 0 6px 6px 0px;
+          padding: 7px 7px 18px;
+          border: solid 1px #97979770;
+          background-color: #ffffff;
+          @media (max-width: $screen-xs-max) {
+            width: 49%;
+            &:nth-child(2n) {
+              margin-right: 0;
+            }
+          }
+          img {
+            width: 150px;
+            height: 140px;
+            margin: 0 0 10px;
+          }
+          .challangeDate {
+            width: auto;
+            height: 16px;
+            margin: 10px 12px 0 16px;
+            color: #333333;
+            font-size: 11px;
+          }
+        }
+      }
+      .challenges_completed_wrap {
+        margin-bottom: 50px;
+        @media (max-width: $screen-xs-max) {
+          text-align: center;
+        }
+        .challenges_completed {
+          @include flexbox();
+          flex-flow: wrap;
+          margin-left: -4px;
+          margin-right: -4px;
+          .challenges_card {
+            width: 33.333%;
+            text-align: center;
+            padding: 0 4px;
+            margin-bottom: 8px;
+            @media (max-width: $screen-xs-max) {
+              width: 50%;
+            }
+            .card_cover {
+              background-color: $grey-dark;
+              padding: 23px 0;
+              h5 {
+                margin-bottom: 0;
+                color: $gray2;
+              }
+            }
+          }
+        }
+        a {
+          color: $white;
+          text-decoration: underline;
+          display: inline-block;
+          margin-top: 5px;
+        }
+      }
+      .my_flair {
+        @media (max-width: $screen-xs-max) {
+          text-align: center;
+        }
+        .challenges_completed {
+          @include flexbox();
+          flex-flow: wrap;
+          margin-left: -4px;
+          margin-right: -4px;
+          .challenges_card {
+            width: 33.333%;
+            text-align: center;
+            padding: 0 4px;
+            margin-bottom: 8px;
+            @media (max-width: $screen-xs-max) {
+              width: 50%;
+            }
+            .card_cover {
+              background-color: $grey-dark;
+              padding: 23px 0;
+              height: 100%;
+              position: relative;
+              h5 {
+                margin-bottom: 0;
+                color: $gray2;
+              }
+              ngb-progressbar {
+                position: absolute;
+                bottom: 20px;
+                left: 0;
+                width: calc(100% - 16px);
+                margin: 0 auto;
+                right: 0;
+                ::ng-deep .progress {
+                  height: 4px;
+                  background-color: $gray2;
+                  position: relative;
+                  overflow: visible;
+                  .progress-bar {
+                    background: linear-gradient(270deg, #ecfe73 -67.8%, #ffb47b 100%);
+                    border-radius: 4px;
+                    position: relative;
+                    overflow: visible;
+                    span {
+                      position: absolute;
+                      top: -10px;
+                      right: -8px;
+                      color: $lime;
+                      font-size: 10px;
+                      letter-spacing: 0.05em;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        a {
+          color: $white;
+          text-decoration: underline;
+          display: inline-block;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+  .head_style {
+    @include heading-6();
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-bottom: 2px solid $white;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    span {
+      font-size: 11px;
+    }
+  }
+
+  .activity_indicate {
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: conic-gradient(from 60.64deg at 50% 50%, rgba(255, 182, 114, 0) 0deg, rgba(255, 182, 114, 0) 65.63deg, #ffb672 360deg);
+      top: 0;
+      right: 0;
+      border-radius: 100%;
+    }
+  }
+  @media (max-width: $screen-xs-max) {
+    .completed-challenges-sec {
+      margin-top: 40px;
+    }
+    .accrodian-title {
+      text-align: left;
+      position: relative;
+      border-top: 2px solid $grey-light !important;
+      border-bottom: none !important;
+      cursor: pointer;
+      padding: 18px 0;
+      margin-bottom: 0 !important;
+      &.last-title {
+        border-bottom: 2px solid $grey-light !important;
+      }
+      &:before {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        content: '';
+        border-top: 10px solid $black3;
+        height: 0;
+        width: 0;
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+        transform: translateY(-50%);
+      }
+      &.open {
+        &:before {
+          transform: translateY(-50%) rotate(180deg);
+        }
+      }
+    }
+    .accrodian-panel {
+      overflow: hidden;
+      padding-top: 30px;
+      margin-bottom: 40px;
+      display: none;
+      border-top: 2px solid $grey-light !important;
+      &.last-title {
+        border-top: 0 !important;
+        border-bottom: 2px solid $grey-light !important;
+        padding-bottom: 30px;
+      }
+      &.first-title {
+        border-top: none !important;
+      }
+      label {
+        text-align: right !important;
+      }
+    }
+  }
+  .see-all-btn {
+    display: none;
+    .rg_btn {
+      border-radius: 0;
+      text-transform: uppercase;
+      width: 100%;
+      min-width: unset;
+      max-width: 150px;
+      margin: 0 auto;
+    }
+    @media (max-width: $screen-xs-max) {
+      display: block;
+    }
+  }
+}

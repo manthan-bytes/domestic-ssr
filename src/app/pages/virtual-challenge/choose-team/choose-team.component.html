@@ -1,0 +1,56 @@
+<div class="choose_team">
+  <div class="challenge-banner-content">
+    <div class="container">
+      <h1 class="title hidden-xs">Challenge Selected! You chose wisely. <span>Now invite your team...</span></h1>
+    </div>
+  </div>
+  <div class="challenge_detail">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6 team_col">
+          <h3 for="">Option A: Complete with your Ragnar team</h3>
+          <div class="team-list">
+            <div class="team-list-inner">
+              <div *ngFor="let team of totalTeams; let i = index" class="team-list-item-wrapper">
+                <div class="team-list-item">
+                  <input type="radio" name="radio-group" class="radio-custom" id="{{ team.id }}" />
+                  <label class="radio-custom-label" (click)="chooseTeam(team.id, team)" for="{{ team.id }}">
+                    <div class="radio-text">
+                      {{ team.teamName }}
+                      <span>{{ team.eventName }}</span>
+                    </div>
+                  </label>
+                </div>
+                <div class="teammates-list">
+                  <div *ngIf="selectedTeamID === team.id" class="teamates_cover">
+                    <span
+                      *ngIf="!teamRunners.length"
+                      class="spinner-grow spinner-grow-sm text-dark"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    <div *ngFor="let runner of teamRunners" class="teammates-box" [ngClass]="{ disable: runner.alreadyJoined }">
+                      <img src="{{ runner.profilePhoto || '/assets/images/user-profile-pic.png' }}" />
+                      <div class="teammate-name">{{ runner.firstName }} {{ runner.lastName }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="text-center invite_btn">
+              <button (click)="createTeam('invite')" *ngIf="totalTeams?.length" class="rg_btn mb-2">Invite</button>
+            </div>
+            <div class="text-center" *ngIf="!totalTeams?.length">
+              <div class="note">* YOU DON'T HAVE ANY EXISTING RAGNAR TEAM</div>
+            </div>
+          </div>
+          <div class="note" *ngIf="totalTeams?.length">* YOU CAN STILL ADD PEOPLE TO THIS CHALLENGE WHO ARE NOT ON YOUR RAGNAR TEAM</div>
+        </div>
+        <div class="col-sm-6 right_col">
+          <h3 for="">Option B: Complete by yourself or create a new group</h3>
+          <button (click)="createTeam('create')" class="rg_btn mb-2">Create New Group</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

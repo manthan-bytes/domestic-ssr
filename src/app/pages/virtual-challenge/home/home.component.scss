@@ -1,0 +1,371 @@
+@import 'vars';
+
+.virtual_banner {
+  position: relative;
+  padding-top: 50px;
+  @media (max-width: $screen-xs-max) {
+    padding-top: 0;
+  }
+  &:before {
+    content: '';
+    background-color: $sky_blue;
+    height: calc(100% - 50px);
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+    @media (max-width: $screen-xs-max) {
+      height: 100%;
+    }
+  }
+  img {
+    width: 90%;
+    margin: 0 auto;
+    display: block;
+    @media (max-width: $screen-xs-max) {
+      width: 100%;
+      padding: 0 0 0 0;
+      height: 480px;
+      object-fit: cover;
+    }
+  }
+}
+.fix-image-home {
+  width: 100%;
+  max-height: 230px;
+  object-fit: contain;
+}
+.toast_style {
+  background: rgba(34, 34, 36, 0.9);
+  box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.3), 2px 32px 48px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  max-width: 512px;
+  padding: 16px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  bottom: 60px;
+  z-index: 999;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @media (max-width: $screen-xs-max) {
+    max-width: calc(100% - 30px);
+    position: static;
+    padding: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25), 0px 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 15px auto 40px;
+  }
+  .img_col {
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 15px;
+    }
+    .img_caption {
+      margin-right: 15px;
+      width: 48px;
+      height: 48px;
+      border-radius: 100%;
+      background-color: $white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 600;
+      color: $black;
+    }
+    p {
+      @media (max-width: $screen-xs-max) {
+        font-size: 12px;
+        line-height: 17px;
+      }
+      color: $white;
+      strong {
+        display: block;
+        font-weight: 600;
+      }
+    }
+  }
+  .view_btn {
+    border: 0;
+    box-shadow: none;
+    background: $orange-brand;
+    border-radius: 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: $white;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 5px 16px;
+    outline: none !important;
+    transition: all 0.3s linear 0s;
+    &:hover {
+      background-color: $peach;
+    }
+    @media (max-width: $screen-xs-max) {
+      margin-right: 5px;
+    }
+  }
+}
+.virtual_cols {
+  padding: 60px 0;
+  @media (max-width: $screen-xs-max) {
+    padding: 30px 0;
+  }
+  .col-md-8 {
+    border-left: 1px solid rgba(61, 61, 65, 0.2);
+    padding: 0;
+  }
+  .col_container {
+    max-width: 590px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  .virtual_block {
+    max-width: 320px;
+    margin: 0 auto;
+    position: sticky;
+    top: 30px;
+    @media (max-width: $screen-xs-max) {
+      margin-bottom: 60px;
+      max-width: 100%;
+    }
+    > p {
+      margin-bottom: 30px;
+    }
+    .mobile_title {
+      border-top: 1px solid #161616;
+      padding: 20px 0 0;
+      h1 {
+        margin-bottom: 20px;
+        @media (max-width: $screen-xs-max) {
+          font-size: 32px;
+        }
+      }
+    }
+    .call_outbox {
+      background: $white;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1), 0px 2px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 8px;
+      @include flexbox();
+      padding: 14px;
+      margin-top: 30px;
+      @media (max-width: $screen-xs-max) {
+        position: absolute;
+        left: 10px;
+        right: 20px;
+        bottom: calc(100% + 105px);
+        max-width: 320px;
+      }
+      p {
+        padding-right: 20px;
+        font-weight: bold;
+        letter-spacing: -0.02em;
+        color: $grey-mid;
+        text-transform: capitalize;
+      }
+      span {
+        @include flexbox();
+        @include align-items(center);
+        color: $sky_blue;
+        text-transform: uppercase;
+        font-weight: 600;
+        i {
+          font-size: 8px;
+          margin-left: 10px;
+        }
+      }
+    }
+    .event_cover {
+      margin-bottom: 30px;
+      .event_select {
+        margin: 55px 0 0;
+        @media (max-width: $screen-xs-max) {
+          max-width: 590px;
+          margin: 0 auto;
+          &:last-child {
+            margin: 55px auto 0 !important;
+          }
+        }
+        h5 {
+          margin-bottom: 30px;
+        }
+        .custom-control {
+          margin-bottom: 15px;
+        }
+      }
+    }
+  }
+  .col-md-8 {
+    .col_container {
+      h5 {
+        @media (max-width: $screen-xs-max) {
+          text-align: center;
+        }
+      }
+    }
+  }
+  .features_event {
+    max-width: 590px;
+    margin: 0 auto 100px;
+    padding: 0 15px;
+    @media (max-width: $screen-xs-max) {
+      margin-bottom: 50px;
+    }
+    .img_box {
+      height: 230px;
+      width: 100%;
+      @include flexbox();
+      @include align-items(center);
+      @include justify-content(center);
+      background-color: $sky_blue;
+      margin-bottom: 25px;
+    }
+    .features_content {
+      max-width: 400px;
+      ul {
+        margin-bottom: 25px;
+        -webkit-column-count: 2;
+        -moz-column-count: 2;
+        column-count: 2;
+        column-gap: 20px;
+        li {
+          position: relative;
+          padding-left: 15px;
+          &:before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            left: 0;
+            top: 10px;
+            background-color: $grey-light;
+            border-radius: 4px;
+          }
+        }
+      }
+      p {
+        margin-bottom: 30px;
+      }
+    }
+  }
+  .challnges_wrapper {
+    background-color: $white2;
+    padding: 80px 15px 20px;
+    @media (max-width: $screen-xs-max) {
+      padding-top: 50px;
+    }
+  }
+  .challenge_block {
+    max-width: 560px;
+    @include flexbox();
+    @include justify-content(space-between);
+    @include align-items(flex-end);
+    position: relative;
+    margin: 0 auto 80px;
+    flex-direction: row-reverse;
+    .img_box {
+      width: 40%;
+      @media (max-width: $screen-xs-max) {
+        width: 100%;
+        img {
+          width: 100%;
+          max-width: unset;
+        }
+      }
+    }
+    @media (max-width: $screen-xs-max) {
+      display: block;
+      margin-bottom: 40px;
+      flex-direction: column;
+    }
+    .challenge_content {
+      margin-right: 30px;
+      width: 60%;
+      @media (max-width: $screen-xs-max) {
+        padding-top: 15px;
+        width: 100%;
+      }
+      ul {
+        margin-bottom: 25px;
+        li {
+          position: relative;
+          padding-left: 15px;
+          font-size: 14px;
+          font-weight: 500;
+          &:not(:last-child) {
+            margin-bottom: 13px;
+          }
+          &:before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            left: 0;
+            top: 10px;
+            background-color: $grey-light;
+            border-radius: 4px;
+          }
+        }
+      }
+      .rg_btn {
+        margin-top: 20px;
+        background: $navy;
+        color: #fff;
+        @media (max-width: $screen-xs-max) {
+          position: relative;
+          z-index: 9;
+        }
+      }
+    }
+    h5 {
+      @include align-self(flex-start);
+      @media (max-width: $screen-xs-max) {
+        position: absolute;
+        right: 0;
+        top: 15px;
+      }
+      i {
+        margin-left: 10px;
+        color: $black2;
+      }
+    }
+    img {
+      max-width: 100%;
+      @media (max-width: $screen-sm-max) {
+        max-width: 170px;
+      }
+    }
+  }
+  .past_challenges {
+    padding: 70px 15px 20px;
+    max-width: 590px;
+    margin: 0 auto;
+    @media (max-width: $screen-xs-max) {
+      padding: 30px 15px 20px;
+    }
+    > h5 {
+      font-size: 12px;
+      font-weight: bold;
+      @media (max-width: $screen-xs-max) {
+        text-align: center;
+      }
+    }
+  }
+}
+.loading-template {
+  margin-left: auto;
+  margin-right: auto;
+  width: 280px;
+  padding-top: 30px;
+  img {
+    margin-top: 50px;
+    max-width: 100%;
+  }
+}

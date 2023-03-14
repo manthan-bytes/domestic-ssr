@@ -1,0 +1,171 @@
+<div class="dashboard_wrapper">
+  <div class="container">
+    <div class="col_wrapper row">
+      <div class="col-md-4">
+        <ngb-toast *ngIf="show.toast" [delay]="5000" [autohide]="false" (hide)="(!show.toast)" class="toast_dashboard">
+          <div class="toast_style">
+            <i class="iconm-X" (click)="show.toast = !show.toast"></i>
+            <img src="assets/images/virtual-challenge/tost.png" alt="Toast" />
+            <p>
+              <strong>{{ 'virtual-challenge.dashboard.massage1' | translate }}</strong>
+              {{ 'virtual-challenge.dashboard.massage2' | translate }}
+            </p>
+          </div>
+        </ngb-toast>
+        <div class="side_bar">
+          <div class="profile_img">
+            <img src="assets/images/virtual-challenge/profile-demo.png" alt="Profile Picture" />
+          </div>
+          <div class="sidebar_wrpeer">
+            <h1>{{ 'virtual-challenge.archived-dashboard.cape-cod' | translate }}</h1>
+            <div class="dropdown d-none d-md-block">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="dashboardScreenMenu"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {{ selectedScreen }}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dashboardScreenMenu">
+                <a
+                  class="dropdown-item"
+                  *ngFor="let menu of dashboardScreenMenu"
+                  (click)="onDashboardScreenSelect(menu.value); selectedScreen = menu.label"
+                >
+                  {{ menu.label }}
+                </a>
+              </div>
+            </div>
+            <h5 class="d-none d-md-block">{{ 'virtual-challenge.archived-dashboard.solo-miles-run' | translate }}</h5>
+            <h5 class="d-sm-none">{{ 'virtual-challenge.archived-dashboard.june-1-2' | translate }}</h5>
+            <!-- <h4>Mountain Cats</h4> -->
+            <div class="d-md-none">
+              <p>—</p>
+              <p>{{ 'virtual-challenge.archived-dashboard.challenge-begins-june' | translate }}</p>
+            </div>
+            <!-- <div class="team_wrapper d-none d-md-block">
+                            <ul>
+                                <li><img src="assets/images/virtual-challenge/avtar1.png" alt="Avatar"></li>
+                                <li><img src="assets/images/virtual-challenge/avtar2.png" alt="Avatar"></li>
+                                <li><img src="assets/images/virtual-challenge/avtar3.png" alt="Avatar"></li>
+                                <li><img src="assets/images/virtual-challenge/avtar4.png" alt="Avatar"></li>
+                                <li>aA</li>
+                                <li class="more_mambers">6+</li>
+                            </ul>
+                        </div> -->
+            <div class="buttuns d-none d-md-block">
+              <a (click)="onDashboardScreenSelect('addRun')"
+                ><i class="iconm-addrun"></i>{{ 'virtual-challenge.archived-dashboard.add-run' | translate }}</a
+              >
+              <!-- <a (click)="onDashboardScreenSelect('assignLeg')"><i class="iconm-union"></i>Assign Legs</a> -->
+              <!-- <a href="#"><i class="iconm-subtract"></i>Print Bib</a> -->
+              <a (click)="onDashboardScreenSelect('invite')"
+                ><i class="iconm-add-invite"></i>{{ 'virtual-challenge.archived-dashboard.invite' | translate }}</a
+              >
+              <!-- <a (click)="show.toast=true"><i class="iconm-add-union"></i>Show Toast</a> -->
+              <!-- <a (click)="onDashboardScreenSelect('start')"><i class="iconm-add-union"></i>After Challenge Start</a> -->
+            </div>
+          </div>
+        </div>
+        <div class="d-md-none mt-5 mobile_btn">
+          <a (click)="onDashboardScreenSelect('invite')" class="rg_btn rg_bbtn mb-3">{{
+            'virtual-challenge.archived-dashboard.invite' | translate
+          }}</a>
+          <!-- <a href="#" class="rg_btn rg_bbtn">Print Bib</a> -->
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="col_container">
+          <!-- Legs status -->
+          <div *ngIf="show.dashboardScreen.dashboard">
+            <p class="text-center mb-5 d-none d-md-block">
+              {{ 'virtual-challenge.archived-dashboard.challenge-begins-est' | translate }} <br />
+              {{ 'virtual-challenge.archived-dashboard.date' | translate }}
+            </p>
+            <!-- <h4>Leg Status</h4>
+                        <app-virtual-challenge-member-run-status></app-virtual-challenge-member-run-status>
+                        <a (click)="onDashboardScreenSelect('assignLeg')" class="rg_btn rg_bbtn">Assign Legs</a> -->
+          </div>
+          <!-- No Assigned Legs! -->
+          <!-- <div class="no_assigned" *ngIf="show.dashboardScreen.assignLeg">
+                        <h6 class="head_style">Uh Oh: No Assigned Legs!</h6>
+                        <p>You'll need to claim legs or have your team captain assign legs before you can add a run!</p>
+                        <button class="rg_btn" (click)="onDashboardScreenSelect('claimLeg')">Claim Legs</button>
+                    </div> -->
+
+          <!-- Assign Leg / Claim Leg -->
+          <!-- <app-virtual-challenge-assign-leg *ngIf="show.dashboardScreen.claimLeg"></app-virtual-challenge-assign-leg> -->
+          <div class="round_loader" *ngIf="show.dashboardScreen.dashboard">
+            <app-virtual-challenge-round-progress-bar></app-virtual-challenge-round-progress-bar>
+            <div class="miles">
+              <h5>
+                {{ 'virtual-challenge.archived-dashboard.solo-miles' | translate
+                }}<span>{{ 'virtual-challenge.archived-dashboard.hours-left' | translate }}</span>
+              </h5>
+              <ul>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="half_circle"></li>
+              </ul>
+              <h5>
+                {{ 'virtual-challenge.archived-dashboard.ragnar-community' | translate
+                }}<span>{{ 'virtual-challenge.archived-dashboard.moon-trip' | translate }}</span>
+              </h5>
+            </div>
+            <!-- <h6 class="mb-3">Run Status</h6>
+                        <app-virtual-challenge-member-run-status></app-virtual-challenge-member-run-status> -->
+          </div>
+          <div class="d-none">
+            <div class="worry_msg">
+              <p>
+                {{ 'virtual-challenge.dashboard.worry-massage1' | translate
+                }}<span> {{ 'virtual-challenge.dashboard.worry-massage2' | translate }}</span>
+              </p>
+            </div>
+            <!-- <app-virtual-challenge-member-run-status></app-virtual-challenge-member-run-status> -->
+          </div>
+
+          <!-- Add Run -->
+          <app-virtual-challenge-add-run *ngIf="show.dashboardScreen.addRun"></app-virtual-challenge-add-run>
+
+          <!-- Community -->
+          <!-- <app-virtual-challenge-community *ngIf="show.dashboardScreen.community"></app-virtual-challenge-community> -->
+
+          <!-- Team Feed -->
+          <!-- <app-virtual-challenge-activity-feed *ngIf="show.dashboardScreen.teamFeed"></app-virtual-challenge-activity-feed> -->
+
+          <!-- LeaderBoard -->
+          <app-virtual-challenge-leader-board *ngIf="show.dashboardScreen.leaderBoard"></app-virtual-challenge-leader-board>
+
+          <!-- Invite and Edit Team -->
+          <app-virtual-challenge-team-info *ngIf="show.dashboardScreen.invite"></app-virtual-challenge-team-info>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pre_footer">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-4 col-sm-6">
+          <h4>{{ 'common-data.feedback' | translate }}</h4>
+          <p>{{ 'common-data.feedback-massage' | translate }} 🐻</p>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <p>{{ 'common-data.any-questions' | translate }}</p>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <a href="#" class="rg_btn">{{ 'common-data.provide-feedback' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

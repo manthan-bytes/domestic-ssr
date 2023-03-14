@@ -1,0 +1,248 @@
+<div>
+  <div class="container text-center" *ngIf="show.loading">
+    <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+  </div>
+  <div class="challenge_detail" *ngIf="!show.loading">
+    <div class="summary">
+      <div class="summary_col">
+        <div class="challenge_solo">
+          <div class="solo_wrap">
+            <img
+              *ngIf="challengeDetail.challengeType !== 'COMMUNITY'; else dcDashboardImage"
+              [src]="challengeDetail.contents.INFO_PAGE.logo | sanitizeUrl"
+              width="64px"
+              height="64px"
+              alt="FPO"
+            />
+            <ng-template #dcDashboardImage>
+              <img
+                *ngIf="challengeDetail.challengeType === 'COMMUNITY'"
+                src="assets/images/virtual-challenge/31-day.png"
+                width="64px"
+                height="64px"
+                alt="FPO"
+              />
+            </ng-template>
+            <h5>
+              <span *ngIf="challengeDetail.challengeType !== 'TEAM' && challengeDetail.challengeType !== 'COMMUNITY'">
+                {{ 'virtual-challenge.info.solo-challenge' | translate }}<br />
+              </span>
+              <span *ngIf="challengeDetail.challengeType === 'TEAM' || challengeDetail.challengeType === 'COMMUNITY'">
+                VIRTUAL TEAM CHALLENGE<br />
+              </span>
+              <span *ngIf="challengeDetail.challengeType !== 'TEAM'">
+                {{ challengeDetail.startDate | dateFormat : 'MMM D' }}-{{ challengeDetail.endDate | dateFormat : 'MMM D' }}
+              </span>
+            </h5>
+          </div>
+          <h1>{{ challengeDetail.contents.INFO_PAGE.title }}</h1>
+          <p>{{ challengeDetail.contents.INFO_PAGE.subTitle }}</p>
+        </div>
+
+        <!-- Button Desktop Right [START] -->
+
+        <div class="righ_col">
+          <div class="mobile_video" *ngIf="challengeDetail.contents.INFO_PAGE.bannerVideo">
+            <iframe
+              class="embed-responsive-item"
+              [src]="challengeDetail.contents.INFO_PAGE.bannerVideo | sanitizeUrl"
+              allowfullscreen
+            ></iframe>
+          </div>
+          <ng-container
+            *ngIf="
+              (challengeDetail.challengeType === 'TEAM' || challengeDetail.challengeType === 'COMMUNITY') &&
+              !show.isChallengeOver &&
+              !show.isRegistrationClose
+            "
+          >
+            <button
+              class="rg_btn mb-3"
+              [ngClass]="{ 'challenge-btn': challengeDetail.contents.INFO_PAGE.registerBtnText.bottom === '' }"
+              (click)="joinChallenge('INVITE')"
+              *ngIf="params.isAcceptInvite === 'true'"
+            >
+              <p>Accept Invite</p>
+              <span>{{ challengeDetail.contents.INFO_PAGE.registerBtnText.bottom }}</span>
+            </button>
+            <button
+              class="rg_btn mb-3"
+              [ngClass]="{ 'challenge-btn': challengeDetail.contents.INFO_PAGE.registerBtnText.bottom === '' }"
+              (click)="joinChallenge('JOIN', true)"
+              *ngIf="params.isAcceptInvite === 'true'"
+            >
+              <p>Decline and start your own</p>
+              <span>{{ challengeDetail.contents.INFO_PAGE.registerBtnText.bottom }}</span>
+            </button>
+          </ng-container>
+
+          <button
+            class="rg_btn mb-3"
+            [ngClass]="{ 'challenge-btn': challengeDetail.contents.INFO_PAGE.registerBtnText.bottom === '' }"
+            (click)="joinChallenge('JOIN')"
+            *ngIf="!show.isRegistrationClose && !show.isChallengeOver && !params.isAcceptInvite"
+          >
+            <p>{{ challengeDetail.contents.INFO_PAGE.registerBtnText.top }}</p>
+            <span>{{ challengeDetail.contents.INFO_PAGE.registerBtnText.bottom }}</span>
+          </button>
+
+          <button
+            class="rg_btn mb-3"
+            [ngClass]="{ 'challenge-btn': challengeDetail.contents.INFO_PAGE.registerBtnText.bottom === '' || show.isChallengeOver }"
+            disabled="true"
+            *ngIf="show.isChallengeOver || show.isRegistrationClose"
+          >
+            <p *ngIf="show.isChallengeOver">{{ 'common-data.challenge-over' | translate }}</p>
+            <p *ngIf="!show.isChallengeOver && show.isRegistrationClose">
+              {{ 'virtual-challenge.info.registration-closed' | translate }}
+            </p>
+          </button>
+        </div>
+
+        <!-- Button Desktop Right [END] -->
+      </div>
+
+      <div class="video_cover" *ngIf="challengeDetail.contents.INFO_PAGE.bannerVideo">
+        <iframe
+          class="embed-responsive-item hidden-xs"
+          [src]="challengeDetail.contents.INFO_PAGE.bannerVideo | sanitizeUrl"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%"
+          frameborder="0"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="intro_banrd">
+      <div class="container">
+        <div class="left_content">
+          <div *ngFor="let faq of challengeDetail.contents.INFO_PAGE.introQuestions">
+            <strong>{{ faq.title }}</strong>
+            <div class="ans" [innerHTML]="faq.description"></div>
+          </div>
+        </div>
+        <div class="right_content">
+          <div *ngFor="let eCommerce of challengeDetail.eCommerce">
+            <div *ngIf="eCommerce.content.smallText" class="content_cover">
+              <div class="title_cover" *ngIf="eCommerce.content.smallText">
+                <h5>{{ eCommerce.content.smallText }}</h5>
+                <button class="price_btn" *ngIf="!eCommerce.content.isSoldOut" [class.sold_out]="eCommerce.content.isSoldOut">
+                  {{ eCommerce.content.tag }}
+                </button>
+              </div>
+              <h2>{{ eCommerce.content.bigText }}</h2>
+              <p>{{ eCommerce.content.description }}</p>
+              <ul>
+                <li *ngFor="let include of eCommerce.content.includes">{{ include }}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div
+            *ngIf="challengeDetail.contents.INFO_PAGE.sponsoredBrand"
+            class="mt-5 mb-5 d-flex d-sm-block d-md-none justify-content-center"
+          >
+            <a target="_blank" href="{{ challengeDetail.contents.INFO_PAGE.sponsoredBrandLink }}">
+              <img class="img-fluid" [src]="challengeDetail.contents.INFO_PAGE.sponsoredBrand | sanitizeUrl" alt="Rules" />
+            </a>
+          </div>
+
+          <a
+            class="rg_btn btn_lable"
+            [ngClass]="{ 'challenge-btn': challengeDetail.contents.INFO_PAGE.registerBtnText.bottom === '' }"
+            (click)="joinChallenge()"
+            *ngIf="!show.isRegistrationClose && !show.isChallengeOver && challengeDetail.challengeType !== 'TEAM'"
+          >
+            <p>{{ challengeDetail.contents.INFO_PAGE.registerBtnText.top }}</p>
+            <span>{{ challengeDetail.contents.INFO_PAGE.registerBtnText.bottom }}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule_wrapper d-none d-sm-none d-md-block" *ngIf="challengeDetail.contents.INFO_PAGE.sponsoredBrand">
+      <div class="container">
+        <div class="col-md-12">
+          <a target="_blank" href="{{ challengeDetail.contents.INFO_PAGE.sponsoredBrandLink }}">
+            <img class="img-fluid" [src]="challengeDetail.contents.INFO_PAGE.sponsoredBrand | sanitizeUrl" alt="Rules" />
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="rule_wrapper">
+      <div class="container">
+        <div class="role_heading">
+          <h5>{{ challengeDetail.contents.INFO_PAGE.ruleSmallText }}</h5>
+          <h2>{{ challengeDetail.contents.INFO_PAGE.ruleBigText }}</h2>
+        </div>
+        <div class="rule_block" *ngFor="let challengeRule of challengeDetail.contents.INFO_PAGE.challengeRules">
+          <div class="rule_img" *ngIf="challengeRule.image">
+            <img [src]="challengeRule.image" class="d-none d-sm-none d-md-block" alt="Rules" />
+            <img
+              src="{{ challengeRule.mobileImage ? challengeRule.mobileImage : challengeRule.image }}"
+              class="d-sm-block d-md-none"
+              alt="Rules"
+            />
+          </div>
+          <div class="role_title">
+            <span>
+              <h1>{{ challengeRule.identifier }}</h1>
+            </span>
+            <h4 class="role_heading">{{ challengeRule.title }}</h4>
+            <!-- <p>{{challengeRule.description}}</p> -->
+            <div [innerHTML]="challengeRule.description"></div>
+          </div>
+        </div>
+        <strong class="tearm_text"
+          >*
+          <a
+            href="{{ challengeDetail.contents.INFO_PAGE.termConditionLink || 'https://run.ragnarrelay.com/outrunbigfoot/2021/' }}"
+            target="_blank"
+            >{{ 'virtual-challenge.info.terms-conditions' | translate }}</a
+          >
+          {{ 'virtual-challenge.info.apply' | translate }}</strong
+        >
+        <hr *ngIf="!show.isRegistrationClose" />
+
+        <ng-container
+          *ngIf="
+            (challengeDetail.challengeType === 'TEAM' || challengeDetail.challengeType === 'COMMUNITY') &&
+            !show.isChallengeOver &&
+            !show.isRegistrationClose
+          "
+        >
+          <a
+            class="rg_btn mb-3"
+            [ngClass]="{ 'challenge-btn': challengeDetail.contents.INFO_PAGE.registerBtnText.bottom === '' }"
+            (click)="joinChallenge('INVITE')"
+            *ngIf="params.isAcceptInvite === 'true'"
+          >
+            <p>Accept Invite</p>
+            <span>{{ challengeDetail.contents.INFO_PAGE.registerBtnText.bottom }}</span>
+          </a>
+          <a
+            class="rg_btn"
+            [ngClass]="{ 'challenge-btn': challengeDetail.contents.INFO_PAGE.registerBtnText.bottom === '' }"
+            (click)="joinChallenge('JOIN')"
+            *ngIf="params.isAcceptInvite === 'true'"
+          >
+            <p>Decline and start your own</p>
+            <span>{{ challengeDetail.contents.INFO_PAGE.registerBtnText.bottom }}</span>
+          </a>
+        </ng-container>
+
+        <a
+          class="rg_btn"
+          [ngClass]="{ 'challenge-btn': challengeDetail.contents.INFO_PAGE.registerBtnText.bottom === '' }"
+          (click)="joinChallenge('JOIN')"
+          *ngIf="!show.isRegistrationClose && !show.isChallengeOver && !params.isAcceptInvite"
+        >
+          <p>{{ challengeDetail.contents.INFO_PAGE.registerBtnText.top }}</p>
+          <span>{{ challengeDetail.contents.INFO_PAGE.registerBtnText.bottom }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

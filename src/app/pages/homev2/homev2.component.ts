@@ -21,12 +21,12 @@ export class Homev2Component implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log('push')
-    // this.dataLayerService.pageInitEvent({
-    //   screen_name: 'homev2',
-    //   visitorEmail: '',
-    //   pagePostType: 'homePage',
-    //   pagePostType2: 'single-page',
-    // });
+    this.dataLayerService.pageInitEvent({
+      screen_name: 'homev2',
+      visitorEmail: '',
+      pagePostType: 'homePage',
+      pagePostType2: 'single-page',
+    });
     this.staticPageService.getBannersAndQuotes().subscribe((response) => {
       if (response.banners.length) {
         this.bannerData = response.banners;

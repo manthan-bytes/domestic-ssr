@@ -1,0 +1,288 @@
+@import 'vars';
+
+.choose_team {
+  .challenge-banner-content {
+    background: url('/assets/images/challange-accepted-banner.jpg') bottom center;
+    background-size: cover;
+    color: #fff;
+    min-height: 516px;
+    @media (max-width: $screen-xs-max) {
+      min-height: 325px;
+    }
+    .title {
+      font-family: 'Barlow Condensed', Arial, Helvetica;
+      font-weight: 600;
+      font-size: 50px;
+      line-height: 54px;
+      letter-spacing: 0.1px;
+      padding: 80px 0 0;
+      @media (max-width: $screen-sm-max) {
+        font-size: 35px;
+        line-height: normal;
+      }
+      @media (max-width: $screen-xs-max) {
+        font-size: 30px;
+        line-height: normal;
+        padding-top: 50px;
+      }
+      span {
+        display: block;
+      }
+    }
+  }
+  .challenge_detail {
+    padding: 45px 0;
+    @media (max-width: $screen-xs-max) {
+      padding: 10px 0 25px;
+    }
+    h3 {
+      margin: 20px 0 25px;
+      color: #003e51;
+      font-size: 24px;
+      font-family: 'Barlow Condensed', Arial, Helvetica;
+      @media (max-width: $screen-xs-max) {
+        font-size: 20px;
+      }
+    }
+    .col-sm-6 {
+      padding: 0 80px;
+      @media (max-width: $screen-md-max) {
+        padding: 0 40px;
+      }
+      @media (max-width: $screen-sm-max) {
+        padding: 0 15px;
+      }
+      @media (max-width: $screen-xs-max) {
+        max-width: 100%;
+        flex: 0 0 100%;
+      }
+    }
+    .team_col {
+      @media (max-width: $screen-xs-max) {
+        padding-bottom: 60px !important;
+      }
+      &:before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 2px;
+        background-color: #cacaca;
+        top: 0;
+        bottom: 0;
+        right: 7px;
+        @media (max-width: $screen-xs-max) {
+          height: 2px;
+          width: 100%;
+          bottom: 0;
+          top: auto;
+          left: 0;
+        }
+      }
+      &:after {
+        content: 'OR';
+        font-family: 'Barlow Condensed', Arial, Helvetica;
+        text-transform: uppercase;
+        width: 80px;
+        height: 50px;
+        background: #fff;
+        position: absolute;
+        left: calc(100% - 7px);
+        line-height: 48px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        transform: translateX(-50%);
+        font-size: 24px;
+        font-weight: 600;
+        font-style: normal;
+        font-stretch: condensed;
+        letter-spacing: 0.03px;
+        text-align: center;
+        color: #00a8b9;
+        @media (max-width: $screen-xs-max) {
+          top: 100%;
+          left: 0;
+          right: 0;
+          bottom: auto;
+          transform: translateY(-50%) translateX(0);
+          line-height: 48px;
+        }
+      }
+      .team-list {
+        .team-list-item-wrapper {
+          margin-bottom: 50px;
+          position: relative;
+          @media (max-width: $screen-sm-max) {
+            margin-bottom: 30px;
+          }
+          .team-list-item {
+            margin-bottom: 35px;
+            @media (max-width: $screen-sm-max) {
+              margin-bottom: 25px;
+            }
+            input {
+              width: 25px;
+              height: 25px;
+              display: inline-block;
+              vertical-align: middle;
+              position: absolute;
+              opacity: 0;
+              z-index: -1;
+            }
+            label {
+              display: inline-block;
+              vertical-align: middle;
+              margin-left: 0;
+              .radio-text {
+                display: inline-block;
+                vertical-align: middle;
+                font-size: 18px;
+                font-weight: 600;
+                letter-spacing: 0.05px;
+                color: #333;
+                font-family: 'Barlow Condensed', Arial, Helvetica;
+                span {
+                  display: block;
+                  line-height: 15px;
+                  font-size: 16px;
+                  font-weight: 400;
+                  letter-spacing: 0.05px;
+                  color: #333;
+                }
+              }
+            }
+            .checkbox-custom + .checkbox-custom-label:before,
+            .radio-custom + .radio-custom-label:before {
+              content: '';
+              background: transparent;
+              border: 2px solid #00a8b9;
+              display: inline-block;
+              vertical-align: middle;
+              width: 28px;
+              height: 28px;
+              padding: 2px;
+              margin-right: 15px;
+              text-align: center;
+              @media (max-width: $screen-xs-max) {
+                border-color: #003e51;
+                color: #fff;
+                margin-right: 12px;
+              }
+            }
+
+            .checkbox-custom:checked + .checkbox-custom-label:before,
+            .radio-custom:checked + .radio-custom-label:before {
+              content: '';
+              font-family: 'FontAwesome';
+              color: #00a8b9;
+              line-height: 22px;
+              font-weight: 400;
+              background: #fff;
+              background: url(/assets/images/virtual-challenge/check_fill.png);
+              background-size: cover;
+              border: 0;
+              @media (max-width: $screen-xs-max) {
+                // background: url(../../../images/challenge/checkmarked.png);
+                // background-size: cover;
+              }
+            }
+            .radio-custom + .radio-custom-label:before {
+              border-radius: 50%;
+            }
+          }
+          .teammates-list {
+            max-width: calc(100% - 70px);
+            margin-left: 46px;
+            .teamates_cover {
+              display: flex;
+              overflow-x: auto;
+              padding-bottom: 4px;
+              &::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                background-color: #f5f5f5;
+                border-radius: 6px;
+              }
+              &::-webkit-scrollbar {
+                height: 6px;
+                background-color: #f5f5f5;
+              }
+              &::-webkit-scrollbar-thumb {
+                background-color: #878787;
+                border-radius: 6px;
+              }
+              .disable.teammates-box {
+                .teammate-name {
+                  color: #e5e5e5;
+                }
+                img {
+                  opacity: 0.1 !important;
+                }
+                &:before {
+                  content: 'unavailable';
+                  position: absolute;
+                  font-size: 13px;
+                  font-weight: 500;
+                  letter-spacing: 0.04px;
+                  text-align: center;
+                  color: #939393;
+                  font-family: 'Barlow Condensed', Arial, Helvetica;
+                  top: 20px;
+                  left: 0;
+                  right: 0;
+                  text-align: center;
+                }
+              }
+              .teammates-box {
+                position: relative;
+                text-align: center;
+                margin-right: 15px;
+                img {
+                  max-width: 55px;
+                  max-height: 55px;
+                  border-radius: 100%;
+                  margin: 0 auto;
+                  height: auto;
+                }
+                .teammate-name {
+                  overflow: hidden;
+                  font-size: 14px;
+                  font-weight: 600;
+                  line-height: normal;
+                  letter-spacing: 0.02px;
+                  text-align: center;
+                  color: #333;
+                  font-family: 'Barlow Condensed', Arial, Helvetica;
+                  margin-top: 2px;
+                  text-transform: capitalize;
+                  white-space: pre;
+                }
+              }
+            }
+          }
+        }
+      }
+      .invite_btn {
+        max-width: 180px;
+        margin: 0 auto;
+      }
+      .note {
+        font-size: 12px;
+        font-weight: normal;
+        font-family: 'Barlow Condensed', Arial, Helvetica;
+        line-height: normal;
+        letter-spacing: 0.05px;
+        text-align: center;
+        color: #666666;
+        @media (max-width: $screen-xs-max) {
+          max-width: 85%;
+          margin: 0 auto;
+        }
+      }
+    }
+    .right_col {
+      @media (max-width: $screen-xs-max) {
+        padding-top: 30px;
+      }
+    }
+  }
+}

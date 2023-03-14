@@ -1,0 +1,675 @@
+<div class="profile_wrapper">
+  <div class="container text-center" *ngIf="show.loading">
+    <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+  </div>
+  <div class="container" *ngIf="!show.loading">
+    <div class="col_wrapper row">
+      <div class="col-md-4">
+        <div class="side_bar">
+          <div class="profile_img">
+            <div class="profile_img_wrap" *ngIf="userData.profilePhoto || changeImage.profile_file">
+              <img *ngIf="userData.profilePhoto && !changeImage.profile_file" src="{{ userData.profilePhoto }}" alt="Profile Picture" />
+              <img src="{{ changeImage.profile_file }}" *ngIf="changeImage.profile_file" />
+            </div>
+            <!-- TODO: Will do this funationlity on the later stage  -->
+            <div class="upload_profile" *ngIf="!userData.profilePhoto && !changeImage.profile_file">
+              <form action="">
+                <label for="profil_pc"
+                  ><span style="font-size: 35px"
+                    >{{ userData.firstName.charAt(0).toUpperCase() }}{{ userData.lastName.charAt(0).toUpperCase() }}</span
+                  ></label
+                >
+              </form>
+            </div>
+            <br />
+            <a *ngIf="show.editMode" class="change-pic" onclick="document.getElementById('fileLoader').click();">{{
+              'components.my-account.change-picture' | translate
+            }}</a>
+
+            <input
+              type="file"
+              (change)="fileSelected($event)"
+              ngf-select=""
+              id="fileLoader"
+              name="files"
+              style="display: none"
+              accept="image/*"
+              (click)="$event.target.value = null"
+            />
+            <p *ngIf="show.editMode">*Profile photo size only allowed till 5Mb</p>
+            <h1 *ngIf="!show.editMode">{{ userData.firstName }} {{ userData.lastName.charAt(0).toUpperCase() }}.</h1>
+            <form #userForm="ngForm" aria-labelledby="profile">
+              <div class="edit-name-wrap" *ngIf="show.editMode">
+                <!-- <label class="col-xs-3 col-sm-3" for=""
+                  >{{ 'common-data.name' | translate }}<span style="color: #d0021b !important">*</span>:</label
+                > -->
+                <div class="form-group" [ngClass]="{ error_input: firstName.touched && firstName.errors?.required }">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="firstName"
+                    #firstName="ngModel"
+                    id="firstName"
+                    placeholder="First Name"
+                    [(ngModel)]="userFormData.firstName"
+                    (focus)="formElementEnter(userForm)"
+                    (blur)="formElementExit(userForm)"
+                    required
+                    ngbAutofocus
+                  />
+                  <ng-container *ngIf="firstName.touched">
+                    <span class="error_msg" *ngIf="firstName.errors?.required">
+                      {{ 'components.my-account.firstName-required' | translate }}
+                    </span>
+                  </ng-container>
+                </div>
+                <div class="form-group" [ngClass]="{ error_input: lastName.touched && lastName.errors?.required }">
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="lastName"
+                    #lastName="ngModel"
+                    id="lastName"
+                    placeholder="Last Name"
+                    [(ngModel)]="userFormData.lastName"
+                    (focus)="formElementEnter(userForm)"
+                    (blur)="formElementExit(userForm)"
+                    required
+                  />
+                  <ng-container *ngIf="lastName.touched">
+                    <span class="error_msg" *ngIf="lastName.errors?.required">
+                      {{ 'components.my-account.lastName-required' | translate }}
+                    </span>
+                  </ng-container>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div></div>
+          <!-- TODO: remove after shifted to page end -->
+          <!-- <ul>
+            <li>
+              <h5>{{ 'virtual-challenge.user-profile.cumulative-miles' | translate }}</h5>
+              <h2>{{ profileStatsData.cumulative || 0 }} {{ 'common-data.mi' | translate }}</h2>
+            </li>
+            <li>
+              <h5>{{ 'virtual-challenge.user-profile.challenges-completed' | translate }}</h5>
+              <h2>{{ profileStatsData.challenge_completed || 0 }}</h2>
+            </li>
+            <li>
+              <h5>{{ 'virtual-challenge.user-profile.challenges-attempted' | translate }}</h5>
+              <h2>{{ profileStatsData.challenge_attempt || 0 }}</h2>
+            </li>
+          </ul> -->
+          <!-- <hr /> -->
+          <h3 class="profile-title-block accrodian-title accrodian-title-profile">
+            {{ 'virtual-challenge.user-profile.profile-lbl' | translate }}
+          </h3>
+          <!-- <hr /> -->
+          <!-- Profile Form -->
+          <div class="user-detail profileFrm accrodian-panel accrodian-panel-profile">
+            <form #profileForm="ngForm" aria-labelledby="profile" *ngIf="!show.changePassword">
+              <div class="form-group row">
+                <label class="col-xs-3 col-sm-3" for="">{{ 'common-data.email' | translate }}</label>
+                <div class="col-xs-9 col-sm-9 user-values emailDiv">
+                  <span *ngIf="!show.editMode">{{ userData.emailAddress }}</span>
+                  <input
+                    *ngIf="show.editMode"
+                    type="email"
+                    readonly="true"
+                    name="email"
+                    [(ngModel)]="userFormData.emailAddress"
+                    placeholder="Email"
+                    class="form-control"
+                    (focus)="formElementEnter(profileForm)"
+                    (blur)="formElementExit(profileForm)"
+                  />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-3 col-sm-3" for=""
+                  >{{ 'components.my-account.address' | translate
+                  }}<span *ngIf="show.editMode" style="color: #d0021b !important">*</span>:</label
+                >
+                <div class="col-xs-9 col-sm-9" *ngIf="!show.editMode">
+                  <span>
+                    {{ userData.address }}
+                    {{ userData.address2 || '' }}
+                    <span *ngIf="userData.city">{{ userData.city + ', ' }}</span>
+                    <span *ngIf="userData.state">{{ userData.state + ', ' }}</span>
+                    <span *ngIf="userData.zipCode">{{ userData.zipCode + '.' }}</span>
+                  </span>
+                </div>
+                <div class="col-xs-9 col-sm-9" *ngIf="show.editMode">
+                  <div
+                    class="form-group"
+                    [ngClass]="{ error_input: profileForm.submitted && (address1.errors?.required || address1.errors?.pattern) }"
+                  >
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="address1"
+                      #address1="ngModel"
+                      id="address1"
+                      pattern=".*\S+.*"
+                      placeholder="Address 1"
+                      [(ngModel)]="userFormData.address"
+                      required
+                      (focus)="formElementEnter(profileForm)"
+                      (blur)="formElementExit(profileForm)"
+                    />
+                    <ng-container *ngIf="profileForm.submitted || address1.errors">
+                      <span class="error_msg" *ngIf="address1.errors?.required">
+                        {{ 'components.my-account.address-required' | translate }}
+                      </span>
+                      <span class="error_msg" *ngIf="address1.errors?.pattern">
+                        {{ 'components.my-account.valid-address' | translate }}
+                      </span>
+                    </ng-container>
+                  </div>
+                  <div class="form-group" [ngClass]="{ error_input: profileForm.submitted && address2.errors?.pattern }">
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="address2"
+                      #address2="ngModel"
+                      id="address2"
+                      pattern=".*\S+.*"
+                      placeholder="Address 2"
+                      [(ngModel)]="userFormData.address2"
+                      (focus)="formElementEnter(profileForm)"
+                      (blur)="formElementExit(profileForm)"
+                    />
+                    <ng-container *ngIf="profileForm.submitted">
+                      <span class="error_msg" *ngIf="address2.errors?.pattern">
+                        {{ 'components.my-account.valid-address2' | translate }}
+                      </span>
+                    </ng-container>
+                  </div>
+                  <div class="address-code-wrap">
+                    <div
+                      class="form-group"
+                      [ngClass]="{ error_input: profileForm.submitted && (city.errors?.required || city.errors?.pattern) }"
+                    >
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="city"
+                        #city="ngModel"
+                        id="city"
+                        placeholder="City"
+                        pattern=".*\S+.*"
+                        [(ngModel)]="userFormData.city"
+                        required
+                        (focus)="formElementEnter(profileForm)"
+                        (blur)="formElementExit(profileForm)"
+                      />
+                      <ng-container *ngIf="profileForm.submitted || city.errors">
+                        <span class="error_msg" *ngIf="city.errors?.required">
+                          {{ 'components.my-account.city-required' | translate }}
+                        </span>
+                        <span class="error_msg" *ngIf="city.errors?.pattern"> {{ 'components.my-account.valid-city' | translate }} </span>
+                      </ng-container>
+                    </div>
+                    <div
+                      class="form-group"
+                      [ngClass]="{ error_input: profileForm.submitted && (state.errors?.required || state.errors?.pattern) }"
+                    >
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="state"
+                        #state="ngModel"
+                        id="state"
+                        placeholder="State"
+                        pattern=".*\S+.*"
+                        [(ngModel)]="userFormData.state"
+                        required
+                        (focus)="formElementEnter(profileForm)"
+                        (blur)="formElementExit(profileForm)"
+                      />
+                      <ng-container *ngIf="profileForm.submitted || state.errors">
+                        <span class="error_msg" *ngIf="state.errors?.required">
+                          {{ 'components.my-account.state-required' | translate }}
+                        </span>
+                        <span class="error_msg" *ngIf="state.errors?.pattern"> {{ 'components.my-account.valid-state' | translate }} </span>
+                      </ng-container>
+                    </div>
+                    <div
+                      class="form-group"
+                      [ngClass]="{ error_input: profileForm.submitted && (zipcode.errors?.required || zipcode.errors?.pattern) }"
+                    >
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="zipcode"
+                        #zipcode="ngModel"
+                        id="zipcode"
+                        placeholder="Zipcode"
+                        [(ngModel)]="userFormData.zipCode"
+                        pattern="^(?=.{5,8}$)[A-Za-z0-9]+(?:\s[A-Za-z0-9]+)*$"
+                        required
+                        (focus)="formElementEnter(profileForm)"
+                        (blur)="formElementExit(profileForm)"
+                      />
+                      <ng-container *ngIf="profileForm.submitted || zipcode.errors">
+                        <span class="error_msg" *ngIf="zipcode.errors?.required">
+                          {{ 'components.my-account.zipcode-required' | translate }}
+                        </span>
+                        <span class="error_msg" *ngIf="zipcode.errors?.pattern">
+                          {{ 'components.my-account.valid-zipcode' | translate }}
+                        </span>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-3 col-sm-3 control-label" for=""
+                  >{{ 'components.my-account.phone' | translate
+                  }}<span *ngIf="show.editMode" style="color: #d0021b !important">*</span>:</label
+                >
+                <div class="col-xs-9 col-sm-9 user-values">
+                  <span *ngIf="!show.editMode">{{ userData.phone | phoneFilter }}</span>
+                  <div
+                    class="form-group"
+                    *ngIf="show.editMode"
+                    [ngClass]="{ error_input: (profileForm.submitted && phone.errors?.required) || show.phoneError }"
+                  >
+                    <input
+                      class="form-control"
+                      type="text"
+                      maxlength="14"
+                      name="phone"
+                      #phone="ngModel"
+                      id="phone"
+                      placeholder="(000) 000-0000"
+                      [(ngModel)]="userFormData.phone"
+                      appPhone
+                      (ngModelChange)="validationCheck('phone', userFormData.phone, profileForm)"
+                      required
+                      (focus)="formElementEnter(profileForm)"
+                      (blur)="formElementExit(profileForm)"
+                    />
+                    <ng-container *ngIf="profileForm.submitted || show.phoneError">
+                      <span class="error_msg" *ngIf="phone.errors?.required">
+                        {{ 'components.my-account.phone-required' | translate }}
+                      </span>
+                      <span class="error_msg" *ngIf="!phone.errors?.required && show.phoneError">
+                        {{ 'components.my-account.valid-phone' | translate }}
+                      </span>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-3 col-sm-3 control-label" for=""
+                  >{{ 'components.my-account.birthdate' | translate
+                  }}<span *ngIf="show.editMode" style="color: #d0021b !important">*</span>:</label
+                >
+                <div class="col-xs-9 col-sm-9 user-values">
+                  <span *ngIf="!show.editMode"> {{ userData.dateOfBirth | dateFormat : 'MM/DD/YYYY' }} </span>
+                  <div
+                    class="form-group"
+                    *ngIf="show.editMode"
+                    [ngClass]="{ error_input: (profileForm.submitted && birthdate.errors?.required) || show.dobError }"
+                  >
+                    <input
+                      class="form-control"
+                      type="text"
+                      name="birthdate"
+                      #birthdate="ngModel"
+                      id="birthdate"
+                      placeholder="MM/DD/YYYY"
+                      value="{{ userFormData.dateOfBirth }}"
+                      appBirthdate
+                      maxlength="10"
+                      [(ngModel)]="userFormData.dateOfBirth"
+                      (focus)="formElementEnter(profileForm)"
+                      (blur)="formElementExit(profileForm)"
+                      (ngModelChange)="validationCheck('birthdate', userFormData.dateOfBirth, profileForm)"
+                      required
+                    />
+                    <ng-container *ngIf="profileForm.submitted || show.dobError">
+                      <span class="error_msg" *ngIf="birthdate.errors?.required">
+                        {{ 'components.my-account.birthdate-required' | translate }}
+                      </span>
+                      <span class="error_msg" *ngIf="!birthdate.errors?.required && show.dobError">
+                        {{ 'components.my-account.birthdate-format' | translate }}
+                      </span>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+
+              <span *ngFor="let shirtSize of shirtSizes | keyvalue"> </span>
+              <div class="form-group row">
+                <label class="col-xs-3 col-sm-3 control-label" for=""
+                  >{{ 'components.my-account.shirt-size' | translate
+                  }}<span *ngIf="show.editMode" style="color: #d0021b !important">*</span>:</label
+                >
+                <div class="col-xs-9 col-sm-9 user-values">
+                  <span *ngIf="!show.editMode"> {{ shirtSizes[userData.shirtSize] || '-' }} </span>
+                  <div
+                    class="form-group"
+                    *ngIf="show.editMode"
+                    [ngClass]="{ error_input: profileForm.submitted && shirtSize.errors?.required }"
+                  >
+                    <select
+                      class="form-control select_arrow"
+                      name="shirtSize"
+                      #shirtSize="ngModel"
+                      id="shirtSize"
+                      [(ngModel)]="userFormData.shirtSize"
+                      required
+                    >
+                      <option value="">{{ 'components.my-account.select-shirt-size' | translate }}</option>
+                      <option *ngFor="let shirtSize of profileShirtSizes" value="{{ shirtSize.key }}">
+                        {{ shirtSize.value }}
+                      </option>
+                    </select>
+                    <ng-container *ngIf="profileForm.submitted">
+                      <span class="error_msg" *ngIf="shirtSize.errors?.required">
+                        {{ 'components.my-account.shirt-size-required' | translate }}
+                      </span>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-xs-3 col-sm-3 control-label" for=""
+                  >{{ 'components.my-account.10k-pace' | translate
+                  }}<span *ngIf="show.editMode" style="color: #d0021b !important">*</span>:</label
+                >
+                <div class="col-xs-9 col-sm-9 user-values">
+                  <span *ngIf="!show.editMode">{{ (userData.runPace | paceFilter) + '/mile' }}</span>
+                  <div
+                    class="form-group"
+                    *ngIf="show.editMode"
+                    [ngClass]="{ error_input: (profileForm.submitted && runPace.errors?.required) || show.paceError }"
+                  >
+                    <select
+                      class="form-control select_arrow"
+                      name="runPace"
+                      #runPace="ngModel"
+                      id="runPace"
+                      (change)="validationCheck('runPace', userFormData.runPace, profileForm)"
+                      [(ngModel)]="userFormData.runPace"
+                      required
+                    >
+                      <option value="">{{ 'components.my-account.select-pace' | translate }}</option>
+                      <option *ngFor="let pace of allPaceValue" value="{{ pace.value }}">{{ pace.title }}</option>
+                    </select>
+                    <ng-container *ngIf="profileForm.submitted || show.paceError">
+                      <span class="error_msg" *ngIf="runPace.errors?.required || show.paceError">
+                        {{ 'components.my-account.pace-required' | translate }}
+                      </span>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="form-group btn-wrap" *ngIf="!show.editMode" (click)="show.editMode = !show.editMode">
+                <a class="rg_btn">{{ 'components.my-account.edit' | translate }}</a>
+              </div>
+              <button
+                *ngIf="show.editMode"
+                [disabled]="profileForm.invalid || show.loadingButton"
+                class="rg_btn mt-3 save-btn-wrap"
+                (click)="saveAccountSettings(profileForm)"
+              >
+                <span class="spinner-grow spinner-grow-sm text-dark" role="status" aria-hidden="true" *ngIf="show.loadingButton"></span>
+                {{ show.loadingButton ? 'Updating' : 'Update' }}
+              </button>
+
+              <div class="form-group" *ngIf="!show.editMode" (click)="show.changePassword = !show.changePassword">
+                <a class="rg_btn">{{ 'components.my-account.change-password' | translate }}</a>
+              </div>
+              <div class="form-group mt-2" *ngIf="show.editMode" (click)="hideProfileForm()">
+                <a class="rg_btn"> {{ 'components.virtual-challenge.common-model.cancel' | translate }}</a>
+              </div>
+            </form>
+            <div *ngIf="show.changePassword" class="my-account-component clearfix">
+              <div class="account-left change-password">
+                <div class="user-detail">
+                  <form #passwordForm="ngForm">
+                    <div
+                      class="form-group"
+                      [ngClass]="{ error_input: (passwordForm.submitted && oldPassword.errors?.required) || show.incorrectPassword }"
+                    >
+                      <label for="password">{{ 'components.my-account.old-password' | translate }}</label>
+                      <input
+                        class="form-control"
+                        minlength="6"
+                        type="password"
+                        id="oldPassword"
+                        name="oldPassword"
+                        placeholder="Old Password"
+                        [(ngModel)]="password.oldPassword"
+                        required
+                        #oldPassword="ngModel"
+                      />
+                      <ng-container>
+                        <span class="error_msg" *ngIf="show.incorrectPassword">
+                          {{ 'components.my-account.password-incorrect' | translate }}
+                        </span>
+                      </ng-container>
+                    </div>
+                    <div
+                      class="form-group new-pass"
+                      [ngClass]="{
+                        error_input:
+                          (passwordForm.submitted && newPassword.errors?.required) || (password.newPassword && newPassword?.invalid)
+                      }"
+                    >
+                      <label for="password">{{ 'components.my-account.new-password' | translate }}</label>
+                      <input
+                        class="form-control"
+                        minlength="8"
+                        type="password"
+                        id="newPassword"
+                        name="newPassword"
+                        placeholder="New Password"
+                        [(ngModel)]="password.newPassword"
+                        required
+                        #newPassword="ngModel"
+                        (ngModelChange)="checkNewPassword(password.newPassword, password.confPassword)"
+                      />
+                      <ng-container>
+                        <span class="error_msg" *ngIf="password.newPassword && newPassword?.invalid">
+                          {{ 'components.my-account.invalid-password' | translate }}
+                        </span>
+                      </ng-container>
+                    </div>
+                    <div
+                      class="form-group new-pass"
+                      [ngClass]="{ error_input: (passwordForm.submitted && confPassword.errors?.required) || show.confPasswordError }"
+                    >
+                      <label for="password">{{ 'components.my-account.confirm-password' | translate }}</label>
+                      <input
+                        class="form-control"
+                        minlength="8"
+                        type="password"
+                        id="confPassword"
+                        name="confPassword"
+                        placeholder="Confirm Password"
+                        [(ngModel)]="password.confPassword"
+                        (ngModelChange)="
+                          checkPassword(password.newPassword, password.confPassword, confPassword.touched && confPassword.invalid)
+                        "
+                        required
+                        #confPassword="ngModel"
+                      />
+                      <ng-container>
+                        <span
+                          class="error_msg"
+                          *ngIf="(show.confPasswordError || show.newPasswordError) && !(confPassword.touched && confPassword.invalid)"
+                        >
+                          {{ 'components.my-account.confirm-password-not-match' | translate }}
+                        </span>
+                      </ng-container>
+                    </div>
+                    <span class="error_msg" *ngIf="show.changePasswordError">{{ show.changePasswordError }}</span>
+                    <button
+                      [disabled]="passwordForm.invalid || show.confPasswordError || show.loadingButton || show.newPasswordError"
+                      class="rg_btn mt-3"
+                      (click)="updatePassword()"
+                    >
+                      <span
+                        class="spinner-grow spinner-grow-sm text-dark"
+                        role="status"
+                        aria-hidden="true"
+                        *ngIf="show.loadingButton"
+                      ></span>
+                      {{ show.loadingButton ? 'Updating' : 'Update Password' }}
+                    </button>
+                    <div class="rg_btn mt-3" (click)="hideForgetForm()">
+                      {{ 'components.virtual-challenge.common-model.cancel' | translate }}
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8 right-bar-wrap">
+        <div class="col_container">
+          <h4 class="mb-2 profile-title-block accrodian-title accrodian-title-challenge last-title">
+            {{ 'virtual-challenge.user-profile.current-challenge' | translate }}
+          </h4>
+          <div class="accrodian-panel accrodian-panel-challenge first-title">
+            <div class="current_challenge" *ngIf="profileStatsData.activeChallenge">
+              <!-- <p class="profile">{{profileStatsData?.activeChallenge.challengeName}}</p> -->
+              <img [src]="profileStatsData.activeChallenge.image" alt="Challenge" />
+            </div>
+            <div *ngIf="!profileStatsData.activeChallenge" class="mb-5 last-title">
+              {{ 'virtual-challenge.user-profile.no-active-challange' | translate }}
+            </div>
+            <h4 class="mb-2 completed-challenges-sec">{{ 'virtual-challenge.user-profile.completed-challenges' | translate }}</h4>
+            <div *ngIf="profileStatsData.completedChallenge.length" class="earne_cover">
+              <div class="earned_badges" *ngFor="let challange of profileStatsData.completedChallenge">
+                <img [src]="challange.image" alt="" />
+                <span class="challangeDate">{{ challange.completed_date | dateFormat : 'MM/DD/YYYY' }}</span>
+              </div>
+            </div>
+            <div *ngIf="!profileStatsData.completedChallenge.length" class="mb-5">
+              {{ 'virtual-challenge.user-profile.not-completed-challange' | translate }}
+            </div>
+            <h4 class="mb-2">{{ 'virtual-challenge.user-profile.earned-badges' | translate }}</h4>
+            <div class="earne_cover" *ngIf="profileStatsData.badges.length">
+              <div *ngFor="let badge of profileStatsData.badges" class="earned_badges">
+                <img [src]="badge.url" alt="" />
+              </div>
+            </div>
+            <div *ngIf="!profileStatsData.badges.length">{{ 'virtual-challenge.user-profile.no-streak' | translate }}</div>
+          </div>
+          <div class="status-wrap accrodian-panel accrodian-panel-challenge mt-0 pt-0 last-title">
+            <ul>
+              <li>
+                <h5>{{ 'virtual-challenge.user-profile.cumulative-miles' | translate }}</h5>
+                <h2>{{ profileStatsData.cumulative || 0 }} {{ 'common-data.mi' | translate }}</h2>
+              </li>
+              <li>
+                <h5>{{ 'virtual-challenge.user-profile.challenges-completed' | translate }}</h5>
+                <h2>{{ profileStatsData.challenge_completed || 0 }}</h2>
+              </li>
+              <li>
+                <h5>{{ 'virtual-challenge.user-profile.challenges-attempted' | translate }}</h5>
+                <h2>{{ profileStatsData.challenge_attempt || 0 }}</h2>
+              </li>
+            </ul>
+          </div>
+          <!-- <h4>Completed Challenges</h4>
+                    <div class="challenges_completed_wrap">
+                        <div class="challenges_completed">
+                            <div class="challenges_card">
+                                <div class="card_cover">
+                                    <img src="assets/images/virtual-challenge/card1.png" alt="Card">
+                                    <h5>7/20/2020</h5>
+                                </div>
+                            </div>
+                            <div class="challenges_card">
+                                <div class="card_cover">
+                                    <img src="assets/images/virtual-challenge/card2.png" alt="Card">
+                                    <h5>7/20/2020</h5>
+                                </div>
+                            </div>
+                            <div class="challenges_card">
+                                <div class="card_cover">
+                                    <img src="assets/images/virtual-challenge/card3.png" alt="Card">
+                                    <h5>7/20/2020</h5>
+                                </div>
+                            </div>
+                            <div class="challenges_card">
+                                <div class="card_cover">
+                                    <img src="assets/images/virtual-challenge/card4.png" alt="Card">
+                                    <h5>7/20/2020</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">View Available Challenges</a>
+                    </div>
+                    <h4></h4>
+                    <div class="my_flair">
+                        <div class="challenges_completed">
+                            <div class="challenges_card">
+                                <div class="card_cover">
+                                    <img src="assets/images/virtual-challenge/card5.png" alt="Card">
+                                    <h5>7/20/2020</h5>
+                                </div>
+                            </div>
+                            <div class="challenges_card">
+                                <div class="card_cover">
+                                    <img src="assets/images/virtual-challenge/card6.png" alt="Card">
+                                    <ngb-progressbar type="success" textType="white" [value]="25" [showValue]="true"></ngb-progressbar>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">All Awardable Flair</a>
+                    </div> -->
+          <div class="profile_status">
+            <ul>
+              <li>
+                <h5>{{ 'virtual-challenge.user-profile.cumulative-miles' | translate }}</h5>
+                <h2>{{ profileStatsData ? profileStatsData.cumulative : 0 }} {{ 'common-data.mi' | translate }}</h2>
+              </li>
+              <!-- <li>
+                                <h5>Cumulative Vert</h5>
+                                <h2>0 ft</h2>
+                            </li> -->
+              <li>
+                <h5>{{ 'virtual-challenge.user-profile.cumulative-miles' | translate }}</h5>
+                <h2>{{ profileStatsData ? profileStatsData.challenge_completed : 0 }}</h2>
+              </li>
+              <li>
+                <h5>{{ 'virtual-challenge.user-profile.challenges-completed' | translate }}</h5>
+                <h2>{{ profileStatsData ? profileStatsData.challenge_attempt : 0 }}</h2>
+              </li>
+              <!-- <li>
+                                <h5>Runs VErified </h5>
+                                <h2>{{profileStatsData ? profileStatsData.runs_verified : 0}}%</h2>
+                            </li>
+                            <li>
+                                <h5>Career Kills</h5>
+                                <h2>{{profileStatsData ? profileStatsData.carrier_kills : 0}}</h2>
+                            </li> -->
+              <!-- <li>
+                                <h5>Badges Earned</h5>
+                                <h2>4</h2>
+                            </li>
+                            <li>
+                                <h5>Flair Awarded</h5>
+                                <h2>1</h2>
+                            </li> -->
+            </ul>
+          </div>
+          <div class="see-all-btn">
+            <a class="rg_btn" id="change-text">{{ 'virtual-challenge.user-profile.see-all' | translate }}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <app-virtual-challenge-footer></app-virtual-challenge-footer> -->
+</div>

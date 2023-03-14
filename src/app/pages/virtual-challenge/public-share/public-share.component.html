@@ -1,0 +1,99 @@
+<div class="dashboard_wrapper">
+  <div class="container text-center" *ngIf="show.loading">
+    <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+  </div>
+  <div class="container" *ngIf="!show.loading">
+    <div class="col_wrapper row" *ngIf="!show.error">
+      <div class="col-md-4">
+        <div class="side_bar">
+          <div class="profile_img">
+            <img [src]="challengeDetail.contents.INFO_PAGE.logo" alt="Profile Picture" />
+          </div>
+          <div class="sidebar_wrpeer">
+            <h1>
+              {{
+                !show.result
+                  ? 'Can ' + leaderBoardDetail.existingMember.firstName + ' ' + challengeDetail.name + '?'
+                  : show.isResultComplete
+                  ? leaderBoardDetail.existingMember.firstName + ' ' + challengeDetail.name + '!'
+                  : leaderBoardDetail.existingMember.firstName + " Didn't " + challengeDetail.name + '!'
+              }}
+            </h1>
+            <h5>{{ 'common-data.run-more-miles' | translate }}</h5>
+            <div *ngIf="!show.isChallengeStarted" class="d-md-none">
+              <p>—</p>
+              <p>
+                {{ 'common-data.challenge-begins' | translate }} {{ challengeDetail.startDate | dateFormat : 'h a' }}
+                {{ 'virtual-challenge.public-share.mdt' | translate }}
+                {{ challengeDetail.startDate | dateFormat : 'MMM Do, YYYY' }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="col_container">
+          <div>
+            <p class="text-center mb-5 d-none d-md-block" *ngIf="!show.isChallengeStarted">
+              {{ 'common-data.challenge-begins' | translate }} {{ challengeDetail.startDate | dateFormat : 'h a' }}
+              {{ 'virtual-challenge.public-share.mdt' | translate }}
+              {{ challengeDetail.startDate | dateFormat : 'MMM Do, YYYY' }}
+            </p>
+            <h3 class="text-center mb-0" *ngIf="!show.result && show.isChallengeStarted">
+              {{ 'common-data.day' | translate }} {{ show.remaining.days }} {{ 'common-data.of' | translate }}
+              {{ show.remaining.totalDays }}
+            </h3>
+            <h3 class="text-center mb-0" *ngIf="show.result">{{ 'virtual-challenge.public-share.challenge-ended' | translate }}</h3>
+          </div>
+          <div class="round_loader">
+            <app-virtual-challenge-round-progress-bar [memberDetail]="leaderBoardDetail"></app-virtual-challenge-round-progress-bar>
+            <div class="miles">
+              <h5>
+                {{ leaderBoardDetail.myRun }} {{ 'common-data.miles-added' | translate
+                }}<span>{{ show.remaining.hours }} {{ 'common-data.hours-left' | translate }}</span>
+              </h5>
+            </div>
+            <div class="safe_info">
+              <strong>{{ show.safeText }} <span class="faq" (click)="showFaqs()">?</span></strong>
+              <span *ngIf="!show.result && show.runToSafe" class="mt-3"
+                >{{ leaderBoardDetail.existingMember.firstName }} {{ show.runToSafe.toFixed(2) }}
+                {{ 'virtual-challenge.public-share.miles-away' | translate }}</span
+              >
+              <span *ngIf="show.result && !show.isResultComplete" class="mt-3"
+                >{{ leaderBoardDetail.existingMember.firstName }} {{ 'virtual-challenge.public-share.enough-miles' | translate }}
+                {{ challengeDetail.name }}</span
+              >
+              <button class="rg_btn rg_bbtn mt-4 d-md-block d-none" (click)="copyLink()">
+                {{ 'virtual-challenge.public-share.copy-link' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col_wrapper row error" *ngIf="show.error">
+      <h3>{{ 'virtual-challenge.public-share.not-found' | translate }}</h3>
+      <span>
+        {{ 'virtual-challenge.public-share.go-to' | translate }}
+        <a routerLink="/{{ virtualRoutes.dashboard }}"> {{ 'virtual-challenge.public-share.dashboard' | translate }}</a>
+      </span>
+    </div>
+  </div>
+  <!--   <div class="pre_footer">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-4 col-sm-6">
+          <h4>{{ 'common-data.feedback' | translate }}</h4>
+          <p>{{ 'common-data.feedback-massage' | translate }} 🐻</p>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <p>{{ 'common-data.any-questions-footer' | translate }}</p>
+        </div>
+        <div class="col-md-4 col-sm-4">
+          <a href="#" class="rg_btn">{{ 'common-data.provide-feedback' | translate }}</a>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <app-virtual-challenge-footer [showInviteButton]="false"></app-virtual-challenge-footer>
+</div>

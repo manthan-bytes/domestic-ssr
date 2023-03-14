@@ -137,11 +137,11 @@ export class MapComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.uiHandler.isMobileMapRender = this.MobileDetectionService.isAnyMobile() ? true : false;
     // this.newVisitorService.popUp();
-    // this.dataLayerService.pageInitEvent({
-    //   screen_name: 'map',
-    //   pagePostType: 'map',
-    //   pagePostType2: 'single-page',
-    // });
+    this.dataLayerService.pageInitEvent({
+      screen_name: 'map',
+      pagePostType: 'map',
+      pagePostType2: 'single-page',
+    });
     this.script = this.renderer2.createElement('script');
 
     this.script.text = `

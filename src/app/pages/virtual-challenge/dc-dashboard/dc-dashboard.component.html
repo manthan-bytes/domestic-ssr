@@ -1,0 +1,341 @@
+<div class="container text-center" *ngIf="show.pageLoading">
+  <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+</div>
+<div class="dashboard_wrapper days-challenge" *ngIf="!show.pageLoading">
+  <div class="ended-band" *ngIf="isChallengeOver">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12" *ngIf="+activityStreak < 31; else challengeCompleted">
+          <h2>Challenge Ended!</h2>
+          <p>
+            You were so close! I’m sure you’re still a winner in somebody’s book. Brush yourself off, rest up, and when you’re ready, dive
+            into your next challenge.
+          </p>
+          <a class="ended-btn" (click)="nextChallenge()">FIND YOUR NEXT CHALLENGE</a>
+        </div>
+
+        <ng-template #challengeCompleted>
+          <div class="col-md-12">
+            <h2>Challenge Completed!</h2>
+            <p>
+              You did it! We always knew you had it in you. Now get yourself some exclusive challenge gear (you earned it), rest up, and
+              when you’re ready, dive into your next challenge.
+            </p>
+            <a class="ended-btn" (click)="nextChallenge()">FIND YOUR NEXT CHALLENGE</a>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-banner" *ngIf="currentDate < startDate">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-6 left-col">
+          <div class="logo-wrapper">
+            <img src="assets/images/virtual-challenge/31-day.png" alt="31 Days Challenge" />
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mid-col">
+          <div class="text-wrapper">
+            <div class="title">
+              <h1 class="main-title">{{ 'virtual-challenge.dc-dashboard.pre-event-banner.main-title' | translate }}</h1>
+              <h6 class="sub-title">
+                The challenge starts in {{ remainingDays }} {{ remainingDays === 1 ? 'day' : 'days' }}.<br />
+                Until then:
+              </h6>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 col-md-12 right-col">
+          <ul>
+            <li>
+              <a (click)="showInviteModal()" class="rg_btn">{{
+                'virtual-challenge.dc-dashboard.pre-event-banner.build-your-team' | translate
+              }}</a>
+            </li>
+            <li>
+              <a href="{{ challengeDetail.contents.DASHBOARD.printableCalender }}" class="rg_btn">{{
+                'virtual-challenge.dc-dashboard.pre-event-banner.plan-your-month' | translate
+              }}</a>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <a href="{{ challengeDetail.contents.INFO_PAGE.getTheGear }}" class="rg_btn">{{
+                'virtual-challenge.dc-dashboard.pre-event-banner.get-the-gear' | translate
+              }}</a>
+            </li>
+            <li>
+              <a (click)="showFaqModal()" class="rg_btn">{{ 'virtual-challenge.dc-dashboard.pre-event-banner.study-up' | translate }}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-banner after-registration" *ngIf="currentDate > startDate">
+    <div class="faq-banner-btn">
+      <button (click)="showFaqModal()">{{ 'virtual-challenge.dc-dashboard.event-banner.faq' | translate }}</button>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 left-col">
+          <div class="text-wrapper">
+            <div class="title">
+              <h1 class="main-title">{{ 'virtual-challenge.dc-dashboard.event-banner.main-title' | translate }}</h1>
+              <h6 class="sub-title">
+                {{ +activityStreak | calculateRemainingDays }}
+                {{ (+activityStreak | calculateRemainingDays) === 1 ? 'more day to your next badge' : 'more days to your next badge.' }}
+              </h6>
+            </div>
+            <div class="calendar-title">
+              <a href="{{ challengeDetail.contents.DASHBOARD.printableCalender }}" target="blank">
+                <img src="assets/images/virtual-challenge/calendar.svg" alt="Calendar" />
+                <span>{{ 'virtual-challenge.dc-dashboard.event-banner.printable-calendar' | translate }}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 mid-col">
+          <div class="set-size charts-container">
+            <div
+              class="pie-wrapper style-2"
+              [class]="remainingPercentage ? 'progress-' + remainingPercentage : 'progress-' + remainingPercentage"
+            >
+              <span class="label" data-text="day streak">{{ activityStreak }}<span class="smaller"></span></span>
+              <div class="pie">
+                <div class="left-side half-circle"></div>
+                <div class="right-side half-circle"></div>
+              </div>
+              <div class="shadow"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-12 right-col">
+          <ul style="width: 100%">
+            <li>
+              <a (click)="showActivityModal()" class="rg_btn">
+                <span>
+                  <img class="plus-icon" src="assets/images/virtual-challenge/plus-icon.svg" alt="Add" />
+                </span>
+                <span>Add your activity</span>
+              </a>
+            </li>
+          </ul>
+          <!-- <div class="text">
+            <p>{{ 'virtual-challenge.dc-dashboard.event-banner.Want-to-receive-daily-texts-1' | translate }}</p>
+            <p>{{ 'virtual-challenge.dc-dashboard.event-banner.Want-to-receive-daily-texts-2' | translate }}</p>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-inner">
+    <div class="container">
+      <div class="col_wrapper row">
+        <div class="col-md-4 sidebar_outer">
+          <div class="side_bar">
+            <div class="profile_img" *ngIf="!showLabel()">
+              <img src="assets/images/virtual-challenge/31-day.png" class="fix-completed" alt="Profile Picture" />
+            </div>
+            <div class="sidebar_wrpeer">
+              <div
+                class="name-wrapper d-flex align-items-center justify-content-between"
+                *ngIf="teamDetail && !showLabel(); else checkRagnarNation"
+              >
+                <h1 [ngStyle]="{ 'max-width': selectedScreen === screens.ragnarnation ? '100%' : '89%' }">
+                  {{
+                    selectedScreen === screens.ragnarnation
+                      ? dashboardScreenMenu[3]['label']
+                      : ('virtual-challenge.dc-dashboard.common.team' | translate) + '-' + teamDetail.name
+                  }}
+                </h1>
+                <div *ngIf="selectedScreen !== screens.ragnarnation" class="digital_check">
+                  <button class="edite_btn" (click)="changeTeamName(teamDetail.name, teamDetail.id)"></button>
+                </div>
+              </div>
+              <ng-template #checkRagnarNation>
+                <div *ngIf="selectedScreen === screens.ragnarnation" style="position: relative">
+                  <div class="profile_img" style="right: 0; top: 0">
+                    <img src="assets/images/virtual-challenge/31-day.png" class="fix-completed" alt="Profile Picture" />
+                  </div>
+                  <div class="name-wrapper d-flex align-items-center justify-content-between">
+                    <h1>Ragnar Nation</h1>
+                  </div>
+                </div>
+              </ng-template>
+              <div class="event-summary" *ngIf="teamDetail && !showLabel()">
+                <ul>
+                  <li>
+                    <h6>Day Streak</h6>
+                    <span>{{ teamActivityStreak }}</span>
+                  </li>
+                  <li>
+                    <h6>Team Activities</h6>
+                    <span>{{ teamDetail.totalActivities }}</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="event-summary" *ngIf="selectedScreen === screens.ragnarnation && mobileScreen">
+                <ul>
+                  <li>
+                    <h6>Participants</h6>
+                    <span>{{ ragnarNationActivity.totalParticipants }}</span>
+                  </li>
+                  <li>
+                    <h6>Total Activities</h6>
+                    <span>{{ ragnarNationActivity.totalActivities }}</span>
+                  </li>
+                </ul>
+              </div>
+              <div class="list">
+                <div class="buttuns d-flex">
+                  <a
+                    *ngFor="let menu of dashboardScreenMenu"
+                    [routerLink]="'.'"
+                    fragment="{{ menu.value }}"
+                    [ngClass]="{ active: show.dashboardScreen[menu.value] }"
+                    (click)="onDashboardScreenSelect(menu.value)"
+                  >
+                    <i class="{{ menu.icon }}"><span></span></i>{{ menu.label }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 content_outer">
+          <div class="col_container main-content">
+            <app-virtual-challenge-team-stats
+              [teamMemberDetail]="teamMemberDetail"
+              [challengeDetails]="challengeDetail"
+              [existingMember]="existingMember"
+              (deleteMemberEvent)="deleteMember($event)"
+              *ngIf="show.dashboardScreen.teamstats"
+            >
+            </app-virtual-challenge-team-stats>
+            <app-virtual-challenge-activity-feed
+              [teamMemberDetail]="teamMemberDetail"
+              [teamDetail]="teamDetail"
+              *ngIf="show.dashboardScreen.activityFeed && teamDetail"
+            ></app-virtual-challenge-activity-feed>
+            <app-virtual-challenge-team-info
+              *ngIf="show.dashboardScreen.newinvite && challengeDetail"
+              [challengeDetails]="challengeDetail"
+              [invitedByEmail]="invitedByName"
+              [teamMemberDetail]="teamMemberDetail"
+            ></app-virtual-challenge-team-info>
+            <app-virtual-challenge-ragnar-nation
+              *ngIf="show.dashboardScreen.ragnarnation && ragnarNationActivity"
+              [ragnarNation]="ragnarNationActivity"
+            ></app-virtual-challenge-ragnar-nation>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="info-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-1 box-wrapper text-center"></div>
+        <div class="col-sm-4 box-wrapper text-center">
+          <div class="info-box">
+            <span class="img"><img src="assets/31dc/images/challenge/31_day_2022/badges/get-the-gear.png" alt="Info" /></span>
+            <div class="content-box">
+              <h4 class="mb-0">UPGRADE YOUR RAGNAR EXPERIENCE</h4>
+              <p>PICK UP LIMITED EDITION 31DC SWAG</p>
+            </div>
+          </div>
+          <a target="_blank" href="{{ challengeDetail.contents.INFO_PAGE.getTheGear }}?ref={{ challengeDetail.name }}" class="rg_btn"
+            >GET THE GEAR
+          </a>
+        </div>
+        <div class="col-sm-2 text-center">
+          <!-- <div class="info-box">
+            <span class="img text-box">
+              <h3>TEXT OF THE DAY</h3>
+            </span>
+            <div class="content-box">
+              <h4 class="mb-0">SIGN UP FOR “INSPIRATIONAL” TEXTS</h4>
+              <p>Wishing for a training buddy to hold you accountable? Or at the very least need a laugh?</p>
+            </div>
+          </div>
+          <a href="{{ challengeDetail.contents.INFO_PAGE.motivateMe }}" target="_black" class="rg_btn">MOTIVATE ME!</a> -->
+        </div>
+        <div class="col-sm-4 box-wrapper text-center">
+          <div class="info-box feedback">
+            <span class="img"><img src="assets/images/Ragnar_text_blue.png" alt="Info" /></span>
+            <div class="content-box">
+              <h4 class="mb-0">HELP US HELP YOU!</h4>
+              <p>Help us help you! Answer a few quick questions to help us make our virtual events even more fantastical.</p>
+            </div>
+          </div>
+          <a
+            href="{{ challengeDetail.contents.INFO_PAGE.feedback }}?ref={{ challengeDetail.name }}"
+            target="_black"
+            class="rg_btn orange-btn"
+            >FEEDBACK</a
+          >
+        </div>
+        <div class="col-sm-1 box-wrapper text-center"></div>
+      </div>
+    </div>
+  </div>
+  <div
+    [ngClass]="{ 'challange-result': true, active: isChallengeOver && showResults }"
+    *ngIf="isChallengeOver && showResults && (challengeDetail.resultSeen ? !challengeDetail.resultSeen : true)"
+  >
+    <div class="challange-result-inner">
+      <a class="close-popup" (click)="resultSeenUpdate()">X</a>
+      <div class="container">
+        <h2 class="challange-result-title">{{ teamDetail?.name }} Virtual {{ maxDays }} Day Challenge Results</h2>
+        <div class="completed-miles-box">
+          <div class="data">
+            <span class="data-number"> {{ +activityStreak }} </span>
+            <span class="data-text">Streak{{ +activityStreak > 1 ? 's' : '' }} </span>
+          </div>
+          <div class="ragnar-logo">
+            <img src="assets/images/ragnar-logo-blue.png" />
+          </div>
+          <div class="data">
+            <span class="data-number"> {{ maxDays }} </span>
+            <span class="data-text"> Days </span>
+          </div>
+        </div>
+        <h3 class="challnge-completed-title" *ngIf="existingMember?.activityStreak >= maxDays; else challengeIncompleteMessage">
+          Challenge Completed!<span class="visible-sm visible-xs">We knew you could do it!</span>
+        </h3>
+        <ng-template #challengeIncompleteMessage>
+          <h3 class="challnge-completed-title">Ooh, SO close! I'm sure you're still a winner in somebody's book. Try again?</h3>
+        </ng-template>
+        <div class="feedback-blk">
+          <div class="feedback-box desktop text-center">
+            <div class="feedback">We want your feedback!</div>
+            <a
+              href="{{ challengeDetail.contents.INFO_PAGE.feedback }}?ref={{ challengeDetail.name }}"
+              target="_blank"
+              class="btn theme-btn feedback-btn"
+            >
+              FEEDBACK FORM
+            </a>
+          </div>
+          <div class="feedback-box mobile text-center">
+            <div class="feedback">So, how did it go?</div>
+            <a
+              href="{{ challengeDetail.contents.INFO_PAGE.feedback }}?ref={{ challengeDetail.name }}"
+              target="_blank"
+              class="btn theme-btn feedback-btn"
+            >
+              SHARE YOUR FEEDBACK
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-testimonials *ngIf="quotes" [Quotes]="quotes"></app-testimonials>

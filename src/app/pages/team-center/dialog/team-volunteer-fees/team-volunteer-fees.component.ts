@@ -191,10 +191,10 @@ export class TeamVolunteerFeesComponent implements OnInit {
 
     this.rcmsEventDataService.createOrder(this.componentData.teamInformation.registrationConfigId, orderObject).subscribe(
       (respones) => {
-        // this.dataLayerService.formSubmitEvent({
-        //   formName: 'teamVolunteerFeeForm',
-        //   formStatus: this.dataLayerService.formStatus.SUCCESS,
-        // });
+        this.dataLayerService.formSubmitEvent({
+          formName: 'teamVolunteerFeeForm',
+          formStatus: this.dataLayerService.formStatus.SUCCESS,
+        });
         if (orderObject.lateFeeAmount) {
           this.componentData.teamInformation.paidLateFeeAmount += orderObject.lateFeeAmount;
         }
@@ -212,10 +212,10 @@ export class TeamVolunteerFeesComponent implements OnInit {
         this.toastService.show('Payment Received. Thank You!', { classname: 'bg-success text-light', delay: 3000 });
       },
       (err) => {
-        // this.dataLayerService.formSubmitEvent({
-        //   formName: 'teamVolunteerFeeForm',
-        //   formStatus: this.dataLayerService.formStatus.FAILED,
-        // });
+        this.dataLayerService.formSubmitEvent({
+          formName: 'teamVolunteerFeeForm',
+          formStatus: this.dataLayerService.formStatus.FAILED,
+        });
         this.show.loading = false;
         this.isPaymentDone = false;
         this.toastService.show((err || {}).error.errorMessage || 'Something went wrong!', {

@@ -75,11 +75,11 @@ export class TeamDetailsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    // this.dataLayerService.pageInitEvent({
-    //   screen_name: 'team-center-team-detail',
-    //   pagePostType: 'teamCenterTeamDetail',
-    //   pagePostType2: 'single-page',
-    // });
+    this.dataLayerService.pageInitEvent({
+      screen_name: 'team-center-team-detail',
+      pagePostType: 'teamCenterTeamDetail',
+      pagePostType2: 'single-page',
+    });
     this.registrationOpen = moment(this.selectedEvent.registrationOpen);
     this.glampingRegistrationClose = moment(this.selectedEvent.startDate).subtract(5, 'days');
     this.curruntDate = this.xMomentService.defaultTimeWithTimezone('MDT');
@@ -129,20 +129,20 @@ export class TeamDetailsComponent implements OnInit, OnChanges {
     team.name = newTeamName;
     this.rcmsEventDataService.editTeam(team).subscribe(
       () => {
-        // this.dataLayerService.formSubmitEvent({
-        //   formName: 'teamNameForm',
-        //   formStatus: this.dataLayerService.formStatus.SUCCESS,
-        //   ...this.getDataLayerFormObj(form),
-        // });
+        this.dataLayerService.formSubmitEvent({
+          formName: 'teamNameForm',
+          formStatus: this.dataLayerService.formStatus.SUCCESS,
+          ...this.getDataLayerFormObj(form),
+        });
         this.teamDetailConfig.editOption = false;
         this.teamDetailConfig.onSaveLoadingBar = false;
       },
       (err) => {
-        // this.dataLayerService.formSubmitEvent({
-        //   formName: 'teamNameForm',
-        //   formStatus: this.dataLayerService.formStatus.FAILED,
-        //   ...this.getDataLayerFormObj(form),
-        // });
+        this.dataLayerService.formSubmitEvent({
+          formName: 'teamNameForm',
+          formStatus: this.dataLayerService.formStatus.FAILED,
+          ...this.getDataLayerFormObj(form),
+        });
         this.teamDetailConfig.onSaveLoadingBar = false;
         console.error(err);
       },
@@ -267,18 +267,18 @@ export class TeamDetailsComponent implements OnInit, OnChanges {
   formElementEnter(form) {
     this.inputFocusCount++;
     if (this.inputFocusCount === 1) {
-      // this.dataLayerService.inputFocusEvent({
-      //   formName: 'teamNameForm',
-      //   ...this.getDataLayerFormObj(form),
-      // });
+      this.dataLayerService.inputFocusEvent({
+        formName: 'teamNameForm',
+        ...this.getDataLayerFormObj(form),
+      });
     }
   }
   formElementExit(form) {
     this.inputFocusCount = 0;
-    // this.dataLayerService.inputBlurEvent({
-    //   formName: 'teamNameForm',
-    //   ...this.getDataLayerFormObj(form),
-    // });
+    this.dataLayerService.inputBlurEvent({
+      formName: 'teamNameForm',
+      ...this.getDataLayerFormObj(form),
+    });
   }
   getDataLayerFormObj(form) {
     const formFields = {};

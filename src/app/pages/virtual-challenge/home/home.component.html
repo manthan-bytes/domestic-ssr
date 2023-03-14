@@ -1,0 +1,253 @@
+<div *ngIf="loading">
+  <div class="loading-template"><img src="assets/images/loading.gif" /></div>
+</div>
+<div class="virtual_page" *ngIf="!loading">
+  <div class="toast_style" *ngIf="virtualChallengeNotifications && virtualChallengeNotifications.totalUnRead">
+    <div class="img_col">
+      <img src="assets/images/virtual-challenge/tost2.png" alt="" />
+      <p>
+        <strong>{{ virtualChallengeNotifications.totalUnRead }} {{ 'virtual-challenge.home.pending-challenge' | translate }}</strong>
+        {{ 'virtual-challenge.home.race-sunset' | translate }}
+      </p>
+    </div>
+    <button class="view_btn" (click)="showInvites()">{{ 'virtual-challenge.home.view' | translate }}</button>
+  </div>
+
+  <div class="toast_style" *ngIf="inviteDetails && inviteDetails.length">
+    <div class="img_col">
+      <!-- <img src="assets/images/virtual-challenge/tost2.png" alt="" /> -->
+      <img height="40" width="40" [src]="inviteDetails[0].challenge.contents.HOME.logoImage" alt="" />
+      <p>
+        <strong>{{ 'virtual-challenge.home.pending-challenge' | translate }}</strong>
+        <span *ngIf="inviteDetails.length === 1">
+          <p>
+            {{
+              inviteDetails[0].challenge.challengeType === 'BRAND'
+                ? ''
+                : inviteDetails[0].challenge.challengeType === 'COMMUNITY'
+                ? ''
+                : inviteDetails[0].challenge.unitValue
+            }}
+            {{ inviteDetails[0].challenge.name }}
+          </p>
+        </span>
+        <span *ngIf="inviteDetails.length > 1">
+          <p>You have {{ inviteDetails.length }} Pending Invites</p>
+        </span>
+      </p>
+    </div>
+    <button class="view_btn" (click)="showInvites()">{{ 'virtual-challenge.home.view' | translate }}</button>
+  </div>
+
+  <div class="container d-md-none mb-5 mt-4">
+    <h1 class="mb-3">{{ 'virtual-challenge.home.virtual-challenges' | translate }}</h1>
+    <p>{{ 'virtual-challenge.home.on-demand' | translate }}</p>
+  </div>
+  <div class="virtual_banner">
+    <img src="assets/images/virtual-challenge/fpo_banner.jpg" alt="Virtual" />
+  </div>
+  <div class="container">
+    <div class="row virtual_cols">
+      <div class="col-md-4">
+        <div class="virtual_block">
+          <div class="d-none d-md-block">
+            <h1>{{ 'virtual-challenge.home.virtual-challenges' | translate }}</h1>
+            <p>{{ 'virtual-challenge.home.on-demand' | translate }}</p>
+          </div>
+          <a routerLink="/{{ routes.main }}/{{ routes.howItWorks }}" class="call_outbox">
+            <p>{{ 'virtual-challenge.home.wondering-work' | translate }}</p>
+            <span>{{ 'virtual-challenge.home.more' | translate }} <i class="iconm-right-arrowsm"></i></span>
+          </a>
+          <div class="mobile_title d-md-none">
+            <h5 class="mb-0">{{ 'virtual-challenge.home.step-one' | translate }}</h5>
+            <h1 class="mb-4">{{ 'common-data.find-challenge' | translate }}</h1>
+          </div>
+          <div class="event_cover" *ngIf="show.filterOptions">
+            <div class="event_select">
+              <h5>{{ 'virtual-challenge.home.events' | translate }}</h5>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="customCheck1"
+                  [(ngModel)]="filters.challenge.community"
+                  (change)="challengeFilter()"
+                />
+                <label class="custom-control-label" for="customCheck1">{{
+                  'virtual-challenge.home.community-challenges' | translate
+                }}</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="customCheck2"
+                  [(ngModel)]="filters.challenge.brand"
+                  (change)="challengeFilter()"
+                />
+                <label class="custom-control-label" for="customCheck2">{{ 'virtual-challenge.home.brand-challenges' | translate }}</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="customCheck3"
+                  [(ngModel)]="filters.challenge.onDemand"
+                  (change)="challengeFilter()"
+                />
+                <label class="custom-control-label" for="customCheck3">{{
+                  'virtual-challenge.home.on-demand-challenges' | translate
+                }}</label>
+              </div>
+            </div>
+            <div class="event_select">
+              <h5>{{ 'virtual-challenge.home.availability' | translate }}</h5>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="customCheck4"
+                  [(ngModel)]="filters.challenge.upComing"
+                  (change)="challengeFilter()"
+                />
+                <label class="custom-control-label" for="customCheck4">{{ 'virtual-challenge.home.upcoming' | translate }}</label>
+              </div>
+              <div class="custom-control custom-checkbox">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="customCheck5"
+                  [(ngModel)]="filters.challenge.openNow"
+                  (change)="challengeFilter()"
+                />
+                <label class="custom-control-label" for="customCheck5">{{ 'virtual-challenge.home.open-now' | translate }}</label>
+              </div>
+            </div>
+          </div>
+          <button class="rg_btn rg_bbtn mb-3 mt-3" (click)="show.filterOptions = !show.filterOptions">
+            {{ !show.filterOptions ? 'Filter Challenges' : 'Done' }}
+          </button>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="col_container">
+          <div class="d-none d-md-block">
+            <h5 class="mb-0">{{ 'virtual-challenge.home.step-one' | translate }}</h5>
+            <h1 class="mb-5">{{ 'common-data.find-challenge' | translate }}</h1>
+          </div>
+          <h5 *ngIf="featuredChallenges.length">{{ 'virtual-challenge.home.featured-event' | translate }}</h5>
+        </div>
+        <div *ngIf="fetchingChallenges">
+          <div class="loading-template"><img src="assets/images/loading.gif" /></div>
+        </div>
+        <div class="challnges_wrapper" *ngIf="!fetchingChallenges && !featuredChallenges.length && !nonFeaturedChallenges.length">
+          <h5>
+            {{ 'virtual-challenge.home.no-challenge-found' | translate }}
+          </h5>
+        </div>
+        <div class="features_event" *ngFor="let featuredChallenge of featuredChallenges">
+          <div class="img_box">
+            <img src="{{ featuredChallenge?.contents?.HOME?.logoImage }}" class="fix-image-home" alt="Vertual Cap" />
+          </div>
+          <div class="features_content">
+            <h3>{{ featuredChallenge.name }}</h3>
+            <ul>
+              <li *ngFor="let highlightPoint of featuredChallenge?.contents?.HOME?.highlightPoints">
+                {{ highlightPoint }}
+              </li>
+            </ul>
+            <p>{{ featuredChallenge?.contents?.HOME?.description }}</p>
+            <a (click)="routeToInfoPage(featuredChallenge.id)" class="rg_btn">
+              {{ 'virtual-challenge.home.view-challenge' | translate }}
+            </a>
+          </div>
+        </div>
+
+        <div class="container text-center display-content-center" *ngIf="loading">
+          <span class="spinner-border text-dark m-5" role="status" aria-hidden="true"></span>
+        </div>
+
+        <div class="challnges_wrapper" *ngIf="nonFeaturedChallenges.length">
+          <div class="challenge_block" *ngFor="let nonFeaturedChallenge of nonFeaturedChallenges">
+            <div class="img_box">
+              <img src="{{ nonFeaturedChallenge?.contents?.HOME?.titleImage }}" />
+            </div>
+            <div class="challenge_content">
+              <h4 *ngIf="nonFeaturedChallenge.challengeType === 'TEAM'">
+                {{ nonFeaturedChallenge.unitValue }}
+                {{
+                  checkUnitType(nonFeaturedChallenge.unitType, 'mile')
+                    ? 'Miles'
+                    : checkUnitType(nonFeaturedChallenge.unitType, 'elevation')
+                    ? 'ft'
+                    : ''
+                }}
+                in {{ nonFeaturedChallenge.maxDays }} Days
+              </h4>
+              <h4 *ngIf="nonFeaturedChallenge.challengeType === 'COMMUNITY'">{{ nonFeaturedChallenge.name }}</h4>
+              <div class="over_content" *ngIf="nonFeaturedChallenge.challengeType === 'TEAM'">
+                <ul>
+                  <li>
+                    <div class="miles">
+                      <span class="count">{{ nonFeaturedChallenge.unitValue }}</span>
+                      <span class="text" *ngIf="checkUnitType(nonFeaturedChallenge.unitType, 'mile')">MILES AS A TEAM</span>
+                      <span class="text" *ngIf="checkUnitType(nonFeaturedChallenge.unitType, 'elevation')"
+                        >FEET IN ELEVATION GAIN AS A TEAM</span
+                      >
+                    </div>
+                  </li>
+                  <li>
+                    <div class="days">
+                      <span class="count">{{ nonFeaturedChallenge.maxDays }}</span>
+                      <span class="text">DAYS TO DO IT</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <!-- end over-content -->
+              <!-- <ul *ngFor="nonFeaturedChallenge.contents.homePage.highlightPoints">
+                <li *ngFor="let highlightPoint of nonFeaturedChallenge.contents.homePage.highlightPoints">
+                  {{ highlightPoint }}</li>
+              </ul> -->
+              <a
+                class="rg_btn"
+                routerLink="/{{ routes.main }}/{{ routes.info }}"
+                [queryParams]="{ challengeId: nonFeaturedChallenge.id }"
+                >{{ 'virtual-challenge.home.view-challenge' | translate }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <!--
+        <div class="past_challenges">
+          <h5 class="mb-2">{{ 'virtual-challenge.home.past-challenges' | translate }}</h5>
+
+          <div class="challenge_block">
+            <div class="challenge_content">
+              <h4>{{ 'virtual-challenge.home.race-the-sunset' | translate }}</h4>
+              <ul>
+                <li>{{ 'virtual-challenge.home.team-miles' | translate }}</li>
+                <li>{{ 'virtual-challenge.home.7-days' | translate }}</li>
+                <li>{{ 'virtual-challenge.home.available-anytime' | translate }}</li>
+              </ul>
+              <a href="#" class="rg_btn rg_bbtn">{{ 'virtual-challenge.home.view-challenge' | translate }}</a>
+            </div>
+            <h5>{{ 'virtual-challenge.home.completed' | translate }}<i class="iconm-check"></i></h5>
+          </div>
+          <div class="challenge_block">
+            <div class="challenge_content">
+              <h4>{{ 'virtual-challenge.home.race-the-sunset' | translate }}</h4>
+              <ul>
+                <li>{{ 'virtual-challenge.home.team-miles' | translate }}</li>
+                <li>{{ 'virtual-challenge.home.7-days' | translate }}</li>
+                <li>{{ 'virtual-challenge.home.available-anytime' | translate }}</li>
+              </ul>
+              <a href="#" class="rg_btn rg_bbtn">{{ 'virtual-challenge.home.view-challenge' | translate }}</a>
+            </div>
+            <h5>{{ 'virtual-challenge.home.incomplete' | translate }}<i class="iconm-X"></i></h5>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
